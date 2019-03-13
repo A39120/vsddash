@@ -11,6 +11,7 @@ sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
+    //maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -22,4 +23,14 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // VSPK Dependencies -- there is no repository, so it needs to be compiled manually
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.8'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+    compile group: 'org.jboss.as', name: 'jboss-as-jms-client-bom', version: '7.2.0.Final', ext: 'pom'
+    compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.15.8'
+
+    //implementation 'com.github.nuagenetworks:java-bambou:2.0.12'
+    //implementation 'com.github.nuagenetworks:vspk-java:2.0.13'
 }
