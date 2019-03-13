@@ -47,4 +47,4 @@ HELP.md
 *.rar 
 **/hs_err_pid* 
 
-!lib
+!lib/*.jar
