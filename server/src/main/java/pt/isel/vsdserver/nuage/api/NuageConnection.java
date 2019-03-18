@@ -31,6 +31,7 @@ public class NuageConnection {
         this.password = null;
     }
 
+    public void connect(){
 
-
+    }
 }
