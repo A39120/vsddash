@@ -63,3 +63,5 @@ HELP.md
 **/build
 **/captures
 **/.externalNativeBuild
+*.otf
+*.ttf
