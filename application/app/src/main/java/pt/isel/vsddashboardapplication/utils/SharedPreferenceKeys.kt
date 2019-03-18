@@ -1,17 +1,8 @@
 package pt.isel.vsddashboardapplication.utils
 
-class SharedPreferencesInfoFetcher {
-    companion object {
-        private const val tag = "SHAREDPREF/"
-
-        const val CURRENTIPKEY = "currentip"
-        const val CURRENTPORT = "currentport"
-    }
-
-    private val id = "app.vsdapi.preferences"
-
-
-    fun get(key: String){
-        val 
-    }
+object SharedPreferenceKeys {
+    const val CURRENTIPKEY = "currentip"
+    const val IPDEFAULT = "127.0.0.1"
+    const val CURRENTPORT = "currentport"
+    const val PORTDEFAULT = 1433
 }

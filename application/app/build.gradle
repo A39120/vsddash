@@ -28,8 +28,8 @@ android {
 dependencies {
     def futures_version = "1.0.0-alpha02"
     def lifecycle_version = "2.0.0"
-    def room_version = "2.1.0-alpha04"
-    def work_version = "1.0.0-rc02"
+    def room_version = "2.1.0-alpha05"
+    def work_version = "1.0.0"
     def paging_version = "2.1.0"
     def dagger_version = "2.15"
     def okhttp_version = "3.13.1"
@@ -53,6 +53,9 @@ dependencies {
     // Misc
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
+
+    // UI
+
 
     kapt "androidx.room:room-compiler:$room_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"

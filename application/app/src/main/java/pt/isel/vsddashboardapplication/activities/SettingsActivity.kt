@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication
+package pt.isel.vsddashboardapplication.activities
 
 import android.content.Context
 import android.content.Intent
@@ -17,7 +17,7 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView()
+        //setContentView(R.layout.activity_setting)
 
 
     }

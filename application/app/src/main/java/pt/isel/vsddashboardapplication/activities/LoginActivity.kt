@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication
+package pt.isel.vsddashboardapplication.activities
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -25,6 +25,7 @@ import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 
 import kotlinx.android.synthetic.main.activity_login.*
+import pt.isel.vsddashboardapplication.R
 
 /**
  * A login screen that offers login via email/password.
@@ -70,9 +71,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                 .setAction(android.R.string.ok,
-                    { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
+                    { requestPermissions(arrayOf(READ_CONTACTS),
+                        REQUEST_READ_CONTACTS
+                    ) })
         } else {
-            requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
+            requestPermissions(arrayOf(READ_CONTACTS),
+                REQUEST_READ_CONTACTS
+            )
         }
         return false
     }

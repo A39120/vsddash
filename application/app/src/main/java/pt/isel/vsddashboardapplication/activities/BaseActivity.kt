@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication
+package pt.isel.vsddashboardapplication.activities
 
 import android.support.v7.app.AppCompatActivity
 
