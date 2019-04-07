@@ -17,6 +17,7 @@ HELP.md
 **/.idea/**/dynamic.xml
 **/.idea/**/uiDesigner.xml
 **/.idea/**/dbnavigator.xml
+**/test.properties
 
 **/.idea/**/gradle.xml
 **/.idea/**/libraries 
