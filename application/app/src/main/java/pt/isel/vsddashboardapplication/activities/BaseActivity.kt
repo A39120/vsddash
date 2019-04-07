@@ -1,7 +1,7 @@
 package pt.isel.vsddashboardapplication.activities
 
-import android.support.v7.app.AppCompatActivity
+import android.app.Activity
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : Activity() {
 
 }
