@@ -15,12 +15,16 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation files('libs/bambou-2.0.14-SNAPSHOT.jar')
+    implementation files('libs/vspk-5.4.1.jar')
+
+
+    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
     //implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    runtimeOnly 'org.postgresql:postgresql'
+    //runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
@@ -33,4 +37,7 @@ dependencies {
 
     //implementation 'com.github.nuagenetworks:java-bambou:2.0.12'
     //implementation 'com.github.nuagenetworks:vspk-java:2.0.13'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'de.mkammerer:argon2-jvm:2.5'
 }
