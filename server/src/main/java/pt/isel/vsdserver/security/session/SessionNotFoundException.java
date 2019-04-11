@@ -1,3 +1,3 @@
-package pt.isel.vsdserver.session;
+package pt.isel.vsdserver.security.session;
 
 public class SessionNotFoundException extends Exception{ }

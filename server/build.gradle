@@ -15,18 +15,24 @@ repositories {
 }
 
 dependencies {
+    // Local
     implementation files('libs/bambou-2.0.14-SNAPSHOT.jar')
     implementation files('libs/vspk-5.4.1.jar')
 
-
-    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-    //implementation 'org.springframework.boot:spring-boot-starter-security'
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+
+    // Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Logging
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+
+    // Database
+    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     //runtimeOnly 'org.postgresql:postgresql'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.security:spring-security-test'
 
     // VSPK Dependencies -- there is no repository, so it needs to be compiled manually
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
@@ -35,9 +41,8 @@ dependencies {
     compile group: 'org.jboss.as', name: 'jboss-as-jms-client-bom', version: '7.2.0.Final', ext: 'pom'
     compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.15.8'
 
-    //implementation 'com.github.nuagenetworks:java-bambou:2.0.12'
-    //implementation 'com.github.nuagenetworks:vspk-java:2.0.13'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     implementation 'de.mkammerer:argon2-jvm:2.5'
 }

@@ -1,4 +1,4 @@
-package pt.isel.vsdserver.session;
+package pt.isel.vsdserver.security.session;
 
 
 import net.nuagenetworks.vspk.v5_0.VSDSession;
