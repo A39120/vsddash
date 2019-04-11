@@ -21,7 +21,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry
                 .addEndpoint("/vsdapi")
-                .setAllowedOrigins("*")
+                //.setAllowedOrigins("*")
                 .setHandshakeHandler(new SessionHandshakeHandler())
                 .withSockJS();
     }

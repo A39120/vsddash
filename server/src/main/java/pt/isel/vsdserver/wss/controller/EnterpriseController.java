@@ -1,9 +1,8 @@
 package pt.isel.vsdserver.wss.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pt.isel.vsdserver.session.SessionMapService;
+import pt.isel.vsdserver.security.session.SessionMapService;
 
 @RestController
 public class EnterpriseController {
