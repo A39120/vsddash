@@ -22,7 +22,6 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
         registry
                 .addEndpoint("/vsdapi")
                 //.setAllowedOrigins("*")
-                .setHandshakeHandler(new SessionHandshakeHandler())
                 .withSockJS();
     }
 

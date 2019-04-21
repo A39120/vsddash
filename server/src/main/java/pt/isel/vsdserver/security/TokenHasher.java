@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 public class TokenHasher {
 
     @Value("${argon2.maxmilliseconds}")
-    private long hashMilliseconds;
+    private long hashMilliseconds = 1000;
 
     @Value("${argon2.maxmemory}")
-    private int hashMemory;
+    private int hashMemory = 65536;
 
     @Value("${argon2.parallelism}")
-    private int parallelism;
+    private int parallelism = 1;
 
     private final Argon2 argon2 = Argon2Factory.create();
     private final int iterations = Argon2Helper.findIterations(argon2, hashMilliseconds, hashMemory, parallelism);

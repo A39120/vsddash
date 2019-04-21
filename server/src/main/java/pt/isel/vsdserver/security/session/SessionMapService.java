@@ -3,6 +3,7 @@ package pt.isel.vsdserver.security.session;
 import net.nuagenetworks.bambou.RestException;
 import net.nuagenetworks.vspk.v5_0.VSDSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -31,8 +32,6 @@ public class SessionMapService {
 
         SessionContainer sessionContainer = new SessionContainer(session, currentTime);
         sessions.put(id, sessionContainer);
-
-
     }
 
     /**
@@ -58,18 +57,27 @@ public class SessionMapService {
      */
     private synchronized boolean containsSession(String id){
         SessionContainer session = sessions.get(id);
-        return !(session == null && session.getTokenExpiration() > System.currentTimeMillis());
+        return (session != null && session.getTokenExpiration() < System.currentTimeMillis());
     }
 
     /**
      * Removes session given the session token
      * @param sessionId, the session token
      */
-    protected synchronized void removeSession(String sessionId){
+    private synchronized void removeSession(String sessionId){
         SessionContainer session = sessions.get(sessionId);
         if(session != null) {
             sessions.get(sessionId).getSession().reset();
             sessions.remove(sessionId);
         }
+    }
+
+    @Scheduled(fixedRate = 5000)
+    public void cleanTimedout(){
+        sessions.forEach((key, val) -> {
+            if(System.currentTimeMillis() > val.getTokenExpiration() && !val.getConnected())
+                this.removeSession(key);
+        });
+
     }
 }

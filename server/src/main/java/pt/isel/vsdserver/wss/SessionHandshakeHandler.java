@@ -11,7 +11,7 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
-
+/*
 public class SessionHandshakeHandler extends DefaultHandshakeHandler {
 
 
@@ -33,3 +33,4 @@ public class SessionHandshakeHandler extends DefaultHandshakeHandler {
         return true;
     }
 }
+*/

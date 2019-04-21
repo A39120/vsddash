@@ -2,13 +2,13 @@ package pt.isel.vsddashboardapplication
 
 import org.junit.Assert
 import org.junit.Test
-import ua.naiksoftware.stomp.Stomp
-import ua.naiksoftware.stomp.StompClient
-import ua.naiksoftware.stomp.dto.StompHeader
+//import ua.naiksoftware.stomp.Stomp
+//import ua.naiksoftware.stomp.StompClient
+//import ua.naiksoftware.stomp.dto.StompHeader
 
 class WebSocketTest(
 ) {
-
+/*
     //private val uri = "wss://echo.websocket.org"
     fun connect(header: List<StompHeader>? = null): StompClient{
         val addr = "ws://192.168.1.73:8080/vsdapi/websocket"
@@ -55,6 +55,8 @@ class WebSocketTest(
             StompHeader("user", "")
         )
         val wsClient = connect()
+
+        okhttp3.
         wsClient.send("/login",
                 "{\"username\":\"admin\"," +
                     "\"password\":\"password\","+
@@ -64,4 +66,5 @@ class WebSocketTest(
 
         Thread.sleep(10000)
     }
+    */
 }

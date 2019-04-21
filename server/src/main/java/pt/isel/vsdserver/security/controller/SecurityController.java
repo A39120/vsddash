@@ -4,42 +4,54 @@ import net.nuagenetworks.bambou.RestException;
 import net.nuagenetworks.vspk.v5_0.VSDSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import pt.isel.vsdserver.security.TokenHasher;
 import pt.isel.vsdserver.security.exception.InvalidUserException;
 import pt.isel.vsdserver.security.models.NuageUser;
 import pt.isel.vsdserver.security.models.Session;
-import pt.isel.vsdserver.security.session.SessionMapService;
+import pt.isel.vsdserver.security.session.datastructures.UserMapper;
+import pt.isel.vsdserver.security.session.datastructures.UserNode;
 
 @RestController
 public class SecurityController {
 
-    private TokenHasher hasher;
-    private SessionMapService sessions;
+    private final UserMapper userMapper;
 
     @Value("${user.session.timeout}")
     private long timeout;
 
 
     @Autowired
-    private SecurityController(SessionMapService sessions, TokenHasher hasher){
-        this.sessions = sessions;
-        this.hasher = hasher;
+    private SecurityController(UserMapper userMapper){
+        this.userMapper = userMapper;
     }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody Session login(MultiValueMap paramMap) throws InvalidUserException, RestException {
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Session login(@RequestParam MultiValueMap<String, String> paramMap) throws InvalidUserException, RestException {
+
+        if(paramMap == null)
+            throw new InvalidUserException("Please specify parameters.");
 
         NuageUser nuageUser = NuageUser.parseFromEncoded(paramMap);
         VSDSession vsdSession = nuageUser.createSession();
-        String token = nuageUser.getToken(hasher);
-        sessions.addSession(token, vsdSession);
 
-        return new Session(token, System.currentTimeMillis() + timeout);
+        UserNode user =
+                userMapper.add(nuageUser.getApiUrl(), nuageUser.getOrganization(), nuageUser.getUsername(), vsdSession);
+
+        return user.getSessionResponse();
+    }
+
+    @ExceptionHandler
+    public ResponseEntity failedAuthentication(){
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body("Something went wrong with the authentication");
     }
 
 }
