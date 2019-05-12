@@ -1,4 +1,4 @@
-package pt.isel.vsdashbapi.vsdashapi.communication.http.client.pojo
+package pt.isel.vsdashbapi.vsdashapi.communication.http.client.pojo.gateway
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
