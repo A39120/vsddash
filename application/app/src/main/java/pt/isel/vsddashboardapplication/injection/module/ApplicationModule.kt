@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication.injection.module
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
@@ -21,5 +22,6 @@ class ApplicationModule(private val application: VsdApplication, private val con
 
     @Provides
     @Singleton
-    fun providesSharedPreferenes() : SharedPreferences = application.getSharedPreferences(SharedPreferenceKeys.BASE_SP)
+    fun providesSharedPreferenes() : SharedPreferences =
+        application.getSharedPreferences(SharedPreferenceKeys.BASE_SP, MODE_PRIVATE)
 }

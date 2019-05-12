@@ -7,11 +7,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import android.os.AsyncTask.execute
 
-
-
-
-
-class AuthenticationImpl : Authentication {
+/*class AuthenticationImpl : Authentication {
 
     override fun authenticate(
         baseUri: String,
@@ -34,4 +30,4 @@ class AuthenticationImpl : Authentication {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-}
+}*/

@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
@@ -17,9 +18,9 @@ class VsdApplication : Application(){
     override fun onCreate() {
         super.onCreate()
         Log.v(TAG, "Creating application")
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        val address = sp.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
-        wsClient.init("ws://192.168.1.73:8080/vsdapi/websocket")
+        //val sp = PreferenceManager.getDefaultSharedPreferences(this)
+        //val address = sp.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
+        //wsClient.init("ws://192.168.1.73:8080/vsdapi/websocket")
     }
 
     fun connectToWebServer(address: String){
@@ -34,3 +35,4 @@ class VsdApplication : Application(){
     }
 
 }
+
