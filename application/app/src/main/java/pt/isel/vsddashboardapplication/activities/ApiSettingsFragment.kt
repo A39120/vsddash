@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
 import pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepoImpl
@@ -17,8 +18,8 @@ import java.lang.StringBuilder
 class ApiSettingsFragment : Fragment() {
 
 
-
-    val viewModel: ApiSettingsViewModel by lazy { ViewModelProviders.of(this)
+    val viewModel: ApiSettingsViewModel by lazy {
+        ViewModelProviders.of(this)
             .get(ApiSettingsViewModel::class.java)
     }
 
@@ -33,6 +34,11 @@ class ApiSettingsFragment : Fragment() {
 
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
+
+        //Add listeners
+        binding.address.addTextChangedListener(Watcher{ viewModel.updateAddress(it.toString())})
+        binding.apiPort.addTextChangedListener(Watcher{ viewModel.updateApiPort(Integer.parseInt(it.toString()))})
+        binding.address.addTextChangedListener(Watcher{ viewModel.updateMonitPort(Integer.parseInt(it.toString()))})
         binding.connectButton.setOnContextClickListener { connect(it) }
 
         return binding.root

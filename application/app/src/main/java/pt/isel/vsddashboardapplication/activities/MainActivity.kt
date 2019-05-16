@@ -15,11 +15,19 @@ class MainActivity : BaseActivity() {
         //binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
         setContentView(R.layout.main_activity)
         //binding.lifecycleOwner = this
-        addFragmentToActivity(
+
+        /*addFragmentToActivity(
             this.supportFragmentManager,
             ApiSettingsFragment(),
             R.id.container
+        )*/
+
+        addFragmentToActivity(
+            this.supportFragmentManager,
+            NSGatewayListFragment(),
+            R.id.container
         )
+
     }
 
     fun addFragmentToActivity(manager: FragmentManager, fragment: Fragment, frameId: Int) {
