@@ -1,6 +1,5 @@
 package pt.isel.vsdashbapi.vsdashapi.authentication.VsdUser
 
-import net.nuagenetworks.vspk.v5_0.Me
 import net.nuagenetworks.vspk.v5_0.VSDSession
 import org.springframework.stereotype.Component
 

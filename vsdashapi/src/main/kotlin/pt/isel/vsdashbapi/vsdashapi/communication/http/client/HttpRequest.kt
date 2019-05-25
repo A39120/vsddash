@@ -23,9 +23,7 @@ object HttpRequest {
 
     private val logger = LoggerFactory.getLogger(HttpRequest::class.java)
 
-    fun makeRequest(){
-
-    }
+    //fun makeRequest(){ }
 
     /**
      * Prepares to accept the self-signed certificates
@@ -71,7 +69,11 @@ object HttpRequest {
         }
     }
 
-    fun <R> get(org: String, username: String, apiKey: String, exchangeFunction: (RestTemplate, HttpEntity<String>) -> ResponseEntity<R?>) : ResponseEntity<R?> {
+    fun <R> get(org: String,
+                username: String,
+                apiKey: String,
+                exchangeFunction: (RestTemplate, HttpEntity<String>) -> ResponseEntity<R?>)
+            : ResponseEntity<R?> {
         HttpRequest.prepareSSLAuthentication()
 
         // Necessary Nuage Headers - X-Nuage-Organization
