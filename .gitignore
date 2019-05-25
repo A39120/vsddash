@@ -4,6 +4,7 @@ HELP.md
 # Edit at https://www.gitignore.io/?templates=java,intellij
 
 # User-specific stuff
+TestObject.kt
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
 **/.idea/**/usage.statistics.xml
