@@ -12,6 +12,7 @@ data class Session(
     @Json(name = "flowCollectionEnabled") val flowCollectionEnabled : Boolean? = false,
     @Json(name = "role") val role : String? = null,
     @Json(name = "statisticsEnabled") val statsEnabled : Boolean? = false,
+    @Json(name = "statsTSDBServerAddress") val statsTSDBServer: String? = null,
     @Json(name = "APIKey") val apiKey : String? = null,
     @Json(name = "APIKeyExpiry") val apiKeyExpiry : Long? = 0,
     @Json(name = "ID") val id : String? = null
