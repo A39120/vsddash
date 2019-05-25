@@ -27,19 +27,22 @@ class SessionTest {
             .build()
 
         val authService = retrofit.create(AuthenticationService::class.java)
-        var session : Session? = null
+        var session : List<Session>? = null
 
         runBlocking {
             val res =  authService.authenticate(
-                TestObject.organization,
-                TestObject.getAuth()
+                authorization = TestObject.getAuth(),
+                organization = TestObject.organization
             )
-            session = res
+            session = res.await()
         }
 
         GlobalScope.launch{ delay(10000) }
-        Assert.assertNotNull(session)
-        Assert.assertNotNull(session!!.apiKey)
+        Assert.assertNotNull(session?.get(0))
+        Assert.assertNotNull(session?.get(0)?.enterpriseName)
 
     }
 }
+
+
+
