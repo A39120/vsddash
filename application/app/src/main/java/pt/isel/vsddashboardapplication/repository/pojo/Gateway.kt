@@ -1,35 +1,33 @@
 package pt.isel.vsddashboardapplication.repository.pojo
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.squareup.moshi.Json
 
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 data class Gateway(
-    @JsonProperty("BIOSReleaseDate") val biosReleaseDate: String?,
-    @JsonProperty("BIOSVersion") val biosVersion: String?,
-    @JsonProperty("CPUType") val cpuType: String?,
-    @JsonProperty("MACAddress") val macAddress: String?,
-    @JsonProperty("UUID") val uuid: String?,
-    @JsonProperty("associatedNSGInfoID") val associatedNSGInfoID: String?,
-    @JsonProperty("associatedNetconfProfileID") val associatedNetconfProfileID: String?,
-    @JsonProperty("bootstrapID") val bootstrapID: String,
-    //@JsonProperty("bootstrapStatus") val bootstrapStatus: GatewayEnumerables.BootstrapStatus,
-    @JsonProperty("description") val description: String,
-    @JsonProperty("enterpriseID") val enterpriseID: String,
-    @JsonProperty("externalID") val externalID: String,
+    @Json(name = "BIOSReleaseDate") val biosReleaseDate: String?,
+    @Json(name = "BIOSVersion") val biosVersion: String?,
+    @Json(name = "CPUType") val cpuType: String?,
+    @Json(name = "MACAddress") val macAddress: String?,
+    @Json(name = "UUID") val uuid: String?,
+    @Json(name = "associatedNSGInfoID") val associatedNSGInfoID: String?,
+    @Json(name = "associatedNetconfProfileID") val associatedNetconfProfileID: String?,
+    @Json(name = "bootstrapID") val bootstrapID: String,
+    @Json(name = "description") val description: String,
+    @Json(name = "enterpriseID") val enterpriseID: String,
+    @Json(name = "externalID") val externalID: String,
+    @Json(name = "gatewayConnected") val gatewayConnected: Boolean? = null,
+    @Json(name = "gatewayModel") val gatewayModel: String,
+    @Json(name = "gatewayVersion") val gatewayVersion: String,
+    @Json(name = "managementID") val managementID: String,
+    @Json(name = "name") val name: String,
+    @Json(name = "peer") val peer: String,
+    @Json(name = "pending") val pending: Boolean? = null,
+    @Json(name = "productName") val productName: String,
+    @Json(name = "serialNumber") val serialNumber: String,
+    @Json(name = "systemID") val systemID: String,
+    @Json(name = "templateID") val templateID: String
     //@JsonProperty("family") val family: GatewayEnumerables.Family,
-    @JsonProperty("gatewayConnected") val gatewayConnected: Boolean? = null,
-    @JsonProperty("gatewayModel") val gatewayModel: String,
-    @JsonProperty("gatewayVersion") val gatewayVersion: String,
-    @JsonProperty("managementID") val managementID: String,
-    @JsonProperty("name") val name: String,
-    @JsonProperty("peer") val peer: String,
-    @JsonProperty("pending") val pending: Boolean? = null,
+    //@JsonProperty("bootstrapStatus") val bootstrapStatus: GatewayEnumerables.BootstrapStatus,
     //@JsonProperty("personality") val personality: GatewayEnumerables.Personality,
-    @JsonProperty("productName") val productName: String,
-    @JsonProperty("serialNumber") val serialNumber: String,
-    @JsonProperty("systemID") val systemID: String,
-    @JsonProperty("templateID") val templateID: String
     //@JsonProperty("vendor") val vendor: Vendor
 )
