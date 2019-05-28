@@ -16,3 +16,9 @@ class NSGViewModel : ViewModel() {
         this.nsg = repo.get(id)
     }
 }
+
+
+
+
+
+

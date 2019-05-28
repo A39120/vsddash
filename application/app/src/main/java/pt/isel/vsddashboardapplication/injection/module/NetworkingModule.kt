@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
-import okhttp3.internal.cache.CacheInterceptor
-import pt.isel.vsddashboardapplication.communication.http.AuthenticationService
+import pt.isel.vsddashboardapplication.communication.services.AuthenticationService
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

@@ -1,8 +1,10 @@
-package pt.isel.vsddashboardapplication.communication.http.model
+package pt.isel.vsddashboardapplication.communication.services.model
 
 import com.squareup.moshi.Json
 
+
 data class Session(
+    @Json(name = "ID") val id : String? = null,
     @Json(name = "AARFlowStatsInterval") val AARApplicationReleaseDate: String? = null,
     @Json(name = "AARProbeStatsInterval") val AARProbeStatsInterval: String? = null,
     @Json(name = "AARProbeStatsInterval") val elasticSearchAddress: String? = null,
@@ -14,8 +16,7 @@ data class Session(
     @Json(name = "statisticsEnabled") val statsEnabled : Boolean? = false,
     @Json(name = "statsTSDBServerAddress") val statsTSDBServer: String? = null,
     @Json(name = "APIKey") val apiKey : String? = null,
-    @Json(name = "APIKeyExpiry") val apiKeyExpiry : Long? = 0,
-    @Json(name = "ID") val id : String? = null
+    @Json(name = "APIKeyExpiry") val apiKeyExpiry : Long? = 0
 )
 
 /*

@@ -2,7 +2,6 @@ package pt.isel.vsddashboardapplication.activities
 
 import android.os.Bundle
 import pt.isel.vsddashboardapplication.activities.base.BaseActivity
-import pt.isel.vsddashboardapplication.databinding.MainActivityBinding
 import androidx.fragment.app.FragmentManager
 import pt.isel.vsddashboardapplication.R
 import androidx.fragment.app.Fragment

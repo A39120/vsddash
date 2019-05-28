@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
@@ -22,18 +24,19 @@ class NSGatewayListFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         viewModel = AllNSGatewayViewModel()
-        viewModel.init(NSGatewayRepoImpl())
 
+        viewModel.init(NSGatewayRepoImpl())
         binding = DataBindingUtil.inflate(inflater, R.layout.gateway_grid_fragment, container, false)
         binding.lifecycleOwner = this
 
-        val adapter = NSGatewayAdapter()
-
+        // Start ada+ter
+        val adapter = NSGatewayAdapter(ArrayList(), {})
+        adapter.setList(viewModel.gateways.value)
         binding.list.adapter = adapter
+        binding.list.layoutManager = LinearLayoutManager(this.context)
 
         viewModel.gateways.observe(this, Observer{ adapter.setList(it) })
 
-        //return super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
     }
 

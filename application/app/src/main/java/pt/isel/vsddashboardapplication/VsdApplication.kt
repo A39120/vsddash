@@ -1,38 +1,50 @@
 package pt.isel.vsddashboardapplication
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import android.util.Log
-import pt.isel.vsddashboardapplication.communication.websockets.WebSocketClient
-import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import pt.isel.vsddashboardapplication.communication.services.model.Session
+import pt.isel.vsddashboardapplication.injection.module.VsdClient
+import pt.isel.vsddashboardapplication.utils.sharedPreferences
+import pt.isel.vsddashboardapplication.utils.vsdAddress
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class VsdApplication : Application(){
     companion object {
         private const val TAG = "APP"
     }
 
-    private val wsClient = WebSocketClient
+    private var vsdClient : Retrofit? = null
+    private var session : Session? = null
 
     override fun onCreate() {
         super.onCreate()
         Log.v(TAG, "Creating application")
-        //val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        //val address = sp.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
-        //wsClient.init("ws://192.168.1.73:8080/vsdapi/websocket")
+        val sp = this.sharedPreferences()
+
+        val address = sp.vsdAddress()
+        if(address != null)
+            setVsdClient(address)
     }
 
-    fun connectToWebServer(address: String){
-        Log.v(TAG, "Connecting to new web server")
-        val sp = PreferenceManager.getDefaultSharedPreferences(this)
-        val editor = sp.edit()
-        editor.putString(SharedPreferenceKeys.CURRENTADDRESS, address)
-        editor.apply()
+    fun getVsdClient() : Retrofit? = vsdClient
 
-        wsClient.getClient()?.disconnect()
-        wsClient.init(address)
+    fun setVsdClient(address: String) {
+        val okhttpClient = VsdClient.getClient()
+        try {
+            this.vsdClient = Retrofit.Builder()
+                .baseUrl(address)
+                .client(VsdClient.getClient())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+
+
+        } catch (ex: Throwable) {}
     }
 
 }
 
+fun Application.vsdclient() =
+    (this as VsdApplication).getVsdClient()

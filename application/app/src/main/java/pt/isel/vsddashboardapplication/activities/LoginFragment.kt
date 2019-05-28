@@ -14,6 +14,7 @@ import pt.isel.vsddashboardapplication.repository.LoginRepository
 import pt.isel.vsddashboardapplication.repository.LoginRepositoryImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.LoginViewModel
+import pt.isel.vsddashboardapplication.vsdclient
 
 /**
  * Responsible for logging in, presents the login screen, so the user can login
@@ -31,21 +32,24 @@ class LoginFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo  = LoginRepositoryImpl(this.context!!.sharedPreferences())
+        repo = LoginRepositoryImpl( this.context!!.sharedPreferences() )
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
         viewModel.init(repo)
+
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
 
         binding.organization.addTextChangedListener( Watcher{ viewModel.updateOrganization(it.toString()) })
         binding.username.addTextChangedListener( Watcher{ viewModel.updateUsername(it.toString()) })
         binding.password.addTextChangedListener( Watcher{ viewModel.updatePassword(it.toString()) })
-
         return binding.root
     }
 
 
 }
+
+
+

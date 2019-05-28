@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.http.model
+package pt.isel.vsddashboardapplication.communication.services.model
 
 import okhttp3.MultipartBody
 

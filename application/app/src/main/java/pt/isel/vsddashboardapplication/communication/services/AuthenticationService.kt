@@ -1,8 +1,7 @@
-package pt.isel.vsddashboardapplication.communication.http
+package pt.isel.vsddashboardapplication.communication.services
 
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.communication.http.model.Session
-import retrofit2.Call
+import pt.isel.vsddashboardapplication.communication.services.model.Session
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers

@@ -1,8 +1,14 @@
 package pt.isel.vsddashboardapplication.repository
 
 import android.content.SharedPreferences
+import android.util.Base64
+import kotlinx.coroutines.Deferred
+import pt.isel.vsddashboardapplication.communication.services.model.Session
+import javax.inject.Inject
 
-class LoginRepositoryImpl(private val sharedPrefs : SharedPreferences) : LoginRepository{
+class LoginRepositoryImpl @Inject constructor(
+        private val sharedPrefs : SharedPreferences
+) : LoginRepository{
     companion object{
         private const val USERNAME_KEY = "username"
         private const val PASSWORD_KEY = "password"
@@ -32,5 +38,20 @@ class LoginRepositoryImpl(private val sharedPrefs : SharedPreferences) : LoginRe
             this.putString(ORGANIZATION_KEY, organization)
             this.apply()
         }
+    }
+
+    override fun login() : Deferred<List<Session>>? {
+        //TODO: Do this
+        return null
+    }
+
+    private fun getEncodedAuthorization(username: String?, key: String?) : String?{
+
+        if(username == null || key == null)
+            return null
+
+        val auth = "$username:$key".toByteArray(Charsets.UTF_8)
+        val encoded = Base64.encode(auth, Base64.DEFAULT)
+        return String(encoded)
     }
 }

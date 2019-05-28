@@ -1,5 +1,8 @@
 package pt.isel.vsddashboardapplication.repository
 
+import kotlinx.coroutines.Deferred
+import pt.isel.vsddashboardapplication.communication.services.model.Session
+
 interface LoginRepository {
 
     fun getUsername() : String?
@@ -9,4 +12,6 @@ interface LoginRepository {
     fun updateUsername(username: String?)
     fun updatePassword(password: String?)
     fun updateOrganization(organization: String?)
+
+    fun login() : Deferred<List<Session>>?
 }
