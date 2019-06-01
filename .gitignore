@@ -68,3 +68,4 @@ TestObject.kt
 *.otf
 *.ttf
 application/app/.attach_pid16453
+application/gradle
