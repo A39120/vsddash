@@ -3,6 +3,8 @@ package pt.isel.vsddashboardapplication.repository
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 
 class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) : ApiSettingsRepo{
@@ -14,9 +16,13 @@ class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) : ApiSetti
     init {
         val add = sharedPrefs.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
         val vsdPort = sharedPrefs.getInt(SharedPreferenceKeys.CURRENTPORT, SharedPreferenceKeys.PORTDEFAULT)
+        val monitPort = sharedPrefs.getInt(SharedPreferenceKeys.MONIT_PORT, SharedPreferenceKeys.MONIT_PORT_DEFAULT)
 
-        address.postValue(add)
-        vsdApi.postValue(vsdPort)
+        GlobalScope.launch {
+            address.postValue(add)
+            vsdApi.postValue(vsdPort)
+            monit.postValue(monitPort)
+        }
     }
 
 
@@ -34,14 +40,18 @@ class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) : ApiSetti
 
     override fun updateVSDPort(port: Int?) {
         sharedPrefs.edit().let {
-            it.putInt(SharedPreferenceKeys.CURRENTADDRESS, port?:SharedPreferenceKeys.PORTDEFAULT )
+            it.putInt(SharedPreferenceKeys.CURRENTPORT, port?:SharedPreferenceKeys.PORTDEFAULT )
             it.apply()
         }
         this.vsdApi.postValue(port)
     }
 
     override fun updateMonitPort(port: Int?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        sharedPrefs.edit().let {
+            it.putInt(SharedPreferenceKeys.MONIT_PORT, port?:SharedPreferenceKeys.MONIT_PORT_DEFAULT )
+            it.apply()
+        }
+        this.monit.postValue(port)
     }
 
 }

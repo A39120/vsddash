@@ -37,8 +37,19 @@ class ApiSettingsFragment : Fragment() {
 
         //Add listeners
         binding.address.addTextChangedListener(Watcher{ viewModel.updateAddress(it.toString())})
-        binding.apiPort.addTextChangedListener(Watcher{ viewModel.updateApiPort(Integer.parseInt(it.toString()))})
-        binding.address.addTextChangedListener(Watcher{ viewModel.updateMonitPort(Integer.parseInt(it.toString()))})
+        binding.apiPort.addTextChangedListener(Watcher{
+            if(it.toString() != "")
+                viewModel.updateApiPort(Integer.parseInt(it.toString()))
+            else
+                viewModel.updateApiPort(null)
+        })
+
+        binding.monitPort.addTextChangedListener(Watcher{
+            if(it.toString() != "")
+                viewModel.updateMonitPort(Integer.parseInt(it.toString()))
+            else
+                viewModel.updateMonitPort(null)
+        })
         binding.connectButton.setOnContextClickListener { connect(it) }
 
         return binding.root
