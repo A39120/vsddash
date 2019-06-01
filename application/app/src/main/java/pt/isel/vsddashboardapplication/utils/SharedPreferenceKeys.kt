@@ -16,6 +16,8 @@ import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys.USERNAME_KEY
 
 
 object SharedPreferenceKeys {
+    const val MONIT_PORT: String = "vsdmonitport"
+    const val MONIT_PORT_DEFAULT: Int = 8433
     const val BASE_SP = "vsdsharedpreferences"
 
 
