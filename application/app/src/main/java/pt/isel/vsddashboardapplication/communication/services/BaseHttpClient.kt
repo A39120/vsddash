@@ -9,7 +9,7 @@ import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
-object VsdClient {
+object BaseHttpClient {
 
     fun  getClient() : OkHttpClient {
         val builder = OkHttpClient.Builder()

@@ -1,10 +1,7 @@
-HELP.md
-
-# Created by https://www.gitignore.io/api/java,intellij
-# Edit at https://www.gitignore.io/?templates=java,intellij
-
+HELP.md 
 # User-specific stuff
 TestObject.kt
+
 **/.idea/**/workspace.xml
 **/.idea/**/tasks.xml
 **/.idea/**/usage.statistics.xml
@@ -66,6 +63,7 @@ TestObject.kt
 **/captures
 **/.externalNativeBuild
 *.otf
-*.ttf
+*.ttf 
+
 application/app/.attach_pid16453
-application/gradle
+application/gradle/**
