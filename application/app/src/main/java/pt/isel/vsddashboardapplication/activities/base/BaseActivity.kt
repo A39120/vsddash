@@ -9,6 +9,4 @@ import pt.isel.vsddashboardapplication.R
 /**
  * Base activity that will be extended from all other activities
  */
-abstract class BaseActivity : FragmentActivity() {
-
-}
+abstract class BaseActivity : FragmentActivity() { }

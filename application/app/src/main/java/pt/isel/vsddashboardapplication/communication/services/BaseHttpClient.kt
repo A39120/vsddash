@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.injection.module
+package pt.isel.vsddashboardapplication.communication.services
 
 import android.annotation.SuppressLint
 import okhttp3.OkHttpClient
@@ -11,7 +11,7 @@ import javax.net.ssl.*
 
 object BaseHttpClient {
 
-    fun  getClient() : OkHttpClient {
+    fun  getClient() : OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
@@ -33,7 +33,7 @@ object BaseHttpClient {
         catch (ex: NoSuchAlgorithmException) { }
         catch (ex: KeyManagementException) { }
         builder.addInterceptor(logging)
-        return builder.build()
+        return builder
     }
 
 

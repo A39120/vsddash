@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
 
-interface AuthenticationService : BaseService{
+interface AuthenticationService {
 
     @Headers("Accept: application/json")
     @GET("/nuage/api/v5_0/me")

@@ -68,6 +68,9 @@ dependencies {
     // Misc
     implementation "com.google.dagger:dagger-android:$dagger_version"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"
+
     // UI
     api 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'com.android.support:design:28.0.0'

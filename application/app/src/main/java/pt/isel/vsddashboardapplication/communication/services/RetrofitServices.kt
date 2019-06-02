@@ -2,7 +2,6 @@ package pt.isel.vsddashboardapplication.communication.services
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Credentials
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -53,9 +52,9 @@ class RetrofitServices(private val api: String,
                     .addConverterFactory(MoshiConverterFactory.create())
             }
 
-            val httpClientBuilder = OkHttpClient.Builder()
             val authToken = Credentials.basic(username, password)
-            val httpClient = httpClientBuilder
+            val httpClient = BaseHttpClient
+                .getClient()
                 .addInterceptor(AuthenticationInterceptor(authToken, organization))
                 .build()
 

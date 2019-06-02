@@ -90,8 +90,7 @@
 				
 				<com.google.android.material.button.MaterialButton
 					android:layout_row="3"
-					android:layout_columnWeight="2"
-					android:onClick="connect"
+					android:layout_columnSpan="2"
 					android:id="@+id/connect_button"
 					android:layout_margin="@dimen/activity_default_margin"
 					android:layout_width="wrap_content"
@@ -100,12 +99,13 @@
 				
 				<com.google.android.material.button.MaterialButton
 					android:layout_row="3"
-					android:layout_columnWeight="1"
 					android:id="@+id/settings_button"
 					android:layout_margin="@dimen/activity_default_margin"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/settings"/>
+				
+				
 			</GridLayout>
 		
 		

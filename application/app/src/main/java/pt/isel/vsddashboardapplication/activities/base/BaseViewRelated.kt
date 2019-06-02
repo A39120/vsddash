@@ -20,7 +20,7 @@ abstract class BaseViewRelated<T : ViewDataBinding> : LifecycleOwner{
     abstract fun layoutInflater() : LayoutInflater
 
     protected fun createView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) {
-        binding = DataBindingUtil.inflate(layoutInflater(), layoutToInflate(), container, false)
+        binding = DataBindingUtil.inflate(inflater, layoutToInflate(), container, false)
         binding.lifecycleOwner = this
     }
 

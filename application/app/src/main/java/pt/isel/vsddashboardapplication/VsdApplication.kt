@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import pt.isel.vsddashboardapplication.communication.services.model.Session
-import pt.isel.vsddashboardapplication.injection.module.VsdClient
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.utils.vsdAddress
 import retrofit2.Retrofit
@@ -17,6 +16,8 @@ class VsdApplication : Application(){
 
     private var vsdClient : Retrofit? = null
     private var session : Session? = null
+    private var client : Retrofit? = null
+
 
     override fun onCreate() {
         super.onCreate()
@@ -31,11 +32,9 @@ class VsdApplication : Application(){
     fun getVsdClient() : Retrofit? = vsdClient
 
     fun setVsdClient(address: String) {
-        val okhttpClient = VsdClient.getClient()
         try {
             this.vsdClient = Retrofit.Builder()
                 .baseUrl(address)
-                .client(VsdClient.getClient())
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
@@ -43,6 +42,11 @@ class VsdApplication : Application(){
 
         } catch (ex: Throwable) {}
     }
+
+    fun setSession(session: Session){
+        this.session = session
+    }
+
 
 }
 
