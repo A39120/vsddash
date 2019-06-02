@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<data>
+		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.LoginViewModel"/>
+	</data>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:theme="@style/CardView.Light"
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<GridLayout
+				android:columnCount="3"
+				android:rowCount="4"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<TextView
+					android:layout_columnSpan="3"
+					android:textStyle="bold"
+					android:fontFamily="@font/din"
+					android:textSize="@dimen/label_size"
+					android:textColor="@color/colorPrimaryDark"
+					android:text="@string/login_label"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_columnSpan="3"
+					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="@dimen/margin_default"
+					android:hint="@string/username">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_columnSpan="3"
+						android:id="@+id/username"
+						android:maxLines="1"
+						android:inputType="text"
+						android:text="@{viewmodel.username}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<com.google.android.material.textfield.TextInputLayout
+					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+					android:layout_columnSpan="3"
+					android:layout_margin="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/password">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_columnSpan="3"
+						android:id="@+id/password"
+						android:maxLines="1"
+						android:inputType="textPassword"
+						android:text="@{viewmodel.password}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content" />
+				
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<com.google.android.material.textfield.TextInputLayout
+					android:layout_columnSpan="3"
+					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+					android:layout_margin="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="@string/organization">
+					
+					<com.google.android.material.textfield.TextInputEditText
+						android:layout_columnSpan="3"
+						android:id="@+id/organization"
+						android:inputType="text"
+						android:maxLines="1"
+						android:text="@{viewmodel.organization}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+				
+				</com.google.android.material.textfield.TextInputLayout>
+				
+				<com.google.android.material.button.MaterialButton
+					android:layout_row="3"
+					android:layout_columnWeight="2"
+					android:onClick="connect"
+					android:id="@+id/connect_button"
+					android:layout_margin="@dimen/activity_default_margin"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/button_connect"/>
+				
+				<com.google.android.material.button.MaterialButton
+					android:layout_row="3"
+					android:layout_columnWeight="1"
+					android:id="@+id/settings_button"
+					android:layout_margin="@dimen/activity_default_margin"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/settings"/>
+			</GridLayout>
+		
+		
+		</com.google.android.material.card.MaterialCardView>
+	</LinearLayout>
+</layout>

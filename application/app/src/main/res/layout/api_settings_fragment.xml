@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+    <com.google.android.material.card.MaterialCardView
+            android:theme="@style/CardView.Light"
+            android:layout_margin="@dimen/margin_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    
+        <GridLayout
+                android:columnCount="2"
+                android:rowCount="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    
+            <TextView
+                    android:layout_columnSpan="2"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/din"
+                    android:textSize="@dimen/label_size"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:text="@string/api_settings_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+    
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_columnSpan="2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_default"
+                    android:hint="@string/address_hint">
+    
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/address"
+                    android:maxLines="1"
+                    android:text="@{viewmodel.address.getValue().toString()}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+    
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_columnWeight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_margin="@dimen/margin_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/vsdport_hint">
+    
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/apiPort"
+                    android:maxLines="1"
+                        android:text="@{viewmodel.apiPort.getValue().toString()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+    
+            </com.google.android.material.textfield.TextInputLayout>
+    
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_columnWeight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_margin="@dimen/margin_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/monitPort_hint">
+    
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/monitPort"
+                    android:maxLines="1"
+                    android:text="@{viewmodel.monitPort.getValue().toString()}"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+    
+            </com.google.android.material.textfield.TextInputLayout>
+    
+            <com.google.android.material.button.MaterialButton
+                android:layout_row="3"
+                android:layout_columnSpan="2"
+                android:onClick="connect"
+                android:id="@+id/connect_button"
+                android:layout_margin="@dimen/activity_default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_connect"/>
+        </GridLayout>
+    
+        
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</layout>

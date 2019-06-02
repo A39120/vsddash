@@ -1,0 +1,43 @@
+<resources>
+	<string name="app_name">Vsd Dashboard Application</string>
+	<!-- Strings related to login -->
+	<string name="prompt_email">Email</string>
+	<string name="prompt_password">Password (optional)</string>
+	<string name="action_sign_in">Sign in or register</string>
+	<string name="action_sign_in_short">Sign in</string>
+	<string name="error_invalid_email">This email address is invalid</string>
+	<string name="error_invalid_password">This password is too short</string>
+	<string name="error_incorrect_password">This password is incorrect</string>
+	<string name="error_field_required">This field is required</string>
+	<string name="permission_rationale">"Contacts permissions are needed for providing email
+		completions."
+	</string>
+	
+	<string name="vsdaddress">VSD Address</string>
+	<string name="server">http://192.168.1.107:8080/</string>
+	<string name="authentication_path">/authentication</string>
+	<string name="vsdash">VSDash</string>
+	<string name="api_settings_label">API Settings</string>
+	<string name="settings">Sett</string>
+	<string name="address_hint">API Address</string>
+	<string name="monitPort_hint">Monit Port</string>
+	<string name="vsdport_hint">VSD API Port</string>
+	<string name="button_connect">Connect</string>
+	<string name="login_label">Login</string>
+	<string name="password">Password</string>
+	<string name="username">Username</string>
+	<string name="organization">Organization</string>
+	<string name="name">Name</string>
+	<string name="description">Description</string>
+	<string name="version">Version</string>
+	
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="nsgs">Network Services Gateway List</string>
+	<string name="vsd_status">Virtual Services Directory Status</string>
+	<string name="vsc_status">Virtual Services Controller Status</string>
+	<string name="connecting">Connecting...</string>
+	<string name="connection_failed">Connection failed</string>
+	<string name="invalid_credentials">Connection failed</string>
+	<string name="connected">Connection failed</string>
+</resources>

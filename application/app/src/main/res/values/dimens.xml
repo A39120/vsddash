@@ -1,0 +1,13 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<!--dimen name="column_default">25%</dimen-->
+	<dimen name="gutter_default">16dp</dimen>
+	<dimen name="gutter_menu">24dp</dimen>
+	<dimen name="margin_default">16dp</dimen>
+	
+	<dimen name="activity_horizontal_margin">16dp</dimen>
+	<dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="activity_default_margin">16dp</dimen>
+	<dimen name="label_size">11dp</dimen>
+	<dimen name="text_margin">16dp</dimen>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools" >
+	
+	<GridLayout
+		android:columnCount="2"
+		android:layout_margin="@dimen/margin_default"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		
+		<Button
+			android:layout_columnWeight="1"
+			android:text="@string/nsgs"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+		<Button
+			android:layout_columnWeight="1"
+			android:text="@string/vsd_status"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+		<Button
+			android:layout_columnWeight="1"
+			android:text="@string/vsc_status"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+		
+	</GridLayout>
+
+</layout>

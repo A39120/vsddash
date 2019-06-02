@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:bind="http://schemas.android.com/apk/res-auto">
+	<data>
+		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.NsgatewayViewModel"/>
+	</data>
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:theme="@style/CardView.Light"
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				
+				<include
+					layout="@layout/layout_label"
+					bind:label="@{@string/name}"
+					bind:value="@{viewmodel.str}" />
+				<!--
+			
+				<include
+					layout="@layout/layout_label"
+					bind:label="@{@string/name}"
+					bind:value="@{viewmodel.nsg.get().name}" />
+				
+				<include
+					layout="@layout/layout_label"
+					bind:label="@{@string/description}"
+					bind:value="@{viewmodel.nsg.get().description}"/>
+				
+				<include
+					layout="@layout/layout_label"
+					bind:label="@{@string/version}"
+					bind:value="@{viewmodel.nsg.get().NSGVersion}"/>
+				
+				-->
+		
+			</LinearLayout>
+		</com.google.android.material.card.MaterialCardView>
+	</LinearLayout>
+</layout>
