@@ -2,7 +2,6 @@ package pt.isel.vsddashboardapplication.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.Settings
 import android.util.Base64
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys.APIKEY_EXPIRATION_KEY
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys.APIKEY_KEY
@@ -20,14 +19,11 @@ object SharedPreferenceKeys {
     const val MONIT_PORT_DEFAULT: Int = 8433
     const val BASE_SP = "vsdsharedpreferences"
 
-
-    const val CURRENTIPKEY = "currentip"
-    const val IPDEFAULT = "127.0.0.1"
     const val CURRENTPORT = "currentport"
     const val PORTDEFAULT = 1433
 
     const val CURRENTADDRESS = "currentaddress"
-    const val DEFAULTADDRESS = "127.0.0.1:8443"
+    const val DEFAULTADDRESS = "127.0.0.1"
 
 
     const val USERNAME_KEY = "username"

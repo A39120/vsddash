@@ -33,7 +33,7 @@
 	
 	<!-- TODO: Remove or change this placeholder text -->
 	<string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="nsgs">Network Services Gateway List</string>
+	<string name="nsgs">Network Services \n Gateway List</string>
 	<string name="vsd_status">Virtual Services Directory Status</string>
 	<string name="vsc_status">Virtual Services Controller Status</string>
 	<string name="connecting">Connecting...</string>
