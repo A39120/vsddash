@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:bind="http://schemas.android.com/apk/res-auto">
 	<data>
-		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.NsgatewayViewModel"/>
+		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.NSGViewModel"/>
 	</data>
 	
 	<LinearLayout
@@ -24,7 +24,7 @@
 				<include
 					layout="@layout/layout_label"
 					bind:label="@{@string/name}"
-					bind:value="@{viewmodel.str}" />
+					bind:value="@{viewmodel.nsg.getValue().name}" />
 				<!--
 			
 				<include

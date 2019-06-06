@@ -1,27 +1,44 @@
 package pt.isel.vsddashboardapplication.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
+import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
+import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import kotlin.collections.listOf as listOf1
 
-class NSGatewayRepoImpl : NSGatewayRepository {
+class NSGatewayRepoImpl(
+    private val nsgService: NSGatewayService,
+    private val dao: NSGatewayDao) : NSGatewayRepository {
 
     override fun get(id: String): LiveData<NSGateway> {
-        val ld = MutableLiveData<NSGateway>()
-        val gateway = NSGateway(name="NSG1")
-        ld.value = gateway
-        return ld
+        runBlocking {
+            updateCurrent(id)
+        }
+        return dao.load(id)
     }
 
-    override fun getAll(): LiveData<List<NSGateway>> {
-        val ld = MutableLiveData<List<NSGateway>>()
-        val nsg1 = NSGateway(name="NSG1")
-        val nsg2 = NSGateway(name="NSG2")
-        val nsg3 = NSGateway(name="NSG3")
+    override fun getAll(enterprise: String): LiveData<List<NSGateway>> {
+        runBlocking {
+            updateAll(enterprise)
+        }
+        return dao.loadAll()
+    }
 
-        ld.value = listOf1(nsg1, nsg2, nsg3)
-        return ld
+
+    suspend fun updateCurrent(id: String) = withContext(Dispatchers.IO){
+        val gateways = nsgService.getGateway(id).await()
+        if(gateways != null)
+            if( gateways.isNotEmpty() && gateways.size < 2)
+                dao.save(nsgateway = gateways[0])
+    }
+
+    suspend fun updateAll(enterprise: String) = withContext(Dispatchers.IO) {
+        val gateways = nsgService.getGateways(enterprise).await()
+        if(gateways != null && gateways.isNotEmpty())
+            gateways.forEach { dao.save(it) }
     }
 
 }

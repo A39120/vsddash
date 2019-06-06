@@ -31,8 +31,6 @@
 	<string name="description">Description</string>
 	<string name="version">Version</string>
 	
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
 	<string name="nsgs">Network Services \n Gateway List</string>
 	<string name="vsd_status">Virtual Services Directory Status</string>
 	<string name="vsc_status">Virtual Services Controller Status</string>

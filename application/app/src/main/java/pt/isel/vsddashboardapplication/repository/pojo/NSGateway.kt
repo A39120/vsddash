@@ -1,7 +1,10 @@
 package pt.isel.vsddashboardapplication.repository.pojo
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity(tableName = "nsgateway")
 data class NSGateway (
     @Json(name = "AARApplicationReleaseDate") val AARApplicationReleaseDate: String? = null,
     @Json(name = "AARApplicationVersion") val AARApplicationVersion: String? = null,
@@ -44,7 +47,8 @@ data class NSGateway (
     @Json(name = "redundancyGroupID") val redundancyGroupID: String? = null,
     @Json(name = "serialNumber") val serialNumber: String? = null,
     @Json(name = "systemID") val systemID: String? = null,
-    @Json(name = "templateID") val templateID: String? = null
+    @Json(name = "templateID") val templateID: String? = null,
+    @PrimaryKey @Json(name = "ID") val id : String = ""
     //@JsonProperty("derivedSSHServiceState") val derivedSSHServiceState: NSGatewayEnumerables.DerivedSSHServiceState? = null,
     //@JsonProperty("inheritedSSHServiceState") val inheritedSSHServiceState: NSGatewayEnumerables.InheritedSSHServiceState? = null,
     //@JsonProperty("family") val family: NSGatewayEnumerables.Family? = null,

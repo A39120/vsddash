@@ -7,6 +7,6 @@ interface NSGatewayRepository {
 
     fun get(id: String) : LiveData<NSGateway>
 
-    fun getAll() : LiveData<List<NSGateway>>
+    fun getAll(enterprise: String) : LiveData<List<NSGateway>>
 
 }

@@ -5,16 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.UiThread
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.google.android.material.button.MaterialButton
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
@@ -48,6 +44,7 @@ class LoginFragment : Fragment() {
         repo = LoginRepositoryImpl( this.context!!.sharedPreferences() )
     }
 
+    @ExperimentalCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.i(TAG, "Creating view")
         binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
@@ -74,6 +71,7 @@ class LoginFragment : Fragment() {
         binding.connectButton.setText(resId)
     }
 
+    @ExperimentalCoroutinesApi
     private fun onConnectPress(button: MaterialButton) {
         Log.i(TAG, "Connect button pressed")
         try {
@@ -102,7 +100,7 @@ class LoginFragment : Fragment() {
                     } else {
                         Log.i(TAG, "Setting Session")
                         val session = sessionList[0]
-                        (this@LoginFragment.activity?.application as VsdApplication).setSession(session)
+                        (this@LoginFragment.activity?.application as VsdApplication).session = session
                         Navigation.findNavController(button).navigate(R.id.action_loginFragment_to_menuFragment)
                     }
                 }

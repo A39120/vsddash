@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.viewmodel.NsgatewayViewModel
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
+import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 
 class NSGatewayFragment : Fragment() {
 
@@ -18,18 +19,18 @@ class NSGatewayFragment : Fragment() {
         fun newInstance() = NSGatewayFragment()
     }
 
-    private lateinit var viewModel: NsgatewayViewModel
+    private lateinit var viewModel: NSGViewModel
     private lateinit var binding: NsgatewayFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NsgatewayViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
         binding = DataBindingUtil.inflate<NsgatewayFragmentBinding>(
             inflater,
             R.layout.nsgateway_fragment,
