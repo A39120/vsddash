@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.repository
+package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
 import android.util.Base64
@@ -6,13 +6,14 @@ import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.communication.services.AuthenticationService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.communication.services.model.Session
+import pt.isel.vsddashboardapplication.repository.LoginRepository
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
         private val sharedPrefs : SharedPreferences
-) : LoginRepository{
+) : LoginRepository {
     companion object{
         private const val USERNAME_KEY = "username"
         private const val PASSWORD_KEY = "password"

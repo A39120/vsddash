@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.services
+package pt.isel.vsddashboardapplication.communication
 
 import okhttp3.Interceptor
 import okhttp3.Response

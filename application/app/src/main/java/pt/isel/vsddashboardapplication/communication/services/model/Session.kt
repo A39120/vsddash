@@ -1,22 +1,23 @@
 package pt.isel.vsddashboardapplication.communication.services.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
 data class Session(
-    @Json(name = "ID") val id : String? = null,
-    @Json(name = "AARFlowStatsInterval") val AARApplicationReleaseDate: String? = null,
-    @Json(name = "AARProbeStatsInterval") val AARProbeStatsInterval: String? = null,
-    @Json(name = "AARProbeStatsInterval") val elasticSearchAddress: String? = null,
-    @Json(name = "enterpriseID") val enterpriseId : String? = null,
-    @Json(name = "enterpriseName") val enterpriseName : String? = null,
-    @Json(name = "firstName") val name : String? = null,
-    @Json(name = "flowCollectionEnabled") val flowCollectionEnabled : Boolean? = false,
-    @Json(name = "role") val role : String? = null,
-    @Json(name = "statisticsEnabled") val statsEnabled : Boolean? = false,
-    @Json(name = "statsTSDBServerAddress") val statsTSDBServer: String? = null,
-    @Json(name = "APIKey") val apiKey : String? = null,
-    @Json(name = "APIKeyExpiry") val apiKeyExpiry : Long? = 0
+    @field:Json(name = "ID") val ID : String? = null,
+    @field:Json(name = "AARApplicationReleaseDate") val AARApplicationReleaseDate: String? = null,
+    @field:Json(name = "AARProbeStatsInterval") val AARProbeStatsInterval: String? = null,
+    @field:Json(name = "elasticSearchAddress") val elasticSearchAddress: String? = null,
+    @field:Json(name = "enterpriseID") val enterpriseID : String? = null,
+    @field:Json(name = "enterpriseName") val enterpriseName : String? = null,
+    @field:Json(name = "firstName") val firstName : String? = null,
+    @field:Json(name = "flowCollectionEnabled") val flowCollectionEnabled : Boolean? = false,
+    @field:Json(name = "role") val role : String? = null,
+    @field:Json(name = "statisticsEnabled") val statisticsEnabled : Boolean? = false,
+    @field:Json(name = "statsTSDBServerAddress") val statsTSDBServerAddress: String? = null,
+    @field:Json(name = "APIKey") val APIKey : String? = null,
+    @field:Json(name = "APIKeyExpiry") val APIKeyExpiry : Long? = 0
 )
 
 /*

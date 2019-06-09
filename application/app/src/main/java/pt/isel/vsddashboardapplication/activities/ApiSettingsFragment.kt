@@ -11,7 +11,7 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
 import pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel
-import pt.isel.vsddashboardapplication.repository.ApiSettingsRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.ApiSettingsRepoImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.lang.StringBuilder
 
@@ -75,8 +75,6 @@ class ApiSettingsFragment : Fragment() {
     }
 
     private fun connect(view: View) : Boolean{
-        val uri = buildUri()
-        //val button = binding.connect_button
         return false
     }
 }

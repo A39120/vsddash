@@ -1,10 +1,11 @@
-package pt.isel.vsddashboardapplication.repository
+package pt.isel.vsddashboardapplication.repository.implementation
 
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
+import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import kotlin.collections.listOf as listOf1

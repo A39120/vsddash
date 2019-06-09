@@ -24,4 +24,5 @@ class ApplicationModule(private val application: VsdApplication, private val con
     @Singleton
     fun providesSharedPreferenes() : SharedPreferences =
         application.getSharedPreferences(SharedPreferenceKeys.BASE_SP, MODE_PRIVATE)
+
 }

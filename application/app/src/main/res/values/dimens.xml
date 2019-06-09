@@ -8,6 +8,6 @@
 	<dimen name="activity_horizontal_margin">16dp</dimen>
 	<dimen name="activity_vertical_margin">16dp</dimen>
 	<dimen name="activity_default_margin">16dp</dimen>
-	<dimen name="label_size">11dp</dimen>
+	<dimen name="label_size">11sp</dimen>
 	<dimen name="text_margin">16dp</dimen>
 </resources>

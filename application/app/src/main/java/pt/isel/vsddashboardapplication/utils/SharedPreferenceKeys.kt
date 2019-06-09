@@ -34,7 +34,7 @@ object SharedPreferenceKeys {
     const val APIKEY_KEY = "expiration"
 }
 
-fun Context.sharedPreferences() = this.getSharedPreferences(BASE_SP, Context.MODE_PRIVATE)
+fun Context.sharedPreferences(): SharedPreferences = this.getSharedPreferences(BASE_SP, Context.MODE_PRIVATE)!!
 fun SharedPreferences.vsdAddress() : String? {
     val address = this.getString(CURRENTADDRESS, null)
     val port = this.getInt(CURRENTPORT, PORTDEFAULT)

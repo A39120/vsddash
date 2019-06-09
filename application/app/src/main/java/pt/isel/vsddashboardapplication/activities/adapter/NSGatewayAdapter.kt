@@ -15,11 +15,11 @@ import pt.isel.vsddashboardapplication.databinding.GatewayItemBinding
  * Adapter to represent a list of NSGs
  */
 class NSGatewayAdapter (
-    private val values: ArrayList<NSGateway> = ArrayList(),
     private val onClickListener: (NSGateway) -> Unit
 ) : RecyclerView.Adapter<NSGatewayViewHolder>() {
 
 
+    private val values: ArrayList<NSGateway> = ArrayList()
     override fun getItemCount(): Int = values.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NSGatewayViewHolder {
@@ -39,6 +39,8 @@ class NSGatewayAdapter (
             this.values.clear()
             this.values.addAll(list)
         }
+
+        notifyDataSetChanged()
     }
 
 }

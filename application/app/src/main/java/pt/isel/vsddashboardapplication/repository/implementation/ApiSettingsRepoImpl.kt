@@ -1,13 +1,15 @@
-package pt.isel.vsddashboardapplication.repository
+package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import pt.isel.vsddashboardapplication.repository.ApiSettingsRepo
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 
-class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) : ApiSettingsRepo{
+class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) :
+    ApiSettingsRepo {
 
     private val address = MutableLiveData<String?>()
     private val vsdApi = MutableLiveData<Int?>()

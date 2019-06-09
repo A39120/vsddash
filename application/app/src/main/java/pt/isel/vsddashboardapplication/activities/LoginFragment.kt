@@ -17,7 +17,7 @@ import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.communication.services.model.Session
 import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
 import pt.isel.vsddashboardapplication.repository.LoginRepository
-import pt.isel.vsddashboardapplication.repository.LoginRepositoryImpl
+import pt.isel.vsddashboardapplication.repository.implementation.LoginRepositoryImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.LoginViewModel
 
@@ -41,7 +41,8 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i(TAG, "Creating fragment")
-        repo = LoginRepositoryImpl( this.context!!.sharedPreferences() )
+        repo =
+            LoginRepositoryImpl(this.context!!.sharedPreferences())
     }
 
     @ExperimentalCoroutinesApi

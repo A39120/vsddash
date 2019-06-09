@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.services
+package pt.isel.vsddashboardapplication.communication
 
 import android.annotation.SuppressLint
 import okhttp3.OkHttpClient
