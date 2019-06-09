@@ -6,6 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Credentials
 import pt.isel.vsddashboardapplication.communication.AuthenticationInterceptor
 import pt.isel.vsddashboardapplication.communication.BaseHttpClient
+import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -77,6 +78,7 @@ class RetrofitServices
         if(retrofitVsdApi == null) {
             val moshi = Moshi.Builder()
                 .add(KotlinJsonAdapterFactory())
+                .add(BootstapStatusAdapter())
                 .build()
 
 

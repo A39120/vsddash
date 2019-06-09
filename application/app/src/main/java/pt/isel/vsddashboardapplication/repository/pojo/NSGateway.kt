@@ -2,8 +2,11 @@ package pt.isel.vsddashboardapplication.repository.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
+import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "nsgateway")
@@ -50,6 +53,7 @@ data class NSGateway (
     @Json(name = "serialNumber") val serialNumber: String? = null,
     @Json(name = "systemID") val systemID: String? = null,
     @Json(name = "templateID") val templateID: String? = null,
+    @Json(name = "bootstrapStatus") val bootstrapStatus: BootstrapStatus? = null,
     @PrimaryKey @Json(name = "ID") val ID : String = ""
     //@JsonProperty("derivedSSHServiceState") val derivedSSHServiceState: NSGatewayEnumerables.DerivedSSHServiceState? = null,
     //@JsonProperty("inheritedSSHServiceState") val inheritedSSHServiceState: NSGatewayEnumerables.InheritedSSHServiceState? = null,

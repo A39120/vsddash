@@ -57,6 +57,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/apiPort"
                     android:maxLines="1"
+                    android:inputType="number"
                         android:text="@{viewmodel.apiPort.getValue().toString()}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/monitPort"
                     android:maxLines="1"
+                    android:inputType="number"
                     android:text="@{viewmodel.monitPort.getValue().toString()}"
                     android:layout_weight="1"
                     android:layout_width="match_parent"

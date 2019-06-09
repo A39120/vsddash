@@ -40,9 +40,7 @@ dependencies {
     def paging_version = "2.1.0"
     def dagger_version = "2.15"
     def okhttp_version = "3.13.1"
-    def databinding_version = '1.0.0-beta01'
     def retrofit_version = "2.5.0"
-    def nav_version = "2.1.0-alpha04"
     def moshi_version = "1.8.0"
 
 
