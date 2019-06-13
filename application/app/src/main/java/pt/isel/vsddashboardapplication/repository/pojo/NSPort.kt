@@ -1,8 +1,12 @@
-package pt.isel.vsddashboardapplication.repository.pojo.statistics
+package pt.isel.vsddashboardapplication.repository.pojo
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
+@Entity(tableName = "nsport")
 data class NSPort(
     @PrimaryKey @Json(name = "ID") val iD: String? = "",
     @Json(name = "associatedEgressQOSPolicyID") val associatedEgressQOSPolicyID: String? = "",
