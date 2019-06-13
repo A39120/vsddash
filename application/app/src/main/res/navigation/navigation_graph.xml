@@ -23,12 +23,15 @@
 	<fragment android:id="@+id/NSGatewayListFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.NSGatewayListFragment"
 	          android:label="NSGatewayListFragment">
-		<action android:id="@+id/action_NSGatewayListFragment_to_NSGatewayFragment"
-		        app:destination="@id/NSGatewayFragment"/>
+		<action
+			android:id="@+id/action_NSGatewayListFragment_to_nsgActivity"
+			app:destination="@id/nsgActivity">
+			<argument android:name="nsgId" app:argType="string"/>
+		</action>
 	</fragment>
-	<fragment android:id="@+id/NSGatewayFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.NSGatewayFragment"
-	          android:label="NSGatewayFragment"/>
-
+	<activity
+		android:id="@+id/nsgActivity"
+	    android:name="pt.isel.vsddashboardapplication.activities.NsgActivity"
+	    android:label="NsgActivity"/>
 
 </navigation>

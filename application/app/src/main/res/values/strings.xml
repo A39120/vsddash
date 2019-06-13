@@ -2,7 +2,6 @@
 	<string name="app_name">Vsd Dashboard Application</string>
 	
 	<string name="vsdaddress">VSD Address</string>
-	<string name="server">http://192.168.1.107:8080/</string>
 	<string name="authentication_path">/authentication</string>
 	<string name="vsdash">VSDash</string>
 	<string name="api_settings_label">API Settings</string>
@@ -26,4 +25,25 @@
 	<string name="connection_failed">Connection failed</string>
 	<string name="invalid_credentials">Connection failed</string>
 	<string name="connected">Connection failed</string>
+	
+	<string name="netaccelaration">Network Acceleration</string>
+	<string name="status">Network Acceleration</string>
+	<string name="configstatus">Configuration Status</string>
+	<string name="personality">Personality</string>
+	<string name="product">Product</string>
+	<string name="family">Family</string>
+	<string name="operstatus">Operation Status</string>
+	<string name="opermode">Operation Mode</string>
+	<string name="lastupdated">Last Updated</string>
+	<string name="creationdate">Creation Date</string>
+	<string name="serial">Serial Number</string>
+	<string name="bios">BIOS</string>
+	<string name="CPU">CPU</string>
+	
+	<string-array name="nsg_options">
+		<item>NSG</item>
+		<item>Statistics</item>
+		<item>Ports</item>
+	</string-array>
+
 </resources>
