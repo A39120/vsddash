@@ -2,10 +2,8 @@ package pt.isel.vsddashboardapplication.repository.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
 import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
 
 @JsonClass(generateAdapter = true)
