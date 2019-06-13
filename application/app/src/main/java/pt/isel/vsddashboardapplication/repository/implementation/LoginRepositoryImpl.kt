@@ -51,7 +51,7 @@ class LoginRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun login() : Deferred<List<Session>>? {
+    override fun login() : Deferred<List<Session>> {
         if(dirty) {
             sharedPrefs.let {
                 val username = getUsername() ?: ""
@@ -69,7 +69,7 @@ class LoginRepositoryImpl @Inject constructor(
             }
         }
 
-        return authenticationService?.authenticate()
+        return authenticationService?.authenticate()!!
 
     }
 

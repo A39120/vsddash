@@ -2,13 +2,13 @@ package pt.isel.vsddashboardapplication.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.LoginRepository
 
 class LoginViewModel : ViewModel() {
 
     private lateinit var repo: LoginRepository
-
     var username : String? = null
     var password : String? = null
     var organization : String? = null
@@ -16,7 +16,8 @@ class LoginViewModel : ViewModel() {
     fun init(repo: LoginRepository){
         this.repo = repo
 
-        viewModelScope.launch {
+        // Maybe change this later
+        viewModelScope.launch(Dispatchers.Default) {
             //Attribute values
             username = repo.getUsername()
             password = repo.getPassword()
@@ -24,28 +25,28 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun updateUsername(username: String?) : Unit {
-        viewModelScope.launch {
+    fun updateUsername(username: String?)  =
+        viewModelScope.launch(Dispatchers.Main) {
             repo.updateUsername(username)
             this@LoginViewModel.username = username
         }
-    }
 
-    fun updatePassword(password: String?) : Unit {
-        viewModelScope.launch {
+
+    fun updatePassword(password: String?) =
+        viewModelScope.launch(Dispatchers.Default) {
             repo.updatePassword(password)
             this@LoginViewModel.password = password
         }
-    }
 
-    fun updateOrganization(organization: String?) : Unit {
-        viewModelScope.launch {
+
+    fun updateOrganization(organization: String?) =
+        viewModelScope.launch(Dispatchers.Default) {
             repo.updateOrganization(organization)
             this@LoginViewModel.organization = organization
         }
-    }
 
-    suspend fun connect() = repo.login()
+
+    suspend fun connect() =  repo.login()
 
 }
 
