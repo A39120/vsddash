@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "nsport")
 data class NSPort(
-    @PrimaryKey @Json(name = "ID") val iD: String? = "",
+    @PrimaryKey @Json(name = "ID") val iD: String = "",
     @Json(name = "associatedEgressQOSPolicyID") val associatedEgressQOSPolicyID: String? = "",
     @Json(name = "associatedRedundantPortID") val associatedRedundantPortID: String? = "",
     @Json(name = "children") val children: String? = "",

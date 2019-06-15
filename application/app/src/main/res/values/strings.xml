@@ -27,7 +27,7 @@
 	<string name="connected">Connection failed</string>
 	
 	<string name="netaccelaration">Network Acceleration</string>
-	<string name="status">Network Acceleration</string>
+	<string name="status">Status</string>
 	<string name="configstatus">Configuration Status</string>
 	<string name="personality">Personality</string>
 	<string name="product">Product</string>
@@ -39,11 +39,4 @@
 	<string name="serial">Serial Number</string>
 	<string name="bios">BIOS</string>
 	<string name="CPU">CPU</string>
-	
-	<string-array name="nsg_options">
-		<item>NSG</item>
-		<item>Statistics</item>
-		<item>Ports</item>
-	</string-array>
-
 </resources>

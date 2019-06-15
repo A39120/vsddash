@@ -17,7 +17,7 @@ interface NSPortDao {
     @Query("SELECT * FROM nsport WHERE id = :id")
     fun load(id: String) : LiveData<NSPort>
 
-    @Query("SELECT * FROM nsport")
+    @Query("SELECT * FROM nsport WHERE parentID = :nsgId")
     fun loadForNsg(nsgId : String) : LiveData<List<NSPort>>
 
     @Delete

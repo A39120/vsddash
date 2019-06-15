@@ -14,9 +14,10 @@ class NSGatewayRepoImpl(
     private val nsgService: NSGatewayService,
     private val dao: NSGatewayDao) : NSGatewayRepository {
 
+
     override fun get(id: String): LiveData<NSGateway> {
         runBlocking {
-            updateCurrent(id)
+            update(id)
         }
         return dao.load(id)
     }
@@ -29,14 +30,14 @@ class NSGatewayRepoImpl(
     }
 
 
-    suspend fun updateCurrent(id: String) = withContext(Dispatchers.IO){
+    override suspend fun update(id: String) = withContext(Dispatchers.IO){
         val gateways = nsgService.getGateway(id).await()
         if(gateways != null)
             if( gateways.isNotEmpty() && gateways.size < 2)
                 dao.save(nsgateway = gateways[0])
     }
 
-    suspend fun updateAll(enterprise: String) = withContext(Dispatchers.IO) {
+    override suspend fun updateAll(enterprise: String) = withContext(Dispatchers.IO) {
         val gateways = nsgService.getGateways(enterprise).await()
         if(gateways != null && gateways.isNotEmpty())
             gateways.forEach { dao.save(it) }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
 
 class PortListFragment : Fragment() {
 

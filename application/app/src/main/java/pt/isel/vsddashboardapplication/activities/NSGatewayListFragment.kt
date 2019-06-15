@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
@@ -51,29 +52,24 @@ class NSGatewayListFragment : Fragment() {
             .session!!
             .enterpriseID!!
 
-        viewModel = AllNSGatewayViewModel(repo, enterprise)
 
+        viewModel = AllNSGatewayViewModel(repo, enterprise)
         binding = DataBindingUtil.inflate(inflater, R.layout.gateway_grid_fragment, container, false)
         binding.lifecycleOwner = this
 
+
         // Start adapter
-        val adapter = NSGatewayAdapter({})
+        val adapter = NSGatewayAdapter { nsg, view ->
+            val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID)
+            Navigation.findNavController(view).navigate(directions)
+        }
+
         viewModel.gateways.observe(this, Observer{ adapter.setList(it) })
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(this.context)
-
-
         return binding.root
     }
 
 
-    /*private fun getNsgListService(){
 
-        if((this.activity!!.application as VsdApplication).session == null)
-            return
-        RetrofitServices.getInstance().createService(
-            NSGatewayService::class.java,
-            (this.activity!!.application as VsdApplication).session?.apiKey)
-    }
-    */
 }

@@ -9,8 +9,8 @@ import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
  * View model of multiple NSGs
  */
 class AllNSGatewayViewModel(
-    private val repo: NSGatewayRepository,
-    private val enterprise: String
+    repo: NSGatewayRepository,
+    enterprise: String
 ) : ViewModel(){
 
     val gateways : LiveData<List<NSGateway>> = repo.getAll(enterprise)

@@ -9,4 +9,8 @@ interface NSGatewayRepository {
 
     fun getAll(enterprise: String) : LiveData<List<NSGateway>>
 
+    suspend fun update(id: String)
+
+    suspend fun updateAll(enterprise: String)
+
 }

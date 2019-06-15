@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android" >
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<data>
+		<import type="pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus"/>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
 		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSGViewModel"/>
@@ -19,12 +21,14 @@
 			android:layout_height="wrap_content">
 			
 			<LinearLayout
+				android:padding="@dimen/margin_default"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="vertical">
 				
 				<!-- Name of the nsg -->
 				<LinearLayout
+					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -44,6 +48,7 @@
 				
 				<!-- description of the nsg -->
 				<LinearLayout
+					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:visibility="@{vm.nsg.description  == null ? View.GONE : View.VISIBLE }"
@@ -64,10 +69,11 @@
 				
 				<!-- status of the nsg -->
 				<LinearLayout
+					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:visibility="@{vm.nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
-					android:orientation="horizontal">
+					android:orientation="vertical">
 					<TextView
 						android:layout_marginEnd="@dimen/small_margin"
 						android:layout_height="wrap_content"
@@ -75,11 +81,24 @@
 						android:textSize="@dimen/label_size"
 						android:text="@{@string/status + `: `}"
 						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/nsg_status_value"
-						android:text="@{vm.nsg.bootstrapStatus.toString()}"
+					<LinearLayout
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
+						android:visibility="@{vm.nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<View
+							android:id="@+id/nsgbootstrap_active"
+							android:background="@drawable/active"
+							android:layout_weight=".1"
+							android:layout_width="0dp"
+							android:layout_height="0dp"/>
+						<TextView
+							android:id="@+id/nsg_status_value"
+							android:text="@{vm.nsg.bootstrapStatus.toString()}"
+							android:layout_weight=".90"
+							android:layout_height="wrap_content"
+							android:layout_width="0dp" />
+					</LinearLayout>
 				</LinearLayout>
 				
 				<!-- Network accelaration of the nsg -->

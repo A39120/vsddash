@@ -14,8 +14,8 @@ object AddressBuilder {
             uri.append("https://")
         uri.append("$address:$port")
         return uri.toString()
-        //val uri = URI("$address:$port")
-        //return uri.toASCIIString()
     }
+
+    fun buildEsAddress(address: String, port: Int = 6200) = build(address, port)
 
 }

@@ -1,12 +1,11 @@
 package pt.isel.vsddashboardapplication.activities.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.adapter.diffutil.NSGatewayDiffUtil
 import pt.isel.vsddashboardapplication.activities.adapter.viewholder.NSGatewayViewHolder
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import pt.isel.vsddashboardapplication.databinding.GatewayItemBinding
@@ -15,7 +14,7 @@ import pt.isel.vsddashboardapplication.databinding.GatewayItemBinding
  * Adapter to represent a list of NSGs
  */
 class NSGatewayAdapter (
-    private val onClickListener: (NSGateway) -> Unit
+    private val onClickListener: (NSGateway, View) -> Unit
 ) : RecyclerView.Adapter<NSGatewayViewHolder>() {
 
 

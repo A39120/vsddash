@@ -6,17 +6,20 @@ import androidx.room.TypeConverters
 import androidx.room.Database
 import androidx.room.Room
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
+import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
+import pt.isel.vsddashboardapplication.repository.pojo.NSPort
 
 
 //@TypeConverters(DateConverter::class)
 @TypeConverters(BootstapStatusConverter::class)
-@Database(entities = [NSGateway::class], version = 1)
+@Database(entities = [NSGateway::class, NSPort::class], version = 2)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
     abstract fun nsgDao(): NSGatewayDao
+    abstract fun nsportDao(): NSPortDao
 
     companion object {
         // --- SINGLETON ---

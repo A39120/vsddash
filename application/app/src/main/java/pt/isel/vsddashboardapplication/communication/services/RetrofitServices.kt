@@ -9,6 +9,7 @@ import pt.isel.vsddashboardapplication.communication.BaseHttpClient
 import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Contains services related to retrofit
@@ -92,12 +93,9 @@ class RetrofitServices
             val authToken = Credentials.basic(username, password)
             val httpClient = BaseHttpClient
                 .getClient()
-                .addInterceptor(
-                    AuthenticationInterceptor(
-                        authToken,
-                        organization
-                    )
-                )
+                .addInterceptor( AuthenticationInterceptor( authToken, organization ) )
+                .readTimeout(30, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
                 .build()
 
             retrofitVsdApi = builder.client(httpClient).build()
