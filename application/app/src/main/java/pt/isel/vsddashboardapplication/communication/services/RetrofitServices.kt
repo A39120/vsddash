@@ -74,7 +74,7 @@ class RetrofitServices
 
     fun <T> createService(
         klass: Class<T>,
-        password: String) : T? {
+        password: String?) : T? {
 
         if(retrofitVsdApi == null) {
             val moshi = Moshi.Builder()

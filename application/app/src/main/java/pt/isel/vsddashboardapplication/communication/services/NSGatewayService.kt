@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication.communication.services
 
 import kotlinx.coroutines.Deferred
+import pt.isel.vsddashboardapplication.repository.pojo.Alarm
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import pt.isel.vsddashboardapplication.repository.pojo.NSPort
 import retrofit2.http.GET
@@ -19,5 +20,10 @@ interface NSGatewayService {
 
     @Headers("Accept: application/json")
     @GET("/nuage/api/v5_0/nsgateways/{id}/nsports")
-    suspend fun getGatewayPorts(@Path("id") nsgId: String) : List<NSPort>?
+    fun getGatewayPorts(@Path("id") nsgId: String) : Deferred<List<NSPort>?>
+
+    @Headers("Accept: application/json")
+    @GET("/nuage/api/v5_0/nsgateways/{id}/alarms")
+    fun getGatewayAlarms(@Path("id") nsgId: String) : Deferred<List<Alarm>?>
+
 }

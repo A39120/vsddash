@@ -21,14 +21,14 @@ class NSPortRepoImpl(
         dao.loadForNsg(nsgId)
 
     override suspend fun update(id: String) = withContext(Dispatchers.IO) {
-        val port = service.getPort(id)
-        dao.save(port)
-    }
+        val port = service.getPort(id).await()
+        port?.run { dao.save(port) }
+    }!!
 
 
     override suspend fun updateAll(id: String) = withContext(Dispatchers.IO) {
         val ports = service.getGatewayPorts(id)
-        ports?.forEach { dao.save(it) }
+        ports.await()?.forEach { dao.save(it) }
     }
 
 }

@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -58,7 +58,10 @@ class NSGatewayListFragment : Fragment() {
 
         // Start adapter
         val adapter = NSGatewayAdapter { nsg, view ->
-            val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID)
+            val directions =
+                NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(
+                    nsg.ID
+                )
             Navigation.findNavController(view).navigate(directions)
         }
 

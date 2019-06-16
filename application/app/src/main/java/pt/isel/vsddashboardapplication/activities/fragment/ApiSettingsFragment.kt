@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

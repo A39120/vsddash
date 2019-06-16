@@ -5,8 +5,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.Database
 import androidx.room.Room
+import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
+import pt.isel.vsddashboardapplication.repository.pojo.Alarm
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
 import pt.isel.vsddashboardapplication.repository.pojo.NSPort
@@ -14,12 +16,13 @@ import pt.isel.vsddashboardapplication.repository.pojo.NSPort
 
 //@TypeConverters(DateConverter::class)
 @TypeConverters(BootstapStatusConverter::class)
-@Database(entities = [NSGateway::class, NSPort::class], version = 2)
+@Database(entities = [NSGateway::class, NSPort::class, Alarm::class], version = 3)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
     abstract fun nsgDao(): NSGatewayDao
     abstract fun nsportDao(): NSPortDao
+    abstract fun nsAlarmDao() : NSAlarmDao
 
     companion object {
         // --- SINGLETON ---

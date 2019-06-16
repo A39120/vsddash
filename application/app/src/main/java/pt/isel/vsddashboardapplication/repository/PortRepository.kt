@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository
 import androidx.lifecycle.LiveData
 import pt.isel.vsddashboardapplication.repository.pojo.NSPort
 
-interface PortRepository {
+interface PortRepository  {
 
     fun get(id: String) : LiveData<NSPort>
 

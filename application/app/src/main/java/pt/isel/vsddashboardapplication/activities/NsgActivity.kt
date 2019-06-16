@@ -2,8 +2,6 @@ package pt.isel.vsddashboardapplication.activities
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.NavArgs
-import androidx.viewpager.widget.ViewPager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.NSGViewPagerAdapter
 import pt.isel.vsddashboardapplication.activities.base.BaseActivity
@@ -12,12 +10,12 @@ import pt.isel.vsddashboardapplication.databinding.ActivityNsgBinding
 class NsgActivity : BaseActivity() {
 
     private lateinit var binding: ActivityNsgBinding
-    private lateinit var mPager : ViewPager
     private lateinit var nsgId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //TODO: Fix this
         nsgId = intent.extras.getString("nsgId","")
         binding = DataBindingUtil.setContentView(this, R.layout.activity_nsg)
 
@@ -28,8 +26,8 @@ class NsgActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (mPager.currentItem == 0) { super.onBackPressed() }
-        else { mPager.currentItem = mPager.currentItem - 1 }
+        if (binding.viewPager.currentItem == 0) { super.onBackPressed() }
+        else { binding.viewPager.currentItem = binding.viewPager.currentItem - 1 }
     }
 
     fun getNsgId() = nsgId

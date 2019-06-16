@@ -5,6 +5,9 @@ import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 
+/**
+ * NSG View Model
+ */
 class NSGViewModel : ViewModel() {
 
     /**
@@ -15,6 +18,9 @@ class NSGViewModel : ViewModel() {
     val nsg by lazy {  MediatorLiveData<NSGateway>() }
     private lateinit var id: String
 
+    /**
+     * Initiates the view model, by extracting the data;
+     */
     fun init(repo: NSGatewayRepository, id: String){
         this.repo = repo
         this.id = id
@@ -24,10 +30,13 @@ class NSGViewModel : ViewModel() {
         }
     }
 
+    /**
+     * Updates the information;
+     */
     private fun cyclicUpdate() = viewModelScope.launch {
         while (this.isActive) {
             repo.update(id)
-            delay(30000L)
+            delay(5000L)
         }
     }
 

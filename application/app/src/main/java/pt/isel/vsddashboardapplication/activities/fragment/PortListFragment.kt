@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
+import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
 import pt.isel.vsddashboardapplication.communication.services.NSPortServices
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices

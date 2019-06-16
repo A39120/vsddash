@@ -17,7 +17,6 @@ class NSGatewayAdapter (
     private val onClickListener: (NSGateway, View) -> Unit
 ) : RecyclerView.Adapter<NSGatewayViewHolder>() {
 
-
     private val values: ArrayList<NSGateway> = ArrayList()
     override fun getItemCount(): Int = values.size
 
@@ -30,7 +29,6 @@ class NSGatewayAdapter (
     override fun onBindViewHolder(holder: NSGatewayViewHolder, position: Int) {
         val item = values[position]
         holder.bind(item, onClickListener)
-        holder.itemView
     }
 
     fun setList(list: List<NSGateway>?){

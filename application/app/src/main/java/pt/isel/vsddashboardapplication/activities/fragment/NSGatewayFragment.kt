@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
+import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding

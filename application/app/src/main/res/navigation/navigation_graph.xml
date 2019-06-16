@@ -5,7 +5,7 @@
 	
 	<fragment
 		android:id="@+id/loginFragment"
-	    android:name="pt.isel.vsddashboardapplication.activities.LoginFragment"
+	    android:name="pt.isel.vsddashboardapplication.activities.fragment.LoginFragment"
 	    android:label="LoginFragment">
 		<action android:id="@+id/action_loginFragment_to_apiSettingsFragment"
 		        app:destination="@id/apiSettingsFragment"/>
@@ -13,15 +13,15 @@
 		<action android:id="@+id/action_loginFragment_self" app:destination="@id/loginFragment"/>
 	</fragment>
 	<fragment android:id="@+id/apiSettingsFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.ApiSettingsFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.ApiSettingsFragment"
 	          android:label="ApiSettingsFragment"/>
-	<fragment android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.MenuFragment"
+	<fragment android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.fragment.MenuFragment"
 	          android:label="MenuFragment">
 		<action android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
 		        app:destination="@id/NSGatewayListFragment"/>
 	</fragment>
 	<fragment android:id="@+id/NSGatewayListFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.NSGatewayListFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.NSGatewayListFragment"
 	          android:label="NSGatewayListFragment">
 		<action
 			android:id="@+id/action_NSGatewayListFragment_to_nsgActivity"

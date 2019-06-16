@@ -12,5 +12,4 @@ interface NSGatewayRepository {
     suspend fun update(id: String)
 
     suspend fun updateAll(enterprise: String)
-
 }
