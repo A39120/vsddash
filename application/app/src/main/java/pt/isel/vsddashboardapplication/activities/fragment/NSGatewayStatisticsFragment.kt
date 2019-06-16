@@ -38,7 +38,7 @@ class NSGatewayStatisticsFragment : Fragment(), CoroutineScope {
         binding = DataBindingUtil.inflate(inflater, R.layout.nsgateway_statistics_fragment, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
-        return binding.root!!
+        return binding.root
     }
 
 }

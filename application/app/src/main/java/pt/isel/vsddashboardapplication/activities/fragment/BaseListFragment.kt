@@ -1,10 +1,8 @@
 package pt.isel.vsddashboardapplication.activities.fragment
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.adapter.BaseAdapter
 import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 
 /**

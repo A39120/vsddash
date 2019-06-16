@@ -1,7 +1,7 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive

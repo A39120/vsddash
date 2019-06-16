@@ -1,8 +1,6 @@
 package pt.isel.vsddashboardapplication.repository.pojo.enumerables
 
-import androidx.room.TypeConverters
 import com.squareup.moshi.Json
-import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
 
 enum class BootstrapStatus {
     @field:Json(name = "ACTIVE") ACTIVE,

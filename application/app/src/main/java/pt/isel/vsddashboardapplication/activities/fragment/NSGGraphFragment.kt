@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.androidplot.xy.BoundaryMode
 import com.androidplot.xy.StepMode
-import com.androidplot.xy.XYSeries
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
 

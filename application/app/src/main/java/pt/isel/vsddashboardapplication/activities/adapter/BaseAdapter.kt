@@ -7,7 +7,6 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.viewholder.BindingViewHolder
 
 abstract class BaseAdapter<T, U : BindingViewHolder<T>, V : ViewDataBinding>(

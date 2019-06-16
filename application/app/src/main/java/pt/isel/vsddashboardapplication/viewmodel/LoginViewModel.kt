@@ -46,7 +46,7 @@ class LoginViewModel : ViewModel() {
         }
 
 
-    suspend fun connect() =  repo.login()
+    fun connect() =  repo.login()
 
 }
 

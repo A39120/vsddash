@@ -27,7 +27,7 @@ class MenuFragment : Fragment() {
             Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_NSGatewayListFragment)
         }
 
-        return binding.root!!
+        return binding.root
     }
 
 
