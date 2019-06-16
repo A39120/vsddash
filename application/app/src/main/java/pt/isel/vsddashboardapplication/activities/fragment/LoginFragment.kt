@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -93,7 +93,10 @@ class LoginFragment : Fragment(), CoroutineScope {
      */
     private fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
         Log.i(TAG, "Changing the connect button.")
-        val connect = View.OnClickListener { launch { startAuthentication() } }
+        val connect = View.OnClickListener { launch {
+            //changeConnectButton(ButtonStatus.INPROGRESS)
+            startAuthentication()
+        } }
         val cancel = View.OnClickListener { launch { cancelAuthentication(job!!) } }
 
         when (status) {

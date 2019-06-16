@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.communication.services.model.Session
 
-interface LoginRepository {
+interface LoginRepository  {
 
     fun getUsername() : String?
     fun getPassword() : String?
