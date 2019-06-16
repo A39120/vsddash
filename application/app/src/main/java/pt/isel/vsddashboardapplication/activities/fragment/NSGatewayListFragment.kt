@@ -15,21 +15,20 @@ import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
 import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
-import pt.isel.vsddashboardapplication.databinding.GatewayGridFragmentBinding
 import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
+import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 
 /**
  * The Fragment that displays a list of NSGs;
- *
  */
 class NSGatewayListFragment : Fragment() {
 
     private lateinit var repo: NSGatewayRepository
     private lateinit var viewModel : AllNSGatewayViewModel
-    private lateinit var binding : GatewayGridFragmentBinding
+    private lateinit var binding : ListFragmentBinding
 
     private val dao : NSGatewayDao by lazy { VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsgDao()}
     private val nsgService : NSGatewayService? by lazy {
@@ -43,20 +42,19 @@ class NSGatewayListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         repo = NSGatewayRepoImpl(nsgService!!, dao)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
 
         val enterprise = (this.activity!!.application as VsdApplication)
             .session!!
             .enterpriseID!!
 
-
         viewModel = AllNSGatewayViewModel(repo, enterprise)
-        binding = DataBindingUtil.inflate(inflater, R.layout.gateway_grid_fragment, container, false)
-        binding.lifecycleOwner = this
+    }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false)
+        binding.lifecycleOwner = this
 
         // Start adapter
         val adapter = NSGatewayAdapter { nsg, view ->
@@ -69,7 +67,6 @@ class NSGatewayListFragment : Fragment() {
         binding.list.layoutManager = LinearLayoutManager(this.context)
         return binding.root
     }
-
 
 
 }

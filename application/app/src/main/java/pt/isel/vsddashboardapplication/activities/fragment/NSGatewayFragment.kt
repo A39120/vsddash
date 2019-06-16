@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.UiThread
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
@@ -22,7 +22,7 @@ import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
 import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
-import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
+import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -48,21 +48,27 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
             (this.activity!!.application as VsdApplication).session?.APIKey!!)
     }
 
+    /**
+     * Init repo and view model
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
-       super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
+        val id = (this.activity as NsgActivity).getNsgId()
         repository = NSGatewayRepoImpl(nsgService!!, dao)
+        viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
+        viewModel.init(repository, id)
     }
 
+    /**
+     * Create view binding and update data
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val id = (this.activity as NsgActivity).getNsgId()
-
-        viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
-        viewModel.init(repository, id)
         viewModel.nsg.observe(this, Observer {
-            updateUI(it)
+            updateUI()
+            changeStatusColor(it.bootstrapStatus)
             binding.executePendingBindings()
         })
 
@@ -71,19 +77,24 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
         return binding.root
     }
 
-    @UiThread
-    private fun updateUI(nsg: NSGateway?) {
-        /*nsg?.let {
-            binding.nsgName.labelValue.text = it.name
-            binding.nsgDesc.labelValue.text = it.description
-            binding.nsgStatus.labelValue.text = it.bootstrapStatus.toString()
-            binding.nsgBios.labelValue.text = it.BIOSVersion
-            binding.nsgSerial.labelValue.text = it.serialNumber
-            binding.nsgCpu.labelValue.text = it.CPUType
-        }
-        */
+    /**
+     * Updates UI
+     * TODO: Check if blocks
+     */
+    private fun updateUI() = launch {
         binding.vm = viewModel
         binding.executePendingBindings()
+    }
+
+    /**
+     * Change the color of the status
+     */
+    private fun changeStatusColor(bootstrapStatus: BootstrapStatus?) {
+        val color = when(bootstrapStatus){
+            BootstrapStatus.ACTIVE -> R.color.green
+            else -> R.color.red
+        }
+        binding.nsgbootstrapActive.setBackgroundColor(color)
     }
 
 }
