@@ -10,6 +10,11 @@ import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatus
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import okhttp3.ResponseBody
+import pt.isel.vsddashboardapplication.communication.NullOnEmptyConverterFactory
+import retrofit2.Converter
+import java.lang.reflect.Type
+
 
 /**
  * Contains services related to retrofit
@@ -87,7 +92,9 @@ class RetrofitServices
                 Retrofit.Builder()
                     .baseUrl(api)
                     .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    .addConverterFactory(NullOnEmptyConverterFactory())
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
+
             }
 
             val authToken = Credentials.basic(username, password)
@@ -105,6 +112,5 @@ class RetrofitServices
     }
 
     fun <T> createVsdService(klass: Class<T>) : T? = retrofitVsdApi?.create(klass)
-
 
 }

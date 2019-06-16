@@ -14,12 +14,13 @@ class AlarmFragment  : BaseListFragment<AlarmViewModel>() {
     private val repository : AlarmRepository by lazy { AlarmRepoImpl() }
 
     override fun setAdapter() {
-        adapter = AlarmAdapter()
-        binding.list.adapter = adapter
-        adapter.setList(viewModel.liveData.value)
+        this.adapter = AlarmAdapter()
+        observeViewModel()
+        binding.list.adapter = this.adapter
     }
 
     override fun assignViewModel(): AlarmViewModel =
+        //AlarmViewModel()
         ViewModelProviders.of(this).get(AlarmViewModel::class.java)
 
 

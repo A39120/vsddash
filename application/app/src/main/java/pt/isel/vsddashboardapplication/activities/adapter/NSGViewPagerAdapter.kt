@@ -11,7 +11,7 @@ import pt.isel.vsddashboardapplication.activities.fragment.PortListFragment
 class NSGViewPagerAdapter(fm: FragmentManager)
     : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val TITLES = arrayOf("INFO", "ALARMS","STATISTICS", "PORTS")
+    private val TITLES = arrayOf("INFO", "STATISTICS", "ALARMS", "PORTS")
 
     override fun getCount(): Int = TITLES.size
 

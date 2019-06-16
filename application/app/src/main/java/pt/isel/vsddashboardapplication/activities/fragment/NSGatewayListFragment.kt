@@ -58,10 +58,7 @@ class NSGatewayListFragment : Fragment() {
 
         // Start adapter
         val adapter = NSGatewayAdapter { nsg, view ->
-            val directions =
-                NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(
-                    nsg.ID
-                )
+            val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID )
             Navigation.findNavController(view).navigate(directions)
         }
 

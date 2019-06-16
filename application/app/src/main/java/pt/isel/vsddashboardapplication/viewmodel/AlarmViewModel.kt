@@ -25,9 +25,7 @@ class AlarmViewModel : BaseViewModel<List<Alarm>>() {
     fun init(repo: AlarmRepository, nsgId: String) {
         this.repository = repo
         this.nsgId = nsgId
-        viewModelScope.launch {
-            setLiveData()
-         }
+        viewModelScope.launch { setLiveData() }
     }
 
 

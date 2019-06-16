@@ -41,6 +41,12 @@ abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : Fragment() {
      */
     protected abstract fun setBindingObjects()
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViewModel()
+    }
+
     /**
      * Sets the view for the fragment
      */
@@ -48,11 +54,11 @@ abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         this.binding = DataBindingUtil.inflate(inflater, getLayoutRes(),  container, false)
-        this.binding.lifecycleOwner = this
+        this.binding.lifecycleOwner = this.viewLifecycleOwner
 
-        initViewModel()
-        setBindingObjects()
         observeViewModel()
+
+        setBindingObjects()
 
         return this.binding.root
     }
