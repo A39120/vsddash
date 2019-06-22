@@ -1,28 +1,34 @@
 package pt.isel.vsddashboardapplication.injection.module
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import dagger.Module
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import javax.inject.Singleton
 import dagger.Provides
 import pt.isel.vsddashboardapplication.VsdApplication
-import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
-import javax.inject.Singleton
+
 
 @Module
-class ApplicationModule(private val application: VsdApplication, private val context: Context? = null){
+class ApplicationModule{
+    companion object {
+        private const val BASE_SP = "vsdsharedpreferences"
+    }
+
+    private lateinit var application: VsdApplication
+
+    fun AppModule(application: VsdApplication) {
+        this.application = application
+    }
 
     @Provides
     @Singleton
-    fun provideApplication() = application
+    fun providesApplication(): VsdApplication =
+        application
 
     @Provides
     @Singleton
-    fun providesContext() = context ?: application.baseContext
-
-    @Provides
-    @Singleton
-    fun providesSharedPreferenes() : SharedPreferences =
-        application.getSharedPreferences(SharedPreferenceKeys.BASE_SP, MODE_PRIVATE)
+    fun providesSharedDependencies() : SharedPreferences
+            = this.application.getSharedPreferences(BASE_SP, Context.MODE_PRIVATE)
 
 }
