@@ -1,9 +1,10 @@
 package pt.isel.vsddashboardapplication.repository
 
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
-import pt.isel.vsddashboardapplication.repository.pojo.Alarm
+import pt.isel.vsddashboardapplication.model.Alarm
 
-interface AlarmRepository {
+interface AlarmRepository : LifecycleObserver{
 
     suspend fun getAlarm(id: String) : LiveData<Alarm>
 

@@ -1,43 +1,37 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepo
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 
+/**
+ * API Settings repository
+ * Only interacts with Shared Preferences
+ */
 class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) :
     ApiSettingsRepo {
 
-    private val address = MutableLiveData<String?>()
-    private val vsdApi = MutableLiveData<Int?>()
-    private val monit = MutableLiveData<Int?>()
+    private var address : String?
+    private var vsdApi : Int?
+    private var monit : Int?
 
     init {
-        val add = sharedPrefs.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
-        val vsdPort = sharedPrefs.getInt(SharedPreferenceKeys.CURRENTPORT, SharedPreferenceKeys.PORTDEFAULT)
-        val monitPort = sharedPrefs.getInt(SharedPreferenceKeys.MONIT_PORT, SharedPreferenceKeys.MONIT_PORT_DEFAULT)
-
-        GlobalScope.launch {
-            address.postValue(add)
-            vsdApi.postValue(vsdPort)
-            monit.postValue(monitPort)
-        }
+        address = sharedPrefs.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
+        vsdApi = sharedPrefs.getInt(SharedPreferenceKeys.CURRENTPORT, SharedPreferenceKeys.PORTDEFAULT)
+        monit = sharedPrefs.getInt(SharedPreferenceKeys.MONIT_PORT, SharedPreferenceKeys.MONIT_PORT_DEFAULT)
     }
 
 
-    override fun getAddress(): LiveData<String?>  = address
-    override fun getVSDPort(): LiveData<Int?> = vsdApi
-    override fun getMonitPort(): LiveData<Int?> = monit
+    override fun getAddress(): String  = address ?: ""
+    override fun getVSDPort(): Int = vsdApi ?: 0
+    override fun getMonitPort(): Int = monit ?: 0
 
     override fun updateAddress(address: String?) {
         sharedPrefs.edit().let {
             it.putString(SharedPreferenceKeys.CURRENTADDRESS, address)
             it.apply()
         }
-        this.address.postValue(address)
+        this.address = address
     }
 
     override fun updateVSDPort(port: Int?) {
@@ -45,7 +39,7 @@ class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) :
             it.putInt(SharedPreferenceKeys.CURRENTPORT, port?:SharedPreferenceKeys.PORTDEFAULT )
             it.apply()
         }
-        this.vsdApi.postValue(port)
+        this.vsdApi = port
     }
 
     override fun updateMonitPort(port: Int?) {
@@ -53,7 +47,7 @@ class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) :
             it.putInt(SharedPreferenceKeys.MONIT_PORT, port?:SharedPreferenceKeys.MONIT_PORT_DEFAULT )
             it.apply()
         }
-        this.monit.postValue(port)
+        this.monit = port
     }
 
 }

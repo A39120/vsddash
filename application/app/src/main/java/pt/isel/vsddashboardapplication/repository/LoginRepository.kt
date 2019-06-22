@@ -1,9 +1,11 @@
 package pt.isel.vsddashboardapplication.repository
 
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.communication.services.model.Session
+import pt.isel.vsddashboardapplication.model.Session
 
-interface LoginRepository  {
+interface LoginRepository  : LifecycleObserver{
 
     fun getUsername() : String?
     fun getPassword() : String?

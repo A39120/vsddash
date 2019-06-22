@@ -1,12 +1,12 @@
 package pt.isel.vsddashboardapplication.repository
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LifecycleObserver
 
-interface ApiSettingsRepo {
+interface ApiSettingsRepo : LifecycleObserver {
 
-    fun getAddress() : LiveData<String?>
-    fun getVSDPort() : LiveData<Int?>
-    fun getMonitPort(): LiveData<Int?>
+    fun getAddress() : String
+    fun getVSDPort() : Int
+    fun getMonitPort(): Int
 
     fun updateAddress(address: String?)
     fun updateVSDPort(port: Int?)
