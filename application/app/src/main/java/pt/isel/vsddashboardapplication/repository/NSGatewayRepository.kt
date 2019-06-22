@@ -1,15 +1,14 @@
 package pt.isel.vsddashboardapplication.repository
 
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
-import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
+import pt.isel.vsddashboardapplication.model.NSGateway
 
-interface NSGatewayRepository {
+interface NSGatewayRepository : LifecycleObserver {
 
-    fun get(id: String) : LiveData<NSGateway>
-
-    fun getAll(enterprise: String) : LiveData<List<NSGateway>>
+    suspend fun get(id: String) : LiveData<NSGateway>
+    suspend fun getAll(enterprise: String) : LiveData<List<NSGateway>>
 
     suspend fun update(id: String)
-
     suspend fun updateAll(enterprise: String)
 }
