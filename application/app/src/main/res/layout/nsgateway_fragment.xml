@@ -2,7 +2,7 @@
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
-		<import type="pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
 		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSGViewModel"/>

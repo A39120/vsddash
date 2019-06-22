@@ -8,7 +8,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import pt.isel.vsddashboardapplication.communication.services.AuthenticationService
-import pt.isel.vsddashboardapplication.communication.services.model.Session
+import pt.isel.vsddashboardapplication.model.Session
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
