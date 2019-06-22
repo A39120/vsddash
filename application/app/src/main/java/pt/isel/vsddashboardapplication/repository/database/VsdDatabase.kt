@@ -8,10 +8,10 @@ import androidx.room.Room
 import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
-import pt.isel.vsddashboardapplication.repository.pojo.Alarm
-import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
-import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusConverter
-import pt.isel.vsddashboardapplication.repository.pojo.NSPort
+import pt.isel.vsddashboardapplication.model.Alarm
+import pt.isel.vsddashboardapplication.model.NSGateway
+import pt.isel.vsddashboardapplication.model.converters.BootstapStatusConverter
+import pt.isel.vsddashboardapplication.model.NSPort
 
 
 //@TypeConverters(DateConverter::class)

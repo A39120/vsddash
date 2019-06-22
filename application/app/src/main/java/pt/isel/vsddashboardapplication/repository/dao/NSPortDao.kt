@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import pt.isel.vsddashboardapplication.repository.pojo.NSPort
+import pt.isel.vsddashboardapplication.model.NSPort
 
 @Dao
 interface NSPortDao {

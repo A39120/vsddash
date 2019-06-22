@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import pt.isel.vsddashboardapplication.repository.pojo.Alarm
+import pt.isel.vsddashboardapplication.model.Alarm
 
 /**
  * Gets all NSGateway alarms for a determined gateway
