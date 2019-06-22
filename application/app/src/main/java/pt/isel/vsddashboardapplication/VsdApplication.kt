@@ -1,10 +1,14 @@
 package pt.isel.vsddashboardapplication
 
-import android.app.Application
 import android.util.Log
-import pt.isel.vsddashboardapplication.communication.services.model.Session
+import dagger.android.DaggerApplication
+import pt.isel.vsddashboardapplication.injection.DaggerAppComponent
+import pt.isel.vsddashboardapplication.model.Session
 
-class VsdApplication : Application(){
+class VsdApplication : DaggerApplication(){
+
+    override fun applicationInjector()  = DaggerAppComponent.builder().application(this).build()
+
     companion object {
         private const val TAG = "APP"
     }
