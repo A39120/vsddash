@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.services.model
+package pt.isel.vsddashboardapplication.model
 
 import com.squareup.moshi.Json
 

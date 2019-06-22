@@ -1,8 +1,8 @@
-package pt.isel.vsddashboardapplication.repository.pojo.statistics
+package pt.isel.vsddashboardapplication.model.statistics
 
 import com.squareup.moshi.Json
-import pt.isel.vsddashboardapplication.repository.pojo.statistics.inner.NuageMetadata
-import pt.isel.vsddashboardapplication.repository.pojo.statistics.inner.Tcpflags
+import pt.isel.vsddashboardapplication.model.statistics.inner.NuageMetadata
+import pt.isel.vsddashboardapplication.model.statistics.inner.Tcpflags
 
 data class Flow (
     @Json(name = "bytes") val bytes: Int? = 0,

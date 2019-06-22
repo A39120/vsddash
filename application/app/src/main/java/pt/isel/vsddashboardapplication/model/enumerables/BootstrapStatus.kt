@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.repository.pojo.enumerables
+package pt.isel.vsddashboardapplication.model.enumerables
 
 import com.squareup.moshi.Json
 

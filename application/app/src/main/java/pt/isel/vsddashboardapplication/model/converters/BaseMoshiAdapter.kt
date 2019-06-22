@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.repository.pojo.converters
+package pt.isel.vsddashboardapplication.model.converters
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonAdapter

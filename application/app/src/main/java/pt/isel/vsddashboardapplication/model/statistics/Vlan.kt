@@ -1,7 +1,7 @@
-package pt.isel.vsddashboardapplication.repository.pojo.statistics
+package pt.isel.vsddashboardapplication.model.statistics
 
 import com.squareup.moshi.Json
-import pt.isel.vsddashboardapplication.repository.pojo.statistics.inner.VlanMetricInfo
+import pt.isel.vsddashboardapplication.model.statistics.inner.VlanMetricInfo
 
 data class Vlan(
     @Json(name = "metric_info") val metricInfo: List<VlanMetricInfo>? = listOf(),

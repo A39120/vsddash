@@ -1,7 +1,7 @@
-package pt.isel.vsddashboardapplication.repository.pojo.statistics
+package pt.isel.vsddashboardapplication.model.statistics
 
 import com.squareup.moshi.Json
-import pt.isel.vsddashboardapplication.repository.pojo.statistics.inner.AddressMapMetricInfo
+import pt.isel.vsddashboardapplication.model.statistics.inner.AddressMapMetricInfo
 
 data class AddressMap(
     @Json(name = "metric_info") val metricInfo: List<AddressMapMetricInfo>? = listOf(),

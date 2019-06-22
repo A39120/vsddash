@@ -1,10 +1,10 @@
-package pt.isel.vsddashboardapplication.repository.pojo
+package pt.isel.vsddashboardapplication.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
+import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "nsgateway")

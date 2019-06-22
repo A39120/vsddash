@@ -1,7 +1,7 @@
-package pt.isel.vsddashboardapplication.repository.pojo.converters
+package pt.isel.vsddashboardapplication.model.converters
 
 import androidx.room.TypeConverter
-import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
+import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 
 class BootstapStatusConverter {
 

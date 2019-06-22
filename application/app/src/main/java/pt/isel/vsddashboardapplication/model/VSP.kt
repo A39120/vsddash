@@ -1,2 +1,2 @@
-package pt.isel.vsddashboardapplication.repository.pojo
+package pt.isel.vsddashboardapplication.model
 

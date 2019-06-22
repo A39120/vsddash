@@ -1,9 +1,9 @@
-package pt.isel.vsddashboardapplication.repository.pojo.converters
+package pt.isel.vsddashboardapplication.model.converters
 
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader
-import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
+import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 
 class BootstapStatusAdapter :
     BaseMoshiAdapter<BootstrapStatus> {

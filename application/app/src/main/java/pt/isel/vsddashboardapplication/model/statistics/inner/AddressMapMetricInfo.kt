@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.repository.pojo.statistics.inner
+package pt.isel.vsddashboardapplication.model.statistics.inner
 
 
 import com.squareup.moshi.Json
