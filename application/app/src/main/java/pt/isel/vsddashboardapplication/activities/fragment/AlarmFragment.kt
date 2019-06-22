@@ -8,6 +8,9 @@ import pt.isel.vsddashboardapplication.repository.AlarmRepository
 import pt.isel.vsddashboardapplication.repository.implementation.AlarmRepoImpl
 import pt.isel.vsddashboardapplication.viewmodel.AlarmViewModel
 
+/**
+ * Fragment responsible for showing a list of Alarms
+ */
 class AlarmFragment  : BaseListFragment<AlarmViewModel>() {
 
     private lateinit var adapter: AlarmAdapter

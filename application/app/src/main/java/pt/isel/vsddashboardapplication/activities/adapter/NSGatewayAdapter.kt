@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.viewholder.NSGatewayViewHolder
-import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
+import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.databinding.GatewayItemBinding
 
 /**

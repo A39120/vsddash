@@ -1,7 +1,7 @@
 package pt.isel.vsddashboardapplication.communication.services
 
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.repository.pojo.NSPort
+import pt.isel.vsddashboardapplication.model.NSPort
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

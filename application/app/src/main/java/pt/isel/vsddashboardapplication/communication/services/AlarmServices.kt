@@ -1,7 +1,7 @@
 package pt.isel.vsddashboardapplication.communication.services
 
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.repository.pojo.Alarm
+import pt.isel.vsddashboardapplication.model.Alarm
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

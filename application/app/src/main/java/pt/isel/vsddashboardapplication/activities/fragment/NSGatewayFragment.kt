@@ -23,7 +23,7 @@ import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
 import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
-import pt.isel.vsddashboardapplication.repository.pojo.enumerables.BootstrapStatus
+import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -80,7 +80,6 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
 
     /**
      * Updates UI
-     * TODO: Check if blocks
      */
     private fun updateUI() = launch {
         binding.vm = viewModel

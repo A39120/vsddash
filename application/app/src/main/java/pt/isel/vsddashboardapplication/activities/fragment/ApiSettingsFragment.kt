@@ -15,12 +15,14 @@ import pt.isel.vsddashboardapplication.repository.implementation.ApiSettingsRepo
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.lang.StringBuilder
 
+/**
+ * Fragment responsible for setting up the API settings, like the address and ports
+ */
 class ApiSettingsFragment : Fragment() {
 
 
     val viewModel: ApiSettingsViewModel by lazy {
-        ViewModelProviders.of(this)
-            .get(ApiSettingsViewModel::class.java)
+        ViewModelProviders.of(this).get(ApiSettingsViewModel::class.java)
     }
 
     lateinit var binding : ApiSettingsFragmentBinding
@@ -50,7 +52,6 @@ class ApiSettingsFragment : Fragment() {
             else
                 viewModel.updateMonitPort(null)
         })
-        binding.connectButton.setOnContextClickListener { connect(it) }
 
         return binding.root
     }
@@ -60,7 +61,6 @@ class ApiSettingsFragment : Fragment() {
         val port = viewModel.address.value
 
         if(address == null){
-            // TODO: Do something here, like a warning or exception
             return null
         }
 
@@ -74,7 +74,4 @@ class ApiSettingsFragment : Fragment() {
         return addrBuilder.append(':' + (port?:8433).toString()).toString()
     }
 
-    private fun connect(view: View) : Boolean{
-        return false
-    }
 }

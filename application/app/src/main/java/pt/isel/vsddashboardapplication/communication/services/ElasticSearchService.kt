@@ -1,6 +1,6 @@
 package pt.isel.vsddashboardapplication.communication.services
 
-import pt.isel.vsddashboardapplication.repository.pojo.statistics.ESIndex
+import pt.isel.vsddashboardapplication.model.statistics.ESIndex
 import retrofit2.http.GET
 import retrofit2.http.Headers
 

@@ -22,8 +22,10 @@ import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
 import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepoImpl
 
+/**
+ * Fragment responsible for setting a list of ports
+ */
 class PortListFragment : Fragment() {
-    companion object { fun newInstance() = PortListFragment() }
 
     private val viewModel: PortListViewModel by lazy {
         ViewModelProviders.of(this).get(PortListViewModel::class.java)

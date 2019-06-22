@@ -1,7 +1,7 @@
 package pt.isel.vsddashboardapplication.activities.adapter.viewholder
 
 import android.view.View
-import pt.isel.vsddashboardapplication.repository.pojo.NSPort
+import pt.isel.vsddashboardapplication.model.NSPort
 import pt.isel.vsddashboardapplication.databinding.PortItemBinding
 
 class NSPortViewHolder(private val binding: PortItemBinding) : BindingViewHolder<NSPort>(binding) {

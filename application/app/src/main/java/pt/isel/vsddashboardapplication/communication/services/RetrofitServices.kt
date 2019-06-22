@@ -6,15 +6,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Credentials
 import pt.isel.vsddashboardapplication.communication.AuthenticationInterceptor
 import pt.isel.vsddashboardapplication.communication.BaseHttpClient
-import pt.isel.vsddashboardapplication.repository.pojo.converters.BootstapStatusAdapter
+import pt.isel.vsddashboardapplication.model.converters.BootstapStatusAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import okhttp3.ResponseBody
 import pt.isel.vsddashboardapplication.communication.NullOnEmptyConverterFactory
-import retrofit2.Converter
-import java.lang.reflect.Type
-
 
 /**
  * Contains services related to retrofit
@@ -94,7 +90,6 @@ class RetrofitServices
                     .addCallAdapterFactory(CoroutineCallAdapterFactory())
                     .addConverterFactory(NullOnEmptyConverterFactory())
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
-
             }
 
             val authToken = Credentials.basic(username, password)
