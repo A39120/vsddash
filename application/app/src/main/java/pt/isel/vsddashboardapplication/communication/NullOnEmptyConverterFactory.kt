@@ -14,6 +14,6 @@ class NullOnEmptyConverterFactory : Converter.Factory() {
     ): Converter<ResponseBody, *>? {
         //super.responseBodyConverter(type, annotations, retrofit)
         val delegate = retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
-        return Converter { body -> if (body.contentLength() == 0L) null else delegate.convert(body) }
+        return Converter<ResponseBody, Any> { body -> if (body.contentLength() == 0L) null else delegate.convert(body) }
     }
 }
