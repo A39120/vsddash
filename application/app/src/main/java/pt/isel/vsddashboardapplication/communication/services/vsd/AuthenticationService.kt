@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.services
+package pt.isel.vsddashboardapplication.communication.services.vsd
 
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.model.Session

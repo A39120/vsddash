@@ -1,16 +1,11 @@
 package pt.isel.vsddashboardapplication.communication.services
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Credentials
 import pt.isel.vsddashboardapplication.communication.AuthenticationInterceptor
-import pt.isel.vsddashboardapplication.communication.BaseHttpClient
-import pt.isel.vsddashboardapplication.model.converters.BootstapStatusAdapter
+import pt.isel.vsddashboardapplication.communication.provider.HttpClientBuilderProvider
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.TimeUnit
-import pt.isel.vsddashboardapplication.communication.NullOnEmptyConverterFactory
+import pt.isel.vsddashboardapplication.communication.provider.RetrofitBuilderProvider
+import pt.isel.vsddashboardapplication.communication.services.vsd.AuthenticationService
 
 /**
  * Contains services related to retrofit
@@ -42,27 +37,16 @@ class RetrofitServices
     fun  createAuthenticationService(password: String) :
             AuthenticationService? {
 
-        val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-
         val builder: Retrofit.Builder by lazy {
-            Retrofit.Builder()
+            RetrofitBuilderProvider
+                .getBuilder()
                 .baseUrl(api)
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
         }
 
         val authToken = Credentials.basic(username, password)
-        val httpClient = BaseHttpClient
+        val httpClient = HttpClientBuilderProvider
             .getClient()
-            .addInterceptor(
-                AuthenticationInterceptor(
-                    authToken,
-                    organization
-                )
-            )
+            .addInterceptor(AuthenticationInterceptor( authToken, organization ))
             .build()
 
         authenticationService = builder
@@ -78,26 +62,16 @@ class RetrofitServices
         password: String?) : T? {
 
         if(retrofitVsdApi == null) {
-            val moshi = Moshi.Builder()
-                .add(KotlinJsonAdapterFactory())
-                .add(BootstapStatusAdapter())
-                .build()
-
-
             val builder: Retrofit.Builder by lazy {
-                Retrofit.Builder()
+                RetrofitBuilderProvider
+                    .getBuilder()
                     .baseUrl(api)
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    .addConverterFactory(NullOnEmptyConverterFactory())
-                    .addConverterFactory(MoshiConverterFactory.create(moshi))
             }
 
             val authToken = Credentials.basic(username, password?:"")
-            val httpClient = BaseHttpClient
+            val httpClient = HttpClientBuilderProvider
                 .getClient()
                 .addInterceptor( AuthenticationInterceptor( authToken, organization ) )
-                .readTimeout(30, TimeUnit.SECONDS)
-                .retryOnConnectionFailure(true)
                 .build()
 
             retrofitVsdApi = builder.client(httpClient).build()
