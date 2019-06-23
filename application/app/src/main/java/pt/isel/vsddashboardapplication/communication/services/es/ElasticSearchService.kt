@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication.communication.services
 
-import pt.isel.vsddashboardapplication.model.statistics.ESIndex
+import kotlinx.coroutines.Deferred
+import pt.isel.vsddashboardapplication.model.statistics.*
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
@@ -8,39 +9,39 @@ interface ElasticSearchService {
 
     @Headers("Accept: application/json")
     @GET("/_cat/indices?format=json&pretty")
-    suspend fun getIndices() : List<ESIndex>
+    suspend fun getIndices() : Deferred<List<ESIndex>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_flow/_search?format=json")
-    fun getFlow()
+    fun getFlow() : Deferred<List<Flow>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_addressmap/_search?format=json")
-    fun getAddressMap()
+    fun getAddressMap() : Deferred<List<AddressMap>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_dpi_flowstats/_search?format=json")
-    fun getDpiFlowstats()
+    fun getDpiFlowstats() : Deferred<List<DpiFlowstats>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_dpi_probestats/_search?format=json")
-    fun getDpiProbestats()
+    fun getDpiProbestats() : Deferred<List<DpiProbestats>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_dpi_slastats/_search?format=json")
-    fun getDpiSlastats()
+    fun getDpiSlastats() : Deferred<List<DpiSlaStatus>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_natt/_search?format=json")
-    fun getNatt()
+    fun getNatt() : Deferred<List<Natt>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_sysmon/_search?format=json")
-    fun getSysmon()
+    fun getSysmon() : Deferred<List<Sysmon>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_vlan/_search?format=json")
-    fun getVlan()
+    fun getVlan() : Deferred<List<Vlan>>
 
     @Headers("Accept: application/json")
     @GET("/nuage_vport/_search?format=json")
