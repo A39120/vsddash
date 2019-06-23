@@ -5,16 +5,22 @@ import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
 import pt.isel.vsddashboardapplication.repository.AlarmRepository
-import pt.isel.vsddashboardapplication.repository.implementation.AlarmRepoImpl
 import pt.isel.vsddashboardapplication.viewmodel.AlarmViewModel
+import javax.inject.Inject
 
 /**
  * Fragment responsible for showing a list of Alarms
  */
-class AlarmFragment  : BaseListFragment<AlarmViewModel>() {
+class AlarmFragment
+    : BaseListFragment<AlarmViewModel>() {
 
     private lateinit var adapter: AlarmAdapter
-    private val repository : AlarmRepository by lazy { AlarmRepoImpl() }
+    private lateinit var repository: AlarmRepository
+
+    @Inject
+    fun setRepository(repository: AlarmRepository) {
+        this.repository = repository
+    }
 
     override fun setAdapter() {
         this.adapter = AlarmAdapter()

@@ -16,7 +16,7 @@ import pt.isel.vsddashboardapplication.model.NSPort
 
 //@TypeConverters(DateConverter::class)
 @TypeConverters(BootstapStatusConverter::class)
-@Database(entities = [NSGateway::class, NSPort::class, Alarm::class], version = 3)
+@Database(entities = [NSGateway::class, NSPort::class, Alarm::class], version = 3, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
@@ -31,9 +31,10 @@ abstract class VsdDatabase : RoomDatabase() {
         fun getInstance(context: Context? = null) : VsdDatabase? {
             if(INSTANCE == null && context != null)
                 INSTANCE =
-                    Room.databaseBuilder( context, VsdDatabase::class.java, DB_NAME )
-                    .fallbackToDestructiveMigration()
-                    .build()
+                    Room
+                        .databaseBuilder( context, VsdDatabase::class.java, DB_NAME )
+                        .fallbackToDestructiveMigration()
+                        .build()
             return INSTANCE
         }
     }

@@ -57,8 +57,8 @@ class ApiSettingsFragment : Fragment() {
     }
 
     private fun buildUri() : String? {
-        val address = viewModel.address.value
-        val port = viewModel.address.value
+        val address = viewModel.address
+        val port = viewModel.address
 
         if(address == null){
             return null

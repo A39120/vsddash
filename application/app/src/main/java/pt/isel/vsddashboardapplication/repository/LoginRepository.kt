@@ -1,7 +1,6 @@
 package pt.isel.vsddashboardapplication.repository
 
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.model.Session
 

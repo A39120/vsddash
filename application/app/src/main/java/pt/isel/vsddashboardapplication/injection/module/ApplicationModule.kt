@@ -1,12 +1,11 @@
 package pt.isel.vsddashboardapplication.injection.module
 
-import dagger.Module
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import javax.inject.Singleton
+import dagger.Module
 import dagger.Provides
 import pt.isel.vsddashboardapplication.VsdApplication
+import javax.inject.Singleton
 
 
 @Module

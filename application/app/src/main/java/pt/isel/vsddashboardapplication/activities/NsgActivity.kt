@@ -15,8 +15,7 @@ class NsgActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: Fix this
-        nsgId = intent.extras.getString("nsgId","")
+        nsgId = intent?.extras?.getString("nsgId",null) ?: ""
         binding = DataBindingUtil.setContentView(this, R.layout.activity_nsg)
 
         val pagerAdapter = NSGViewPagerAdapter(supportFragmentManager)

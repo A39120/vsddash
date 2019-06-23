@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
@@ -41,13 +42,14 @@ class NSGatewayListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = NSGatewayRepoImpl(nsgService!!, dao)
+        repo = NSGatewayRepoImpl(dao)
 
         val enterprise = (this.activity!!.application as VsdApplication)
             .session!!
             .enterpriseID!!
 
-        viewModel = AllNSGatewayViewModel(repo, enterprise)
+        viewModel = ViewModelProviders.of(this).get(AllNSGatewayViewModel::class.java)
+        viewModel.init(repo, enterprise)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

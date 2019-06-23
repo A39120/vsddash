@@ -1,9 +1,13 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
-import androidx.lifecycle.*
-import kotlinx.coroutines.*
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
-import pt.isel.vsddashboardapplication.repository.pojo.NSGateway
 
 /**
  * NSG View Model
@@ -32,6 +36,7 @@ class NSGViewModel : ViewModel() {
 
     /**
      * Updates the information;
+     * TODO: Change this
      */
     private fun cyclicUpdate() = viewModelScope.launch {
         while (this.isActive) {

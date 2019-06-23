@@ -1,6 +1,5 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepo
 
@@ -8,9 +7,9 @@ class ApiSettingsViewModel : ViewModel(){
 
     private lateinit var repository: ApiSettingsRepo
 
-    lateinit var address: LiveData<String?>
-    lateinit var apiPort: LiveData<Int?>
-    lateinit var monitPort : LiveData<Int?>
+    var address: String? = null
+    var apiPort: Int? = null
+    var monitPort : Int? = null
 
     fun init(apiDetailsRepo: ApiSettingsRepo){
         repository = apiDetailsRepo

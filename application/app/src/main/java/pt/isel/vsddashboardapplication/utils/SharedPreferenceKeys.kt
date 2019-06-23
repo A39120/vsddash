@@ -50,7 +50,7 @@ fun SharedPreferences.checkAuthSet() =
         this.getString(PASSWORD_KEY, null) != null &&
         this.getString(ORGANIZATION_KEY, null) != null
 
-fun SharedPreferences.organization() = this.getString(ORGANIZATION_KEY, null)
+fun SharedPreferences.organization() : String? = this.getString(ORGANIZATION_KEY, null)
 
 fun SharedPreferences.baseAuthorization() : String? {
     val username =  this.getString(USERNAME_KEY, null)

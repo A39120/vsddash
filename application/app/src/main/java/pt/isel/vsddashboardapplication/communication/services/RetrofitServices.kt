@@ -92,7 +92,7 @@ class RetrofitServices
                     .addConverterFactory(MoshiConverterFactory.create(moshi))
             }
 
-            val authToken = Credentials.basic(username, password)
+            val authToken = Credentials.basic(username, password?:"")
             val httpClient = BaseHttpClient
                 .getClient()
                 .addInterceptor( AuthenticationInterceptor( authToken, organization ) )

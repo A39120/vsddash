@@ -1,8 +1,6 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.communication.services.AuthenticationService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
@@ -10,13 +8,12 @@ import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
-import javax.inject.Inject
 
 /**
  * The implementation of the LoginRepository, responsible for
  * the authentication of the user
  */
-class LoginRepositoryImpl private constructor(
+class LoginRepositoryImpl constructor(
         private val sharedPrefs : SharedPreferences
 ) : LoginRepository {
     companion object{
@@ -77,7 +74,7 @@ class LoginRepositoryImpl private constructor(
             val address = it.getString(SharedPreferenceKeys.CURRENTADDRESS, null)
             val port = it.getInt(SharedPreferenceKeys.CURRENTPORT, -1)
 
-            val api = AddressBuilder.build(address, port)
+            val api = AddressBuilder.build(address?:"", port)
             this.authenticationService =
                 RetrofitServices
                     .getInstance(api, username, organization)

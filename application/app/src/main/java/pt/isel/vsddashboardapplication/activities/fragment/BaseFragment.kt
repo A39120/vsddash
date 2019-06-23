@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import dagger.android.support.DaggerFragment
 
-abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : DaggerFragment() {
 
     protected val viewModel : T by lazy { assignViewModel() }
     protected lateinit var binding : U

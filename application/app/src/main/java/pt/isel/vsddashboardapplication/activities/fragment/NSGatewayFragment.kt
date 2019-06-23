@@ -55,7 +55,7 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val id = (this.activity as NsgActivity).getNsgId()
-        repository = NSGatewayRepoImpl(nsgService!!, dao)
+        repository = NSGatewayRepoImpl(dao)
         viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
         viewModel.init(repository, id)
     }

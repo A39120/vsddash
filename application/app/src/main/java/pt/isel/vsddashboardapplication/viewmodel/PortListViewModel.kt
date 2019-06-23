@@ -7,7 +7,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.PortRepository
-import pt.isel.vsddashboardapplication.repository.pojo.NSPort
+import pt.isel.vsddashboardapplication.model.NSPort
 
 class PortListViewModel : ViewModel() {
 

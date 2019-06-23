@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
  */
 abstract class BaseViewModel<T> : ViewModel() {
 
-    val liveData by lazy { MediatorLiveData<T>() }
+    val liveData = MediatorLiveData<T>()
 
     /**
      * Sets live data

@@ -1,13 +1,13 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.communication.services.AlarmServices
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
+import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.repository.AlarmRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
-import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import pt.isel.vsddashboardapplication.model.Alarm
 import javax.inject.Inject
 
 /**

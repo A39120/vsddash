@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.injection
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.injection.module.ApplicationModule
@@ -13,8 +14,8 @@ import javax.inject.Singleton
  * Provides the Modules to the entire scope of the application
  */
 @Singleton
-@Component(dependencies = [],modules = [ApplicationModule::class, RoomModule::class])
-interface AppComponent : AndroidInjector<VsdApplication> {
+@Component(modules = [AndroidInjectionModule::class,  ApplicationModule::class, RoomModule::class])
+interface AppComponent  : AndroidInjector<VsdApplication>{
 
     @Component.Builder
     interface Builder {
