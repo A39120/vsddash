@@ -6,23 +6,23 @@ import pt.isel.vsddashboardapplication.injection.scope.ServiceScope
 import pt.isel.vsddashboardapplication.repository.AlarmRepository
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.PortRepository
-import pt.isel.vsddashboardapplication.repository.implementation.AlarmRepoImpl
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
-import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.AlarmRepositoryImpl
+import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
+import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepositoryImpl
 
 @Module
 abstract class RepositoryModule {
 
     @Binds
     @ServiceScope
-    abstract fun providesNsgRepository(impl : NSGatewayRepoImpl) : NSGatewayRepository
+    abstract fun providesNsgRepository(impl : NSGatewayRepositoryImpl) : NSGatewayRepository
 
     @Binds
     @ServiceScope
-    abstract fun providesAlarmRepository(impl: AlarmRepoImpl) : AlarmRepository
+    abstract fun providesAlarmRepository(impl: AlarmRepositoryImpl) : AlarmRepository
 
     @Binds
     @ServiceScope
-    abstract fun providesPortRepository(impl: NSPortRepoImpl) : PortRepository
+    abstract fun providesPortRepository(impl: NSPortRepositoryImpl) : PortRepository
 
 }

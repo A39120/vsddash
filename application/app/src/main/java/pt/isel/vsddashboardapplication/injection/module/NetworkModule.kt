@@ -4,5 +4,5 @@ package pt.isel.vsddashboardapplication.injection.module
 class NetworkModule  {
 
     @Provides
-    fun providesHttp3ClientBuilder() = BaseHttpClient.getClient()
+    fun providesHttp3ClientBuilder() = HttpClientBuilderProvider.getClient()
 }*/

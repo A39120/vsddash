@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
-import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
+import pt.isel.vsddashboardapplication.communication.services.vsd.NSGatewayService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
@@ -42,7 +42,7 @@ class NSGatewayListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        repo = NSGatewayRepoImpl(dao)
+        repo = NSGatewayRepositoryImpl(dao)
 
         val enterprise = (this.activity!!.application as VsdApplication)
             .session!!

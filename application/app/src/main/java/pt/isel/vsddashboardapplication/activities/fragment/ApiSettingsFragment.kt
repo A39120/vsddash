@@ -11,7 +11,7 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
 import pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel
-import pt.isel.vsddashboardapplication.repository.implementation.ApiSettingsRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.ApiSettingsRepositoryImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.lang.StringBuilder
 
@@ -32,7 +32,7 @@ class ApiSettingsFragment : Fragment() {
                               savedInstanceState: Bundle?) : View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.api_settings_fragment, container, false)
-        viewModel.init(ApiSettingsRepoImpl(this.context!!.sharedPreferences()))
+        viewModel.init(ApiSettingsRepositoryImpl(this.context!!.sharedPreferences()))
 
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel

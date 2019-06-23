@@ -2,7 +2,7 @@ package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.communication.services.AuthenticationService
+import pt.isel.vsddashboardapplication.communication.services.vsd.AuthenticationService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository

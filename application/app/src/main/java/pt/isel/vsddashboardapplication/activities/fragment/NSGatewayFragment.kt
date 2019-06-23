@@ -16,13 +16,13 @@ import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.NsgActivity
-import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
+import pt.isel.vsddashboardapplication.communication.services.vsd.NSGatewayService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
@@ -55,7 +55,7 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val id = (this.activity as NsgActivity).getNsgId()
-        repository = NSGatewayRepoImpl(dao)
+        repository = NSGatewayRepositoryImpl(dao)
         viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
         viewModel.init(repository, id)
     }

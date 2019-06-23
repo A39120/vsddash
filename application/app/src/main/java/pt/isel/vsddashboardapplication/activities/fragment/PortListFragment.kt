@@ -15,7 +15,7 @@ import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
 import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepoImpl
+import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepositoryImpl
 import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
 
 /**
@@ -35,7 +35,7 @@ class PortListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         nsgId = (this.activity as NsgActivity).getNsgId()
         val dao by lazy {  VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsportDao() }
-        repository = NSPortRepoImpl(dao)
+        repository = NSPortRepositoryImpl(dao)
     }
 
     override fun onCreateView(

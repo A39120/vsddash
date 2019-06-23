@@ -1,15 +1,15 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
-import pt.isel.vsddashboardapplication.repository.ApiSettingsRepo
+import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 
 /**
  * API Settings repository
  * Only interacts with Shared Preferences
  */
-class ApiSettingsRepoImpl(private val sharedPrefs: SharedPreferences) :
-    ApiSettingsRepo {
+class ApiSettingsRepositoryImpl(private val sharedPrefs: SharedPreferences) :
+    ApiSettingsRepository {
 
     private var address : String?
     private var vsdApi : Int?

@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository.implementation
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import pt.isel.vsddashboardapplication.communication.services.NSGatewayService
+import pt.isel.vsddashboardapplication.communication.services.vsd.NSGatewayService
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Implementation of the NSG Repository
  * Makes calls to IO to get one or more NSG
  */
-class NSGatewayRepoImpl @Inject constructor(private val dao: NSGatewayDao) : NSGatewayRepository {
+class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao) : NSGatewayRepository {
 
     /**
      * Service used for network calls

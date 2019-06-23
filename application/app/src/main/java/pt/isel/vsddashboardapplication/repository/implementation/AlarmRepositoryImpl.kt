@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository.implementation
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import pt.isel.vsddashboardapplication.communication.services.AlarmServices
+import pt.isel.vsddashboardapplication.communication.services.vsd.AlarmServices
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.repository.AlarmRepository
@@ -13,11 +13,12 @@ import javax.inject.Inject
 /**
  * Repository for handling the alarm. Update and Get.
  */
-class AlarmRepoImpl @Inject constructor(
+class AlarmRepositoryImpl @Inject constructor(
     private val dao: NSAlarmDao
 ) : AlarmRepository {
 
-    private val service: AlarmServices? = RetrofitServices.getInstance().createVsdService(AlarmServices::class.java)
+    private val service: AlarmServices? = RetrofitServices.getInstance().createVsdService(
+        AlarmServices::class.java)
 
     /**
      * Gets an alarm

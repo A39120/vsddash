@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository.implementation
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import pt.isel.vsddashboardapplication.communication.services.NSPortServices
+import pt.isel.vsddashboardapplication.communication.services.vsd.NSPortServices
 import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * The implementation of a NSPortRepository
  */
-class NSPortRepoImpl @Inject constructor(
+class NSPortRepositoryImpl @Inject constructor(
     private val dao: NSPortDao
 ) : PortRepository {
 
