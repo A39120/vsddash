@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication
+package pt.isel.vsddashboardapplication.communication.provider
 
 import android.annotation.SuppressLint
 import okhttp3.OkHttpClient
@@ -7,14 +7,19 @@ import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
 import javax.net.ssl.*
 
-object BaseHttpClient {
+object HttpClientBuilderProvider {
 
+    /**
+     * Provides OkHttpClient builder with set of predefined
+     * settings
+     */
     fun  getClient() : OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BODY
+        logging.level = HttpLoggingInterceptor.Level.BASIC
         try {
             val trustAllCerts: Array<TrustManager> = arrayOf(object: X509TrustManager{
                 @SuppressLint("TrustAllX509TrustManager")
@@ -32,7 +37,11 @@ object BaseHttpClient {
         }
         catch (ex: NoSuchAlgorithmException) { }
         catch (ex: KeyManagementException) { }
-        builder.addInterceptor(logging)
+        builder
+            .addInterceptor(logging)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+
         return builder
     }
 
