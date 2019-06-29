@@ -25,7 +25,7 @@ class AlarmRepositoryImpl @Inject constructor(
      * @param id: the alarm ID
      * @return the LiveData containing the alarm
      */
-    override suspend fun getAlarm(id: String): LiveData<Alarm> {
+    override suspend fun get(id: String): LiveData<Alarm> {
         val value = dao.load(id)
         if(value.value == null)
             update(id)
@@ -35,13 +35,13 @@ class AlarmRepositoryImpl @Inject constructor(
 
     /**
      * Gets the alarms for a given NSG
-     * @param nsgId: the ID of an NSG
+     * @param parentId: the ID of an NSG
      * @return LiveData with the list of alarms
      */
-    override suspend fun getAlarmForNSG(nsgId: String): LiveData<List<Alarm>> {
-        val value = dao.loadAll(nsgId)
+    override suspend fun getAll(parentId: String): LiveData<List<Alarm>> {
+        val value = dao.loadAll(parentId)
         if(value.value == null)
-            updateAll(nsgId)
+            updateAll(parentId)
 
         return value
     }
@@ -59,11 +59,11 @@ class AlarmRepositoryImpl @Inject constructor(
 
     /**
      * Updates the list of alarms of a given NSG
-     * @param nsgId: the id of the NSG that owns the alarms
+     * @param parentId: the id of the NSG that owns the alarms
      */
-    override suspend fun updateAll(nsgId: String) {
+    override suspend fun updateAll(parentId: String) {
         withContext(Dispatchers.IO) {
-            val alarms = service?.getGatewayAlarms(nsgId)?.await()
+            val alarms = service?.getGatewayAlarms(parentId)?.await()
             alarms?.forEach { dao.save(it) }
         }
     }

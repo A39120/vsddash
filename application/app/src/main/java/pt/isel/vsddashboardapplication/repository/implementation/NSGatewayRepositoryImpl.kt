@@ -39,13 +39,13 @@ class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao)
 
     /**
      * Gets the list of all NSG for a given enterprise
-     * @param enterprise: the ID of the enterprise
+     * @param parentId: the ID of the enterprise
      * @return the livedata with the list of NSG
      */
-    override suspend fun getAll(enterprise: String): LiveData<List<NSGateway>> {
+    override suspend fun getAll(parentId: String): LiveData<List<NSGateway>> {
         val value = dao.loadAll()
         if(value.value == null)
-            updateAll(enterprise)
+            updateAll(parentId)
 
         return dao.loadAll()
     }
@@ -64,10 +64,10 @@ class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao)
 
     /**
      * Updates a list of NSGs, given an enterprise
-     * @param enterprise: the enterprise ID
+     * @param parentId: the enterprise ID
      */
-    override suspend fun updateAll(enterprise: String) = withContext(Dispatchers.IO) {
-        val gateways = nsgService?.getGateways(enterprise)?.await()
+    override suspend fun updateAll(parentId: String) = withContext(Dispatchers.IO) {
+        val gateways = nsgService?.getGateways(parentId)?.await()
         if(gateways != null && gateways.isNotEmpty())
             gateways.forEach { dao.save(it) }
     }

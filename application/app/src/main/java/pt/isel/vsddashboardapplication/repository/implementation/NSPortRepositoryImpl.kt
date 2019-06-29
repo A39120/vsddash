@@ -29,7 +29,7 @@ class NSPortRepositoryImpl @Inject constructor(
     /**
      * Gets the port from the DB/Network
      * @param id: the ID of a Port
-     * @return the livedata of a NSPort
+     * @return the LiveData of a NSPort
      */
     override suspend fun get(id: String): LiveData<NSPort> {
         val port = dao.load(id)
@@ -43,12 +43,12 @@ class NSPortRepositoryImpl @Inject constructor(
 
     /**
      * Gets all the ports of a NSG
-     * @param nsgId: The ID of a existing NSG
+     * @param parentId: The ID of a existing NSG
      */
-    override suspend fun getForNSGateway(nsgId: String): LiveData<List<NSPort>> {
-        val ports = dao.loadForNsg(nsgId)
+    override suspend fun getAll(parentId: String): LiveData<List<NSPort>> {
+        val ports = dao.loadForNsg(parentId)
         if (ports.value == null)
-            this.updateAll(nsgId)
+            this.updateAll(parentId)
         return ports
     }
 
@@ -68,11 +68,11 @@ class NSPortRepositoryImpl @Inject constructor(
      * Updates all the ports of a determined NSG according to the network service
      * if possible.
      *
-     * @id: the ID of a NSG
+     * @param parentId: the ID of a NSG
      */
-    override suspend fun updateAll(id: String) {
+    override suspend fun updateAll(parentId: String) {
         withContext(Dispatchers.IO) {
-            val ports = service?.getGatewayPorts(id)?.await()
+            val ports = service?.getGatewayPorts(parentId)?.await()
             ports?.forEach { dao.save(it) }
         }
     }
