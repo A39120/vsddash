@@ -1,10 +1,6 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
@@ -12,14 +8,18 @@ import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 /**
  * NSG View Model
  */
-class NSGViewModel : ViewModel() {
+class NSGViewModel : BaseViewModel<NSGateway>() {
+
+    override suspend fun setLiveData() {
+        this.liveData.addSource(repo.get(id)) { liveData.value = it }
+    }
+
+    override suspend fun updateLiveData() { this.repo.update(id) }
 
     /**
      * The repository to obtain the current NSG information
      */
     private lateinit var repo: NSGatewayRepository
-
-    val nsg by lazy {  MediatorLiveData<NSGateway>() }
     private lateinit var id: String
 
     /**
@@ -28,23 +28,8 @@ class NSGViewModel : ViewModel() {
     fun init(repo: NSGatewayRepository, id: String){
         this.repo = repo
         this.id = id
-        viewModelScope.launch {
-            this@NSGViewModel.nsg.addSource(repo.get(id)) { nsg.value = it }
-            cyclicUpdate()
-        }
+        viewModelScope.launch { setLiveData() }
     }
-
-    /**
-     * Updates the information;
-     * TODO: Change this
-     */
-    private fun cyclicUpdate() = viewModelScope.launch {
-        while (this.isActive) {
-            repo.update(id)
-            delay(5000L)
-        }
-    }
-
 
 }
 

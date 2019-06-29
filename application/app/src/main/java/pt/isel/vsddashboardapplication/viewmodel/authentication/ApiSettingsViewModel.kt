@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.viewmodel
+package pt.isel.vsddashboardapplication.viewmodel.authentication
 
 import androidx.lifecycle.ViewModel
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository

@@ -1,37 +1,26 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.model.NSPort
 
-class PortListViewModel : ViewModel() {
+class PortListViewModel : BaseListViewModel<NSPort>() {
+
+    override suspend fun setLiveData() {
+        this.liveData.addSource(repo.getAll(nsg)) { liveData.value = it }
+    }
+
+    override suspend fun updateLiveData() { repo.updateAll(nsg) }
 
 
-    val portList by lazy {  MediatorLiveData<List<NSPort>>() }
     private lateinit var repo: PortRepository
     private lateinit var nsg : String
 
     fun init(portRepository: PortRepository, nsgId: String){
         this.nsg = nsgId
         this.repo = portRepository
-        viewModelScope.launch {
-            this@PortListViewModel.portList.addSource(repo.getForNSGateway(nsg)) { portList.value = it }
-            cyclicUpdate()
-
-        }
+        viewModelScope.launch { setLiveData() }
     }
 
-    fun update() = viewModelScope.launch { repo.updateAll(nsg) }
-
-    private fun cyclicUpdate() = viewModelScope.launch {
-        while(this.isActive) {
-            update()
-            delay(5000L)
-        }
-    }
 }
