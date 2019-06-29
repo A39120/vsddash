@@ -1,8 +1,6 @@
 package pt.isel.vsddashboardapplication.repository
 
-import androidx.lifecycle.LifecycleObserver
-
-interface ApiSettingsRepository : LifecycleObserver {
+interface ApiSettingsRepository  {
 
     fun getAddress() : String
     fun getVSDPort() : Int
