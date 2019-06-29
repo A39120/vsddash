@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
-import pt.isel.vsddashboardapplication.communication.services.vsd.NSGatewayService
-import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
 import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
@@ -32,13 +30,6 @@ class NSGatewayListFragment : Fragment() {
     private lateinit var binding : ListFragmentBinding
 
     private val dao : NSGatewayDao by lazy { VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsgDao()}
-    private val nsgService : NSGatewayService? by lazy {
-        //TODO: Fix this in case the session goes under
-        RetrofitServices.getInstance().createService(
-            NSGatewayService::class.java,
-            (this.activity!!.application as VsdApplication).session?.APIKey!!)
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +55,7 @@ class NSGatewayListFragment : Fragment() {
             Navigation.findNavController(view).navigate(directions)
         }
 
-        viewModel.gateways.observe(this, Observer{ adapter.setList(it) })
+        viewModel.liveData.observe(this, Observer{ adapter.setList(it) })
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(this.context)
         return binding.root

@@ -8,16 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.NsgActivity
-import pt.isel.vsddashboardapplication.communication.services.vsd.NSGatewayService
-import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
@@ -43,11 +37,6 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
     private lateinit var repository: NSGatewayRepository
 
     private val dao : NSGatewayDao by lazy { VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsgDao()}
-    private val nsgService : NSGatewayService? by lazy {
-        RetrofitServices.getInstance().createService(
-            NSGatewayService::class.java,
-            (this.activity!!.application as VsdApplication).session?.APIKey!!)
-    }
 
     /**
      * Init repo and view model
@@ -67,7 +56,7 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.nsg.observe(this, Observer {
+        viewModel.liveData.observe(this, Observer {
             updateUI()
             changeStatusColor(it.bootstrapStatus)
             binding.executePendingBindings()
@@ -84,6 +73,10 @@ class NSGatewayFragment : Fragment(), CoroutineScope{
     private fun updateUI() = launch {
         binding.vm = viewModel
         binding.executePendingBindings()
+    }
+
+    private suspend fun update() {
+        withContext(Dispatchers.IO) { viewModel.update() }
     }
 
     /**

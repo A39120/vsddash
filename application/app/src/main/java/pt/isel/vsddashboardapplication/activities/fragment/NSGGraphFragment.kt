@@ -17,7 +17,12 @@ class NSGGraphFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.graph_fragment, container, false)
+        return binding.root
 
+    }
+}
+
+/*
         binding.plot.run {
             setRangeBoundaries(0, 100, BoundaryMode.FIXED)
             setDomainBoundaries(0, 100, BoundaryMode.AUTO)
@@ -35,3 +40,4 @@ class NSGGraphFragment : Fragment() {
     fun getValue() = Math.random() * 100
 
 }
+*/

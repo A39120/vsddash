@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
-import pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel
+import pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel
 import pt.isel.vsddashboardapplication.repository.implementation.ApiSettingsRepositoryImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.lang.StringBuilder

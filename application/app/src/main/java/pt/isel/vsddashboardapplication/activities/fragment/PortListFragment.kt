@@ -49,7 +49,7 @@ class PortListFragment : Fragment() {
         val adapter = NSPortAdapter { _, _ ->}
 
         viewModel.init(repository, nsgId)
-        viewModel.portList.observe(this, Observer{ adapter.setList(it) })
+        viewModel.liveData.observe(this, Observer{ adapter.setList(it) })
         binding.list.adapter = adapter
         binding.list.layoutManager = LinearLayoutManager(this.context)
 

@@ -2,7 +2,7 @@
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
-		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.LoginViewModel"/>
+		<variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel"/>
 	</data>
 	
 	<LinearLayout
@@ -25,6 +25,7 @@
 					android:layout_columnSpan="3"
 					android:textStyle="bold"
 					android:fontFamily="@font/din"
+					android:layout_margin="@dimen/margin_default"
 					android:textSize="@dimen/label_size"
 					android:textColor="@color/colorPrimaryDark"
 					android:text="@string/login_label"

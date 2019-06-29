@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="androidx.lifecycle.LiveData"/>
-        <variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.ApiSettingsViewModel"/>
+        <variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
                     android:layout_columnSpan="2"
                     android:textStyle="bold"
                     android:fontFamily="@font/din"
+                    android:layout_margin="@dimen/margin_default"
                     android:textSize="@dimen/label_size"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/api_settings_label"
@@ -84,15 +85,7 @@
                     android:layout_height="wrap_content"/>
     
             </com.google.android.material.textfield.TextInputLayout>
-    
-            <com.google.android.material.button.MaterialButton
-                android:layout_row="3"
-                android:layout_columnSpan="2"
-                android:id="@+id/connect_button"
-                android:layout_margin="@dimen/activity_default_margin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/button_connect"/>
+            
         </GridLayout>
     
         

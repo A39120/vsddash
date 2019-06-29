@@ -17,7 +17,7 @@ import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
 import pt.isel.vsddashboardapplication.repository.LoginRepository
 import pt.isel.vsddashboardapplication.repository.implementation.LoginRepositoryImpl
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
-import pt.isel.vsddashboardapplication.viewmodel.LoginViewModel
+import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -124,7 +124,8 @@ class LoginFragment : Fragment(), CoroutineScope {
 
             // Move to another fragment
             (this@LoginFragment.activity?.application as VsdApplication).session = sessions[0]
-            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
+            //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
+            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_graphFragment)
         } catch (ex: Throwable) {
             Log.e(TAG, "Authentication error occurred.\n ${ex.message}")
             changeConnectButton(ButtonStatus.ERROR)
