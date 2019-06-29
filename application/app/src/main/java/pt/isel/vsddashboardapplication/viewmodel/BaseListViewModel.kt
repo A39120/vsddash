@@ -4,14 +4,10 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pt.isel.vsddashboardapplication.repository.IBaseRepository
 
-/**
- * Abstract class that will provide other view models
- */
-abstract class BaseViewModel<T> : ViewModel() {
+abstract class BaseListViewModel<T> : ViewModel() {
 
-    val liveData = MediatorLiveData<T>()
+    val liveData = MediatorLiveData<List<T>>()
 
     /**
      * Sets live data
@@ -26,6 +22,6 @@ abstract class BaseViewModel<T> : ViewModel() {
     /**
      * Updates data through the view model scope
      */
-    fun update() = viewModelScope.launch { updateLiveData() }
+    fun update() { viewModelScope.launch { updateLiveData() } }
 
 }
