@@ -9,6 +9,7 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "enterprise")
 data class Enterprise(
     @PrimaryKey @Json(name = "ID") val iD: String = "",
+    var userId: String? = "",
     @Json(name = "allowAdvancedQOSConfiguration") val allowAdvancedQOSConfiguration: Boolean? = false,
     @Json(name = "allowGatewayManagement") val allowGatewayManagement: Boolean? = false,
     @Json(name = "allowTrustedForwardingClass") val allowTrustedForwardingClass: Boolean? = false,

@@ -1,11 +1,11 @@
-package pt.isel.vsddashboardapplication.communication.services
+package pt.isel.vsddashboardapplication.repository.services
 
 import okhttp3.Credentials
 import pt.isel.vsddashboardapplication.communication.AuthenticationInterceptor
 import pt.isel.vsddashboardapplication.communication.provider.HttpClientBuilderProvider
 import retrofit2.Retrofit
 import pt.isel.vsddashboardapplication.communication.provider.RetrofitBuilderProvider
-import pt.isel.vsddashboardapplication.communication.services.vsd.AuthenticationService
+import pt.isel.vsddashboardapplication.repository.services.vsd.AuthenticationService
 
 /**
  * Contains services related to retrofit

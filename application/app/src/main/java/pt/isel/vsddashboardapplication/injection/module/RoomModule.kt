@@ -25,4 +25,8 @@ class RoomModule {
     @Provides
     fun providesPortDao(database: VsdDatabase) = database.nsportDao()
 
+    @Singleton
+    @Provides
+    fun providesEnterpriseDao(database: VsdDatabase) = database.enterpriseDao()
+
 }
