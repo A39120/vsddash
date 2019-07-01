@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.activities.fragment
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.activities.fragment.regular.BaseFragment
 import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 
 /**

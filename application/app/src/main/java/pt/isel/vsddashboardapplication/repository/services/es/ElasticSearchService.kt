@@ -21,12 +21,18 @@ interface ElasticSearchService {
     fun getAddressMap() : Deferred<Search<AddressMap>>
 
     @Headers("Accept: application/json")
-    @GET("/nuage_dpi_flowstats/_search?format=json")
+    @GET("/nuage_dpi_flowstats/_search?q=*&sort=timestamp:desc&format=json")
     fun getDpiFlowstats() : Deferred<Search<DpiFlowstats>>
 
     @Headers("Accept: application/json")
-    @GET("/nuage_dpi_probestats/_search?format=json")
+    @GET("/nuage_dpi_flowstats/_search?q=*&sort=timestamp:desc&format=json")
+    fun getDpiFlowstatsFromNsg() : Deferred<Search<DpiFlowstats>>
+
+    @Headers("Accept: application/json")
+    @GET("/nuage_dpi_probestats/_search?q=*&sort=timestamp:desc&format=json")
     fun getDpiProbestats() : Deferred<Search<DpiProbestats>>
+
+
 
     @Headers("Accept: application/json")
     @GET("/nuage_dpi_slastats/_search?format=json")
@@ -38,6 +44,7 @@ interface ElasticSearchService {
 
     @Headers("Accept: application/json")
     @GET("/nuage_sysmon/_search?format=json")
+
     fun getSysmon() : Deferred<Search<Sysmon>>
 
     @Headers("Accept: application/json")
