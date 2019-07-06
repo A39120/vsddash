@@ -1,17 +1,23 @@
 package pt.isel.vsddashboardapplication.viewmodel.authentication
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository
+import javax.inject.Inject
 
 class ApiSettingsViewModel : ViewModel(){
+    companion object{
+        private const val TAG = "VM/APISETT"
+    }
 
-    private lateinit var repository: ApiSettingsRepository
+    @Inject lateinit var repository: ApiSettingsRepository
 
     var address: String? = null
     var apiPort: Int? = null
     var monitPort : Int? = null
 
     fun init(apiDetailsRepository: ApiSettingsRepository){
+        Log.d(TAG, "Setting up API settings view model")
         repository = apiDetailsRepository
 
         //Initiate variables

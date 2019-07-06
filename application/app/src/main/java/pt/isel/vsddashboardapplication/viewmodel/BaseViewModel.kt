@@ -1,5 +1,6 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,9 @@ import pt.isel.vsddashboardapplication.repository.IBaseRepository
  * Abstract class that will provide other view models
  */
 abstract class BaseViewModel<T> : ViewModel() {
+    companion object {
+        private const val TAG = "VM/Base"
+    }
 
     val liveData = MediatorLiveData<T>()
 
@@ -28,4 +32,11 @@ abstract class BaseViewModel<T> : ViewModel() {
      */
     fun update() = viewModelScope.launch { updateLiveData() }
 
+    /**
+     * This override is only to log the changes
+     */
+    override fun onCleared() {
+        super.onCleared()
+        Log.d(TAG, "The ${this.javaClass} was cleared")
+    }
 }

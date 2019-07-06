@@ -1,30 +1,40 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.model.NSGateway
+import javax.inject.Inject
 
 /**
  * View model of multiple NSGs
  */
-class AllNSGatewayViewModel : BaseListViewModel<NSGateway>(){
+class AllNSGatewayViewModel: BaseListViewModel<NSGateway>(){
+    companion object{
+        private const val TAG = "VM/NSGLIST"
+    }
 
-    private lateinit var repo: NSGatewayRepository
+    @Inject var repository: NSGatewayRepository? = null
+
     private lateinit var enterprise: String
 
-    fun init(repo: NSGatewayRepository, enterprise: String) {
-        this.repo = repo
+    fun init(enterprise: String) {
+        Log.d(TAG, "Setting enterprise id = $enterprise")
         this.enterprise = enterprise
         viewModelScope.launch { setLiveData() }
     }
 
     override suspend fun setLiveData() {
-        this.liveData.addSource(repo.getAll(enterprise)) { liveData.value = it}
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository?.hashCode()?:0})")
+        repository?.let {
+            this.liveData.addSource(it.getAll(enterprise)) { nsgs -> liveData.value = nsgs }
+        }
     }
 
     override suspend fun updateLiveData() {
-        repo.updateAll(enterprise)
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository?.hashCode()?:0})")
+        repository?.updateAll(enterprise)
     }
 
 }
