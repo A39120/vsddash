@@ -3,8 +3,8 @@ package pt.isel.vsddashboardapplication
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
-import pt.isel.vsddashboardapplication.communication.services.ElasticSearchServices
-import pt.isel.vsddashboardapplication.communication.services.es.ElasticSearchService
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchServices
+import pt.isel.vsddashboardapplication.repository.services.es.ElasticSearchService
 import pt.isel.vsddashboardapplication.model.statistics.Flow
 import pt.isel.vsddashboardapplication.model.statistics.base.Search
 

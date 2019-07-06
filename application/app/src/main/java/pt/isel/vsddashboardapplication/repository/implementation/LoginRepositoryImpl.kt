@@ -2,18 +2,19 @@ package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.Deferred
-import pt.isel.vsddashboardapplication.communication.services.vsd.AuthenticationService
-import pt.isel.vsddashboardapplication.communication.services.RetrofitServices
+import pt.isel.vsddashboardapplication.repository.services.vsd.AuthenticationService
+import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import javax.inject.Inject
 
 /**
  * The implementation of the LoginRepository, responsible for
  * the authentication of the user
  */
-class LoginRepositoryImpl constructor(
+class LoginRepositoryImpl @Inject constructor(
         private val sharedPrefs : SharedPreferences
 ) : LoginRepository {
     companion object{
@@ -21,13 +22,8 @@ class LoginRepositoryImpl constructor(
         private const val PASSWORD_KEY = "password"
         private const val ORGANIZATION_KEY = "organization"
 
-        private var INSTANCE : LoginRepository? = null
-        fun getInstance(sharedPrefs : SharedPreferences? = null)  : LoginRepository {
-            if(sharedPrefs != null)
-                INSTANCE = LoginRepositoryImpl(sharedPrefs)
+        private const val TAG = "REPO/LOGIN"
 
-            return INSTANCE ?: throw IllegalArgumentException()
-        }
     }
 
     private var authenticationService: AuthenticationService? = null

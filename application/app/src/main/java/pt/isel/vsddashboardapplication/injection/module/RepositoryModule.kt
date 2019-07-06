@@ -1,28 +1,43 @@
 package pt.isel.vsddashboardapplication.injection.module
 
-import dagger.Binds
+import android.content.SharedPreferences
 import dagger.Module
-import pt.isel.vsddashboardapplication.injection.scope.ServiceScope
-import pt.isel.vsddashboardapplication.repository.AlarmRepository
-import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
-import pt.isel.vsddashboardapplication.repository.PortRepository
-import pt.isel.vsddashboardapplication.repository.implementation.AlarmRepositoryImpl
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
-import pt.isel.vsddashboardapplication.repository.implementation.NSPortRepositoryImpl
+import dagger.Provides
+import pt.isel.vsddashboardapplication.repository.*
+import pt.isel.vsddashboardapplication.repository.dao.EnterpriseDao
+import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
+import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
+import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
+import pt.isel.vsddashboardapplication.repository.implementation.*
+import javax.inject.Singleton
 
 @Module
 abstract class RepositoryModule {
 
-    @Binds
-    @ServiceScope
-    abstract fun providesNsgRepository(impl : NSGatewayRepositoryImpl) : NSGatewayRepository
+    @Provides
+    @Singleton
+    fun providesNsgRepository(dao : NSGatewayDao) : NSGatewayRepository? =
+        NSGatewayRepositoryImpl(dao)
 
-    @Binds
-    @ServiceScope
-    abstract fun providesAlarmRepository(impl: AlarmRepositoryImpl) : AlarmRepository
+    @Provides
+    @Singleton
+    fun providesAlarmRepository(dao: NSAlarmDao) : AlarmRepository =
+        AlarmRepositoryImpl(dao)
 
-    @Binds
-    @ServiceScope
-    abstract fun providesPortRepository(impl: NSPortRepositoryImpl) : PortRepository
+    @Provides
+    @Singleton
+    fun providesPortRepository(dao: NSPortDao) : PortRepository =
+        NSPortRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesEnterpriseRepository(dao: EnterpriseDao) : EnterpriseRepository =
+        EnterpriseRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesApiSettingsRepository(sharedPreferences: SharedPreferences) : ApiSettingsRepository =
+        ApiSettingsRepositoryImpl(sharedPreferences)
+
 
 }

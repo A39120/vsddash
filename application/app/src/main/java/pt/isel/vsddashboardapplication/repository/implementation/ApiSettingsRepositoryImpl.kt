@@ -1,15 +1,20 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
+import android.util.Log
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import javax.inject.Inject
 
 /**
  * API Settings repository
  * Only interacts with Shared Preferences
  */
-class ApiSettingsRepositoryImpl(private val sharedPrefs: SharedPreferences) :
+class ApiSettingsRepositoryImpl @Inject constructor(private val sharedPrefs: SharedPreferences) :
     ApiSettingsRepository {
+    companion object{
+        private const val TAG = "REPO/APISETT"
+    }
 
     private var address : String?
     private var vsdApi : Int?
@@ -27,6 +32,7 @@ class ApiSettingsRepositoryImpl(private val sharedPrefs: SharedPreferences) :
     override fun getMonitPort(): Int = monit ?: 0
 
     override fun updateAddress(address: String?) {
+        Log.d(TAG, "Updating address with $address")
         sharedPrefs.edit().let {
             it.putString(SharedPreferenceKeys.CURRENTADDRESS, address)
             it.apply()
@@ -35,6 +41,7 @@ class ApiSettingsRepositoryImpl(private val sharedPrefs: SharedPreferences) :
     }
 
     override fun updateVSDPort(port: Int?) {
+        Log.d(TAG, "Updating VSD Port with $port")
         sharedPrefs.edit().let {
             it.putInt(SharedPreferenceKeys.CURRENTPORT, port?:SharedPreferenceKeys.PORTDEFAULT )
             it.apply()
@@ -43,6 +50,7 @@ class ApiSettingsRepositoryImpl(private val sharedPrefs: SharedPreferences) :
     }
 
     override fun updateMonitPort(port: Int?) {
+        Log.d(TAG, "Updating Monit Port with $port")
         sharedPrefs.edit().let {
             it.putInt(SharedPreferenceKeys.MONIT_PORT, port?:SharedPreferenceKeys.MONIT_PORT_DEFAULT )
             it.apply()
