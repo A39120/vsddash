@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication
 import android.util.Log
 import dagger.android.DaggerApplication
 import pt.isel.vsddashboardapplication.injection.DaggerAppComponent
-import pt.isel.vsddashboardapplication.model.Session
+import pt.isel.vsddashboardapplication.utils.SessionContainer
 
 class VsdApplication : DaggerApplication(){
 
@@ -13,11 +13,11 @@ class VsdApplication : DaggerApplication(){
         private const val TAG = "APP"
     }
 
-    var session : Session? = null
+    val session = SessionContainer()
 
     override fun onCreate() {
         super.onCreate()
-        Log.v(TAG, "Creating application")
+        Log.d(TAG, "Creating application")
     }
 
 }
