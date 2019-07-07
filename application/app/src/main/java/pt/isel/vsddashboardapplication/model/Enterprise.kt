@@ -13,7 +13,7 @@ data class Enterprise(
     @Json(name = "allowAdvancedQOSConfiguration") val allowAdvancedQOSConfiguration: Boolean? = false,
     @Json(name = "allowGatewayManagement") val allowGatewayManagement: Boolean? = false,
     @Json(name = "allowTrustedForwardingClass") val allowTrustedForwardingClass: Boolean? = false,
-    @Json(name = "allowedForwardingClasses") val allowedForwardingClasses: List<String?>? = listOf(),
+    //@Json(name = "allowedForwardingClasses") val allowedForwardingClasses: List<String?>? = listOf(),
     @Json(name = "allowedForwardingMode") val allowedForwardingMode: String? = "",
     @Json(name = "associatedEnterpriseSecurityID") val associatedEnterpriseSecurityID: String? = "",
     @Json(name = "associatedGroupKeyEncryptionProfileID") val associatedGroupKeyEncryptionProfileID: String? = "",

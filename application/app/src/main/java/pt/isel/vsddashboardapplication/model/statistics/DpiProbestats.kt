@@ -1,7 +1,12 @@
 package pt.isel.vsddashboardapplication.model.statistics
 
+import androidx.room.Entity
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+
+@JsonClass(generateAdapter = true)
+@Entity(tableName = "dpiproberstat", primaryKeys = ["timestamp", "srcNSG", "dstNSG", "nPMGroup"])
 data class DpiProbestats(
     @Json(name = "AppGroupID") val appGroupID: String? = "",
     @Json(name = "AvgDelay") val avgDelay: Double? = 0.0,
