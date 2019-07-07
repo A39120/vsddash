@@ -32,17 +32,16 @@ abstract class VsdDatabase : RoomDatabase() {
     abstract fun enterpriseDao() : EnterpriseDao
 
     companion object {
-        // --- SINGLETON ---
         private const val DB_NAME = "vsddatabase"
         private var INSTANCE: VsdDatabase? = null
-        fun getInstance(context: Context? = null) : VsdDatabase? {
+        fun getInstance(context: Context? = null) : VsdDatabase {
             if(INSTANCE == null && context != null)
                 INSTANCE =
                     Room
                         .databaseBuilder( context, VsdDatabase::class.java, DB_NAME )
                         .fallbackToDestructiveMigration()
                         .build()
-            return INSTANCE
+            return INSTANCE!!
         }
     }
 }

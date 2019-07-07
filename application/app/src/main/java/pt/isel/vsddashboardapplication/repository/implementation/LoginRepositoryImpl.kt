@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication.repository.implementation
 
 import android.content.SharedPreferences
+import android.util.Log
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.repository.services.vsd.AuthenticationService
 import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
@@ -15,7 +16,7 @@ import javax.inject.Inject
  * the authentication of the user
  */
 class LoginRepositoryImpl @Inject constructor(
-        private val sharedPrefs : SharedPreferences
+    private val sharedPrefs : SharedPreferences
 ) : LoginRepository {
     companion object{
         private const val USERNAME_KEY = "username"
@@ -23,7 +24,6 @@ class LoginRepositoryImpl @Inject constructor(
         private const val ORGANIZATION_KEY = "organization"
 
         private const val TAG = "REPO/LOGIN"
-
     }
 
     private var authenticationService: AuthenticationService? = null
@@ -38,6 +38,7 @@ class LoginRepositoryImpl @Inject constructor(
             sharedPrefs.getString(ORGANIZATION_KEY, null)
 
     override fun updateUsername(username: String?) {
+        Log.d(TAG, "Updating username: $username")
         sharedPrefs.edit().apply {
             this.putString(USERNAME_KEY, username)
             this.apply()
@@ -45,6 +46,7 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override fun updatePassword(password: String?) {
+        Log.d(TAG, "Updating password")
         sharedPrefs.edit().apply {
             this.putString(PASSWORD_KEY, password)
             this.apply()
@@ -52,6 +54,7 @@ class LoginRepositoryImpl @Inject constructor(
     }
 
     override fun updateOrganization(organization: String?) {
+        Log.d(TAG, "Updating organization: $organization")
         sharedPrefs.edit().apply {
             this.putString(ORGANIZATION_KEY, organization)
             this.apply()
@@ -62,22 +65,27 @@ class LoginRepositoryImpl @Inject constructor(
      * Starts the login process
      */
     override fun login() : Deferred<List<Session>> {
+        Log.d(TAG, "LOGIN - Starting login")
         sharedPrefs.let {
-            val username = getUsername()?: ""
-            val password = getPassword()?: ""
+            val username = getUsername() ?: ""
+            val password = getPassword() ?: ""
             val organization = getOrganization() ?: ""
 
             val address = it.getString(SharedPreferenceKeys.CURRENTADDRESS, null)
             val port = it.getInt(SharedPreferenceKeys.CURRENTPORT, -1)
 
-            val api = AddressBuilder.build(address?:"", port)
-            this.authenticationService =
-                RetrofitServices
-                    .getInstance(api, username, organization)
-                    .createAuthenticationService(password)
-        }
+            val api = AddressBuilder.build(address ?: "", port)
+            Log.d(TAG, "LOGIN - Creating Authentication service")
+            sharedPrefs.let {
+                this.authenticationService =
+                    RetrofitServices
+                        .getInstance(api, username, organization)
+                        .createAuthenticationService(password)
+            }
 
-        return authenticationService?.authenticate()!!
+            Log.d(TAG, "LOGIN - Authenticating with username $username and organization $organization ($api)")
+            return authenticationService?.authenticate()!!
+        }
     }
 
 }
