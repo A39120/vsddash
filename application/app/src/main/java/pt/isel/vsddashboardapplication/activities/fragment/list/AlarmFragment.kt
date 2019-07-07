@@ -1,12 +1,10 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
-import pt.isel.vsddashboardapplication.repository.AlarmRepository
 import pt.isel.vsddashboardapplication.viewmodel.AlarmViewModel
-import javax.inject.Inject
 
 /**
  * Fragment responsible for showing a list of Alarms
@@ -15,12 +13,6 @@ class AlarmFragment
     : BaseListFragment<AlarmViewModel>() {
 
     private lateinit var adapter: AlarmAdapter
-    private lateinit var repository: AlarmRepository
-
-    @Inject
-    fun setRepository(repository: AlarmRepository) {
-        this.repository = repository
-    }
 
     override fun setAdapter() {
         this.adapter = AlarmAdapter()
@@ -29,8 +21,7 @@ class AlarmFragment
     }
 
     override fun assignViewModel(): AlarmViewModel =
-        //AlarmViewModel()
-        ViewModelProviders.of(this).get(AlarmViewModel::class.java)
+        ViewModelProviders.of(this, viewModelFactory)[AlarmViewModel::class.java]
 
 
     override fun observeViewModel() {
@@ -41,7 +32,7 @@ class AlarmFragment
 
     override fun initViewModel() {
         val id = (this.activity as NsgActivity).getNsgId()
-        viewModel.init(repository, id)
+        viewModel.init(id)
     }
 
 

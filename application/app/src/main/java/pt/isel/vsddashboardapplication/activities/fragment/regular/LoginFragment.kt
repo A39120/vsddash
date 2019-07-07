@@ -1,12 +1,7 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.regular
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import kotlinx.coroutines.*
@@ -14,57 +9,39 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
-import pt.isel.vsddashboardapplication.repository.LoginRepository
-import pt.isel.vsddashboardapplication.repository.implementation.LoginRepositoryImpl
-import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
 
 /**
  * Responsible for logging in, presents the login screen, so the user can login
  */
-class LoginFragment : Fragment(), CoroutineScope {
+class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), CoroutineScope {
     companion object {
         private const val TAG = "FRAG/LOGIN"
     }
 
-    /**
-     * Co-routine for the fragment
-     */
-    private val job = SupervisorJob()
-    override val coroutineContext: CoroutineContext = Dispatchers.Main + job
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + SupervisorJob()
 
-    private val repo: LoginRepository by lazy {
-        LoginRepositoryImpl(this.context!!.sharedPreferences())
-    }
 
-    private val viewModel: LoginViewModel by lazy {
+    override fun assignViewModel(): LoginViewModel =
         ViewModelProviders
-            .of(this)
+            .of(this, viewModelFactory)
             .get(LoginViewModel::class.java)
-    }
 
-    private lateinit var binding: LoginFragmentBinding
+    override fun initViewModel() { viewModel.init() }
 
-    /**
-     * Sets the initial Login View
-     */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.i(TAG, "Creating view")
-        binding = DataBindingUtil.inflate(inflater, R.layout.login_fragment, container, false)
-        viewModel.init(repo)
+    override fun getLayoutRes(): Int = R.layout.login_fragment
 
-        binding.lifecycleOwner = this
-        binding.viewmodel = viewModel
-
+    override fun observeViewModel() {
         binding.organization.addTextChangedListener(Watcher { viewModel.updateOrganization(it.toString()) })
         binding.username.addTextChangedListener(Watcher { viewModel.updateUsername(it.toString()) })
         binding.password.addTextChangedListener(Watcher { viewModel.updatePassword(it.toString()) })
+    }
 
+    override fun setBindingObjects() {
         setSettings()
-        changeConnectButton(ButtonStatus.CONNECT)
-
-        return binding.root
+        launch { changeConnectButton(ButtonStatus.CONNECT) }
     }
 
     /**
@@ -81,7 +58,8 @@ class LoginFragment : Fragment(), CoroutineScope {
      * @resId is the integer id of the string resource
      * @listener the listener for the new login button
      */
-    private fun changeButton(resId: Int, listener: View.OnClickListener) = launch(coroutineContext) {
+    private suspend fun changeButton(resId: Int, listener: View.OnClickListener) = withContext(Dispatchers.Main) {
+        Log.d(TAG, "Changing connect button to $resId")
         binding.connectButton.setText(resId)
         binding.connectButton.setOnClickListener(listener)
     }
@@ -91,12 +69,9 @@ class LoginFragment : Fragment(), CoroutineScope {
     /**
      * Changes the connect button to the defined values
      */
-    private fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
-        Log.i(TAG, "Changing the connect button.")
-        val connect = View.OnClickListener { launch {
-            //changeConnectButton(ButtonStatus.INPROGRESS)
-            startAuthentication()
-        } }
+    private suspend fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
+        Log.i(TAG, "Changing the connect button to status $status.")
+        val connect = View.OnClickListener { launch { startAuthentication() } }
         val cancel = View.OnClickListener { launch { cancelAuthentication(job!!) } }
 
         when (status) {
@@ -117,15 +92,18 @@ class LoginFragment : Fragment(), CoroutineScope {
         changeConnectButton(ButtonStatus.INPROGRESS, job)
 
         job.join()
+        Log.d(TAG, "Finished authentication")
         try {
             if(job.isCancelled)
                 return@withContext
+
             val sessions = job.await()
 
             // Move to another fragment
-            (this@LoginFragment.activity?.application as VsdApplication).session = sessions[0]
-            //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
-            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_graphFragment)
+            (this@LoginFragment.activity?.application as VsdApplication).session.let {
+                it.session = sessions[0]
+            }
+            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
         } catch (ex: Throwable) {
             Log.e(TAG, "Authentication error occurred.\n ${ex.message}")
             changeConnectButton(ButtonStatus.ERROR)
@@ -138,7 +116,7 @@ class LoginFragment : Fragment(), CoroutineScope {
      * @return an async job that cancels previous job
      */
     private suspend fun cancelAuthentication(job: Job) = withContext(Dispatchers.IO) {
-        Log.i(TAG, "Canceling the authentication the job")
+        Log.i(TAG, "Canceling the authentication job")
         changeConnectButton(ButtonStatus.CONNECT)
         job.cancelAndJoin()
     }

@@ -1,22 +1,12 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.lifecycle.ViewModelProviders
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
-import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
-import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
-import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
@@ -24,48 +14,34 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Fragment that handles all information that belongs to the fragment
  */
-class NSGatewayFragment : Fragment(), CoroutineScope{
+class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>(), CoroutineScope{
+
+    override fun observeViewModel() {
+        viewModel.liveData.observe(this, Observer {
+            updateUI()
+            changeStatusColor(it.bootstrapStatus)
+            binding.executePendingBindings()
+        })
+    }
+
+    override fun setBindingObjects() { updateUI() }
+
+    override fun initViewModel() {
+        val id = (this.activity as NsgActivity).getNsgId()
+        viewModel.init(id)
+    }
+
+
+    override fun assignViewModel(): NSGViewModel =
+        ViewModelProviders.of(this, viewModelFactory)[NSGViewModel::class.java]
+
+    override fun getLayoutRes(): Int = R.layout.nsgateway_fragment
 
     /**
      * Scope of fragment
      */
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
-
-    private lateinit var viewModel: NSGViewModel
-    private lateinit var binding: NsgatewayFragmentBinding
-    private lateinit var repository: NSGatewayRepository
-
-    private val dao : NSGatewayDao by lazy { VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsgDao()}
-
-    /**
-     * Init repo and view model
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val id = (this.activity as NsgActivity).getNsgId()
-        repository = NSGatewayRepositoryImpl(dao)
-        viewModel = ViewModelProviders.of(this).get(NSGViewModel::class.java)
-        viewModel.init(repository, id)
-    }
-
-    /**
-     * Create view binding and update data
-     */
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        viewModel.liveData.observe(this, Observer {
-            updateUI()
-            changeStatusColor(it.bootstrapStatus)
-            binding.executePendingBindings()
-        })
-
-        binding = DataBindingUtil.inflate( inflater, R.layout.nsgateway_fragment, container, false )
-        binding.lifecycleOwner = this
-        return binding.root
-    }
 
     /**
      * Updates UI

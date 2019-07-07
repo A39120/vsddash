@@ -5,24 +5,29 @@
 	
 	<fragment
 		android:id="@+id/loginFragment"
-	    android:name="pt.isel.vsddashboardapplication.activities.fragment.LoginFragment"
+	    android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.LoginFragment"
 	    android:label="LoginFragment">
 		<action android:id="@+id/action_loginFragment_to_apiSettingsFragment"
 		        app:destination="@id/apiSettingsFragment"/>
 		<action android:id="@+id/action_loginFragment_to_menuFragment" app:destination="@id/menuFragment"/>
-		<action android:id="@+id/action_loginFragment_self" app:destination="@id/loginFragment"/>
+		<action android:id="@+id/action_loginFragment_to_enterpriseListFragment"
+		        app:destination="@id/enterpriseListFragment"/>
 	</fragment>
-	<fragment android:id="@+id/apiSettingsFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.ApiSettingsFragment"
-	          android:label="ApiSettingsFragment"/>
-	<fragment android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.fragment.MenuFragment"
-	          android:label="MenuFragment">
-		<action android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
-		        app:destination="@id/NSGatewayListFragment"/>
+	<fragment
+		android:id="@+id/apiSettingsFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.ApiSettingsFragment"
+		android:label="ApiSettingsFragment"/>
+	<fragment
+		android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.MenuFragment"
+		android:label="MenuFragment">
+		<action
+			android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
+		    app:destination="@id/NSGatewayListFragment"/>
 	</fragment>
-	<fragment android:id="@+id/NSGatewayListFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.NSGatewayListFragment"
-	          android:label="NSGatewayListFragment">
+	<fragment
+		android:id="@+id/NSGatewayListFragment"
+	    android:name="pt.isel.vsddashboardapplication.activities.fragment.list.NSGatewayListFragment"
+	    android:label="NSGatewayListFragment">
 		<action
 			android:id="@+id/action_NSGatewayListFragment_to_nsgActivity"
 			app:destination="@id/nsgActivity">
@@ -33,5 +38,13 @@
 		android:id="@+id/nsgActivity"
 	    android:name="pt.isel.vsddashboardapplication.activities.NsgActivity"
 	    android:label="NsgActivity"/>
+	<fragment
+		android:id="@+id/enterpriseListFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.fragment.list.EnterpriseListFragment"
+		android:label="EnterpriseListFragment">
+		<action
+			android:id="@+id/action_enterpriseListFragment_to_menuFragment"
+			app:destination="@id/menuFragment"/>
+	</fragment>
 
 </navigation>

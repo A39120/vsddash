@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.graph
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,12 +12,11 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.communication.services.ElasticSearchServices
-import pt.isel.vsddashboardapplication.communication.services.es.DpiProbestatsServices
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchServices
+import pt.isel.vsddashboardapplication.repository.services.es.DpiProbestatsServices
 import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
-import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -75,7 +74,7 @@ class GraphFragment : Fragment(){
             }
 
             graph.legendRenderer = LegendRenderer(graph)
-            graph.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            graph.setOnScrollChangeListener { _, scrollX, _, oldScrollX, _ ->
                 wasScrolled = scrollX < oldScrollX || scrollX < graph.viewport.getMaxX(true)
             }
         }
@@ -100,10 +99,10 @@ class GraphFragment : Fragment(){
 
         for(hit in list){
             hit.source?.run {
-                synchronized(lock) {
-                    if ((timestamp != null && timestamp > 0) && (avgJitter != null)) {
-                        val date = Date(timestamp)
-                        val dataPoint = DataPoint(date, avgJitter)
+                if ((timestamp != null && timestamp > 0) && (avgJitter != null)) {
+                    val date = Date(timestamp)
+                    val dataPoint = DataPoint(date, avgJitter)
+                    runBlocking(Dispatchers.Main) {
                         graphSeries.appendData(dataPoint, !wasScrolled, 20)
                     }
                 }
@@ -111,8 +110,8 @@ class GraphFragment : Fragment(){
         }
     }
 
-    private suspend fun addSeries( series: LineGraphSeries<DataPoint> ) = withContext(Dispatchers.Default){
-        synchronized(lock) {
+    private suspend fun addSeries( series: LineGraphSeries<DataPoint> ) {
+        runBlocking(Dispatchers.Main) {
             binding.graph.addSeries(series)
             binding.graph.legendRenderer.isVisible = true
             binding.graph.legendRenderer.resetStyles()

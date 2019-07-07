@@ -1,6 +1,8 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +10,21 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : DaggerFragment() {
+    companion object {
+        private const val TAG = "FRAG/BASE"
+    }
 
     protected val viewModel : T by lazy { assignViewModel() }
     protected lateinit var binding : U
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     /**
      * Assigns the View model
@@ -44,6 +55,7 @@ abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : DaggerFragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "Creating fragment and initiating View Model")
         initViewModel()
     }
 
@@ -52,14 +64,22 @@ abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : DaggerFragment(
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
+        Log.d(TAG, "Creating binding for fragment (${this.javaClass})")
         this.binding = DataBindingUtil.inflate(inflater, getLayoutRes(),  container, false)
         this.binding.lifecycleOwner = this.viewLifecycleOwner
 
+        Log.d(TAG, "Observing View Model (${viewModel.javaClass})")
         observeViewModel()
 
+        Log.d(TAG, "Binding objects to View (${binding.javaClass})")
         setBindingObjects()
-
         return this.binding.root
     }
+
+    override fun onAttach(context: Context) {
+        Log.d(TAG, "Injecting fragment with dependencies (${this.javaClass})")
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
 }

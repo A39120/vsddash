@@ -1,65 +1,52 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.list
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
-import pt.isel.vsddashboardapplication.repository.implementation.NSGatewayRepositoryImpl
-import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
-import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
-import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import pt.isel.vsddashboardapplication.databinding.ListFragmentBinding
 
 /**
  * The Fragment that displays a list of NSGs;
  */
-class NSGatewayListFragment : Fragment() {
-
-    private lateinit var repo: NSGatewayRepository
-    private lateinit var viewModel : AllNSGatewayViewModel
-    private lateinit var binding : ListFragmentBinding
-
-    private val dao : NSGatewayDao by lazy { VsdDatabase.getInstance(this.activity!!.applicationContext)!!.nsgDao()}
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        repo = NSGatewayRepositoryImpl(dao)
-
-        val enterprise = (this.activity!!.application as VsdApplication)
-            .session!!
-            .enterpriseID!!
-
-        viewModel = ViewModelProviders.of(this).get(AllNSGatewayViewModel::class.java)
-        viewModel.init(repo, enterprise)
+class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
+    companion object {
+        private const val TAG = "FRAG/NSGLIST"
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
+    private lateinit var adapter: NSGatewayAdapter
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.list_fragment, container, false)
-        binding.lifecycleOwner = this
-
-        // Start adapter
-        val adapter = NSGatewayAdapter { nsg, view ->
-            val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID )
+    /**
+     * Sets the List of NSG adapter
+     */
+    override fun setAdapter() {
+        Log.d(TAG, "Setting up NSG List adapter")
+        adapter = NSGatewayAdapter { nsg, view ->
+            val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID)
             Navigation.findNavController(view).navigate(directions)
         }
-
-        viewModel.liveData.observe(this, Observer{ adapter.setList(it) })
         binding.list.adapter = adapter
-        binding.list.layoutManager = LinearLayoutManager(this.context)
-        return binding.root
     }
 
+    override fun assignViewModel(): AllNSGatewayViewModel = ViewModelProviders
+        .of(this, viewModelFactory)
+        .get(AllNSGatewayViewModel::class.java)
+
+    override fun observeViewModel() {
+        Log.d(TAG, "Observing view model")
+        viewModel.liveData.observe(this, Observer{
+            Log.d(TAG, "Changes have occurred for NSG List ViewModel")
+            adapter.setList(it)
+        })
+    }
+
+    override fun initViewModel() {
+        //TODO: Offline mode
+        Log.d(TAG, "Setting up session enterprise for the view model")
+        val enterprise = (this.activity?.application as VsdApplication).session.getEnterpriseId()
+        viewModel.init(enterprise?:"")
+    }
 
 }

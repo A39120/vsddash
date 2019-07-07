@@ -39,4 +39,6 @@
 	<string name="serial">Serial Number</string>
 	<string name="bios">BIOS</string>
 	<string name="CPU">CPU</string>
+	<string name="time">Time</string>
+	<string name="avg_jitter">Avg. Jitter</string>
 </resources>

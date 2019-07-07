@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.fragment
+package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -3,10 +3,10 @@ package pt.isel.vsddashboardapplication.activities.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import pt.isel.vsddashboardapplication.activities.fragment.AlarmFragment
-import pt.isel.vsddashboardapplication.activities.fragment.NSGatewayFragment
+import pt.isel.vsddashboardapplication.activities.fragment.list.AlarmFragment
+import pt.isel.vsddashboardapplication.activities.fragment.regular.NSGatewayFragment
 import pt.isel.vsddashboardapplication.activities.fragment.NSGatewayStatisticsFragment
-import pt.isel.vsddashboardapplication.activities.fragment.PortListFragment
+import pt.isel.vsddashboardapplication.activities.fragment.list.PortListFragment
 
 class NSGViewPagerAdapter(fm: FragmentManager)
     : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
