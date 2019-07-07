@@ -10,12 +10,11 @@ import javax.inject.Inject
 /**
  * View Model responsible for interacting with a list of alarms
  */
-class AlarmViewModel : BaseViewModel<List<Alarm>>() {
+class AlarmViewModel @Inject constructor(private val repository: AlarmRepository): BaseViewModel<List<Alarm>>() {
     private companion object {
         const val TAG = "VM/ALARM_LIST"
     }
 
-    @Inject var repository: AlarmRepository? = null
     private lateinit var nsgId: String
 
     override suspend fun setLiveData() {

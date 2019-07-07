@@ -5,12 +5,10 @@ import pt.isel.vsddashboardapplication.model.Enterprise
 import pt.isel.vsddashboardapplication.repository.EnterpriseRepository
 import javax.inject.Inject
 
-class EnterpriseViewModel : BaseListViewModel<Enterprise>() {
+class EnterpriseViewModel @Inject constructor(private val repository: EnterpriseRepository) : BaseListViewModel<Enterprise>() {
     companion object {
         private const val TAG = "VM/ENTERPRISES"
     }
-
-    @Inject var repository: EnterpriseRepository? = null
 
     private lateinit var userId : String
 

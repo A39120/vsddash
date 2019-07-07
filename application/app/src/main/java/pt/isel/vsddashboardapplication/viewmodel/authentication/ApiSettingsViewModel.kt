@@ -5,25 +5,22 @@ import androidx.lifecycle.ViewModel
 import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository
 import javax.inject.Inject
 
-class ApiSettingsViewModel : ViewModel(){
+class ApiSettingsViewModel @Inject constructor(private val repository: ApiSettingsRepository): ViewModel(){
     companion object{
         private const val TAG = "VM/APISETT"
     }
-
-    @Inject lateinit var repository: ApiSettingsRepository
 
     var address: String? = null
     var apiPort: Int? = null
     var monitPort : Int? = null
 
-    fun init(apiDetailsRepository: ApiSettingsRepository){
+    fun init(){
         Log.d(TAG, "Setting up API settings view model")
-        repository = apiDetailsRepository
 
         //Initiate variables
-        address = apiDetailsRepository.getAddress()
-        apiPort = apiDetailsRepository.getVSDPort()
-        monitPort = apiDetailsRepository.getMonitPort()
+        address = repository.getAddress()
+        apiPort = repository.getVSDPort()
+        monitPort = repository.getMonitPort()
     }
 
     fun updateAddress(address: String?) : Unit = repository.updateAddress(address)

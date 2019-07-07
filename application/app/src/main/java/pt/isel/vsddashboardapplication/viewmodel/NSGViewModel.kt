@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * NSG View Model
  */
-class NSGViewModel : BaseViewModel<NSGateway>() {
+class NSGViewModel @Inject constructor(private val repository: NSGatewayRepository) : BaseViewModel<NSGateway>() {
     companion object {
         private const val TAG = "VM/NSG"
     }
@@ -25,10 +25,6 @@ class NSGViewModel : BaseViewModel<NSGateway>() {
         this.repository?.update(id)
     }
 
-    /**
-     * The repository to obtain the current NSG information
-     */
-    @Inject var repository: NSGatewayRepository? = null
     private lateinit var id: String
 
     /**

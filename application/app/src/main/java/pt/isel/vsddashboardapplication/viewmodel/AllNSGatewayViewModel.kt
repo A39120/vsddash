@@ -10,30 +10,28 @@ import javax.inject.Inject
 /**
  * View model of multiple NSGs
  */
-class AllNSGatewayViewModel: BaseListViewModel<NSGateway>(){
+class AllNSGatewayViewModel @Inject constructor(private val repository: NSGatewayRepository): BaseListViewModel<NSGateway>(){
     companion object{
         private const val TAG = "VM/NSGLIST"
     }
 
-    @Inject var repository: NSGatewayRepository? = null
-
     private lateinit var enterprise: String
 
-    fun init(enterprise: String) {
+    fun init(enterprise: String = "") {
         Log.d(TAG, "Setting enterprise id = $enterprise")
         this.enterprise = enterprise
         viewModelScope.launch { setLiveData() }
     }
 
     override suspend fun setLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository?.hashCode()?:0})")
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()?:0})")
         repository?.let {
             this.liveData.addSource(it.getAll(enterprise)) { nsgs -> liveData.value = nsgs }
         }
     }
 
     override suspend fun updateLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository?.hashCode()?:0})")
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()?:0})")
         repository?.updateAll(enterprise)
     }
 

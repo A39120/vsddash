@@ -7,7 +7,7 @@ import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.model.NSPort
 import javax.inject.Inject
 
-class PortListViewModel : BaseListViewModel<NSPort>() {
+class PortListViewModel @Inject constructor(private val repository: PortRepository): BaseListViewModel<NSPort>() {
     companion object{
         private const val TAG = "VM/PORTLIST"
     }
@@ -25,7 +25,6 @@ class PortListViewModel : BaseListViewModel<NSPort>() {
     }
 
 
-    @Inject lateinit var repository: PortRepository
     private lateinit var nsg : String
 
     fun init(nsgId: String){

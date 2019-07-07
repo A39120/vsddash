@@ -3,40 +3,38 @@ package pt.isel.vsddashboardapplication.viewmodel.authentication
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository
 import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(private val repository: LoginRepository): ViewModel() {
     companion object{
         private const val TAG = "VM/LOGIN"
     }
-
-    @Inject
-    lateinit var repo: LoginRepository
 
     var username : String? = null
     var password : String? = null
     var organization : String? = null
 
-    fun init(repo: LoginRepository){
+    fun init(){
         Log.d(TAG, "Initiating Login View Model")
-        this.repo = repo
 
         // Maybe change this later
         viewModelScope.launch(Dispatchers.Default) {
             //Attribute values
-            username = repo.getUsername()
-            password = repo.getPassword()
-            organization = repo.getOrganization()
+            username = repository?.getUsername()
+            password = repository?.getPassword()
+            organization = repository?.getOrganization()
         }
     }
 
     fun updateUsername(username: String?)  =
         viewModelScope.launch(Dispatchers.Main) {
             Log.d(TAG, "Updating username")
-            repo.updateUsername(username)
+            repository?.updateUsername(username)
             this@LoginViewModel.username = username
         }
 
@@ -44,7 +42,7 @@ class LoginViewModel : ViewModel() {
     fun updatePassword(password: String?) =
         viewModelScope.launch(Dispatchers.Default) {
             Log.d(TAG, "Updating password")
-            repo.updatePassword(password)
+            repository.updatePassword(password)
             this@LoginViewModel.password = password
         }
 
@@ -52,14 +50,14 @@ class LoginViewModel : ViewModel() {
     fun updateOrganization(organization: String?) =
         viewModelScope.launch(Dispatchers.Default) {
             Log.d(TAG, "Updating organization")
-            repo.updateOrganization(organization)
+            repository.updateOrganization(organization)
             this@LoginViewModel.organization = organization
         }
 
 
-    fun connect() {
+    fun connect(): Deferred<List<Session>> {
         Log.d(TAG, "Starting login")
-        repo.login()
+        return repository.login()
     }
 
 }
