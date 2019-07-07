@@ -1,6 +1,6 @@
 package pt.isel.vsddashboardapplication.injection.module
 
-import android.app.Application
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
@@ -11,7 +11,7 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun providesDatabase(application: Application) = VsdDatabase.getInstance(application.baseContext)
+    fun providesDatabase(context: Context) = VsdDatabase.getInstance(context)
 
     @Singleton
     @Provides

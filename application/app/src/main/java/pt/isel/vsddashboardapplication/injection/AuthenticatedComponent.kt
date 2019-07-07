@@ -1,5 +1,7 @@
 package pt.isel.vsddashboardapplication.injection
 
+import androidx.fragment.app.Fragment
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
@@ -7,9 +9,7 @@ import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.injection.module.*
 import javax.inject.Singleton
 
-/**
- * Provides the Modules to the entire scope of the application
- */
+/*
 @Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
@@ -20,8 +20,18 @@ import javax.inject.Singleton
     FragmentModule::class,
     ViewModelModule::class
 ])
-interface AppComponent  : AndroidInjector<VsdApplication>{
+interface AuthenticatedComponent  : AndroidInjector<Fragment> {
 
+    @Component.Builder
+    interface Builder {
 
-    override fun inject(instance: VsdApplication)
+        @BindsInstance
+        fun applicationModule(application: VsdApplication) : Builder
+
+        fun build() : AppComponent
+
+    }
+
+    override fun inject(instance: Fragment)
 }
+*/
