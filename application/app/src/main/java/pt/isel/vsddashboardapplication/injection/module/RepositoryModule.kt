@@ -1,14 +1,10 @@
 package pt.isel.vsddashboardapplication.injection.module
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.repository.*
-import pt.isel.vsddashboardapplication.repository.dao.EnterpriseDao
-import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
-import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
-import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
+import pt.isel.vsddashboardapplication.repository.dao.*
 import pt.isel.vsddashboardapplication.repository.implementation.*
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import javax.inject.Singleton
@@ -45,5 +41,15 @@ class RepositoryModule {
     @Singleton
     fun providesLoginRepository(application: VsdApplication) : LoginRepository =
         LoginRepositoryImpl(application.sharedPreferences())
+
+    @Provides
+    @Singleton
+    fun providesDpiProbestatsRepository(dao: DpiProbestatsDao) : DpiProbestatsRepository =
+        DpiProbestatsRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesApmRepository(dao: ApmDao) : ApmRepository =
+        ApmRepositoryImpl(dao)
 
 }

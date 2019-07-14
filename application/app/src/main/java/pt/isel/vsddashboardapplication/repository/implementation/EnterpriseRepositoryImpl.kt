@@ -8,6 +8,7 @@ import pt.isel.vsddashboardapplication.model.Enterprise
 import pt.isel.vsddashboardapplication.repository.EnterpriseRepository
 import pt.isel.vsddashboardapplication.repository.dao.EnterpriseDao
 import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.vsd.EnterpriseService
 import javax.inject.Inject
 
@@ -15,12 +16,6 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
     : EnterpriseRepository {
     companion object{
         private const val TAG = "REPO/ENTERPRISE"
-    }
-
-    private val services: EnterpriseService? by lazy {
-        RetrofitServices
-            .getInstance()
-            .createVsdService(EnterpriseService::class.java)
     }
 
     override suspend fun get(id: String): LiveData<Enterprise> {
@@ -36,28 +31,40 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
         Log.d(TAG, "Getting list of enterprises of user $parentId")
         val values = dao.loadAll(parentId)
 
-        if(values.value == null && values.value!!.isEmpty())
+        if(values.value == null || values.value!!.isEmpty())
             updateAll(parentId)
 
         return values
     }
 
-    override suspend fun update(id: String) {
+    override suspend fun update(id: String, onFinish: (() -> Unit)?) {
         Log.d(TAG, "Updating enterprise $id")
         withContext(Dispatchers.IO){
-            services?.getEnterprise(id)?.await()?.let { enterprise ->
-                dao.save(enterprise)
-            }
+            RetrofitSingleton
+                .enterpriseServices()
+                ?.getEnterprise(id)
+                ?.await()
+                ?.let { enterprise -> dao.save(enterprise) }
+
+            onFinish?.invoke()
+            return@withContext
         }
     }
 
-    override suspend fun updateAll(parentId: String) {
+    override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
         Log.d(TAG, "Updating enterprises of user $parentId")
         withContext(Dispatchers.IO){
-            services?.getEnterprises()?.await()?.forEach { enterprise ->
-                enterprise.userId = parentId
-                dao.save(enterprise)
-            }
+            RetrofitSingleton
+                .enterpriseServices()
+                ?.getEnterprises()
+                ?.await()
+                ?.forEach { enterprise ->
+                    enterprise.userId = parentId
+                    dao.save(enterprise)
+                }
+
+            onFinish?.invoke()
+            return@withContext
         }
     }
 

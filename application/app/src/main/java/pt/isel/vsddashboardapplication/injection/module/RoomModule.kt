@@ -29,4 +29,11 @@ class RoomModule {
     @Provides
     fun providesEnterpriseDao(database: VsdDatabase) = database.enterpriseDao()
 
+    @Singleton
+    @Provides
+    fun providesProbestatsDao(database: VsdDatabase) = database.dpiProbestatsDao()
+
+    @Singleton
+    @Provides
+    fun providesApmDao(database: VsdDatabase) = database.apmDao()
 }

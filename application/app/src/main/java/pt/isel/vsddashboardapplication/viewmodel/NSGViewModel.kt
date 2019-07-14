@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
+import pt.isel.vsddashboardapplication.utils.RefreshState
+import pt.isel.vsddashboardapplication.viewmodel.base.BaseViewModel
 import javax.inject.Inject
 
 /**
@@ -22,7 +24,10 @@ class NSGViewModel @Inject constructor(private val repository: NSGatewayReposito
 
     override suspend fun updateLiveData() {
         Log.d(TAG, "Updating livedata with NSG with ID: $id (repository = ${repository?.hashCode() ?: 0}")
-        this.repository?.update(id)
+        this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+        this.repository?.update(id) {
+            this.refreshStateLiveData.postValue(RefreshState.NONE)
+        }
     }
 
     private lateinit var id: String

@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.repository.services.vsd.AuthenticationService
-import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 import javax.inject.Inject
@@ -77,10 +77,9 @@ class LoginRepositoryImpl @Inject constructor(
             val api = AddressBuilder.build(address ?: "", port)
             Log.d(TAG, "LOGIN - Creating Authentication service")
             sharedPrefs.let {
-                this.authenticationService =
-                    RetrofitServices
-                        .getInstance(api, username, organization)
-                        .createAuthenticationService(password)
+                RetrofitSingleton.prepareVsdService(api, username, organization)
+                RetrofitSingleton.setupAuthenticator(password)
+                this.authenticationService = RetrofitSingleton.authenticationService()
             }
 
             Log.d(TAG, "LOGIN - Authenticating with username $username and organization $organization ($api)")

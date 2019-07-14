@@ -26,12 +26,12 @@ interface IBaseRepository<T> {
      * Updates the resource
      * @param id: the id of the specific resource
      */
-    suspend fun update(id: String)
+    suspend fun update(id: String, onFinish: (() -> Unit)? = null)
 
     /**
      * Updates all the resources that are children of a defined parent
      * @param parentId: the id of the parent of the resources
      */
-    suspend fun updateAll(parentId: String)
+    suspend fun updateAll(parentId: String, onFinish: (() -> Unit)? = null)
 
 }

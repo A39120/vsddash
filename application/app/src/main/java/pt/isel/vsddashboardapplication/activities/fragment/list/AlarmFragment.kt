@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.viewmodel.AlarmViewModel
 
 /**
@@ -25,6 +26,7 @@ class AlarmFragment
 
 
     override fun observeViewModel() {
+        super.observeViewModel()
         viewModel.liveData.observe(this, Observer{
             this.adapter.setList(it)
         })

@@ -14,7 +14,6 @@ import pt.isel.vsddashboardapplication.R
 
 class MenuFragment : Fragment() {
 
-
     private lateinit var binding : MenuFragmentBinding
 
     override fun onCreateView(
@@ -23,12 +22,9 @@ class MenuFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.menu_fragment, container, false)
 
-        binding.nsgListOption.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_NSGatewayListFragment)
-        }
+        binding.nsgListOption.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_NSGatewayListFragment) }
 
         return binding.root
     }
-
 
 }

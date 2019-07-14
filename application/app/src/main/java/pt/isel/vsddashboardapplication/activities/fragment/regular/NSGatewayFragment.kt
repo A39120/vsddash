@@ -6,6 +6,8 @@ import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.NsgActivity
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
@@ -14,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Fragment that handles all information that belongs to the fragment
  */
-class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>(), CoroutineScope{
+class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>(), CoroutineScope, IRefreshableComponent{
 
     override fun observeViewModel() {
         viewModel.liveData.observe(this, Observer {
@@ -65,5 +67,8 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>()
         }
         binding.nsgbootstrapActive.setBackgroundColor(color)
     }
+
+
+    override fun refresh() { }
 
 }

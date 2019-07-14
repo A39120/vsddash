@@ -1,21 +1,23 @@
-package pt.isel.vsddashboardapplication.viewmodel
+package pt.isel.vsddashboardapplication.viewmodel.base
 
 import android.util.Log
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pt.isel.vsddashboardapplication.repository.IBaseRepository
+import pt.isel.vsddashboardapplication.utils.RefreshState
 
 /**
  * Abstract class that will provide other view models
  */
 abstract class BaseViewModel<T> : ViewModel() {
     companion object {
-        private const val TAG = "VM/Base"
+        private const val TAG = "VM/BASE"
     }
 
     val liveData = MediatorLiveData<T>()
+    val refreshStateLiveData = MutableLiveData(RefreshState.NONE)
 
     /**
      * Sets live data

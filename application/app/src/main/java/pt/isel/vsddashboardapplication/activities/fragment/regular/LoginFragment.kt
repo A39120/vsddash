@@ -7,8 +7,10 @@ import androidx.navigation.Navigation
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -20,6 +22,9 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
         private const val TAG = "FRAG/LOGIN"
     }
 
+    /**
+     * The Main UI Context, needed for nested functions inside IO/Default dispatchers
+     */
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + SupervisorJob()
 
@@ -41,7 +46,9 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
 
     override fun setBindingObjects() {
         setSettings()
+        binding.viewmodel = viewModel
         launch { changeConnectButton(ButtonStatus.CONNECT) }
+        binding.executePendingBindings()
     }
 
     /**
@@ -64,13 +71,17 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
         binding.connectButton.setOnClickListener(listener)
     }
 
+    /**
+     * The Status of the Connect button, used to track the status of
+     * the button
+     */
     private enum class ButtonStatus { CONNECT, INPROGRESS, ERROR }
 
     /**
      * Changes the connect button to the defined values
      */
     private suspend fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
-        Log.i(TAG, "Changing the connect button to status $status.")
+        Log.d(TAG, "Changing the connect button to status $status.")
         val connect = View.OnClickListener { launch { startAuthentication() } }
         val cancel = View.OnClickListener { launch { cancelAuthentication(job!!) } }
 
@@ -87,6 +98,7 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
      */
     private suspend fun startAuthentication() = withContext(Dispatchers.IO) {
         Log.i(TAG, "Starting the authentication.")
+        RetrofitSingleton.setupAuthenticator(viewModel.password)
 
         val job = viewModel.connect()
         changeConnectButton(ButtonStatus.INPROGRESS, job)
@@ -101,9 +113,12 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
 
             // Move to another fragment
             (this@LoginFragment.activity?.application as VsdApplication).session.let {
+                it.username = binding.username.text.toString()
                 it.session = sessions[0]
+                RetrofitSingleton.setupRetrofit(sessions[0].APIKey)
             }
-            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
+            //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
+            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_enterpriseListFragment)
         } catch (ex: Throwable) {
             Log.e(TAG, "Authentication error occurred.\n ${ex.message}")
             changeConnectButton(ButtonStatus.ERROR)

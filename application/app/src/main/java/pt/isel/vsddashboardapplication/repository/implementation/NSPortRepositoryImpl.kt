@@ -9,6 +9,7 @@ import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
 import pt.isel.vsddashboardapplication.model.NSPort
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
 /**
@@ -21,14 +22,6 @@ class NSPortRepositoryImpl @Inject constructor(
         private const val TAG = "REPO/NSPORT"
     }
 
-    /**
-     * Service to get the ports
-     */
-    private val service: NSPortServices? by lazy {
-        RetrofitServices
-            .getInstance()
-            .createVsdService(NSPortServices::class.java)
-    }
 
     /**
      * Gets the port from the DB/Network
@@ -62,11 +55,17 @@ class NSPortRepositoryImpl @Inject constructor(
      * Updates DB by collecting if possible the information from a network call
      * @param id: the ID of a existing port
      */
-    override suspend fun update(id: String) {
+    override suspend fun update(id: String, onFinish: (() -> Unit)?) {
         Log.d(TAG, "Updating NSPort $id")
         withContext(Dispatchers.IO) {
-            val port = service?.getPort(id)?.await()
+            val port = RetrofitSingleton
+                .nsportServices()
+                ?.getPort(id)
+                ?.await()
+
             port?.run { dao.save(port) }
+            onFinish?.invoke()
+            return@withContext
         }
     }
 
@@ -77,11 +76,17 @@ class NSPortRepositoryImpl @Inject constructor(
      *
      * @param parentId: the ID of a NSG
      */
-    override suspend fun updateAll(parentId: String) {
+    override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
         Log.d(TAG, "Updating NSPorts of NSG $parentId")
         withContext(Dispatchers.IO) {
-            val ports = service?.getGatewayPorts(parentId)?.await()
+            val ports = RetrofitSingleton
+                .nsportServices()
+                ?.getGatewayPorts(parentId)
+                ?.await()
+
             ports?.forEach { dao.save(it) }
+            onFinish?.invoke()
+            return@withContext
         }
     }
 

@@ -12,9 +12,9 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.repository.services.ElasticSearchServices
 import pt.isel.vsddashboardapplication.repository.services.es.DpiProbestatsServices
 import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.text.SimpleDateFormat
@@ -26,7 +26,7 @@ class GraphFragment : Fragment(){
     private lateinit var binding : GraphFragmentBinding
     private var service : DpiProbestatsServices? = null
     private var wasScrolled : Boolean = false
-    private val lock = Object()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -43,7 +43,8 @@ class GraphFragment : Fragment(){
         val address = this.activity?.sharedPreferences()?.getString(SharedPreferenceKeys.CURRENTADDRESS, "")
         val port = 6200
         val uri = "https://$address:$port/"
-        service = ElasticSearchServices.getInstance(uri)?.getService(DpiProbestatsServices::class.java)
+        ElasticSearchRetrofitSingleton.set(uri)
+        service = ElasticSearchRetrofitSingleton.dpiProbestats()
     }
 
     private  fun prepareGraph() {
@@ -125,13 +126,10 @@ class GraphFragment : Fragment(){
     private fun prepareGraph() {
         binding.plot.rangeStepMode = StepMode.INCREMENT_BY_VAL
         binding.plot.domainStepMode = StepMode.INCREMENT_BY_VAL
-
         binding.plot.setRangeBoundaries(0, 100, BoundaryMode.FIXED)
         binding.plot.setDomainBoundaries(0, BoundaryMode.AUTO, 300, BoundaryMode.GROW)
-
         binding.plot.setDomainLabel("Time")
         binding.plot.setRangeLabel("Percentage de uso %")
-
         val series = listOf(10.5, 20.0, 30.0, 40.0, 50.0)
         val seriesX = SimpleXYSeries(series, SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series")
         binding.plot.addSeries(seriesX, LineAndPointFormatter())

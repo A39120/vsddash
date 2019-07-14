@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.PortRepository
 import pt.isel.vsddashboardapplication.model.NSPort
+import pt.isel.vsddashboardapplication.utils.RefreshState
+import pt.isel.vsddashboardapplication.viewmodel.base.BaseListViewModel
 import javax.inject.Inject
 
 class PortListViewModel @Inject constructor(private val repository: PortRepository): BaseListViewModel<NSPort>() {
@@ -21,9 +23,11 @@ class PortListViewModel @Inject constructor(private val repository: PortReposito
 
     override suspend fun updateLiveData() {
         Log.d(TAG, "Updating livedata for list of ports of NSG $nsg (repository = ${repository.hashCode()})")
-        repository.updateAll(nsg)
+        this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+        repository.updateAll(nsg) {
+            this.refreshStateLiveData.postValue(RefreshState.NONE)
+        }
     }
-
 
     private lateinit var nsg : String
 
@@ -34,3 +38,4 @@ class PortListViewModel @Inject constructor(private val repository: PortReposito
     }
 
 }
+

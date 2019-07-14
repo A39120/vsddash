@@ -19,7 +19,7 @@ object HttpClientBuilderProvider {
     fun  getClient() : OkHttpClient.Builder {
         val builder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
-        logging.level = HttpLoggingInterceptor.Level.BASIC
+        logging.level = HttpLoggingInterceptor.Level.BODY
         try {
             val trustAllCerts: Array<TrustManager> = arrayOf(object: X509TrustManager{
                 @SuppressLint("TrustAllX509TrustManager")

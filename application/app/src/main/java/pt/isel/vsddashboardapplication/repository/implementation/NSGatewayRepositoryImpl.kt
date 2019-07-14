@@ -9,6 +9,7 @@ import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSGatewayDao
 import pt.isel.vsddashboardapplication.model.NSGateway
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
 /**
@@ -18,15 +19,6 @@ import javax.inject.Inject
 class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao) : NSGatewayRepository {
     companion object{
         private const val TAG = "REPO/NSG"
-    }
-
-    /**
-     * Service used for network calls
-     */
-    private val nsgService: NSGatewayService? by lazy {
-        RetrofitServices
-            .getInstance()
-            .createVsdService(NSGatewayService::class.java)
     }
 
     /**
@@ -62,23 +54,38 @@ class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao)
      * Updates a single NSG
      * @param id: the NSG ID
      */
-    override suspend fun update(id: String) = withContext(Dispatchers.IO){
+    override suspend fun update(id: String, onFinish: (() -> Unit)?) = withContext(Dispatchers.IO){
         Log.d(TAG, "Updating nsg $id")
-        val gateways = nsgService?.getGateway(id)?.await()
+        val gateways = RetrofitSingleton
+            .nsgService()
+            ?.getGateway(id)
+            ?.await()
+
         if(gateways != null)
             if( gateways.isNotEmpty() && gateways.size < 2)
                 dao.save(nsgateway = gateways[0])
+
+        onFinish?.invoke()
+        return@withContext
     }
 
     /**
      * Updates a list of NSGs, given an enterprise
      * @param parentId: the enterprise ID
      */
-    override suspend fun updateAll(parentId: String) = withContext(Dispatchers.IO) {
+    override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) = withContext(Dispatchers.IO) {
         Log.d(TAG, "Updating list of NSGs of enterprise $parentId")
-        val gateways = nsgService?.getGateways(parentId)?.await()
+        val service = RetrofitSingleton.nsgService()
+        val gateways = service
+            ?.getGateways(parentId)
+            ?.await()
+
         if(gateways != null && gateways.isNotEmpty())
             gateways.forEach { dao.save(it) }
+
+        Log.d(TAG, "Updated all NSGs of enterprise $parentId")
+        onFinish?.invoke()
+        return@withContext
     }
 
 }

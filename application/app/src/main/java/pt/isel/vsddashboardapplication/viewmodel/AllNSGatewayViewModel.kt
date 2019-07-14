@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
 import pt.isel.vsddashboardapplication.model.NSGateway
+import pt.isel.vsddashboardapplication.utils.RefreshState
+import pt.isel.vsddashboardapplication.viewmodel.base.BaseListViewModel
 import javax.inject.Inject
 
 /**
@@ -24,15 +26,16 @@ class AllNSGatewayViewModel @Inject constructor(private val repository: NSGatewa
     }
 
     override suspend fun setLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()?:0})")
-        repository?.let {
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()})")
+        repository.let {
             this.liveData.addSource(it.getAll(enterprise)) { nsgs -> liveData.value = nsgs }
         }
     }
 
     override suspend fun updateLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()?:0})")
-        repository?.updateAll(enterprise)
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()})")
+        this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+        repository.updateAll(enterprise){ this.refreshStateLiveData.postValue(RefreshState.NONE)}
     }
 
 }

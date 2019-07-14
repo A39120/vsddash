@@ -3,10 +3,9 @@ package pt.isel.vsddashboardapplication
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
-import pt.isel.vsddashboardapplication.repository.services.ElasticSearchServices
-import pt.isel.vsddashboardapplication.repository.services.es.ElasticSearchService
-import pt.isel.vsddashboardapplication.model.statistics.Flow
+import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.model.statistics.base.Search
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 
 class ElasticSearchTest {
 
@@ -16,19 +15,19 @@ class ElasticSearchTest {
     @Test
     fun getFlowTest() {
         val uri = TestObject.esApi
-        val client = ElasticSearchServices.getInstance(uri)
-        Assert.assertNotNull(client)
+        ElasticSearchRetrofitSingleton.set(uri)
 
-        val service = client?.getService(ElasticSearchService::class.java)
+        val service = ElasticSearchRetrofitSingleton.dpiProbestats()
         Assert.assertNotNull(service)
 
-        val flow = service?.getFlow()
+        val flow = service?.getDpiProbestats()
         Assert.assertNotNull(flow)
 
-        var res : Search<Flow>? = null
+        var res : Search<DpiProbestats>? = null
         runBlocking { res = flow?.await() }
 
         Assert.assertNotNull(res)
         print(res.toString())
     }
+
 }

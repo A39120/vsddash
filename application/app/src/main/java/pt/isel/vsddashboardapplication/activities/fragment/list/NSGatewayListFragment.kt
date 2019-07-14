@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
 
 /**
@@ -23,7 +24,7 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
      */
     override fun setAdapter() {
         Log.d(TAG, "Setting up NSG List adapter")
-        adapter = NSGatewayAdapter { nsg, view ->
+        adapter = NSGatewayAdapter() { nsg, view ->
             val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgActivity(nsg.ID)
             Navigation.findNavController(view).navigate(directions)
         }
@@ -35,6 +36,7 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
         .get(AllNSGatewayViewModel::class.java)
 
     override fun observeViewModel() {
+        super.observeViewModel()
         Log.d(TAG, "Observing view model")
         viewModel.liveData.observe(this, Observer{
             Log.d(TAG, "Changes have occurred for NSG List ViewModel")
@@ -45,8 +47,12 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
     override fun initViewModel() {
         //TODO: Offline mode
         Log.d(TAG, "Setting up session enterprise for the view model")
-        val enterprise = (this.activity?.application as VsdApplication).session.getEnterpriseId()
-        viewModel.init(enterprise?:"")
+
+        val enterprise = this.arguments?.getString(EnterpriseListFragment.ENTERPRISE_ID) ?:
+            (this.activity?.application as VsdApplication).session.getEnterpriseId() ?:
+                ""
+
+        viewModel.init(enterprise)
     }
 
 }

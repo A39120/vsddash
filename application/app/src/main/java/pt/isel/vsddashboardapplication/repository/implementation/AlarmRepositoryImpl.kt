@@ -9,6 +9,7 @@ import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.repository.AlarmRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
+import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
 /**
@@ -20,9 +21,6 @@ class AlarmRepositoryImpl @Inject constructor(
     companion object {
         private const val TAG = "REPO/ALARM"
     }
-
-    private val service: AlarmServices? = RetrofitServices.getInstance().createVsdService(
-        AlarmServices::class.java)
 
     /**
      * Gets an alarm
@@ -56,11 +54,15 @@ class AlarmRepositoryImpl @Inject constructor(
      * Updates an alarm
      * @param id: Alarm ID
      */
-    override suspend fun update(id: String) {
+    override suspend fun update(id: String, onFinish: (() -> Unit)?) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Updating Alarm $id")
-            val alarm = service?.getAlarm(id)?.await()
+            val alarm = RetrofitSingleton
+                .alarmServices()
+                ?.getAlarm(id)?.await()
             alarm?.forEach { dao.save(it) }
+            onFinish?.invoke()
+            return@withContext
         }
     }
 
@@ -68,11 +70,15 @@ class AlarmRepositoryImpl @Inject constructor(
      * Updates the list of alarms of a given NSG
      * @param parentId: the id of the NSG that owns the alarms
      */
-    override suspend fun updateAll(parentId: String) {
+    override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Updating Alarms of NSG $parentId")
-            val alarms = service?.getGatewayAlarms(parentId)?.await()
+            val alarms = RetrofitSingleton
+                .alarmServices()
+                ?.getGatewayAlarms(parentId)?.await()
             alarms?.forEach { dao.save(it) }
+            onFinish?.invoke()
+            return@withContext
         }
     }
 

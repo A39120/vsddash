@@ -1,11 +1,13 @@
 package pt.isel.vsddashboardapplication.activities.adapter
 
+import android.view.View
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.viewholder.EnterpriseViewHolder
 import pt.isel.vsddashboardapplication.databinding.EnterpriseItemBinding
 import pt.isel.vsddashboardapplication.model.Enterprise
 
-class EnterpriseAdapter : BaseAdapter<Enterprise, EnterpriseViewHolder, EnterpriseItemBinding>() {
+class EnterpriseAdapter(onClickListener: (Enterprise, View) -> Unit)
+    : BaseAdapter<Enterprise, EnterpriseViewHolder, EnterpriseItemBinding>(onClickListener){
 
     override fun getItemLayoutRes(): Int = R.layout.enterprise_item
 

@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.communication.services.es
+package pt.isel.vsddashboardapplication.repository.services.es
 
 import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.model.statistics.*

@@ -41,4 +41,12 @@
 	<string name="CPU">CPU</string>
 	<string name="time">Time</string>
 	<string name="avg_jitter">Avg. Jitter</string>
+	
+	<string name="test">Test</string>
+	<string name="save">Save</string>
+	<string name="vsps">VSP</string>
+	<string name="sites">Sites Remotos</string>
+	<string name="vsds">VSD</string>
+	<string name="vscs">VSC</string>
+	<string name="vrss">VRSs</string>
 </resources>

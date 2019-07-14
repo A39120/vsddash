@@ -4,6 +4,7 @@ import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.model.NSPort
+import pt.isel.vsddashboardapplication.model.events.Events
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -27,3 +28,5 @@ interface NSGatewayService {
     fun getGatewayAlarms(@Path("id") nsgId: String) : Deferred<List<Alarm>?>
 
 }
+
+

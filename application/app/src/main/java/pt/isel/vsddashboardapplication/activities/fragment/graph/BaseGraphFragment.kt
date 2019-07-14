@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
@@ -19,34 +20,26 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
 import java.text.DateFormat
 
-abstract class BaseGraphFragment : DaggerFragment() {
+abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentBinding>() {
     companion object {
         private const val TAG = "FRAG/BGRAPH"
+        const val DEFAULT_MAX = 30
     }
 
-    private lateinit var binding: GraphFragmentBinding
     private var wasScrolled = false
 
     private val HORIZONTAL_LINES = 5
     private val VERTICAL_LINES = 2
     private val HORIZONTAL_LABEL_ANGLE = 45
 
-    /**
-     * Prepares the view for the graph_fragment shared by all the fragments that use a graph
-     */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG, "Creating graph view.")
-        binding = DataBindingUtil.inflate(inflater, R.layout.graph_fragment, container, false)
+    override fun getLayoutRes(): Int = R.layout.graph_fragment
 
-        CoroutineScope(Dispatchers.Main).launch {
-            prepareGraph()
-            observeViewModel()
-        }
-
-        return binding.root
+    override fun setBindingObjects() {
+        CoroutineScope(Dispatchers.Main).launch { prepareGraph() }
     }
 
     /**
@@ -57,11 +50,6 @@ abstract class BaseGraphFragment : DaggerFragment() {
         Log.d(TAG, "Adding a new series: ${series.title?:"unnamed"} to the graph")
         binding.graph.addSeries(series)
     }
-
-    /**
-     * Observes the view model that will apply changes to the graph
-     */
-    protected abstract fun observeViewModel()
 
     /**
      * Dynamically prepares the GraphView

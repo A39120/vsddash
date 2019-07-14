@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.fragment.regular
+package pt.isel.vsddashboardapplication.activities.fragment.base
 
 import android.content.Context
 import android.os.Bundle
@@ -73,13 +73,16 @@ abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : DaggerFragment(
 
         Log.d(TAG, "Binding objects to View (${binding.javaClass})")
         setBindingObjects()
+
+        binding.executePendingBindings()
         return this.binding.root
     }
 
     override fun onAttach(context: Context) {
+        super.onAttach(context)
         Log.d(TAG, "Injecting fragment with dependencies (${this.javaClass})")
         AndroidSupportInjection.inject(this)
-        super.onAttach(context)
     }
+
 
 }

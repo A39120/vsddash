@@ -33,4 +33,5 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributePortListFragment() : PortListFragment
+
 }

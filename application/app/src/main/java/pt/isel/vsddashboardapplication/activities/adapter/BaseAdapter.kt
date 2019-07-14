@@ -30,7 +30,6 @@ abstract class BaseAdapter<T, U : BindingViewHolder<T>, V : ViewDataBinding>(
     override fun onBindViewHolder(holder: U, position: Int) {
         val item = values[position]
         holder.bind(item, onClickListener)
-        holder.itemView
     }
 
     fun setList(list: List<T>?){

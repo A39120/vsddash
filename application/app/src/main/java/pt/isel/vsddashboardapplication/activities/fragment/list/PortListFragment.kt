@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
 
 /**
@@ -16,6 +17,7 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
     }
 
     override fun observeViewModel() {
+        super.observeViewModel()
         viewModel.liveData.observe(this, Observer{
             Log.d(TAG, "Setting up new list for Port List")
             adapter.setList(it)
@@ -36,6 +38,9 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
     override fun setAdapter() {
         adapter = NSPortAdapter { _, _ ->}
         binding.list.adapter = adapter
+    }
+
+    override fun refresh() {
     }
 
 }
