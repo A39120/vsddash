@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
+import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.Viewport
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
@@ -35,6 +36,7 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentB
     private val HORIZONTAL_LINES = 5
     private val VERTICAL_LINES = 2
     private val HORIZONTAL_LABEL_ANGLE = 45
+
 
     override fun getLayoutRes(): Int = R.layout.graph_fragment
 
@@ -80,8 +82,12 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentB
                 wasScrolled = scrollX < oldScrollX || scrollX < graph.viewport.getMaxX(true)
                 Log.d(TAG, "wasScrolled is ${if(wasScrolled) "activated" else "deactivated"}")
             }
+
+            addSeries(binding.graph)
         }
     }
+
+    abstract fun addSeries(graphView: GraphView)
 
     /**
      * Gets the horizontal label format, this can be overridden to display non-hourly X labels
@@ -111,7 +117,8 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentB
      */
     protected suspend fun appendData(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint) = withContext(Dispatchers.Main){
         Log.d(TAG, "Appending data x: ${dataPoint.x}, y: ${dataPoint.y}")
-        series.appendData(dataPoint, !wasScrolled, getMaxData())
+        //series.appendData(dataPoint, !wasScrolled, getMaxData())
+        series.appendData(dataPoint, true, getMaxData())
     }
 
     protected abstract fun getMaxData() : Int

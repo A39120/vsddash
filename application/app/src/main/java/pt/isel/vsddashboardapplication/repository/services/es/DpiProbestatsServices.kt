@@ -24,4 +24,12 @@ interface DpiProbestatsServices {
                           @Query("from") offset: Int? = 0,
                           @Query("size") size: Int? = 10)
             : Deferred<Search<DpiProbestats>>
+
+    @Headers("Accept: application/json")
+    @GET("/nuage_dpi_probestats/_search?format=json")
+    fun getDpiProbestatsWithQuery( @Query("q") query: String = "*",
+                                   @Query("sort") sort: String? = null,
+                                   @Query("from") offset: Int? = 0,
+                                   @Query("size") size: Int? = 10)
+            : Deferred<Search<DpiProbestats>>
 }

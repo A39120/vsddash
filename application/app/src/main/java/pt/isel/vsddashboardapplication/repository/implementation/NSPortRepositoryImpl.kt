@@ -63,7 +63,7 @@ class NSPortRepositoryImpl @Inject constructor(
                 ?.getPort(id)
                 ?.await()
 
-            port?.run { dao.save(port) }
+            port?.forEach { dao.save(it) }
             onFinish?.invoke()
             return@withContext
         }

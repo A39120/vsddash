@@ -15,7 +15,7 @@ interface NSPortServices {
 
     @Headers("Accept: application/json")
     @GET("/nuage/api/v5_0/nsports/{id}")
-    fun getPort(@Path("id") portId : String) : Deferred<NSPort?>
+    fun getPort(@Path("id") portId : String) : Deferred<List<NSPort>?>
 
 
 }

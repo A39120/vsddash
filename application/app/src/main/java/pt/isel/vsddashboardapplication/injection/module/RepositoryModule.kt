@@ -52,4 +52,8 @@ class RepositoryModule {
     fun providesApmRepository(dao: ApmDao) : ApmRepository =
         ApmRepositoryImpl(dao)
 
+    @Provides
+    @Singleton
+    fun providesNsgInfoRepository(dao: NSGInfoDao) : NSGinfoRepository =
+        NSGInfoRepositoryImpl(dao)
 }

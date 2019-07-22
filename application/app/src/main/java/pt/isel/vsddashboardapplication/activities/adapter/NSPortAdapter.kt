@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.activities.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import pt.isel.vsddashboardapplication.R
@@ -10,31 +11,16 @@ import pt.isel.vsddashboardapplication.activities.adapter.viewholder.NSPortViewH
 import pt.isel.vsddashboardapplication.model.NSPort
 import pt.isel.vsddashboardapplication.databinding.PortItemBinding
 
-class NSPortAdapter (
-    private val onClickListener: (NSPort, View) -> Unit
-) : RecyclerView.Adapter<NSPortViewHolder>() {
+/**
+ * The NSPortAdapter, adapts the list of ports
+ * @param onClickListener: the action that will occur when an item is clicked on
+ */
+class NSPortAdapter ( onClickListener: (NSPort, View) -> Unit )
+    : BaseAdapter<NSPort, NSPortViewHolder, PortItemBinding>(onClickListener) {
 
+    @LayoutRes
+    override fun getItemLayoutRes(): Int = R.layout.port_item
 
-    private val values: ArrayList<NSPort> = ArrayList()
-    override fun getItemCount(): Int = values.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NSPortViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<PortItemBinding>(inflater, R.layout.port_item, parent, false)
-        return NSPortViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: NSPortViewHolder, position: Int) {
-        val item = values[position]
-        holder.bind(item, onClickListener)
-    }
-
-    fun setList(list: List<NSPort>?){
-        list?.let {
-            this.values.clear()
-            this.values.addAll(list)
-        }
-        notifyDataSetChanged()
-    }
+    override fun getViewHolder(binding: PortItemBinding): NSPortViewHolder = NSPortViewHolder(binding)
 
 }

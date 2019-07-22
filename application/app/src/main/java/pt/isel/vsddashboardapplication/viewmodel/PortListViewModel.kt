@@ -32,7 +32,6 @@ class PortListViewModel @Inject constructor(private val repository: PortReposito
     private lateinit var nsg : String
 
     fun init(nsgId: String){
-        Log.d(TAG, "Setting parent id of NSG $nsg")
         this.nsg = nsgId
         viewModelScope.launch { setLiveData() }
     }

@@ -5,10 +5,11 @@
 		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
-		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSGViewModel"/>
+		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel"/>
 	</data>
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/refresh_layout"
 		android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 		
@@ -50,7 +51,7 @@
 					</LinearLayout>
 					
 					<!-- description of the nsg -->
-					<LinearLayout
+					<!--<LinearLayout
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
@@ -69,6 +70,7 @@
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
+					-->
 					
 					<!-- status of the nsg -->
 					<LinearLayout

@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.activities.fragment.list
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import pt.isel.vsddashboardapplication.activities.NSPortActivity
 import pt.isel.vsddashboardapplication.activities.NsgActivity
 import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
@@ -36,11 +37,15 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
     private lateinit var adapter: NSPortAdapter
 
     override fun setAdapter() {
-        adapter = NSPortAdapter { _, _ ->}
-        binding.list.adapter = adapter
-    }
+        adapter = NSPortAdapter { port, _ ->
+            Log.d(TAG, "Port chosen - ${port.name} (${port.iD})")
 
-    override fun refresh() {
+            NSPortActivity.startInstance(
+                port.iD,
+                port.parentID?:(this.activity as NsgActivity).getNsgId(),
+                this.context!!)
+        }
+        binding.list.adapter = adapter
     }
 
 }

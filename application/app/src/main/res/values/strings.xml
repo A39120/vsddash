@@ -49,4 +49,12 @@
 	<string name="vsds">VSD</string>
 	<string name="vscs">VSC</string>
 	<string name="vrss">VRSs</string>
+	
+	
+	<string name="porttype">Type</string>
+	<string name="portname">Port Name</string>
+	<string name="nsgname">NSG Name</string>
+	<string name="speed">Speed</string>
+	<string name="mtu">MTU</string>
+	<string name="vlan_range">VLAN Range</string>
 </resources>

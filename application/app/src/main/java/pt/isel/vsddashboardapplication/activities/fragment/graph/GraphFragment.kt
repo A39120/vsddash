@@ -100,7 +100,7 @@ class GraphFragment : Fragment(){
 
         for(hit in list){
             hit.source?.run {
-                if ((timestamp != null && timestamp > 0) && (avgJitter != null)) {
+                if ((timestamp > 0) && (avgJitter != null)) {
                     val date = Date(timestamp)
                     val dataPoint = DataPoint(date, avgJitter)
                     runBlocking(Dispatchers.Main) {

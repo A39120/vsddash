@@ -10,15 +10,23 @@ import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
-import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
+import pt.isel.vsddashboardapplication.utils.RefreshState
+import pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel
 import kotlin.coroutines.CoroutineContext
 
 /**
  * Fragment that handles all information that belongs to the fragment
  */
-class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>(), CoroutineScope, IRefreshableComponent{
+class NSGatewayFragment : BaseFragment<NSGInfoViewModel, NsgatewayFragmentBinding>(), CoroutineScope, IRefreshableComponent{
 
     override fun observeViewModel() {
+        viewModel.refreshStateLiveData.observe(this, Observer{rf ->
+            binding.refreshLayout.isRefreshing = when(rf){
+                RefreshState.INPROGRESS -> true
+                RefreshState.NONE -> false
+            }
+        })
+
         viewModel.liveData.observe(this, Observer {
             updateUI()
             changeStatusColor(it.bootstrapStatus)
@@ -34,8 +42,8 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>()
     }
 
 
-    override fun assignViewModel(): NSGViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[NSGViewModel::class.java]
+    override fun assignViewModel(): NSGInfoViewModel =
+        ViewModelProviders.of(this, viewModelFactory)[NSGInfoViewModel::class.java]
 
     override fun getLayoutRes(): Int = R.layout.nsgateway_fragment
 
@@ -49,12 +57,9 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>()
      * Updates UI
      */
     private fun updateUI() = launch {
+        binding.refreshLayout.setOnRefreshListener { refresh() }
         binding.vm = viewModel
         binding.executePendingBindings()
-    }
-
-    private suspend fun update() {
-        withContext(Dispatchers.IO) { viewModel.update() }
     }
 
     /**
@@ -68,7 +73,6 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, NsgatewayFragmentBinding>()
         binding.nsgbootstrapActive.setBackgroundColor(color)
     }
 
-
-    override fun refresh() { }
+    override fun refresh() { viewModel.update() }
 
 }

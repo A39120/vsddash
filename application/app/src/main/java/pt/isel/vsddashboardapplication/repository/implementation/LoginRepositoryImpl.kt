@@ -6,6 +6,7 @@ import kotlinx.coroutines.Deferred
 import pt.isel.vsddashboardapplication.repository.services.vsd.AuthenticationService
 import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.LoginRepository
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
@@ -78,6 +79,7 @@ class LoginRepositoryImpl @Inject constructor(
             Log.d(TAG, "LOGIN - Creating Authentication service")
             sharedPrefs.let {
                 RetrofitSingleton.prepareVsdService(api, username, organization)
+                ElasticSearchRetrofitSingleton.set(AddressBuilder.build(address?:"", 6200))
                 RetrofitSingleton.setupAuthenticator(password)
                 this.authenticationService = RetrofitSingleton.authenticationService()
             }

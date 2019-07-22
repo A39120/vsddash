@@ -12,6 +12,7 @@ data class DpiProbestats(
     @Json(name = "AvgDelay") val avgDelay: Double? = 0.0,
     @Json(name = "AvgJitter") val avgJitter: Double? = 0.0,
     @Json(name = "AvgPktLoss") val avgPktLoss: Double? = 0.0,
+    @Json(name = "APMGroup") val aPMGroup: String? = null,
     @Json(name = "ControlSessionState") val controlSessionState: String? = "",
     @Json(name = "DUCGroupID") val dUCGroupID: String? = "",
     @Json(name = "DestinationNSG") val destinationNSG: String? = "",

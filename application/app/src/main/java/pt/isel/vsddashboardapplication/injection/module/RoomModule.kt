@@ -36,4 +36,8 @@ class RoomModule {
     @Singleton
     @Provides
     fun providesApmDao(database: VsdDatabase) = database.apmDao()
+
+    @Singleton
+    @Provides
+    fun providesNsgInfoDao(database: VsdDatabase) = database.nsgInfoDao()
 }

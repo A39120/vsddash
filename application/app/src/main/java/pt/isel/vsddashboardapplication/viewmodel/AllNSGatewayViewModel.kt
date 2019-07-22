@@ -26,14 +26,14 @@ class AllNSGatewayViewModel @Inject constructor(private val repository: NSGatewa
     }
 
     override suspend fun setLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()})")
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.javaClass})")
         repository.let {
             this.liveData.addSource(it.getAll(enterprise)) { nsgs -> liveData.value = nsgs }
         }
     }
 
     override suspend fun updateLiveData() {
-        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.hashCode()})")
+        Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.javaClass})")
         this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
         repository.updateAll(enterprise){ this.refreshStateLiveData.postValue(RefreshState.NONE)}
     }

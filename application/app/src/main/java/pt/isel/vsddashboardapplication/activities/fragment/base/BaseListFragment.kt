@@ -23,7 +23,7 @@ abstract class BaseListFragment<T : BaseListViewModel<*>> : BaseFragment<T, List
     protected abstract fun setAdapter()
 
     override fun setBindingObjects() {
-        Log.d(TAG, "Setting up adapter")
+        Log.d(TAG, "Setting up adapter (${this.javaClass})")
         setAdapter()
         binding.refreshLayout.setOnRefreshListener { refresh() }
         binding.list.layoutManager = LinearLayoutManager(this.context)

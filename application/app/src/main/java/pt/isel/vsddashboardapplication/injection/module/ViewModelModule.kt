@@ -53,4 +53,18 @@ abstract class ViewModelModule {
     @ViewModelKey(LoginViewModel::class)
     internal abstract fun loginViewModel(viewModel: LoginViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(NSPortViewModel::class)
+    internal abstract fun nsgPortViewModel(viewModel: NSPortViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NSGInfoViewModel::class)
+    internal abstract fun nsgInfoViewModel(viewModel: NSGInfoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProbestatsViewModel::class)
+    internal abstract fun probestatsViewModel(viewModel: ProbestatsViewModel): ViewModel
 }

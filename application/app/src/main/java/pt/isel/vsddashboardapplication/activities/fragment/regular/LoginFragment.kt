@@ -10,6 +10,7 @@ import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
+import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
@@ -18,9 +19,7 @@ import kotlin.coroutines.CoroutineContext
  * Responsible for logging in, presents the login screen, so the user can login
  */
 class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), CoroutineScope {
-    companion object {
-        private const val TAG = "FRAG/LOGIN"
-    }
+    companion object { private const val TAG = "FRAG/LOGIN" }
 
     /**
      * The Main UI Context, needed for nested functions inside IO/Default dispatchers
