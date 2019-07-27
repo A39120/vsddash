@@ -9,7 +9,10 @@ import pt.isel.vsddashboardapplication.repository.dao.VrsDao
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
-class VrsRepositoryImplementation @Inject constructor(
+/**
+ * VRS repository for getting VRS;
+ */
+class VrsRepositoryImpl @Inject constructor(
     private val dao: VrsDao
 ): VrsRepository {
 
