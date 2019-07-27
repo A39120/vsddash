@@ -11,12 +11,17 @@ import javax.inject.Inject
 
 /**
  * VSP repository for getting VSP;
+ * @param dao: the data access object of VSP
  */
 class VspRepositoryImpl @Inject constructor(
     private val dao: VspDao
 ): VspRepository {
     private companion object val TAG = "REPO/VSP"
 
+    /**
+     * Gets the VSP
+     * @return live data containing the list of VSP
+     */
     override suspend fun get(): LiveData<List<VSP>> {
         val value = dao.loadAll()
         if(value.value == null)
@@ -25,6 +30,10 @@ class VspRepositoryImpl @Inject constructor(
         return value
     }
 
+    /**
+     * Updates the VSP
+     * @param onFinish: function called upon the update finished
+     */
     override suspend fun update(onFinish: (() -> Unit)?) {
         val await = RetrofitSingleton
             .vspService()

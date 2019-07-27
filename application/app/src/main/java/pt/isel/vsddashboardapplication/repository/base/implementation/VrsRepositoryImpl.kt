@@ -15,17 +15,23 @@ import javax.inject.Inject
 class VrsRepositoryImpl @Inject constructor(
     private val dao: VrsDao
 ): VrsRepository {
+    private companion object val TAG = "REPO/VRS"
 
+    /**
+     * @return the list of all VRSs
+     */
     override suspend fun getGlobal(): LiveData<List<VRS>> {
         val value = dao.loadGlobal()
         if(value.value == null)
             updateGlobal()
-
         return value
     }
 
-    private companion object val TAG = "REPO/VRS"
-
+    /**
+     * Gets the VRS given an id
+     * @param id: The VRS ID
+     * @return Live Data containing the VRS
+     */
     override suspend fun get(id: String): LiveData<VRS> {
         val value = dao.load(id)
         if(value.value == null)
@@ -33,6 +39,11 @@ class VrsRepositoryImpl @Inject constructor(
         return value
     }
 
+    /**
+     * Gets all VRS given a VSC
+     * @param parentId: the VSC ID
+     * @return Live Data containing the list of VRSs
+     */
     override suspend fun getAll(parentId: String): LiveData<List<VRS>> {
         val values = dao.loadForVsc(parentId)
         if(values.value == null || values.value!!.isEmpty())
@@ -40,6 +51,11 @@ class VrsRepositoryImpl @Inject constructor(
         return values
     }
 
+    /**
+     * Updates the VRS
+     * @param id: the VRS ID
+     * @param onFinish: the callback called upon ending the update
+     */
     override suspend fun update(id: String, onFinish: (() -> Unit)?) {
         val await = RetrofitSingleton
             .vrsService()
@@ -52,6 +68,11 @@ class VrsRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Updates all the VRSs of a VSC
+     * @param parentId: the VSC ID
+     * @param onFinish: the callback called upon ending the update
+     */
     override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
         val await = RetrofitSingleton
             .vrsService()
@@ -64,6 +85,10 @@ class VrsRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Updates all the global VRSs
+     * @param onFinish: the callback called upon ending the update
+     */
     override suspend fun updateGlobal(onFinish: (() -> Unit)?) {
         val await = RetrofitSingleton
             .vrsService()
