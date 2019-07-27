@@ -67,4 +67,29 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProbestatsViewModel::class)
     internal abstract fun probestatsViewModel(viewModel: ProbestatsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VscListViewModel::class)
+    internal abstract fun vscListViewModel(viewModel: VscListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VrsListViewModel::class)
+    internal abstract fun vrsListViewModel(viewModel: VrsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VspViewModel::class)
+    internal abstract fun vspViewModel(viewModel: VspViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VrsViewModel::class)
+    internal abstract fun vrsViewModel(viewModel: VrsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(VscViewModel::class)
+    internal abstract fun vscViewModel(viewModel: VscViewModel): ViewModel
 }
