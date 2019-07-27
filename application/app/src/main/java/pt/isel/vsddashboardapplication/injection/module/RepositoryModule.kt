@@ -61,4 +61,14 @@ class RepositoryModule {
     @Singleton
     fun providesVrsRepository(dao: VrsDao) : VrsRepository =
         VrsRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesVscRepository(dao: VscDao) : VscRepository =
+        VscRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesVspRepository(dao: VspDao) : VspRepository =
+        VspRepositoryImpl(dao)
 }
