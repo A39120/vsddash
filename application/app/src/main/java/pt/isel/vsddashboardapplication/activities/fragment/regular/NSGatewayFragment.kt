@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NsgActivity
+import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
@@ -23,7 +23,7 @@ class NSGatewayFragment : BaseFragment<NSGInfoViewModel, NsgatewayFragmentBindin
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
             binding.refreshLayout.isRefreshing = when(rf){
                 RefreshState.INPROGRESS -> true
-                RefreshState.NONE -> false
+                else -> false
             }
         })
 
@@ -37,7 +37,7 @@ class NSGatewayFragment : BaseFragment<NSGInfoViewModel, NsgatewayFragmentBindin
     override fun setBindingObjects() { updateUI() }
 
     override fun initViewModel() {
-        val id = (this.activity as NsgActivity).getNsgId()
+        val id = (parentFragment as NsgPagerFragment).getNsgId()
         viewModel.init(id)
     }
 

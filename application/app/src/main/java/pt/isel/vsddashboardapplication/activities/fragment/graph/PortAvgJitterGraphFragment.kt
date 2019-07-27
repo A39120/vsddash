@@ -12,7 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NSPortActivity
+import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
+import pt.isel.vsddashboardapplication.utils.TimeRangeCalculator
 import pt.isel.vsddashboardapplication.viewmodel.ProbestatsViewModel
 import java.util.*
 import kotlin.collections.ArrayList
@@ -27,22 +28,20 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     }
 
     private val MIN_Y = 0.0
-    private val MIN_X: Double = getMinX()
-
-
-    private val MAX_Y = 1.0
-    private val MAX_X = (System.currentTimeMillis().toDouble() * 2)
+    private val MAX_Y = 3.0
 
     /**
      * Sets the viewport for the fragment
      * @param viewport: the viewport of the fragment
      */
     override fun setViewport(viewport: Viewport) {
+        val range = TimeRangeCalculator.getLastDayRange()
         viewport.apply {
             isScalable = true
-            isScrollable = true
-            setMinX(MIN_X)
-            setMaxX(MAX_X)
+            isScrollable = false
+
+            setMinX(range.start.toDouble())
+            setMaxX(range.end.toDouble())
 
             setMaxY(MAX_Y)
             setMinY(MIN_Y)
@@ -55,8 +54,8 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     private val inboundList = ArrayList<DataPoint>()
     private val outboundList = ArrayList<DataPoint>()
 
-    private val inboundGraphSeries = LineGraphSeries<DataPoint>()
-    private val outboundGraphSeries = LineGraphSeries<DataPoint>()
+    private var inboundGraphSeries = LineGraphSeries<DataPoint>()
+    private var outboundGraphSeries = LineGraphSeries<DataPoint>()
 
     override fun getMaxData(): Int = DEFAULT_MAX
 
@@ -65,43 +64,47 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
 
     override fun observeViewModel() {
         viewModel.inbound.observe(this, Observer { stats ->
-            val list = stats.mapNotNull { probe ->
+            val values = stats
+                .map { probe ->
                     val date = Date(probe.timestamp)
-                    probe.avgJitter?.let { DataPoint(date, it) }
-                }.filter { dp -> inboundList.contains(dp) }
-
-            inboundList.addAll(list)
-            for (dataPoint in list)
-                CoroutineScope(Dispatchers.Main).launch {
-                    appendData(inboundGraphSeries, dataPoint)
+                    val jitter = probe.avgJitter
+                    return@map if (jitter != null) DataPoint(date, jitter) else null
                 }
+                .sortedBy { it?.x }
+                .filterNotNull()
 
+            binding.graph.removeSeries(inboundGraphSeries)
+            inboundGraphSeries = LineGraphSeries(values.toTypedArray())
+            binding.graph.addSeries(inboundGraphSeries)
         })
 
         viewModel.outbound.observe(this, Observer { stats ->
-            val list = stats.mapNotNull { probe ->
-                val date = Date(probe.timestamp)
-                probe.avgJitter?.let { DataPoint(date, it) }
-            }
-                .filter { dp -> inboundList.contains(dp) }
-
-            outboundList.addAll(list)
-            for (dataPoint in list)
-                CoroutineScope(Dispatchers.Main).launch {
-                    appendData(outboundGraphSeries, dataPoint)
+            val values = stats
+                .map { probe ->
+                    val date = Date(probe.timestamp)
+                    val jitter = probe.avgJitter
+                    return@map if (jitter != null) DataPoint(date, jitter) else null
                 }
+                .sortedBy { it?.x }
+                .filterNotNull()
+
+            binding.graph.removeSeries(outboundGraphSeries)
+            outboundGraphSeries = LineGraphSeries(values.toTypedArray())
+            binding.graph.addSeries(outboundGraphSeries)
         })
 
         CoroutineScope(Dispatchers.IO).launch {
             delay(5000L)
+            val range = TimeRangeCalculator.getLastDayRange()
+            viewModel.setBoundaries(range.start, range.end)
             viewModel.updateLiveData()
         }
 
     }
 
     override fun initViewModel() {
-        val portId = (this.activity as NSPortActivity).getPortId()
-        val nsgId = (this.activity as NSPortActivity).getNsgId()
+        val portId = (parentFragment as NSPortPagerFragment).getPortId()?:""
+        val nsgId = (parentFragment as NSPortPagerFragment).getNsgId()?:""
         viewModel.init(portId, nsgId)
     }
 
@@ -112,9 +115,11 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     override fun getVerticalTitleResource(): Int = R.string.time
 
     private fun getMinX(): Double {
-        val calendar = Calendar.getInstance()
+        /*val calendar = Calendar.getInstance()
         calendar.set(Calendar.YEAR, 2012)
         return calendar.timeInMillis.toDouble()
+        */
+        return (System.currentTimeMillis() - 60 * 1000).toDouble()
     }
 
     override fun addSeries(graphView: GraphView) {

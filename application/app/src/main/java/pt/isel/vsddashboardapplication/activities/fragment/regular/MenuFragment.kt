@@ -21,9 +21,8 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.menu_fragment, container, false)
-
+        binding.grid.useDefaultMargins = true
         binding.nsgListOption.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_NSGatewayListFragment) }
-
         return binding.root
     }
 

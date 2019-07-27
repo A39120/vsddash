@@ -5,7 +5,6 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
-import pt.isel.vsddashboardapplication.repository.services.RetrofitServices
 import pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel
 
 /**

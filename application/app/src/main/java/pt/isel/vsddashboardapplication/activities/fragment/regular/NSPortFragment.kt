@@ -4,7 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NSPortActivity
+import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.NsportFragmentBinding
@@ -20,14 +20,14 @@ class NSPortFragment : BaseFragment<NSPortViewModel, NsportFragmentBinding>(), I
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
             binding.refreshLayout.isRefreshing = when(rf){
                 RefreshState.INPROGRESS -> true
-                RefreshState.NONE -> false
+                else -> false
             }
         })
     }
 
     override fun initViewModel() {
-        val portId = (this.activity as NSPortActivity).getPortId()
-        val nsgId = (this.activity as NSPortActivity).getNsgId()
+        val portId = (parentFragment as NSPortPagerFragment).getPortId()
+        val nsgId = (parentFragment as NSPortPagerFragment).getNsgId()
         viewModel.init(portId, nsgId)
     }
 

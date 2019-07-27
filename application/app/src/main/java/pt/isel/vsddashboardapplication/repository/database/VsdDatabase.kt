@@ -19,8 +19,11 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     Enterprise::class,
     DpiProbestats::class,
     APM::class,
-    NSGInfo::class
-], version = 6, exportSchema = false)
+    NSGInfo::class,
+    VRS::class,
+    VSP::class,
+    VSC::class
+], version = 7, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
@@ -31,6 +34,9 @@ abstract class VsdDatabase : RoomDatabase() {
     abstract fun dpiProbestatsDao() : DpiProbestatsDao
     abstract fun apmDao(): ApmDao
     abstract fun nsgInfoDao(): NSGInfoDao
+    abstract fun vrsDao(): VrsDao
+    abstract fun vspDao(): VspDao
+    abstract fun vscDao(): VscDao
 
     companion object {
         private const val DB_NAME = "vsddatabase"

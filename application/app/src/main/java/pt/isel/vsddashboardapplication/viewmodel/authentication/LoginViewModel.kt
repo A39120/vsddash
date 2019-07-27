@@ -7,7 +7,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.Session
-import pt.isel.vsddashboardapplication.repository.LoginRepository
+import pt.isel.vsddashboardapplication.repository.base.LoginRepository
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(private val repository: LoginRepository): ViewModel() {
@@ -25,16 +25,16 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
         // Maybe change this later
         viewModelScope.launch(Dispatchers.Default) {
             //Attribute values
-            username = repository?.getUsername()
-            password = repository?.getPassword()
-            organization = repository?.getOrganization()
+            username = repository.getUsername()
+            password = repository.getPassword()
+            organization = repository.getOrganization()
         }
     }
 
     fun updateUsername(username: String?)  =
         viewModelScope.launch(Dispatchers.Main) {
             Log.d(TAG, "Updating username")
-            repository?.updateUsername(username)
+            repository.updateUsername(username)
             this@LoginViewModel.username = username
         }
 

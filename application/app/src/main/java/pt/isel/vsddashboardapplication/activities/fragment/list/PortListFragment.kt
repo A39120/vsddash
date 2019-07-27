@@ -1,10 +1,12 @@
 package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import pt.isel.vsddashboardapplication.activities.NSPortActivity
-import pt.isel.vsddashboardapplication.activities.NsgActivity
+import androidx.navigation.Navigation
+import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
+import pt.isel.vsddashboardapplication.activities.NsgPagerFragmentDirections
 import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
@@ -14,7 +16,7 @@ import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
  */
 class PortListFragment : BaseListFragment<PortListViewModel>() {
     companion object {
-        private const val TAG = "FRAG/PORTLIST"
+        private const val TAG = "FRAG/PORT_LIST"
     }
 
     override fun observeViewModel() {
@@ -27,7 +29,7 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
 
     override fun initViewModel() {
         Log.d(TAG, "Getting NSG ID passed from activity")
-        val nsgId = (this.activity as NsgActivity).getNsgId()
+        val nsgId = (parentFragment as NsgPagerFragment).getNsgId()
         viewModel.init(nsgId)
     }
 
@@ -37,15 +39,27 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
     private lateinit var adapter: NSPortAdapter
 
     override fun setAdapter() {
-        adapter = NSPortAdapter { port, _ ->
+        adapter = NSPortAdapter { port, view ->
             Log.d(TAG, "Port chosen - ${port.name} (${port.iD})")
-
-            NSPortActivity.startInstance(
-                port.iD,
-                port.parentID?:(this.activity as NsgActivity).getNsgId(),
-                this.context!!)
+            goToPortFragmentPager(port.iD, view)
         }
         binding.list.adapter = adapter
+    }
+
+    /**
+     * Goes to port pager fragment
+     * @param portId: the ID of the port that the next fragment will focus
+     * @param view: the view  that contains the NavController
+     */
+    private fun goToPortFragmentPager(portId: String, view: View){
+        (parentFragment as NsgPagerFragment).run {
+            val directions = NsgPagerFragmentDirections.actionNsgFragmentToNSPortPagerFragment(
+                nsgId = getNsgId(),
+                portId = portId
+            )
+
+            Navigation.findNavController(view).navigate(directions)
+        }
     }
 
 }

@@ -3,9 +3,9 @@ package pt.isel.vsddashboardapplication.injection.module
 import dagger.Module
 import dagger.Provides
 import pt.isel.vsddashboardapplication.VsdApplication
-import pt.isel.vsddashboardapplication.repository.*
+import pt.isel.vsddashboardapplication.repository.base.*
 import pt.isel.vsddashboardapplication.repository.dao.*
-import pt.isel.vsddashboardapplication.repository.implementation.*
+import pt.isel.vsddashboardapplication.repository.base.implementation.*
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import javax.inject.Singleton
 
@@ -56,4 +56,9 @@ class RepositoryModule {
     @Singleton
     fun providesNsgInfoRepository(dao: NSGInfoDao) : NSGinfoRepository =
         NSGInfoRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesVrsRepository(dao: VrsDao) : VrsRepository =
+        VrsRepositoryImplementation(dao)
 }

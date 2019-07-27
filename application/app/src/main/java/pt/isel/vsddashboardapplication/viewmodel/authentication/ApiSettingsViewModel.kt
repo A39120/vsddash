@@ -2,7 +2,7 @@ package pt.isel.vsddashboardapplication.viewmodel.authentication
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import pt.isel.vsddashboardapplication.repository.ApiSettingsRepository
+import pt.isel.vsddashboardapplication.repository.base.ApiSettingsRepository
 import javax.inject.Inject
 
 class ApiSettingsViewModel @Inject constructor(private val repository: ApiSettingsRepository): ViewModel(){

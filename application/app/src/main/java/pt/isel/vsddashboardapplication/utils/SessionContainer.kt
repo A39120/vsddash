@@ -31,7 +31,7 @@ class SessionContainer {
             field = value
         }
 
-    fun getAuthorizationCredentials() : String? = Credentials.basic(username, session?.APIKey)
+    fun getAuthorizationCredentials() : String = Credentials.basic(username, session?.APIKey)
 
     fun hasExpired() : Boolean = Date(session?.APIKeyExpiry?:0) < Date()
 

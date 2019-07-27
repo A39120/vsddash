@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.NSGInfo
-import pt.isel.vsddashboardapplication.repository.NSGinfoRepository
+import pt.isel.vsddashboardapplication.repository.base.NSGinfoRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseViewModel
 import javax.inject.Inject

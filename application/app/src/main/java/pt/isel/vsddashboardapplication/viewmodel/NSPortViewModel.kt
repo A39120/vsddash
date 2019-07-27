@@ -4,11 +4,9 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.NSGInfo
-import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.model.NSPort
-import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
-import pt.isel.vsddashboardapplication.repository.NSGinfoRepository
-import pt.isel.vsddashboardapplication.repository.PortRepository
+import pt.isel.vsddashboardapplication.repository.base.NSGinfoRepository
+import pt.isel.vsddashboardapplication.repository.base.PortRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseViewModel
 import javax.inject.Inject

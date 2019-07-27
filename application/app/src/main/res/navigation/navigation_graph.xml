@@ -29,15 +29,11 @@
 	    android:name="pt.isel.vsddashboardapplication.activities.fragment.list.NSGatewayListFragment"
 	    android:label="NSGatewayListFragment">
 		<action
-			android:id="@+id/action_NSGatewayListFragment_to_nsgActivity"
-			app:destination="@id/nsgActivity">
-			<argument android:name="nsgId" app:argType="string"/>
-		</action>
+			app:enterAnim="@android:anim/fade_in"
+			app:exitAnim="@android:anim/fade_out"
+			android:id="@+id/action_NSGatewayListFragment_to_nsgFragment"
+		    app:destination="@id/nsgFragment"/>
 	</fragment>
-	<activity
-		android:id="@+id/nsgActivity"
-	    android:name="pt.isel.vsddashboardapplication.activities.NsgActivity"
-	    android:label="NsgActivity"/>
 	<fragment
 		android:id="@+id/enterpriseListFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.list.EnterpriseListFragment"
@@ -45,6 +41,20 @@
 		<action
 			android:id="@+id/action_enterpriseListFragment_to_menuFragment"
 			app:destination="@id/menuFragment"/>
+	</fragment>
+	<fragment
+		android:id="@+id/nsgFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.NsgPagerFragment"
+		android:label="NsgFragment">
+		<argument
+			android:name="nsgId" app:argType="string" app:nullable="true"/>
+		<action android:id="@+id/action_nsgFragment_to_NSPortPagerFragment" app:destination="@id/NSPortPagerFragment"/>
+	</fragment>
+	<fragment android:id="@+id/NSPortPagerFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.NSPortPagerFragment"
+	          android:label="NSPortPagerFragment">
+		<argument android:name="nsgId" app:nullable="false" app:argType="string"/>
+		<argument android:name="portId" app:nullable="false" app:argType="string"/>
 	</fragment>
 
 </navigation>

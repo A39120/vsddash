@@ -36,7 +36,7 @@ class NSGatewayStatisticsFragment : Fragment(), CoroutineScope {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this).get(NSGStatisticsViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.nsgateway_statistics_fragment, container, false)
-        binding.viewModel = viewModel
+        //binding.viewModel = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }

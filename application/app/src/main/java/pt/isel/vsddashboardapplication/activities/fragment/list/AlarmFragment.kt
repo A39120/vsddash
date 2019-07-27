@@ -2,16 +2,16 @@ package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import pt.isel.vsddashboardapplication.activities.NsgActivity
+import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
-import pt.isel.vsddashboardapplication.viewmodel.AlarmViewModel
+import pt.isel.vsddashboardapplication.viewmodel.NSGAlarmViewModel
 
 /**
  * Fragment responsible for showing a list of Alarms
  */
 class AlarmFragment
-    : BaseListFragment<AlarmViewModel>() {
+    : BaseListFragment<NSGAlarmViewModel>() {
 
     private lateinit var adapter: AlarmAdapter
 
@@ -21,10 +21,13 @@ class AlarmFragment
         binding.list.adapter = this.adapter
     }
 
-    override fun assignViewModel(): AlarmViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[AlarmViewModel::class.java]
+    override fun assignViewModel(): NSGAlarmViewModel =
+        ViewModelProviders.of(this, viewModelFactory)[NSGAlarmViewModel::class.java]
 
 
+    /**
+     * Observes the view model
+     */
     override fun observeViewModel() {
         super.observeViewModel()
         viewModel.liveData.observe(this, Observer{
@@ -32,8 +35,11 @@ class AlarmFragment
         })
     }
 
+    /**
+     * Initiates the Alarm view model for NSG
+     */
     override fun initViewModel() {
-        val id = (this.activity as NsgActivity).getNsgId()
+        val id = (parentFragment as NsgPagerFragment).getNsgId()
         viewModel.init(id)
     }
 

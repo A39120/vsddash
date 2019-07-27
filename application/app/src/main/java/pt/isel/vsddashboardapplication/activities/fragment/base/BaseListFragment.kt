@@ -35,7 +35,7 @@ abstract class BaseListFragment<T : BaseListViewModel<*>> : BaseFragment<T, List
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
             binding.refreshLayout.isRefreshing = when(rf){
                 RefreshState.INPROGRESS -> true
-                RefreshState.NONE -> false
+                else -> false
             }
         })
 

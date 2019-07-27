@@ -78,7 +78,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     // UI
-    api 'com.google.android.material:material:1.1.0-alpha07'
+    api 'com.google.android.material:material:1.1.0-alpha08'
     implementation "com.androidplot:androidplot-core:1.5.6"
     implementation 'com.jjoe64:graphview:4.2.2'
 
@@ -99,7 +99,7 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
 
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
-    implementation 'androidx.fragment:fragment-ktx:1.1.0-beta01'
+    implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha01'
 
     // Android support library
     def android_version = "28.0.0-alpha1"
@@ -109,6 +109,7 @@ dependencies {
     implementation "com.android.support:design:$android_version"
     implementation "com.android.support:recyclerview-v7:$android_version"
     implementation "com.android.support:support-fragment:$android_version"
+    implementation "com.android.support:gridlayout-v7:28.0.0"
 
 
 }

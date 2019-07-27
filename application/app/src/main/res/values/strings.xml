@@ -5,7 +5,7 @@
 	<string name="authentication_path">/authentication</string>
 	<string name="vsdash">VSDash</string>
 	<string name="api_settings_label">API Settings</string>
-	<string name="settings">Sett</string>
+	<string name="settings">Settings</string>
 	<string name="address_hint">API Address</string>
 	<string name="monitPort_hint">Monit Port</string>
 	<string name="vsdport_hint">VSD API Port</string>
@@ -18,7 +18,7 @@
 	<string name="description">Description</string>
 	<string name="version">Version</string>
 	
-	<string name="nsgs">Network Services \n Gateway List</string>
+	<string name="nsgs">Network Services\nGateways</string>
 	<string name="vsd_status">Virtual Services Directory Status</string>
 	<string name="vsc_status">Virtual Services Controller Status</string>
 	<string name="connecting">Connecting…</string>
@@ -44,12 +44,11 @@
 	
 	<string name="test">Test</string>
 	<string name="save">Save</string>
-	<string name="vsps">VSP</string>
-	<string name="sites">Sites Remotos</string>
-	<string name="vsds">VSD</string>
-	<string name="vscs">VSC</string>
-	<string name="vrss">VRSs</string>
-	
+	<string name="vsps">Virtual Services\nPlataform</string>
+	<!--string name="sites">Sites Remotos</string-->
+	<string name="vsds">Virtual Services\nDirectory</string>
+	<string name="vscs">Virtual Services\nController</string>
+	<string name="vrss">Virtual Routing and Switching</string>
 	
 	<string name="porttype">Type</string>
 	<string name="portname">Port Name</string>

@@ -22,6 +22,6 @@ import javax.inject.Singleton
 ])
 interface AppComponent  : AndroidInjector<VsdApplication>{
 
-
     override fun inject(instance: VsdApplication)
+
 }

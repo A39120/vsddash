@@ -10,7 +10,6 @@ import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.LoginFragmentBinding
-import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
@@ -21,6 +20,25 @@ import kotlin.coroutines.CoroutineContext
 class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), CoroutineScope {
     companion object { private const val TAG = "FRAG/LOGIN" }
 
+    /**
+     * Changes the connect button to the defined values
+     */
+    private suspend fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
+        Log.d(TAG, "Changing the connect button to status $status.")
+        val connect = View.OnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {startAuthentication() }
+        }
+
+        val cancel = View.OnClickListener {
+            CoroutineScope(Dispatchers.Main).launch { cancelAuthentication(job!!) }
+        }
+
+        when (status) {
+            ButtonStatus.CONNECT -> changeButton(R.string.button_connect, connect)
+            ButtonStatus.INPROGRESS -> changeButton(R.string.connecting, cancel)
+            ButtonStatus.ERROR -> changeButton(R.string.connection_failed, connect)
+        }
+    }
     /**
      * The Main UI Context, needed for nested functions inside IO/Default dispatchers
      */
@@ -77,34 +95,19 @@ class LoginFragment : BaseFragment<LoginViewModel, LoginFragmentBinding>(), Coro
     private enum class ButtonStatus { CONNECT, INPROGRESS, ERROR }
 
     /**
-     * Changes the connect button to the defined values
-     */
-    private suspend fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
-        Log.d(TAG, "Changing the connect button to status $status.")
-        val connect = View.OnClickListener { launch { startAuthentication() } }
-        val cancel = View.OnClickListener { launch { cancelAuthentication(job!!) } }
-
-        when (status) {
-            ButtonStatus.CONNECT -> changeButton(R.string.button_connect, connect)
-            ButtonStatus.INPROGRESS -> changeButton(R.string.connecting, cancel)
-            ButtonStatus.ERROR -> changeButton(R.string.connection_failed, connect)
-        }
-    }
-
-    /**
      * Starts an asynchronous job that connects to the API
      * @return an async job
      */
     private suspend fun startAuthentication() = withContext(Dispatchers.IO) {
-        Log.i(TAG, "Starting the authentication.")
-        RetrofitSingleton.setupAuthenticator(viewModel.password)
-
-        val job = viewModel.connect()
-        changeConnectButton(ButtonStatus.INPROGRESS, job)
-
-        job.join()
-        Log.d(TAG, "Finished authentication")
+        Log.d(TAG, "Starting the authentication.")
         try {
+            RetrofitSingleton.setupAuthenticator(viewModel.password)
+
+            val job = viewModel.connect()
+            changeConnectButton(ButtonStatus.INPROGRESS, job)
+
+            job.join()
+            Log.d(TAG, "Finished authentication")
             if(job.isCancelled)
                 return@withContext
 

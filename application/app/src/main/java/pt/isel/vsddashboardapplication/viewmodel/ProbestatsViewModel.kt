@@ -6,9 +6,9 @@ import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.NSGInfo
 import pt.isel.vsddashboardapplication.model.NSPort
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
-import pt.isel.vsddashboardapplication.repository.DpiProbestatsRepository
-import pt.isel.vsddashboardapplication.repository.NSGinfoRepository
-import pt.isel.vsddashboardapplication.repository.PortRepository
+import pt.isel.vsddashboardapplication.repository.base.DpiProbestatsRepository
+import pt.isel.vsddashboardapplication.repository.base.NSGinfoRepository
+import pt.isel.vsddashboardapplication.repository.base.PortRepository
 import javax.inject.Inject
 
 /**
@@ -39,28 +39,21 @@ class ProbestatsViewModel @Inject constructor(
 
     private suspend fun setLiveData()  {
         Log.d(TAG, "Setting liveData of probe list - Port: $port and NSG: $nsg)")
-
         nsgLiveData.addSource(nsgRepository.get(nsg!!)) { nsgLiveData.value = it }
         portLiveData.addSource(portRepository.get(port!!)) { portLiveData.value = it }
 
         inbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
             Transformations.switchMap(portLiveData) { port ->
-                    repository.getInbound(port.physicalName ?: "", nsg.name ?: "", apm, minimum, maximum)
+                repository.getInbound(port.physicalName ?: "", nsg.name ?: "", apm, minimum, maximum)
             }
-        }) { inbound.value = it }
+        }) {stats -> inbound.value = stats}
 
         outbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
             Transformations.switchMap(portLiveData) { port ->
                 repository.getOutbound(port.physicalName ?: "", nsg.name ?: "", apm, minimum, maximum)
             }
-        }) { outbound.value = it }
+        }) { stats -> outbound.value = stats}
 
-        /*
-        repository.let { repo ->
-            this.inbound.addSource(repo.getInbound(port!!, nsg!!, apm, minimum!!, maximum!!)) { inbound.value = it }
-            this.outbound.addSource(repo.getOutbound(port!!, nsg!!, apm, minimum!!, maximum!!)) { outbound.value = it }
-        }
-        */
     }
 
     fun updateLiveData() {
@@ -80,7 +73,7 @@ class ProbestatsViewModel @Inject constructor(
      * @param min: Minimum timestamp of list
      * @param max: Maximum timestamp of list
      */
-    private fun setBoundaries(min: Long? = null, max: Long? = null){
+    fun setBoundaries(min: Long? = null, max: Long? = null){
         this.maximum = max ?: System.currentTimeMillis()
         this.minimum = min ?: this.maximum!! - 3600 * 1000
     }

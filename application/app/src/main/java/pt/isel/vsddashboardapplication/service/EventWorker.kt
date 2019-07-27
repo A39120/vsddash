@@ -4,11 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.work.*
 import pt.isel.vsddashboardapplication.model.events.Event
-import pt.isel.vsddashboardapplication.repository.EventRepository
-import pt.isel.vsddashboardapplication.repository.implementation.EventRepositoryImpl
-import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
-import java.util.concurrent.Executor
-import java.util.concurrent.TimeUnit
+import pt.isel.vsddashboardapplication.repository.base.EventRepository
+import pt.isel.vsddashboardapplication.repository.base.implementation.EventRepositoryImpl
 
 /**
  * Service that will do long-polling to the server
@@ -51,6 +48,7 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
 
     /**
      * Will do work with the list of events received
+     * @param events:
      */
     private fun workWithEvent(events: List<Event>?) {
         Log.d(TAG, "Doing work on event")

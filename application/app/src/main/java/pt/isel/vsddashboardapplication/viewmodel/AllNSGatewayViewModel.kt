@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pt.isel.vsddashboardapplication.repository.NSGatewayRepository
+import pt.isel.vsddashboardapplication.repository.base.NSGatewayRepository
 import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseListViewModel

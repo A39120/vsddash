@@ -35,8 +35,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AlarmViewModel::class)
-    internal abstract fun alarmViewModel(viewModel: AlarmViewModel): ViewModel
+    @ViewModelKey(NSGAlarmViewModel::class)
+    internal abstract fun alarmViewModel(viewModelNSG: NSGAlarmViewModel): ViewModel
 
     @Binds
     @IntoMap
