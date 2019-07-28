@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+	<data>
+		<import type="android.view.View"/>
+		<import type="androidx.lifecycle.LiveData" />
+		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSPortViewModel"/>
+	</data>
+	
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/refresh_layout"
+		android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+		
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<com.google.android.material.card.MaterialCardView
+				android:theme="@style/CardView.Light"
+				android:layout_margin="@dimen/margin_default"
+				android:padding="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<LinearLayout
+					android:padding="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					
+					<!-- Name of the nsg -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/nsgname + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_name_value"
+							android:text="@{vm.nsgLiveData.name}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Name of the port -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/portname + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_name_value"
+							android:text="@{vm.liveData.physicalName}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- type of the port -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/porttype + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_type_value"
+							android:text="@{vm.liveData.portType}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+				
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/description + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_description_value"
+							android:text="@{vm.liveData.description}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- vlan range of the port -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/vlan_range + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_vlan_range_value"
+							android:text="@{vm.liveData.vLANRange}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- MTU -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/speed + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_speed_value"
+							android:text="@{vm.liveData.speed}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+				
+				</LinearLayout>
+			
+			</com.google.android.material.card.MaterialCardView>
+		</ScrollView>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

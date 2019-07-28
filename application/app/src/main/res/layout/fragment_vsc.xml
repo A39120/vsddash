@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+	<data>
+		<variable name="vsc" type="pt.isel.vsddashboardapplication.model.VSC"/>
+	</data>
+	
+	<ListView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:theme="@style/CardView.Light"
+			android:layout_margin="@dimen/margin_default"
+			android:padding="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<!-- VSC -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/name + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_name_value"
+					android:text="@{vsc.name}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Description -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/description + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_desc_value"
+					android:text="@{vsc.description}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Description -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/address + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_address_value"
+					android:text="@{vsc.address}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Product Version -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/product_version + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_productversion_value"
+					android:text="@{vsc.productVersion}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Status -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/status + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_status_value"
+					android:text="@{vsc.status}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Product Version -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/creation_date + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_creationdate_value"
+					app:time="@{vsc.creationDate}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+			
+			<!-- Management IP -->
+			<LinearLayout
+				android:layout_marginBottom="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:layout_marginEnd="@dimen/small_margin"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textSize="@dimen/label_size"
+					android:text="@{@string/management_ip + `: `}"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/vsc_managementip_value"
+					android:text="@{vsc.managementIP}"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" />
+			</LinearLayout>
+		</com.google.android.material.card.MaterialCardView>
+	
+	</ListView>
+
+</layout>

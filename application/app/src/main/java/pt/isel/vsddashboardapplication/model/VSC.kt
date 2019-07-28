@@ -35,6 +35,6 @@ data class VSC(
     @Json(name = "peakMemoryUsage") val peakMemoryUsage: Double? = 0.0,
     @Json(name = "productVersion") val productVersion: String? = "",
     @Json(name = "status") val status: String? = "",
-    @Json(name = "unavailableTimestamp") val unavailableTimestamp: Int? = 0,
-    @Json(name = "vsds") val vsds: List<String?>? = listOf()
+    @Json(name = "unavailableTimestamp") val unavailableTimestamp: Int? = 0
+    //@Json(name = "vsds") val vsds: List<String?>? = listOf()
 )

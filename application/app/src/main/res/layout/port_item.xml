@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+	<data>
+		<variable name="port" type="pt.isel.vsddashboardapplication.model.NSPort"/>
+	</data>
+	
+	<LinearLayout
+		android:id="@+id/port_item_layout"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		 <com.google.android.material.card.MaterialCardView
+			 android:id="@+id/port_info"
+			 android:theme="@style/CardView.Light"
+			 android:padding="@dimen/margin_default"
+			 android:layout_margin="@dimen/margin_default"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content">
+			 
+			 <LinearLayout
+				 android:layout_width="match_parent"
+				 android:layout_height="match_parent">
+				 
+				 <View
+					 android:background="@{port.status.equals(`INITIALIZED`) ? @color/green : @color/red}"
+					 android:layout_weight=".30"
+					 android:layout_height="match_parent"
+					 android:layout_width="0sp"/>
+				 
+				 <LinearLayout
+					 android:layout_weight=".7"
+					 android:orientation="vertical"
+					 android:layout_margin="@dimen/margin_default"
+					 android:padding="@dimen/margin_default"
+					 android:layout_width="wrap_content"
+					 android:layout_height="wrap_content">
+					 
+					 <TextView
+						 android:id="@+id/port_name"
+						 android:text="@{port.name}"
+						 android:textSize="18sp"
+						 android:layout_width="wrap_content"
+						 android:layout_height="wrap_content"/>
+					 
+					 <TextView
+						 android:id="@+id/port_type"
+						 android:text="@{port.portType.toString()}"
+						 android:layout_width="wrap_content"
+						 android:layout_height="wrap_content"/>
+				
+				 </LinearLayout>
+			 </LinearLayout>
+		 </com.google.android.material.card.MaterialCardView>
+	</LinearLayout>
+</layout>

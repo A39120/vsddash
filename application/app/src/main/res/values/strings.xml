@@ -49,6 +49,11 @@
 	<string name="vsds">Virtual Services\nDirectory</string>
 	<string name="vscs">Virtual Services\nController</string>
 	<string name="vrss">Virtual Routing and Switching</string>
+	<string name="creation_date">Creation Date</string>
+	<string name="product_version">Product Version</string>
+	<string name="address">Address</string>
+	<string name="location">Location</string>
+	<string name="management_ip">Management IP</string>
 	
 	<string name="porttype">Type</string>
 	<string name="portname">Port Name</string>

@@ -30,7 +30,7 @@
 					android:layout_height="wrap_content"
 					android:orientation="vertical">
 					
-					<!-- Name of the nsg -->
+					<!-- Name -->
 					<LinearLayout
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
