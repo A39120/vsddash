@@ -4,7 +4,12 @@
 		<variable name="vsc" type="pt.isel.vsddashboardapplication.model.VSC"/>
 	</data>
 	
-	<ListView
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/refresh_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+	
+	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 		
@@ -156,6 +161,7 @@
 			</LinearLayout>
 		</com.google.android.material.card.MaterialCardView>
 	
-	</ListView>
-
+	</ScrollView>
+	
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

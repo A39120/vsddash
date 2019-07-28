@@ -1,10 +1,10 @@
 package pt.isel.vsddashboardapplication.activities.adapter.viewholder
 
 import android.view.View
+import pt.isel.vsddashboardapplication.databinding.ItemPortBinding
 import pt.isel.vsddashboardapplication.model.NSPort
-import pt.isel.vsddashboardapplication.databinding.PortItemBinding
 
-class NSPortViewHolder(private val binding: PortItemBinding) : BindingViewHolder<NSPort>(binding) {
+class NSPortViewHolder(private val binding: ItemPortBinding) : BindingViewHolder<NSPort>(binding) {
 
     override fun bind(item: NSPort, onClick: ((NSPort, View) -> Unit)?) {
         binding.port = item

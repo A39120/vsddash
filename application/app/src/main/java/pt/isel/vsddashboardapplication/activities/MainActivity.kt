@@ -5,19 +5,18 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import pt.isel.vsddashboardapplication.activities.base.BaseActivity
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.VsdApplication
-import pt.isel.vsddashboardapplication.databinding.MainActivityBinding
+import pt.isel.vsddashboardapplication.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
     companion object {
         private const val TAG = "ACT/MAIN"
     }
 
-    private lateinit var binding : MainActivityBinding
+    private lateinit var binding : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.main_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         Log.d(TAG, "Main activity created")
     }

@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.viewholder.NSGatewayViewHolder
+import pt.isel.vsddashboardapplication.databinding.ItemGatewayBinding
 import pt.isel.vsddashboardapplication.model.NSGateway
-import pt.isel.vsddashboardapplication.databinding.GatewayItemBinding
 
 /**
  * Adapter to represent a list of NSGs
@@ -22,7 +22,7 @@ class NSGatewayAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NSGatewayViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<GatewayItemBinding>(inflater, R.layout.gateway_item, parent, false)
+        val binding = DataBindingUtil.inflate<ItemGatewayBinding>(inflater, R.layout.item_gateway, parent, false)
         return NSGatewayViewHolder(binding)
     }
 

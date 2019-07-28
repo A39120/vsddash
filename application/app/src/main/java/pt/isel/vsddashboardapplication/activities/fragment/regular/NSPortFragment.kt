@@ -7,14 +7,14 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
-import pt.isel.vsddashboardapplication.databinding.NsportFragmentBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentNsportBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.NSPortViewModel
 
 /**
  * Fragment that handles all information that belongs to the port
  */
-class NSPortFragment : BaseFragment<NSPortViewModel, NsportFragmentBinding>(), IRefreshableComponent {
+class NSPortFragment : BaseFragment<NSPortViewModel, FragmentNsportBinding>(), IRefreshableComponent {
 
     override fun observeViewModel() {
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
@@ -42,7 +42,7 @@ class NSPortFragment : BaseFragment<NSPortViewModel, NsportFragmentBinding>(), I
 
 
     @LayoutRes
-    override fun getLayoutRes(): Int = R.layout.nsport_fragment
+    override fun getLayoutRes(): Int = R.layout.fragment_nsport
 
     override fun refresh() { viewModel.update() }
 

@@ -8,7 +8,7 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
-import pt.isel.vsddashboardapplication.databinding.NsgatewayFragmentBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel
@@ -17,7 +17,7 @@ import kotlin.coroutines.CoroutineContext
 /**
  * Fragment that handles all information that belongs to the fragment
  */
-class NSGatewayFragment : BaseFragment<NSGInfoViewModel, NsgatewayFragmentBinding>(), CoroutineScope, IRefreshableComponent{
+class NSGatewayFragment : BaseFragment<NSGInfoViewModel, FragmentNsgatewayBinding>(), CoroutineScope, IRefreshableComponent{
 
     override fun observeViewModel() {
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
@@ -45,7 +45,7 @@ class NSGatewayFragment : BaseFragment<NSGInfoViewModel, NsgatewayFragmentBindin
     override fun assignViewModel(): NSGInfoViewModel =
         ViewModelProviders.of(this, viewModelFactory)[NSGInfoViewModel::class.java]
 
-    override fun getLayoutRes(): Int = R.layout.nsgateway_fragment
+    override fun getLayoutRes(): Int = R.layout.fragment_nsgateway
 
     /**
      * Scope of fragment

@@ -4,17 +4,17 @@ import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
-import pt.isel.vsddashboardapplication.databinding.ApiSettingsFragmentBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentApiSettingsBinding
 import pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel
 
 /**
  * Fragment responsible for setting up the API settings, like the address and ports
  */
-class ApiSettingsFragment : BaseFragment<ApiSettingsViewModel, ApiSettingsFragmentBinding>() {
+class ApiSettingsFragment : BaseFragment<ApiSettingsViewModel, FragmentApiSettingsBinding>() {
 
     override fun observeViewModel() { }
 
-    override fun getLayoutRes(): Int = R.layout.api_settings_fragment
+    override fun getLayoutRes(): Int = R.layout.fragment_api_settings
 
     override fun assignViewModel(): ApiSettingsViewModel =
         ViewModelProviders.of(this, viewModelFactory)[ApiSettingsViewModel::class.java]

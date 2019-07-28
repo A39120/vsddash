@@ -12,8 +12,8 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import pt.isel.vsddashboardapplication.repository.services.es.DpiProbestatsServices
-import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
 import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
@@ -23,14 +23,14 @@ import java.util.*
 class GraphFragment : Fragment(){
 
 
-    private lateinit var binding : GraphFragmentBinding
+    private lateinit var binding : FragmentGraphBinding
     private var service : DpiProbestatsServices? = null
     private var wasScrolled : Boolean = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, R.layout.graph_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_graph, container, false)
         initService()
 
         prepareGraph()

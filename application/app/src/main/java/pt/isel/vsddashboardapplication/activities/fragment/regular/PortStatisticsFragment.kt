@@ -10,14 +10,14 @@ import androidx.databinding.DataBindingUtil
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.databinding.PortStatisticsFragmentBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentPortStatisticsBinding
 
 class PortStatisticsFragment : DaggerFragment() {
     companion object {
         private const val TAG = "FRAG/PORT_STATS"
     }
 
-    private lateinit var binding : PortStatisticsFragmentBinding
+    private lateinit var binding : FragmentPortStatisticsBinding
 
     /**
      * Sets the view for the fragment
@@ -25,7 +25,7 @@ class PortStatisticsFragment : DaggerFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         Log.d(TAG, "Creating binding for fragment (${this.javaClass})")
-        this.binding = DataBindingUtil.inflate(inflater, R.layout.port_statistics_fragment,  container, false)
+        this.binding = DataBindingUtil.inflate(inflater, R.layout.fragment_port_statistics,  container, false)
         this.binding.lifecycleOwner = this.viewLifecycleOwner
         binding.executePendingBindings()
         return this.binding.root

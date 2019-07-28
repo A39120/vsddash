@@ -1,13 +1,8 @@
 package pt.isel.vsddashboardapplication.activities.fragment.graph
 
 import android.content.Context
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.Viewport
@@ -15,17 +10,16 @@ import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
-import pt.isel.vsddashboardapplication.databinding.GraphFragmentBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import java.text.DateFormat
 
-abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentBinding>() {
+abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphBinding>() {
     companion object {
         private const val TAG = "FRAG/BGRAPH"
         const val DEFAULT_MAX = 30
@@ -38,7 +32,7 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, GraphFragmentB
     private val HORIZONTAL_LABEL_ANGLE = 45
 
 
-    override fun getLayoutRes(): Int = R.layout.graph_fragment
+    override fun getLayoutRes(): Int = R.layout.fragment_graph
 
     override fun setBindingObjects() {
         CoroutineScope(Dispatchers.Main).launch { prepareGraph() }
