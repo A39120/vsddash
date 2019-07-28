@@ -15,7 +15,8 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import pt.isel.vsddashboardapplication.repository.services.es.DpiProbestatsServices
 import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
-import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import pt.isel.vsddashboardapplication.utils.getAddress
+import pt.isel.vsddashboardapplication.utils.getElasticSearchPort
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,8 +41,9 @@ class GraphFragment : Fragment(){
     }
 
     private fun initService(){
-        val address = this.activity?.sharedPreferences()?.getString(SharedPreferenceKeys.CURRENTADDRESS, "")
-        val port = 6200
+        val sharedPreferences = this.context?.sharedPreferences()
+        val address = sharedPreferences?.getAddress()
+        val port = sharedPreferences?.getElasticSearchPort()
         val uri = "https://$address:$port/"
         ElasticSearchRetrofitSingleton.set(uri)
         service = ElasticSearchRetrofitSingleton.dpiProbestats()

@@ -3,7 +3,7 @@ package pt.isel.vsddashboardapplication.repository.base.implementation
 import android.content.SharedPreferences
 import android.util.Log
 import pt.isel.vsddashboardapplication.repository.base.ApiSettingsRepository
-import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import pt.isel.vsddashboardapplication.utils.*
 import javax.inject.Inject
 
 /**
@@ -21,9 +21,9 @@ class ApiSettingsRepositoryImpl @Inject constructor(private val sharedPrefs: Sha
     private var monit : Int?
 
     init {
-        address = sharedPrefs.getString(SharedPreferenceKeys.CURRENTADDRESS, SharedPreferenceKeys.DEFAULTADDRESS)
-        vsdApi = sharedPrefs.getInt(SharedPreferenceKeys.CURRENTPORT, SharedPreferenceKeys.PORTDEFAULT)
-        monit = sharedPrefs.getInt(SharedPreferenceKeys.MONIT_PORT, SharedPreferenceKeys.MONIT_PORT_DEFAULT)
+        address = sharedPrefs.getAddress()
+        vsdApi = sharedPrefs.getVsdPort()
+        monit = sharedPrefs.getMonitPort()
     }
 
 
@@ -32,30 +32,27 @@ class ApiSettingsRepositoryImpl @Inject constructor(private val sharedPrefs: Sha
     override fun getMonitPort(): Int = monit ?: 0
 
     override fun updateAddress(address: String?) {
-        Log.d(TAG, "Updating address with $address")
-        sharedPrefs.edit().let {
-            it.putString(SharedPreferenceKeys.CURRENTADDRESS, address)
-            it.apply()
-        }
+        Log.d(TAG, "Updating address with $address?:'null'")
+        sharedPrefs.setAddress(address)
         this.address = address
     }
 
     override fun updateVSDPort(port: Int?) {
         Log.d(TAG, "Updating VSD Port with $port")
-        sharedPrefs.edit().let {
-            it.putInt(SharedPreferenceKeys.CURRENTPORT, port?:SharedPreferenceKeys.PORTDEFAULT )
-            it.apply()
-        }
+        sharedPrefs.setVsdPort(port)
         this.vsdApi = port
     }
 
     override fun updateMonitPort(port: Int?) {
         Log.d(TAG, "Updating Monit Port with $port")
-        sharedPrefs.edit().let {
-            it.putInt(SharedPreferenceKeys.MONIT_PORT, port?:SharedPreferenceKeys.MONIT_PORT_DEFAULT )
-            it.apply()
-        }
+        sharedPrefs.setMonitPort(monit)
         this.monit = port
     }
 
+    fun updateElasticSearchPort(port: Int?) {
+        //TODO: Do not forget this one
+        Log.d(TAG, "Updating Monit Port with $port")
+        sharedPrefs.setElasticSearchPort(port)
+        //this.monit = port
+    }
 }

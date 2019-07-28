@@ -9,7 +9,8 @@ import pt.isel.vsddashboardapplication.repository.base.LoginRepository
 import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.AddressBuilder
-import pt.isel.vsddashboardapplication.utils.SharedPreferenceKeys
+import pt.isel.vsddashboardapplication.utils.getAddress
+import pt.isel.vsddashboardapplication.utils.getVsdPort
 import javax.inject.Inject
 
 /**
@@ -72,8 +73,8 @@ class LoginRepositoryImpl @Inject constructor(
             val password = getPassword() ?: ""
             val organization = getOrganization() ?: ""
 
-            val address = it.getString(SharedPreferenceKeys.CURRENTADDRESS, null)
-            val port = it.getInt(SharedPreferenceKeys.CURRENTPORT, -1)
+            val address = it.getAddress()
+            val port = it.getVsdPort()
 
             val api = AddressBuilder.build(address ?: "", port)
             Log.d(TAG, "LOGIN - Creating Authentication service")
