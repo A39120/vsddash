@@ -23,6 +23,7 @@
 		<action
 			android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
 		    app:destination="@id/NSGatewayListFragment"/>
+		<action android:id="@+id/action_menuFragment_to_settingsFragment" app:destination="@id/settingsFragment"/>
 	</fragment>
 	<fragment
 		android:id="@+id/NSGatewayListFragment"
@@ -56,5 +57,8 @@
 		<argument android:name="nsgId" app:nullable="false" app:argType="string"/>
 		<argument android:name="portId" app:nullable="false" app:argType="string"/>
 	</fragment>
+	<fragment android:id="@+id/settingsFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.SettingsFragment"
+	          android:label="SettingsFragment"/>
 
 </navigation>

@@ -61,4 +61,10 @@
 	<string name="speed">Speed</string>
 	<string name="mtu">MTU</string>
 	<string name="vlan_range">VLAN Range</string>
+	<string name="automatic_update_label">Automatic Update (VSD)</string>
+	<string name="automatic_update_description">Automatically updates the VSD Data received by listening to events
+	</string>
+	<string name="connection">Connection</string>
+	<string name="connection_description">Defines the connection the user wants to use</string>
+	<string name="uptime">Uptime</string>
 </resources>

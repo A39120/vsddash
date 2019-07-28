@@ -5,7 +5,7 @@ import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 
 class EventRepositoryImpl : EventRepository {
 
-    override suspend fun request() =
-            RetrofitSingleton.eventServices()?.getEvent()?.await()
+    override suspend fun request(uuid: String?) =
+            RetrofitSingleton.eventServices()?.getEvent(uuid)
 
 }

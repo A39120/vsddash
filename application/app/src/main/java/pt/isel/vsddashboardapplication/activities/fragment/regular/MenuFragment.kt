@@ -22,6 +22,7 @@ class MenuFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
         binding.grid.useDefaultMargins = true
         binding.nsgListOption.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_NSGatewayListFragment) }
+        binding.settings.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_settingsFragment) }
         return binding.root
     }
 
