@@ -6,6 +6,7 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.FragmentVscBinding
+import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.VscViewModel
 import java.lang.IllegalArgumentException
 
@@ -15,7 +16,7 @@ class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshab
     }
 
     override fun refresh() {
-        //TODO
+        binding.refreshLayout.setOnRefreshListener { viewModel.update() }
     }
 
     override fun assignViewModel(): VscViewModel =
@@ -31,6 +32,9 @@ class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshab
             binding.executePendingBindings()
         })
 
+        viewModel.refreshStateLiveData.observe(this, Observer{
+            binding.refreshLayout.isRefreshing = it == RefreshState.INPROGRESS
+        })
     }
 
     override fun initViewModel() {
