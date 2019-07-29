@@ -8,9 +8,7 @@ import pt.isel.vsddashboardapplication.model.Session
 import pt.isel.vsddashboardapplication.repository.base.LoginRepository
 import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
-import pt.isel.vsddashboardapplication.utils.AddressBuilder
-import pt.isel.vsddashboardapplication.utils.getAddress
-import pt.isel.vsddashboardapplication.utils.getVsdPort
+import pt.isel.vsddashboardapplication.utils.*
 import javax.inject.Inject
 
 /**
@@ -30,37 +28,23 @@ class LoginRepositoryImpl @Inject constructor(
 
     private var authenticationService: AuthenticationService? = null
 
-    override fun getUsername(): String? =
-            sharedPrefs.getString(USERNAME_KEY, null)
-
-    override fun getPassword(): String? =
-            sharedPrefs.getString(PASSWORD_KEY, null)
-
-    override fun getOrganization(): String? =
-            sharedPrefs.getString(ORGANIZATION_KEY, null)
+    override fun getUsername(): String? = sharedPrefs.getUsername()
+    override fun getPassword(): String? = sharedPrefs.getPassword()
+    override fun getOrganization(): String? = sharedPrefs.getOrganization()
 
     override fun updateUsername(username: String?) {
         Log.d(TAG, "Updating username: $username")
-        sharedPrefs.edit().apply {
-            this.putString(USERNAME_KEY, username)
-            this.apply()
-        }
+        sharedPrefs.setUsername(username)
     }
 
     override fun updatePassword(password: String?) {
         Log.d(TAG, "Updating password")
-        sharedPrefs.edit().apply {
-            this.putString(PASSWORD_KEY, password)
-            this.apply()
-        }
+        sharedPrefs.setPassword(password)
     }
 
     override fun updateOrganization(organization: String?) {
         Log.d(TAG, "Updating organization: $organization")
-        sharedPrefs.edit().apply {
-            this.putString(ORGANIZATION_KEY, organization)
-            this.apply()
-        }
+        sharedPrefs.setOrganization(organization)
     }
 
     /**

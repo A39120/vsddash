@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.utils
 import android.util.Log
 import okhttp3.Credentials
 import pt.isel.vsddashboardapplication.model.Session
+import pt.isel.vsddashboardapplication.service.LoginWorker
 import java.util.*
 
 /**
@@ -28,6 +29,7 @@ class SessionContainer {
     var session: Session? = null
         set(value){
             Log.d(TAG, "Setting session for $username with API Key: ${value?.APIKey}")
+            LoginWorker.enqueue(value)
             field = value
         }
 

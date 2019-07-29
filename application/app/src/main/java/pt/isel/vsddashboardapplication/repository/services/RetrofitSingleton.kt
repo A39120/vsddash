@@ -93,8 +93,10 @@ object RetrofitSingleton {
         Log.d(TAG, "Setting retrofit with username $username and organization $organization ($url)")
         if(url == null || username == null || organization == null)
             return
+
         if(retrofitServices != null)
             reset()
+
         retrofitServices = RetrofitServices(url, username, organization)
     }
 
@@ -117,6 +119,7 @@ object RetrofitSingleton {
         if(apiKey == null)
             return
 
+        reset()
         retrofit = retrofitServices
             ?.getRetrofit(apiKey)
     }
