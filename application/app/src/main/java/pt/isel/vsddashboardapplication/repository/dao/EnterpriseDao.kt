@@ -15,10 +15,10 @@ interface EnterpriseDao {
     fun save(enterprise: Enterprise)
 
     @Query("SELECT * FROM enterprise WHERE id = :id")
-    fun load(id: String) : LiveData<Enterprise>
+    fun load(id: String) : LiveData<Enterprise?>
 
     @Query("SELECT * FROM enterprise WHERE userId = :userId")
-    fun loadAll(userId: String) : LiveData<List<Enterprise>>
+    fun loadAll(userId: String) : LiveData<List<Enterprise>?>
 
     @Delete
     fun delete(vararg alarm: Enterprise)

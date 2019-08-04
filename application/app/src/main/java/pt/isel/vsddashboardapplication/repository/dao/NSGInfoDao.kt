@@ -14,7 +14,7 @@ interface NSGInfoDao {
     fun save(nsgateway: NSGInfo)
 
     @Query("SELECT * FROM nsginfo WHERE parentID = :id")
-    fun load(id: String) : LiveData<NSGInfo>
+    fun load(id: String) : LiveData<NSGInfo?>
 
     @Delete
     fun delete(vararg nsgs: NSGInfo)

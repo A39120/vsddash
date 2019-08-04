@@ -4,7 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.FragmentNsportBinding

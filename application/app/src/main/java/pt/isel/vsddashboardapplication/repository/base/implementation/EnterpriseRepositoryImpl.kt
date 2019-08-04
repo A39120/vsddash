@@ -16,23 +16,14 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
         private const val TAG = "REPO/ENTERPRISE"
     }
 
-    override suspend fun get(id: String): LiveData<Enterprise> {
+    override fun get(id: String): LiveData<Enterprise?> {
         Log.d(TAG, "Getting enterprise $id")
-        val value = dao.load(id)
-        if(value.value == null)
-            update(id)
-
-        return value
+        return dao.load(id)
     }
 
-    override suspend fun getAll(parentId: String): LiveData<List<Enterprise>> {
+    override fun getAll(parentId: String): LiveData<List<Enterprise>?> {
         Log.d(TAG, "Getting list of enterprises of user $parentId")
-        val values = dao.loadAll(parentId)
-
-        if(values.value == null || values.value!!.isEmpty())
-            updateAll(parentId)
-
-        return values
+        return dao.loadAll(parentId)
     }
 
     override suspend fun update(id: String, onFinish: (() -> Unit)?) {

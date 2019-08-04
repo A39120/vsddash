@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.DaggerFragment
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentPortStatisticsBinding
 
 class PortStatisticsFragment : DaggerFragment() {

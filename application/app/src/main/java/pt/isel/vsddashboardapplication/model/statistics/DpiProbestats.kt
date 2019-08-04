@@ -1,8 +1,10 @@
 package pt.isel.vsddashboardapplication.model.statistics
 
 import androidx.room.Entity
+import com.jjoe64.graphview.series.DataPoint
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import java.util.*
 
 
 @JsonClass(generateAdapter = true)
@@ -35,4 +37,13 @@ data class DpiProbestats(
     @Json(name = "timestamp") val timestamp: Long = 0,
     @Json(name = "UnderlayID") val underlayID: Int? = 0,
     @Json(name = "UnderlayName") val underlayName: String? = ""
-)
+) {
+    fun toJitterDataPoint() =
+        avgJitter?.let { DataPoint(Date(timestamp), it) }
+
+    fun toDelayDataPoint() =
+        avgDelay?.let { DataPoint(Date(timestamp), it) }
+
+    fun toPktLossDataPoint() =
+        avgPktLoss?.let { DataPoint(Date(timestamp), it) }
+}

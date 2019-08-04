@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
+import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayStatisticsBinding
 import kotlin.coroutines.CoroutineContext
 import pt.isel.vsddashboardapplication.viewmodel.NSGStatisticsViewModel
 
@@ -31,7 +31,7 @@ class NSGatewayStatisticsFragment : Fragment(), CoroutineScope {
      * Variables of fragment - ViewModel, Repository
      */
     private lateinit var viewModel : NSGStatisticsViewModel
-    private lateinit var binding: FragmentNsgatewayBinding
+    private lateinit var binding: FragmentNsgatewayStatisticsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProviders.of(this).get(NSGStatisticsViewModel::class.java)

@@ -70,11 +70,6 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(VscListViewModel::class)
-    internal abstract fun vscListViewModel(viewModel: VscListViewModel): ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(VrsListViewModel::class)
     internal abstract fun vrsListViewModel(viewModel: VrsListViewModel): ViewModel
 

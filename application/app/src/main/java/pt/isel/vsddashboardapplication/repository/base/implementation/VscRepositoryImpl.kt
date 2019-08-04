@@ -22,10 +22,8 @@ class VscRepositoryImpl @Inject constructor(
      * @param id: VSC ID
      * @return Live Data containing the VSC
      */
-    override suspend fun get(id: String): LiveData<VSC> {
+    override fun get(id: String): LiveData<VSC?> {
         val value = dao.load(id)
-        if(value.value == null)
-            update(id)
         return value
     }
 
@@ -34,10 +32,8 @@ class VscRepositoryImpl @Inject constructor(
      * @param parentId: the VSP ID
      * @return Live Data containing the list of VSCs
      */
-    override suspend fun getAll(parentId: String): LiveData<List<VSC>> {
+    override fun getAll(parentId: String): LiveData<List<VSC>?> {
         val values = dao.loadForVsp(parentId)
-        if(values.value == null || values.value!!.isEmpty())
-            updateAll(parentId)
         return values
     }
 

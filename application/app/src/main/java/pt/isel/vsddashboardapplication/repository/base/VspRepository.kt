@@ -12,7 +12,7 @@ interface VspRepository {
      * Gets a resource
      * @return LiveData containing the VSP
      */
-    suspend fun get() : LiveData<List<VSP>>
+     fun get() : LiveData<List<VSP>?>
 
     /**
      * Updates the VSP

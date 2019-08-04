@@ -18,16 +18,16 @@ interface DpiProbestatsDao {
     fun saveAll(list : List<DpiProbestats>)
 
     @Query("SELECT * FROM dpiproberstat WHERE sourceNSG = :nsg AND srcUplink = :port AND timestamp > :start AND timestamp < :end AND aPMGroup IS NULL")
-    fun loadOutbound(nsg: String, port: String, start: Long, end: Long) : LiveData<List<DpiProbestats>>
+    fun loadOutbound(nsg: String, port: String, start: Long, end: Long) : LiveData<List<DpiProbestats>?>
 
     @Query("SELECT * FROM  dpiproberstat WHERE destinationNSG = :nsg AND dstUplink = :port AND timestamp > :start AND timestamp < :end AND aPMGroup = :apmGroup")
-    fun loadInbound(nsg : String, port: String, apmGroup: String, start: Long, end: Long) : LiveData<List<DpiProbestats>>
+    fun loadInbound(nsg : String, port: String, apmGroup: String, start: Long, end: Long) : LiveData<List<DpiProbestats>?>
 
     @Query("SELECT * FROM dpiproberstat WHERE sourceNSG = :nsg AND srcUplink = :port AND timestamp > :start AND timestamp < :end AND aPMGroup = :apmGroup")
-    fun loadOutbound(nsg: String, port: String, apmGroup: String, start: Long, end: Long) : LiveData<List<DpiProbestats>>
+    fun loadOutbound(nsg: String, port: String, apmGroup: String, start: Long, end: Long) : LiveData<List<DpiProbestats>?>
 
     @Query("SELECT * FROM  dpiproberstat WHERE destinationNSG = :nsg AND dstUplink = :port AND timestamp > :start AND timestamp < :end")
-    fun loadInbound(nsg : String, port: String, start: Long, end: Long) : LiveData<List<DpiProbestats>>
+    fun loadInbound(nsg : String, port: String, start: Long, end: Long) : LiveData<List<DpiProbestats>?>
 
     @Delete
     fun delete(vararg probestats: DpiProbestats)

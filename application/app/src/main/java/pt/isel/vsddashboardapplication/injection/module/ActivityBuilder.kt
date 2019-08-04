@@ -2,10 +2,10 @@ package pt.isel.vsddashboardapplication.injection.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import pt.isel.vsddashboardapplication.activities.LoadingActivity
-import pt.isel.vsddashboardapplication.activities.MainActivity
-import pt.isel.vsddashboardapplication.activities.NSPortPagerFragment
-import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.LoadingActivity
+import pt.isel.vsddashboardapplication.activities.fragment.parent.MainActivity
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 
 @Module
 abstract class ActivityBuilder {

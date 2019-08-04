@@ -6,7 +6,7 @@
 	<androidx.constraintlayout.widget.ConstraintLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-		tools:context=".activities.NsgPagerFragment">
+		tools:context=".activities.fragment.parent.NsgPagerFragment">
 		
 		<ImageView
 			android:layout_margin="@dimen/margin_default"

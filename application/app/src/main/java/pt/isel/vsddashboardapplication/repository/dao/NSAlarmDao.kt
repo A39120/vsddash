@@ -18,10 +18,10 @@ interface NSAlarmDao {
     fun save(alarm: Alarm)
 
     @Query("SELECT * FROM alarm WHERE id = :id")
-    fun load(id: String) : LiveData<Alarm>
+    fun load(id: String) : LiveData<Alarm?>
 
     @Query("SELECT * FROM alarm WHERE parentID = :nsg")
-    fun loadAll(nsg : String) : LiveData<List<Alarm>>
+    fun loadAll(nsg : String) : LiveData<List<Alarm>?>
 
     @Delete
     fun delete(vararg alarm: Alarm)

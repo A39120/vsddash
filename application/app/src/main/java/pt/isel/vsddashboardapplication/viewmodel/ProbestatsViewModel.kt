@@ -9,6 +9,8 @@ import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.repository.base.DpiProbestatsRepository
 import pt.isel.vsddashboardapplication.repository.base.NSGinfoRepository
 import pt.isel.vsddashboardapplication.repository.base.PortRepository
+import pt.isel.vsddashboardapplication.utils.DateRange
+import pt.isel.vsddashboardapplication.utils.TimeRangeCalculator
 import javax.inject.Inject
 
 /**
@@ -30,12 +32,11 @@ class ProbestatsViewModel @Inject constructor(
     private val nsgLiveData = MediatorLiveData<NSGInfo>()
     private val portLiveData = MediatorLiveData<NSPort>()
 
+    private val range = MutableLiveData<DateRange>()
 
     private var port: String? = null
     private var nsg: String? = null
     private var apm: String? = null
-    private var minimum: Long? = null
-    private var maximum: Long? = null
 
     private suspend fun setLiveData()  {
         Log.d(TAG, "Setting liveData of probe list - Port: $port and NSG: $nsg)")
@@ -44,13 +45,19 @@ class ProbestatsViewModel @Inject constructor(
 
         inbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
             Transformations.switchMap(portLiveData) { port ->
-                repository.getInbound(port.physicalName ?: "", nsg.name ?: "", apm, minimum, maximum)
+                Transformations.switchMap(range) {
+                    range ->
+                        repository.getInbound(port.physicalName ?: "", nsg.name ?: "", apm, range.start, range.end)
+                }
             }
         }) {stats -> inbound.value = stats}
 
         outbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
             Transformations.switchMap(portLiveData) { port ->
-                repository.getOutbound(port.physicalName ?: "", nsg.name ?: "", apm, minimum, maximum)
+                Transformations.switchMap(range) {
+                        range ->
+                        repository.getOutbound(port.physicalName ?: "", nsg.name ?: "", apm, range.start, range.end)
+                }
             }
         }) { stats -> outbound.value = stats}
 
@@ -58,13 +65,13 @@ class ProbestatsViewModel @Inject constructor(
 
     fun updateLiveData() {
         viewModelScope.launch {
-            Log.d(TAG, "Updating liveData from $minimum to $maximum")
+            Log.d(TAG, "Updating liveData from ${range.value?.start} to ${range.value?.end}")
             val portName = portLiveData.value?.physicalName ?: ""
             val system = nsgLiveData.value?.name ?: ""
 
             Log.d(TAG, "Updating for port $portName of NSG $system")
-            repository.updateInbound(portName, system, apm, minimum, maximum)
-            repository.updateOutbound(portName, system, apm, minimum, maximum)
+            repository.updateInbound(portName, system, apm, range.value?.start, range.value?.end)
+            repository.updateOutbound(portName, system, apm, range.value?.start, range.value?.end)
         }
     }
 
@@ -74,8 +81,19 @@ class ProbestatsViewModel @Inject constructor(
      * @param max: Maximum timestamp of list
      */
     fun setBoundaries(min: Long? = null, max: Long? = null){
-        this.maximum = max ?: System.currentTimeMillis()
-        this.minimum = min ?: this.maximum!! - 3600 * 1000
+        val nrange = if(min == null){
+            if(max == null)
+                TimeRangeCalculator.getLastDayRange()
+            else
+                TimeRangeCalculator.getHourBefore(max)
+        } else {
+            if(max == null)
+                TimeRangeCalculator.getHourAfter(min)
+            else
+                TimeRangeCalculator.getCustomRange(min, max)
+        }
+
+        range.postValue(nrange)
     }
 
     fun init(port: String, nsg: String) {

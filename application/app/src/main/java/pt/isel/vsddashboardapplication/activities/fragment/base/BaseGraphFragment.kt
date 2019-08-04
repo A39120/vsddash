@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.fragment.graph
+package pt.isel.vsddashboardapplication.activities.fragment.base
 
 import android.content.Context
 import android.util.Log
@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import java.text.DateFormat
 
@@ -27,9 +26,9 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphB
 
     private var wasScrolled = false
 
-    private val HORIZONTAL_LINES = 5
-    private val VERTICAL_LINES = 2
-    private val HORIZONTAL_LABEL_ANGLE = 45
+    private val HORIZONTAL_LINES = 3
+    private val VERTICAL_LINES = 3
+    private val HORIZONTAL_LABEL_ANGLE = 0
 
 
     override fun getLayoutRes(): Int = R.layout.fragment_graph
@@ -69,16 +68,16 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphB
                 it.padding = resources.getDimension(R.dimen.margin_default).toInt()
 
                 it.labelFormatter = getHorizontalFormat()
-                it.setHumanRounding(false)
+                it.setHumanRounding(true)
             }
 
             graph.setOnScrollChangeListener { _, scrollX, _, oldScrollX, _ ->
                 wasScrolled = scrollX < oldScrollX || scrollX < graph.viewport.getMaxX(true)
                 Log.d(TAG, "wasScrolled is ${if(wasScrolled) "activated" else "deactivated"}")
             }
-
-            addSeries(binding.graph)
         }
+        addSeries(binding.graph)
+        binding.executePendingBindings()
     }
 
     abstract fun addSeries(graphView: GraphView)

@@ -1,19 +1,59 @@
 package pt.isel.vsddashboardapplication.activities.fragment.list
 
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
-import pt.isel.vsddashboardapplication.viewmodel.VscListViewModel
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.activities.adapter.VscAdapter
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment
+import pt.isel.vsddashboardapplication.databinding.FragmentListBinding
+import pt.isel.vsddashboardapplication.utils.RefreshState
+import pt.isel.vsddashboardapplication.viewmodel.VspViewModel
 
-class VscListFragment : BaseListFragment<VscListViewModel>() {
-
-    override fun setAdapter() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class VscListFragment : BaseFragment<VspViewModel, FragmentListBinding>(), IRefreshableComponent {
+    companion object {
+        private const val TAG = "FRAG/VSC_LIST"
     }
 
-    override fun assignViewModel(): VscListViewModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private lateinit var adapter: VscAdapter
+
+    private fun setAdapter() {
+        Log.d(TAG, "Setting up adapter")
+        adapter = VscAdapter(){ vsc, _ -> Log.d(TAG, "Going to VSC: ${vsc.iD}") }
+        binding.list.adapter = adapter
     }
 
-    override fun initViewModel() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun assignViewModel(): VspViewModel {
+        Log.d(TAG, "Setting up view model")
+        return (parentFragment as VspParentFragment).viewModel
+    }
+
+    override fun initViewModel() { }
+
+    override fun getLayoutRes(): Int = R.layout.fragment_list
+
+    override fun setBindingObjects() {
+        Log.d(TAG, "Setting up adapter (${this.javaClass})")
+        setAdapter()
+        binding.refreshLayout.setOnRefreshListener { refresh() }
+        binding.list.layoutManager = LinearLayoutManager(this.context)
+    }
+
+    override fun refresh() { viewModel.update() }
+
+    override fun observeViewModel() {
+        viewModel.refreshStateLiveData.observe(this, Observer{rf ->
+            binding.refreshLayout.isRefreshing = when(rf){
+                RefreshState.INPROGRESS -> true
+                else -> false
+            }
+        })
+
+        viewModel.vscListLiveData.observe(this, Observer {
+            adapter.setList(it)
+            binding.executePendingBindings()
+        })
     }
 }

@@ -12,16 +12,12 @@ import javax.inject.Inject
 class NSGInfoRepositoryImpl @Inject constructor(private val dao: NSGInfoDao) :
     NSGinfoRepository {
 
-    override suspend fun get(id: String): LiveData<NSGInfo> {
+    override fun get(id: String): LiveData<NSGInfo?> {
         val liveData = dao.load(id)
-
-        if(liveData.value == null)
-            update(id)
-
         return liveData
     }
 
-    override suspend fun getAll(parentId: String): LiveData<List<NSGInfo>> {
+    override fun getAll(parentId: String): LiveData<List<NSGInfo>?> {
         throw UnsupportedOperationException()
     }
 

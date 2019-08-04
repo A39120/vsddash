@@ -14,10 +14,10 @@ interface ApmDao {
     fun save(apm: APM)
 
     @Query("SELECT * FROM apm WHERE id = :id")
-    fun load(id: String): LiveData<APM>
+    fun load(id: String): LiveData<APM?>
 
     @Query("SELECT * FROM apm WHERE parentID = :enterpriseId")
-    fun loadAll(enterpriseId: String): LiveData<List<APM>>
+    fun loadAll(enterpriseId: String): LiveData<List<APM>?>
 
     @Delete
     fun delete(vararg apm: APM)

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 	<data>
-		<variable name="vsp" type="pt.isel.vsddashboardapplication.model.VSP"/>
+		<import type="pt.isel.vsddashboardapplication.utils.BindingAdapters"/>
+		<variable name="vsp" type="pt.isel.vsddashboardapplication.viewmodel.VspViewModel"/>
 	</data>
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -20,6 +23,14 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
+				
+				<!-- VSP -->
+				<LinearLayout
+					android:layout_marginBottom="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+				
 				<!-- VSP -->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
@@ -35,7 +46,7 @@
 						android:textStyle="bold" />
 					<TextView
 						android:id="@+id/_name_value"
-						android:text="@{vsp.name}"
+						android:text="@{vsp.liveData.name}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
 				</LinearLayout>
@@ -55,12 +66,12 @@
 						android:textStyle="bold" />
 					<TextView
 						android:id="@+id/_desc_value"
-						android:text="@{vsp.description}"
+						android:text="@{vsp.liveData.description}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
 				</LinearLayout>
 				
-				<!-- Creation Date -->
+				<!-- Creation Date ->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
@@ -75,12 +86,12 @@
 						android:textStyle="bold" />
 					<TextView
 						android:id="@+id/_creationdate_value"
-						app:time="@{vsp.creationDate}"
+						app:time="@{vsp.liveData.creationDate}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
-				</LinearLayout>
+				</LinearLayout-->
 				
-				<!-- Scope -->
+				<!-- Scope ->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
@@ -95,10 +106,10 @@
 						android:textStyle="bold" />
 					<TextView
 						android:id="@+id/_scope_value"
-						android:text="@{vsp.entityScope}"
+						android:text="@{vsp.liveData.entityScope}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
-				</LinearLayout>
+				</LinearLayout-->
 				
 				<!-- Product Version -->
 				<LinearLayout
@@ -115,9 +126,11 @@
 						android:textStyle="bold" />
 					<TextView
 						android:id="@+id/_product_value"
-						android:text="@{vsp.productVersion}"
+						android:text="@{vsp.liveData.productVersion}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
+				</LinearLayout>
+				
 				</LinearLayout>
 				
 			</com.google.android.material.card.MaterialCardView>

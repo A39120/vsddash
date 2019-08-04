@@ -24,6 +24,8 @@
 			android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
 		    app:destination="@id/NSGatewayListFragment"/>
 		<action android:id="@+id/action_menuFragment_to_settingsFragment" app:destination="@id/settingsFragment"/>
+		<action android:id="@+id/action_menuFragment_to_vspParentFragment" app:destination="@id/vspParentFragment"/>
+		<action android:id="@+id/action_menuFragment_to_vrsListFragment" app:destination="@id/vrsListFragment"/>
 	</fragment>
 	<fragment
 		android:id="@+id/NSGatewayListFragment"
@@ -45,14 +47,14 @@
 	</fragment>
 	<fragment
 		android:id="@+id/nsgFragment"
-		android:name="pt.isel.vsddashboardapplication.activities.NsgPagerFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment"
 		android:label="NsgFragment">
 		<argument
 			android:name="nsgId" app:argType="string" app:nullable="true"/>
 		<action android:id="@+id/action_nsgFragment_to_NSPortPagerFragment" app:destination="@id/NSPortPagerFragment"/>
 	</fragment>
 	<fragment android:id="@+id/NSPortPagerFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.NSPortPagerFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment"
 	          android:label="NSPortPagerFragment">
 		<argument android:name="nsgId" app:nullable="false" app:argType="string"/>
 		<argument android:name="portId" app:nullable="false" app:argType="string"/>
@@ -60,5 +62,11 @@
 	<fragment android:id="@+id/settingsFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.SettingsFragment"
 	          android:label="SettingsFragment"/>
+	<fragment android:id="@+id/vspParentFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment"
+	          android:label="VspParentFragment"/>
+	<fragment android:id="@+id/vrsListFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment"
+	          android:label="VrsListFragment"/>
 
 </navigation>

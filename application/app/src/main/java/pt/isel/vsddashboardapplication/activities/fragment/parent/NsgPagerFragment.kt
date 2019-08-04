@@ -1,8 +1,8 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment.parent
 
 import androidx.fragment.app.FragmentPagerAdapter
-import pt.isel.vsddashboardapplication.activities.adapter.NSGViewPagerAdapter
-import pt.isel.vsddashboardapplication.activities.base.BasePagerFragment
+import pt.isel.vsddashboardapplication.activities.adapter.pager.NSGViewPagerAdapter
+import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragment
 
 /**
  * NSG Parent fragment, it's the pager fragment responsible for

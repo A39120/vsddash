@@ -2,9 +2,7 @@ package pt.isel.vsddashboardapplication.repository.base.implementation
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.repository.base.DpiProbestatsRepository
@@ -16,7 +14,7 @@ import javax.inject.Inject
 class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbestatsDao)
     : DpiProbestatsRepository {
     companion object{
-        private const val TAG = "REPO/ENTERPRISE"
+        private const val TAG = "REPO/DPI_PROBE"
         private const val SIZE = 20
     }
 
@@ -26,17 +24,10 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
         apm: String?,
         start: Long?,
         end: Long?
-    ): LiveData<List<DpiProbestats>> {
+    ): LiveData<List<DpiProbestats>?> {
         Log.d(TAG, "Getting values from $start to $end, for NSG - $nsg port $port")
-        val value =  apm?.let { dao.loadInbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
+        return apm?.let { dao.loadInbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
             ?: dao.loadInbound(nsg, port, start?:0, end?:System.currentTimeMillis())
-
-        if(value.value == null)
-            CoroutineScope(Dispatchers.IO).launch {
-                updateInbound(port, nsg, apm, start, end, null)
-            }
-
-        return value
     }
 
     override fun getOutbound(
@@ -45,15 +36,9 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
         apm: String?,
         start: Long?,
         end: Long?
-    ): LiveData<List<DpiProbestats>> {
-        val value =  apm?.let { dao.loadOutbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
+    ): LiveData<List<DpiProbestats>?> {
+        return apm?.let { dao.loadOutbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
             ?: dao.loadOutbound(nsg, port, start?:0, end?:System.currentTimeMillis())
-        if(value.value == null)
-            CoroutineScope(Dispatchers.IO).launch {
-                updateOutbound(port, nsg, apm, start, end, null)
-            }
-
-        return value
     }
 
     /**
@@ -111,9 +96,10 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
      * @param query: the  ES query;
      */
     private  suspend fun update(query: String, sort: String, size: Int = SIZE, offset: Int = 0)  {
+        Log.d(TAG, "Updating DPI Probestats")
         val service = ElasticSearchRetrofitSingleton.dpiProbestats()
-        val deferred = service?.getDpiProbestatsWithQuery( query = query, sort = sort )
         withContext(Dispatchers.IO) {
+            val deferred = service?.getDpiProbestatsWithQuery( query = query, sort = sort )
             val result = deferred?.await()
 
             val hits = result?.hits?.hits?.map { it.source }
@@ -124,7 +110,8 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
 
             //Recursive search
             result?.run {
-                if(shards?.total?:0 == hits?.size?:0)
+                Log.d(TAG, "Getting update - $offset of ${shards?.total?:0}")
+                if(this.hits.total?:0 > offset + size)
                     update(query, sort, size, offset + size)
             }
 

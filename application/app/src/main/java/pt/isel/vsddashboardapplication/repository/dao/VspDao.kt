@@ -15,10 +15,10 @@ interface VspDao {
     fun save(vsp: VSP)
 
     @Query("SELECT * FROM vsp WHERE id = :id")
-    fun load(id: String) : LiveData<VSP>
+    fun load(id: String) : LiveData<VSP?>
 
     @Query("SELECT * FROM vsp")
-    fun loadAll() : LiveData<List<VSP>>
+    fun loadAll() : LiveData<List<VSP>?>
 
     @Delete
     fun delete(vararg vsp: VSP)

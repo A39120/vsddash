@@ -24,7 +24,10 @@ class VscViewModel @Inject constructor(
     private lateinit var id: String
     fun init(id: String) {
         this.id = id
-        viewModelScope.launch { setLiveData() }
+        viewModelScope.launch {
+            setLiveData()
+            liveData.value ?: updateLiveData()
+        }
     }
 
 }

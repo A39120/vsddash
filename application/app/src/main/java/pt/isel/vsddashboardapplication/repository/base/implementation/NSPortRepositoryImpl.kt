@@ -26,13 +26,9 @@ class NSPortRepositoryImpl @Inject constructor(
      * @param id: the ID of a Port
      * @return the LiveData of a NSPort
      */
-    override suspend fun get(id: String): LiveData<NSPort> {
+    override fun get(id: String): LiveData<NSPort?> {
         Log.d(TAG, "Getting NSPort $id")
         val port = dao.load(id)
-
-        if (port.value == null)
-            this.update(id)
-
         return port
     }
 
@@ -41,11 +37,9 @@ class NSPortRepositoryImpl @Inject constructor(
      * Gets all the ports of a NSG
      * @param parentId: The ID of a existing NSG
      */
-    override suspend fun getAll(parentId: String): LiveData<List<NSPort>> {
+    override fun getAll(parentId: String): LiveData<List<NSPort>?> {
         Log.d(TAG, "Getting NSPort of NSG $parentId")
         val ports = dao.loadForNsg(parentId)
-        if (ports.value == null)
-            this.updateAll(parentId)
         return ports
     }
 

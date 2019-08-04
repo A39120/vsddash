@@ -25,13 +25,9 @@ class AlarmRepositoryImpl @Inject constructor(
      * @param id: the alarm ID
      * @return the LiveData containing the alarm
      */
-    override suspend fun get(id: String): LiveData<Alarm> {
+    override fun get(id: String): LiveData<Alarm?> {
         Log.d(TAG, "Getting Alarm ($id) from repository")
-        val value = dao.load(id)
-        if(value.value == null)
-            update(id)
-
-        return value
+        return dao.load(id)
     }
 
     /**
@@ -39,13 +35,9 @@ class AlarmRepositoryImpl @Inject constructor(
      * @param parentId: the ID of an NSG
      * @return LiveData with the list of alarms
      */
-    override suspend fun getAll(parentId: String): LiveData<List<Alarm>> {
+    override fun getAll(parentId: String): LiveData<List<Alarm>?> {
         Log.d(TAG, "Getting list of Alarms of NSG $parentId")
-        val value = dao.loadAll(parentId)
-        if(value.value == null)
-            updateAll(parentId)
-
-        return value
+        return dao.loadAll(parentId)
     }
 
     /**

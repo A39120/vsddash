@@ -19,6 +19,20 @@ object TimeRangeCalculator {
     fun getCustomRange(start: Calendar, end: Calendar) =
          DateRange( start.timeInMillis, end.timeInMillis )
 
+    fun getHourAfter(start: Long): DateRange {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = start
+        calendar.add(1, Calendar.HOUR)
+        return DateRange(start, calendar.timeInMillis)
+    }
+
+    fun getHourBefore(end: Long) : DateRange {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = end
+        calendar.add(-1, Calendar.HOUR)
+        return DateRange(calendar.timeInMillis, end)
+    }
+
 
     private fun getRange(unit: Int, amount: Int) : DateRange {
 
@@ -29,5 +43,7 @@ object TimeRangeCalculator {
         val yesterday = calendar.timeInMillis
         return DateRange(yesterday, current)
     }
+
+
 
 }

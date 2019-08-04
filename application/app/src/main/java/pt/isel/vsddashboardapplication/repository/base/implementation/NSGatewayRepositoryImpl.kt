@@ -25,12 +25,9 @@ class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao)
      * @param id: the id of the NSG
      * @return the liveData container that will observe the NSG, taken from DAO
      */
-    override suspend fun get(id: String): LiveData<NSGateway> {
+    override fun get(id: String): LiveData<NSGateway?> {
         Log.d(TAG, "Getting NSG $id")
         val value = dao.load(id)
-        if(value.value == null)
-            update(id)
-
         return dao.load(id)
     }
 
@@ -39,12 +36,8 @@ class NSGatewayRepositoryImpl @Inject constructor(private val dao: NSGatewayDao)
      * @param parentId: the ID of the enterprise
      * @return the livedata with the list of NSG
      */
-    override suspend fun getAll(parentId: String): LiveData<List<NSGateway>> {
+    override fun getAll(parentId: String): LiveData<List<NSGateway>?> {
         Log.d(TAG, "Getting NSGs of enterprise $parentId")
-        val value = dao.loadAll()
-        if(value.value == null)
-            updateAll(parentId)
-
         return dao.loadAll()
     }
 

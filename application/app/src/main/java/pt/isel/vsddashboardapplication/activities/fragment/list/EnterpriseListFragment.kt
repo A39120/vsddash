@@ -9,6 +9,8 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.EnterpriseAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
+import pt.isel.vsddashboardapplication.utils.getUsername
+import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.EnterpriseViewModel
 
 class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
@@ -42,8 +44,8 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
     }
 
     override fun initViewModel() {
-        val userId = (this.activity?.application as VsdApplication).session.username?:""
+        val userId = this.context?.sharedPreferences()?.getUsername()
         Log.d(TAG, "Setting view model with the user id $userId")
-        viewModel.init(userId)
+        viewModel.init(userId?:"")
     }
 }

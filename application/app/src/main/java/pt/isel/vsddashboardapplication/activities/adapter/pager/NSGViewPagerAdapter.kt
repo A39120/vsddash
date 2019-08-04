@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.adapter
+package pt.isel.vsddashboardapplication.activities.adapter.pager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

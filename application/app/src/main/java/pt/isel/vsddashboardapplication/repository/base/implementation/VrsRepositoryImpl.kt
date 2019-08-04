@@ -20,7 +20,7 @@ class VrsRepositoryImpl @Inject constructor(
     /**
      * @return the list of all VRSs
      */
-    override suspend fun getGlobal(): LiveData<List<VRS>> {
+    override suspend fun getGlobal(): LiveData<List<VRS>?> {
         val value = dao.loadGlobal()
         if(value.value == null)
             updateGlobal()
@@ -32,10 +32,8 @@ class VrsRepositoryImpl @Inject constructor(
      * @param id: The VRS ID
      * @return Live Data containing the VRS
      */
-    override suspend fun get(id: String): LiveData<VRS> {
+    override fun get(id: String): LiveData<VRS?> {
         val value = dao.load(id)
-        if(value.value == null)
-            update(id)
         return value
     }
 
@@ -44,10 +42,8 @@ class VrsRepositoryImpl @Inject constructor(
      * @param parentId: the VSC ID
      * @return Live Data containing the list of VRSs
      */
-    override suspend fun getAll(parentId: String): LiveData<List<VRS>> {
+    override fun getAll(parentId: String): LiveData<List<VRS>?> {
         val values = dao.loadForVsc(parentId)
-        if(values.value == null || values.value!!.isEmpty())
-            updateAll(parentId)
         return values
     }
 

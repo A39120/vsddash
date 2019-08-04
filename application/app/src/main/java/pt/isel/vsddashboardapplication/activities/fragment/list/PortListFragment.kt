@@ -5,10 +5,10 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
-import pt.isel.vsddashboardapplication.activities.NsgPagerFragmentDirections
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.adapter.NSPortAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragmentDirections
 import pt.isel.vsddashboardapplication.viewmodel.PortListViewModel
 
 /**

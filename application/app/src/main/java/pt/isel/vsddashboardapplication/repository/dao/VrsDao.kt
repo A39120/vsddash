@@ -15,13 +15,13 @@ interface VrsDao {
     fun save(nsgateway: VRS)
 
     @Query("SELECT * FROM vrs WHERE id = :id")
-    fun load(id: String) : LiveData<VRS>
+    fun load(id: String) : LiveData<VRS?>
 
     @Query("SELECT * FROM vrs WHERE parentID = :id AND parentType = 'VSC'")
-    fun loadForVsc(id : String) : LiveData<List<VRS>>
+    fun loadForVsc(id : String) : LiveData<List<VRS>?>
 
     @Query("SELECT * FROM vrs WHERE parentId IS NULL")
-    fun loadGlobal() : LiveData<List<VRS>>
+    fun loadGlobal() : LiveData<List<VRS>?>
 
     @Delete
     fun delete(vararg vrs: VRS)

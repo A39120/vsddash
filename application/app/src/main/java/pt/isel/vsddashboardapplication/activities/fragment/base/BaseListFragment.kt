@@ -36,7 +36,6 @@ abstract class BaseListFragment<T : BaseListViewModel<*>> : BaseFragment<T, Frag
                 else -> false
             }
         })
-
     }
 
 }

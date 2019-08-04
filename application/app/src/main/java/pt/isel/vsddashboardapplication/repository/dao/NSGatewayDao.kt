@@ -16,10 +16,10 @@ interface NSGatewayDao {
 
 
     @Query("SELECT * FROM nsgateway WHERE id = :id")
-    fun load(id: String) : LiveData<NSGateway>
+    fun load(id: String) : LiveData<NSGateway?>
 
     @Query("SELECT * FROM nsgateway")
-    fun loadAll() : LiveData<List<NSGateway>>
+    fun loadAll() : LiveData<List<NSGateway>?>
 
 
     @Delete

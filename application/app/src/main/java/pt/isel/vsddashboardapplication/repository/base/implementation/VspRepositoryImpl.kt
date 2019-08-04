@@ -22,12 +22,8 @@ class VspRepositoryImpl @Inject constructor(
      * Gets the VSP
      * @return live data containing the list of VSP
      */
-    override suspend fun get(): LiveData<List<VSP>> {
-        val value = dao.loadAll()
-        if(value.value == null)
-            update()
-
-        return value
+    override fun get(): LiveData<List<VSP>?> {
+        return dao.loadAll()
     }
 
     /**

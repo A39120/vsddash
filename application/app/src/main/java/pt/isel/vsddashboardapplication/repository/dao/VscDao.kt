@@ -15,13 +15,13 @@ interface VscDao {
     fun save(vsc: VSC)
 
     @Query("SELECT * FROM vsc WHERE id = :id")
-    fun load(id: String) : LiveData<VSC>
+    fun load(id: String) : LiveData<VSC?>
 
     @Query("SELECT * FROM vsc WHERE parentID = :id")
-    fun loadForVsp(id : String) : LiveData<List<VSC>>
+    fun loadForVsp(id : String) : LiveData<List<VSC>?>
 
     @Query("SELECT * FROM vsc")
-    fun loadAll() : LiveData<List<VSC>>
+    fun loadAll() : LiveData<List<VSC>?>
 
     @Delete
     fun delete(vararg vsc: VSC)

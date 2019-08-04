@@ -17,22 +17,14 @@ class ApmRepositoryImpl @Inject constructor(
         const val TAG = "REPO/APM"
     }
 
-    override suspend fun get(id: String): LiveData<APM> {
+    override fun get(id: String): LiveData<APM?> {
         Log.d(TAG, "Getting APM $id")
-        val value = dao.load(id)
-        if(value.value == null)
-            update(id)
-
-        return value
+        return dao.load(id)
     }
 
-    override suspend fun getAll(parentId: String): LiveData<List<APM>> {
+    override fun getAll(parentId: String): LiveData<List<APM>?> {
         Log.d(TAG, "Getting APMs of enterprise ($parentId)")
-        val value = dao.loadAll(parentId)
-        if(value.value == null)
-            updateAll(parentId)
-
-        return value
+        return dao.loadAll(parentId)
 
     }
 

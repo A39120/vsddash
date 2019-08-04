@@ -13,14 +13,14 @@ interface IBaseRepository<T> {
      * @param id: the id of the resource
      * @return LiveData containing the resource
      */
-    suspend fun get(id: String) : LiveData<T>
+    fun get(id: String) : LiveData<T?>
 
     /**
      * Gets all the resources of the same class that are children of a defined parent
      * @param parentId: the id of the parent, used to get all it's children
      * @return LiveData with a list of resources
      */
-    suspend fun getAll(parentId: String) : LiveData<List<T>>
+    fun getAll(parentId: String) : LiveData<List<T>?>
 
     /**
      * Updates the resource

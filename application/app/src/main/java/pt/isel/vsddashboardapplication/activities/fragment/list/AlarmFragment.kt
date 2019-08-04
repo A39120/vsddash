@@ -2,7 +2,7 @@ package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.viewmodel.NSGAlarmViewModel

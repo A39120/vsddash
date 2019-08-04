@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities
+package pt.isel.vsddashboardapplication.activities.fragment.parent
 
 import android.os.Bundle
 import android.os.PersistableBundle

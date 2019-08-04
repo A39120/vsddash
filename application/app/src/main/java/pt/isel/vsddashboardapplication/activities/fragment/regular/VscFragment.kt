@@ -1,5 +1,6 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
@@ -11,19 +12,19 @@ import pt.isel.vsddashboardapplication.viewmodel.VscViewModel
 import java.lang.IllegalArgumentException
 
 class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshableComponent {
-    companion object {
-        const val VSC_ID = "vsc_id"
-    }
+    companion object { const val VSC_ID = "vsc_id" }
 
     override fun refresh() {
-        binding.refreshLayout.setOnRefreshListener { viewModel.update() }
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.update()
+        }
     }
 
     override fun assignViewModel(): VscViewModel =
         ViewModelProviders.of(this, viewModelFactory)[VscViewModel::class.java]
 
-    override fun getLayoutRes(): Int =
-        R.layout.fragment_vsp
+    @LayoutRes
+    override fun getLayoutRes(): Int = R.layout.fragment_vsc
 
 
     override fun observeViewModel() {

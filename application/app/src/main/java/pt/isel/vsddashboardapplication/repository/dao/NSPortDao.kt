@@ -15,10 +15,10 @@ interface NSPortDao {
     fun save(nsgateway: NSPort)
 
     @Query("SELECT * FROM nsport WHERE id = :id")
-    fun load(id: String) : LiveData<NSPort>
+    fun load(id: String) : LiveData<NSPort?>
 
     @Query("SELECT * FROM nsport WHERE parentID = :nsgId")
-    fun loadForNsg(nsgId : String) : LiveData<List<NSPort>>
+    fun loadForNsg(nsgId : String) : LiveData<List<NSPort>?>
 
     @Delete
     fun delete(vararg nsgs: NSPort)

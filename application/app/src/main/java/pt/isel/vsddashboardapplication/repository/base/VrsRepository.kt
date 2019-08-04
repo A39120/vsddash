@@ -6,7 +6,7 @@ import pt.isel.vsddashboardapplication.model.VRS
 
 interface VrsRepository : IBaseRepository<VRS> {
 
-    suspend fun getGlobal() : LiveData<List<VRS>>
+    suspend fun getGlobal() : LiveData<List<VRS>?>
 
     suspend fun updateGlobal(onFinish: (() -> Unit)? = null)
 }

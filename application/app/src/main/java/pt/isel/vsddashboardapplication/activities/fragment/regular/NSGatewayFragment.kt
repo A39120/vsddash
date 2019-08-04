@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.NsgPagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding

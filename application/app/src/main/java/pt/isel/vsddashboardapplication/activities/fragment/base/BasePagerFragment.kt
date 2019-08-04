@@ -1,5 +1,6 @@
-package pt.isel.vsddashboardapplication.activities.base
+package pt.isel.vsddashboardapplication.activities.fragment.base
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import dagger.android.support.AndroidSupportInjection
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentPagerBinding
 
 abstract class BasePagerFragment : Fragment() {
@@ -34,5 +35,10 @@ abstract class BasePagerFragment : Fragment() {
     }
 
     abstract fun getPager() : FragmentPagerAdapter
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
 }
