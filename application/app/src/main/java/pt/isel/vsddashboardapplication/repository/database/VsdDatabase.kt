@@ -7,7 +7,6 @@ import androidx.room.Database
 import androidx.room.Room
 import pt.isel.vsddashboardapplication.model.*
 import pt.isel.vsddashboardapplication.model.converters.BootstapStatusConverter
-import pt.isel.vsddashboardapplication.model.events.Event
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.repository.dao.*
 
@@ -29,7 +28,7 @@ abstract class VsdDatabase : RoomDatabase() {
     // --- DAO ---
     abstract fun nsgDao(): NSGatewayDao
     abstract fun nsportDao(): NSPortDao
-    abstract fun nsAlarmDao() : NSAlarmDao
+    abstract fun nsAlarmDao() : AlarmDao
     abstract fun enterpriseDao() : EnterpriseDao
     abstract fun dpiProbestatsDao() : DpiProbestatsDao
     abstract fun apmDao(): ApmDao

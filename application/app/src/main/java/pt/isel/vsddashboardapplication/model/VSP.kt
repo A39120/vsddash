@@ -21,4 +21,4 @@ data class VSP(
     @Json(name = "parentID") val parentID: String? = "",
     @Json(name = "parentType") val parentType: String? = "",
     @Json(name = "productVersion") val productVersion: String? = ""
-)
+) : BaseEvent

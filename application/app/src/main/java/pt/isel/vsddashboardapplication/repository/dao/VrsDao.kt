@@ -9,13 +9,13 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.VRS
 
 @Dao
-interface VrsDao {
+interface VrsDao : BaseDao<VRS>{
 
     @Insert(onConflict = REPLACE)
-    fun save(nsgateway: VRS)
+    override fun save(nsgateway: VRS)
 
     @Query("SELECT * FROM vrs WHERE id = :id")
-    fun load(id: String) : LiveData<VRS?>
+    override fun load(id: String) : LiveData<VRS?>
 
     @Query("SELECT * FROM vrs WHERE parentID = :id AND parentType = 'VSC'")
     fun loadForVsc(id : String) : LiveData<List<VRS>?>
@@ -24,6 +24,6 @@ interface VrsDao {
     fun loadGlobal() : LiveData<List<VRS>?>
 
     @Delete
-    fun delete(vararg vrs: VRS)
+    override fun delete(vararg vrs: VRS)
 
 }

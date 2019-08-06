@@ -9,13 +9,13 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.VSC
 
 @Dao
-interface VscDao {
+interface VscDao : BaseDao<VSC>{
 
     @Insert(onConflict = REPLACE)
-    fun save(vsc: VSC)
+    override fun save(vsc: VSC)
 
     @Query("SELECT * FROM vsc WHERE id = :id")
-    fun load(id: String) : LiveData<VSC?>
+    override fun load(id: String) : LiveData<VSC?>
 
     @Query("SELECT * FROM vsc WHERE parentID = :id")
     fun loadForVsp(id : String) : LiveData<List<VSC>?>
@@ -24,6 +24,6 @@ interface VscDao {
     fun loadAll() : LiveData<List<VSC>?>
 
     @Delete
-    fun delete(vararg vsc: VSC)
+    override fun delete(vararg vsc: VSC)
 
 }

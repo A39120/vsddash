@@ -28,4 +28,4 @@ data class Alarm(
     @Json(name = "severity") val severity: String? = "",
     @Json(name = "targetObject") val targetObject: String? = "",
     @Json(name = "timestamp") val timestamp: Long? = 0
-)
+) : BaseEvent

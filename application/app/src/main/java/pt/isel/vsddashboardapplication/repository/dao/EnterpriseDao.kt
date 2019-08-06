@@ -9,18 +9,18 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.Enterprise
 
 @Dao
-interface EnterpriseDao {
+interface EnterpriseDao : BaseDao<Enterprise> {
 
     @Insert(onConflict = REPLACE)
-    fun save(enterprise: Enterprise)
+    override fun save(enterprise: Enterprise)
 
     @Query("SELECT * FROM enterprise WHERE id = :id")
-    fun load(id: String) : LiveData<Enterprise?>
+    override fun load(id: String) : LiveData<Enterprise?>
 
     @Query("SELECT * FROM enterprise WHERE userId = :userId")
     fun loadAll(userId: String) : LiveData<List<Enterprise>?>
 
     @Delete
-    fun delete(vararg alarm: Enterprise)
+    override fun delete(vararg alarm: Enterprise)
 
 }

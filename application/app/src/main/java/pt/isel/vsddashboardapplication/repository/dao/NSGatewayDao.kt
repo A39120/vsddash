@@ -9,20 +9,20 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.NSGateway
 
 @Dao
-interface NSGatewayDao {
+interface NSGatewayDao : BaseDao<NSGateway>{
 
     @Insert(onConflict = REPLACE)
-    fun save(nsgateway: NSGateway)
+    override fun save(nsgateway: NSGateway)
 
 
     @Query("SELECT * FROM nsgateway WHERE id = :id")
-    fun load(id: String) : LiveData<NSGateway?>
+    override fun load(id: String) : LiveData<NSGateway?>
 
     @Query("SELECT * FROM nsgateway")
     fun loadAll() : LiveData<List<NSGateway>?>
 
 
     @Delete
-    fun delete(vararg nsgs: NSGateway)
+    override fun delete(vararg nsgs: NSGateway)
 
 }

@@ -12,18 +12,18 @@ import pt.isel.vsddashboardapplication.model.Alarm
  * Gets all NSGateway alarms for a determined gateway
  */
 @Dao
-interface NSAlarmDao {
+interface AlarmDao : BaseDao<Alarm>{
 
     @Insert(onConflict = REPLACE)
-    fun save(alarm: Alarm)
+    override fun save(alarm: Alarm)
 
     @Query("SELECT * FROM alarm WHERE id = :id")
-    fun load(id: String) : LiveData<Alarm?>
+    override fun load(id: String) : LiveData<Alarm?>
 
     @Query("SELECT * FROM alarm WHERE parentID = :nsg")
     fun loadAll(nsg : String) : LiveData<List<Alarm>?>
 
     @Delete
-    fun delete(vararg alarm: Alarm)
+    override fun delete(vararg alarm: Alarm)
 
 }

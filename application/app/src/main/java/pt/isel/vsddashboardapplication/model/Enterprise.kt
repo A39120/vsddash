@@ -49,4 +49,4 @@ data class Enterprise(
     @Json(name = "sharedEnterprise") val sharedEnterprise: Boolean? = false,
     @Json(name = "VNFManagementEnabled") val vNFManagementEnabled: Boolean? = false,
     @Json(name = "virtualFirewallRulesEnabled") val virtualFirewallRulesEnabled: Boolean? = false
-)
+) : BaseEvent

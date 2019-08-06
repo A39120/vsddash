@@ -36,4 +36,4 @@ data class NSPort(
     @Json(name = "useUserMnemonic") val useUserMnemonic: Boolean? = false,
     @Json(name = "userMnemonic") val userMnemonic: String? = "",
     @Json(name = "VLANRange") val vLANRange: String? = ""
-)
+) : BaseEvent

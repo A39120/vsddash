@@ -9,14 +9,14 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.NSGInfo
 
 @Dao
-interface NSGInfoDao {
+interface NSGInfoDao : BaseDao<NSGInfo>{
     @Insert(onConflict = REPLACE)
-    fun save(nsgateway: NSGInfo)
+    override fun save(nsgateway: NSGInfo)
 
     @Query("SELECT * FROM nsginfo WHERE parentID = :id")
-    fun load(id: String) : LiveData<NSGInfo?>
+    override fun load(id: String) : LiveData<NSGInfo?>
 
     @Delete
-    fun delete(vararg nsgs: NSGInfo)
+    override fun delete(vararg nsgs: NSGInfo)
 
 }

@@ -9,18 +9,18 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.NSPort
 
 @Dao
-interface NSPortDao {
+interface NSPortDao : BaseDao<NSPort>{
 
     @Insert(onConflict = REPLACE)
-    fun save(nsgateway: NSPort)
+    override fun save(nsgateway: NSPort)
 
     @Query("SELECT * FROM nsport WHERE id = :id")
-    fun load(id: String) : LiveData<NSPort?>
+    override fun load(id: String) : LiveData<NSPort?>
 
     @Query("SELECT * FROM nsport WHERE parentID = :nsgId")
     fun loadForNsg(nsgId : String) : LiveData<List<NSPort>?>
 
     @Delete
-    fun delete(vararg nsgs: NSPort)
+    override fun delete(vararg nsgs: NSPort)
 
 }

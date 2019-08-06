@@ -37,6 +37,6 @@ data class VSC(
     @Json(name = "status") val status: String? = "",
     @Json(name = "unavailableTimestamp") val unavailableTimestamp: Int? = 0
     //@Json(name = "vsds") val vsds: List<String?>? = listOf()
-) {
+) : BaseEvent {
     fun isUp() = status == "UP"
 }

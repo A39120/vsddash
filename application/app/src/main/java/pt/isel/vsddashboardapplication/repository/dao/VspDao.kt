@@ -9,18 +9,18 @@ import androidx.room.Query
 import pt.isel.vsddashboardapplication.model.VSP
 
 @Dao
-interface VspDao {
+interface VspDao : BaseDao<VSP>{
 
     @Insert(onConflict = REPLACE)
-    fun save(vsp: VSP)
+    override fun save(vsp: VSP)
 
     @Query("SELECT * FROM vsp WHERE id = :id")
-    fun load(id: String) : LiveData<VSP?>
+    override fun load(id: String) : LiveData<VSP?>
 
     @Query("SELECT * FROM vsp")
     fun loadAll() : LiveData<List<VSP>?>
 
     @Delete
-    fun delete(vararg vsp: VSP)
+    override fun delete(vararg vsp: VSP)
 
 }

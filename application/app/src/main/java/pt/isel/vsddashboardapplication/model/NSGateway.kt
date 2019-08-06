@@ -63,4 +63,4 @@ data class NSGateway (
     //@JsonProperty("bootstrapStatus") val bootstrapStatus: NSGatewayEnumerables.BootstrapStatus? = null,
     //@JsonProperty("configurationReloadState") val configurationReloadState: NSGatewayEnumerables.ConfigurationReloadState? = null,
     //@JsonProperty("configurationStatus") val configurationStatus: NSGatewayEnumerables.ConfigurationStatus? = null,
-)
+) : BaseEvent
