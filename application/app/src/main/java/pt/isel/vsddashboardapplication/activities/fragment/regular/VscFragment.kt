@@ -12,7 +12,7 @@ import pt.isel.vsddashboardapplication.viewmodel.VscViewModel
 import java.lang.IllegalArgumentException
 
 class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshableComponent {
-    companion object { const val VSC_ID = "vsc_id" }
+    companion object { const val VSC_ID = "vscId" }
 
     override fun refresh() {
         binding.refreshLayout.setOnRefreshListener {

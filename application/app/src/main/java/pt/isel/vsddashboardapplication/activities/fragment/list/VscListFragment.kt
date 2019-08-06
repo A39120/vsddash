@@ -2,12 +2,14 @@ package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import android.util.Log
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.VscAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragmentDirections
 import pt.isel.vsddashboardapplication.databinding.FragmentListBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.VspViewModel
@@ -21,7 +23,11 @@ class VscListFragment : BaseFragment<VspViewModel, FragmentListBinding>(), IRefr
 
     private fun setAdapter() {
         Log.d(TAG, "Setting up adapter")
-        adapter = VscAdapter(){ vsc, _ -> Log.d(TAG, "Going to VSC: ${vsc.iD}") }
+        adapter = VscAdapter { vsc, view ->
+            Log.d(TAG, "Going to VSC: ${vsc.iD}")
+            val directions = VspParentFragmentDirections.actionVspParentFragmentToVscParentFragment(vsc.iD)
+            Navigation.findNavController(view).navigate(directions)
+        }
         binding.list.adapter = adapter
     }
 

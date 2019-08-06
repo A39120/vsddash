@@ -28,5 +28,7 @@ class VscParentFragment : BasePagerFragment() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VscViewModel::class.java]
     }
 
+    fun getVscId() = viewModel.liveData.value?.iD
+
 
 }

@@ -32,9 +32,7 @@ class VspFragment : BaseFragment<VspViewModel, FragmentVspBinding>(), IRefreshab
         })
     }
 
-    override fun initViewModel() {
-        viewModel.init()
-    }
+    override fun initViewModel() { viewModel.init() }
 
     override fun setBindingObjects() {
         binding.vsp = viewModel

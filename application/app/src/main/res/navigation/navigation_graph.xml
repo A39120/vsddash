@@ -64,9 +64,26 @@
 	          android:label="SettingsFragment"/>
 	<fragment android:id="@+id/vspParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment"
-	          android:label="VspParentFragment"/>
+	          android:label="VspParentFragment">
+		<action android:id="@+id/action_vspParentFragment_to_vscParentFragment"
+		        app:destination="@id/vscParentFragment">
+			<argument android:name="vscId" app:argType="string" app:nullable="false"/>
+		</action>
+	</fragment>
 	<fragment android:id="@+id/vrsListFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment"
-	          android:label="VrsListFragment"/>
+	          android:label="VrsListFragment">
+		<action android:id="@+id/action_vrsListFragment_to_vrsFragment" app:destination="@id/vrsFragment">
+			<argument android:name="vrsId" app:nullable="false" app:argType="string"/>
+		</action>
+</fragment>
+	<fragment android:id="@+id/vscParentFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment"
+	          android:label="VscParentFragment">
+		<action android:id="@+id/action_vscParentFragment_to_vrsFragment" app:destination="@id/vrsFragment"/>
+	</fragment>
+	<fragment android:id="@+id/vrsFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.VrsFragment"
+	          android:label="VrsFragment"/>
 
 </navigation>
