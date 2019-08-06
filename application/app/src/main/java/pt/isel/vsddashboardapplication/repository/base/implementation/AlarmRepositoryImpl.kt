@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.repository.base.AlarmRepository
-import pt.isel.vsddashboardapplication.repository.dao.NSAlarmDao
+import pt.isel.vsddashboardapplication.repository.dao.AlarmDao
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Repository for handling the alarm. Update and Get.
  */
 class AlarmRepositoryImpl @Inject constructor(
-    private val dao: NSAlarmDao
+    private val dao: AlarmDao
 ) : AlarmRepository {
     companion object {
         private const val TAG = "REPO/ALARM"

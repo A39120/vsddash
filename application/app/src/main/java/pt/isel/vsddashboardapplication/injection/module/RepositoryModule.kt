@@ -19,7 +19,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesAlarmRepository(dao: NSAlarmDao) : AlarmRepository =
+    fun providesAlarmRepository(dao: AlarmDao) : AlarmRepository =
         AlarmRepositoryImpl(dao)
 
     @Provides
