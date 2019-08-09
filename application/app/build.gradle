@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 
 android {
@@ -24,8 +25,8 @@ android {
     dataBinding.enabled = true
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility '1.8'
+        targetCompatibility '1.8'
     }
     testOptions {
         unitTests.returnDefaultValues = true
@@ -38,6 +39,7 @@ dependencies {
     def okhttp_version = "3.13.1"
     def retrofit_version = "2.5.0"
     def moshi_version = "1.8.0"
+    def nav_version = "2.1.0-rc01"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -45,8 +47,6 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    apply plugin: "androidx.navigation.safeargs.kotlin"
-
 
     // Jetpack library
     implementation "android.arch.work:work-runtime-ktx:$work_version"           // For Services
@@ -100,7 +100,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "com.squareup.okhttp3:mockwebserver:$okhttp_version"
 
-    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation 'androidx.fragment:fragment-ktx:1.2.0-alpha01'
 
     // Android support library
