@@ -9,6 +9,8 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.EnterpriseAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
+import pt.isel.vsddashboardapplication.utils.getAddress
+import pt.isel.vsddashboardapplication.utils.getOrganization
 import pt.isel.vsddashboardapplication.utils.getUsername
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.EnterpriseViewModel
@@ -20,8 +22,9 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
     }
 
     private  val adapter: EnterpriseAdapter = EnterpriseAdapter { enterprise, view ->
-        arguments?.putString(ENTERPRISE_ID, enterprise.iD)
-        Navigation.findNavController(view).navigate(R.id.action_enterpriseListFragment_to_menuFragment, arguments)
+        Log.d(TAG, "Clicked on ${enterprise.name} - ${enterprise.iD}")
+        val directions = EnterpriseListFragmentDirections.actionEnterpriseListFragmentToMenuFragment(enterprise.iD)
+        Navigation.findNavController(view).navigate(directions)
     }
 
     override fun setAdapter() {
@@ -45,7 +48,9 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
 
     override fun initViewModel() {
         val userId = this.context?.sharedPreferences()?.getUsername()
+        val vsd = this.context?.sharedPreferences()?.getAddress()
+        val org = this.context?.sharedPreferences()?.getOrganization()
         Log.d(TAG, "Setting view model with the user id $userId")
-        viewModel.init(userId?:"")
+        viewModel.init(userId?:"", vsd?: "", org?:"")
     }
 }

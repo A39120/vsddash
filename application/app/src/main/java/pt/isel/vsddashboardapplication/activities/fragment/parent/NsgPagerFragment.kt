@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication.activities.fragment.parent
 
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.fragment.navArgs
 import pt.isel.vsddashboardapplication.activities.adapter.pager.NSGViewPagerAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragment
 
@@ -10,7 +11,9 @@ import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragmen
  */
 class NsgPagerFragment : BasePagerFragment() {
 
-    fun getNsgId() = arguments?.getString("nsgId") ?: ""
+    private val args : NsgPagerFragmentArgs by navArgs()
+
+    fun getNsgId() = args.nsgId
 
     override fun getPager(): FragmentPagerAdapter =
         NSGViewPagerAdapter(this.childFragmentManager)

@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
@@ -19,6 +20,7 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
     }
 
     private lateinit var adapter: NSGatewayAdapter
+    private val args : NSGatewayListFragmentArgs by navArgs()
 
     /**
      * Sets the List of NSG adapter
@@ -43,11 +45,8 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
     }
 
     override fun initViewModel() {
-        //TODO: Offline mode
         Log.d(TAG, "Setting up session enterprise for the view model")
-        val enterprise = this.arguments?.getString(EnterpriseListFragment.ENTERPRISE_ID) ?:
-            (this.activity?.application as VsdApplication).session.getEnterpriseId() ?: ""
-
+        val enterprise = args.enterpriseId
         viewModel.init(enterprise)
     }
 

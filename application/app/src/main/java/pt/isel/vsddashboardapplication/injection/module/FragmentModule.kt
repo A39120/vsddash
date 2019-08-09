@@ -49,4 +49,6 @@ abstract class FragmentModule {
     @ContributesAndroidInjector
     abstract fun contributeVscListFragment() : VscListFragment
 
+    @ContributesAndroidInjector
+    abstract fun contributeVrsListFragment() : VrsListFragment
 }

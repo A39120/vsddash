@@ -1,21 +1,18 @@
 package pt.isel.vsddashboardapplication.activities.fragment.parent
 
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.navigation.fragment.navArgs
 import pt.isel.vsddashboardapplication.activities.adapter.pager.NSPortViewPagerAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragment
 
 class NSPortPagerFragment : BasePagerFragment() {
-    companion object {
-        private const val TAG = "ACT/NSPORT"
 
-        private const val NSG_ID = "nsgId"
-        private const val PORT_ID = "portId"
-    }
+    private val args : NSPortPagerFragmentArgs by navArgs()
 
     override fun getPager(): FragmentPagerAdapter =
         NSPortViewPagerAdapter(this.childFragmentManager)
 
-    fun getNsgId() = arguments?.getString(NSG_ID)
-    fun getPortId() = arguments?.getString(PORT_ID)
+    fun getNsgId() = args.nsgId
+    fun getPortId() = args.portId
 
 }

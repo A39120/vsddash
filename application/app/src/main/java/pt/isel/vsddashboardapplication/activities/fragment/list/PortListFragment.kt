@@ -57,7 +57,6 @@ class PortListFragment : BaseListFragment<PortListViewModel>() {
                 nsgId = getNsgId(),
                 portId = portId
             )
-
             Navigation.findNavController(view).navigate(directions)
         }
     }
