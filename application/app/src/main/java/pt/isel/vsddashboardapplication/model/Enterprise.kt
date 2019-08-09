@@ -1,4 +1,5 @@
 package pt.isel.vsddashboardapplication.model
+import android.provider.ContactsContract
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -9,7 +10,6 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "enterprise")
 data class Enterprise(
     @PrimaryKey @Json(name = "ID") val iD: String = "",
-    var userId: String? = "",
     @Json(name = "allowAdvancedQOSConfiguration") val allowAdvancedQOSConfiguration: Boolean? = false,
     @Json(name = "allowGatewayManagement") val allowGatewayManagement: Boolean? = false,
     @Json(name = "allowTrustedForwardingClass") val allowTrustedForwardingClass: Boolean? = false,
@@ -48,5 +48,8 @@ data class Enterprise(
     @Json(name = "sendMultiCastListID") val sendMultiCastListID: String? = "",
     @Json(name = "sharedEnterprise") val sharedEnterprise: Boolean? = false,
     @Json(name = "VNFManagementEnabled") val vNFManagementEnabled: Boolean? = false,
-    @Json(name = "virtualFirewallRulesEnabled") val virtualFirewallRulesEnabled: Boolean? = false
+    @Json(name = "virtualFirewallRulesEnabled") val virtualFirewallRulesEnabled: Boolean? = false,
+    var user: String? = null,
+    var organization: String? = null,
+    var vsd: String? = null
 ) : BaseEvent

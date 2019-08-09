@@ -22,7 +22,7 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     VRS::class,
     VSP::class,
     VSC::class
-], version = 7, exportSchema = false)
+], version = 10, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---

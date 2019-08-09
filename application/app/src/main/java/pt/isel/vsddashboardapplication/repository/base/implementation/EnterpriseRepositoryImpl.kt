@@ -12,6 +12,17 @@ import javax.inject.Inject
 
 class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDao)
     : EnterpriseRepository {
+
+    private lateinit var user: String
+    private lateinit var vsd: String
+    private lateinit var organization: String
+
+    override fun setup(user: String, organization: String, vsd: String) {
+        this.user = user
+        this.vsd = vsd
+        this.organization = organization
+    }
+
     companion object{
         private const val TAG = "REPO/ENTERPRISE"
     }
@@ -23,7 +34,7 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
 
     override fun getAll(parentId: String): LiveData<List<Enterprise>?> {
         Log.d(TAG, "Getting list of enterprises of user $parentId")
-        return dao.loadAll(parentId)
+        return dao.loadAll(user, organization, vsd)
     }
 
     override suspend fun update(id: String, onFinish: (() -> Unit)?) {
@@ -33,7 +44,14 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
                 .enterpriseServices()
                 ?.getEnterprise(id)
                 ?.await()
-                ?.let { enterprise -> dao.save(enterprise) }
+                ?.let { enterprise ->
+                    Log.d(TAG, "Saving enterprise with name ${enterprise.name}")
+                    enterprise.user = this@EnterpriseRepositoryImpl.user
+                    enterprise.vsd = this@EnterpriseRepositoryImpl.vsd
+                    enterprise.organization = this@EnterpriseRepositoryImpl.organization
+                    dao.save(enterprise)
+                }
+
 
             onFinish?.invoke()
             return@withContext
@@ -41,14 +59,18 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
     }
 
     override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
-        Log.d(TAG, "Updating enterprises of user $parentId")
+        Log.d(TAG, "Updating enterprises of the user $parentId")
         withContext(Dispatchers.IO){
             RetrofitSingleton
                 .enterpriseServices()
                 ?.getEnterprises()
                 ?.await()
                 ?.forEach { enterprise ->
-                    enterprise.userId = parentId
+                    Log.d(TAG, "Saving enterprise with name ${enterprise.name}")
+                    enterprise.user = this@EnterpriseRepositoryImpl.user
+                    enterprise.vsd = this@EnterpriseRepositoryImpl.vsd
+                    enterprise.organization = this@EnterpriseRepositoryImpl.organization
+
                     dao.save(enterprise)
                 }
 

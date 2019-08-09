@@ -17,8 +17,8 @@ interface EnterpriseDao : BaseDao<Enterprise> {
     @Query("SELECT * FROM enterprise WHERE id = :id")
     override fun load(id: String) : LiveData<Enterprise?>
 
-    @Query("SELECT * FROM enterprise WHERE userId = :userId")
-    fun loadAll(userId: String) : LiveData<List<Enterprise>?>
+    @Query("SELECT * FROM enterprise WHERE user = :userId AND organization = :organization AND vsd = :vsd")
+    fun loadAll(userId: String, organization: String, vsd: String) : LiveData<List<Enterprise>?>
 
     @Delete
     override fun delete(vararg alarm: Enterprise)

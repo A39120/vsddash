@@ -23,9 +23,7 @@ class NSGInfoViewModel @Inject constructor(private val repository: NSGinfoReposi
     override suspend fun updateLiveData() {
         Log.d(TAG, "Updating liveData with NSG with ID: $id (repository = ${repository.javaClass}")
         this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-        this.repository.update(id) {
-            this.refreshStateLiveData.postValue(RefreshState.NONE)
-        }
+        this.repository.update(id) { this.refreshStateLiveData.postValue(RefreshState.NONE) }
     }
 
     fun init(id: String){
