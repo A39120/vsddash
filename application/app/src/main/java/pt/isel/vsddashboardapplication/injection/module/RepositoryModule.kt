@@ -14,8 +14,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesNsgRepository(dao : NSGatewayDao) : NSGatewayRepository =
-        NSGatewayRepositoryImpl(dao)
+    fun providesNsgRepository(dao : NSGatewayDao, alarmDao: AlarmDao, nsgInfoDao: NSGInfoDao) : NSGatewayRepository =
+        NSGatewayRepositoryImpl(dao, alarmDao, nsgInfoDao)
 
     @Provides
     @Singleton
@@ -24,8 +24,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesPortRepository(dao: NSPortDao) : PortRepository =
-        NSPortRepositoryImpl(dao)
+    fun providesPortRepository(dao: NSPortDao, alarmDao: AlarmDao) : NSPortRepository =
+        NSPortRepositoryImpl(dao, alarmDao)
 
     @Provides
     @Singleton
@@ -59,16 +59,21 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesVrsRepository(dao: VrsDao) : VrsRepository =
-        VrsRepositoryImpl(dao)
+    fun providesVrsRepository(dao: VrsDao, alarmDao: AlarmDao, vportDao: VPortDao) : VrsRepository =
+        VrsRepositoryImpl(dao, alarmDao, vportDao)
 
     @Provides
     @Singleton
-    fun providesVscRepository(dao: VscDao) : VscRepository =
-        VscRepositoryImpl(dao)
+    fun providesVscRepository(dao: VscDao, alarmDao: AlarmDao) : VscRepository =
+        VscRepositoryImpl(dao, alarmDao)
 
     @Provides
     @Singleton
     fun providesVspRepository(dao: VspDao) : VspRepository =
         VspRepositoryImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesVportRepository(dao: VPortDao, alarmDao: AlarmDao) : VPortRepository =
+        VPortRepositoryImpl(dao, alarmDao)
 }

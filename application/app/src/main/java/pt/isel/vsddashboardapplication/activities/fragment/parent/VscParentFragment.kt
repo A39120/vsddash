@@ -1,12 +1,16 @@
 package pt.isel.vsddashboardapplication.activities.fragment.parent
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
+import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.pager.VscViewPagerAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.IAlarmParent
+import pt.isel.vsddashboardapplication.viewmodel.parent.AlarmParentViewModel
 import pt.isel.vsddashboardapplication.viewmodel.VscViewModel
 import javax.inject.Inject
 
@@ -15,9 +19,10 @@ import javax.inject.Inject
  **** VRSs - list of vrss
  **** Alarms - the alarms on the VSC
  */
-class VscParentFragment : BasePagerFragment() {
-    companion object { private const val TAG = "FRAG/VSC_PARENT" }
+class VscParentFragment : BasePagerFragment(), IAlarmParent {
 
+    @StringRes
+    override fun getTitle(): Int = R.string.vsc
     private val args :  VscParentFragmentArgs by navArgs()
 
     @Inject
@@ -29,9 +34,12 @@ class VscParentFragment : BasePagerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VscViewModel::class.java]
+        viewModel.init(args.vscId)
     }
 
     fun getVscId() = args.vscId
 
-
+    override fun getAlarmViewModel(): AlarmParentViewModel {
+        return viewModel
+    }
 }

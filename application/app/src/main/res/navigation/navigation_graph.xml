@@ -34,7 +34,7 @@
 			app:enterAnim="@android:anim/fade_in"
 			app:exitAnim="@android:anim/fade_out"
 			android:id="@+id/action_NSGatewayListFragment_to_nsgFragment"
-		    app:destination="@id/nsgFragment"/>
+			app:destination="@id/nsgFragment"/>
 	</fragment>
 	<fragment android:id="@+id/enterpriseListFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.list.EnterpriseListFragment"
@@ -72,19 +72,26 @@
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment"
 	          android:label="VrsListFragment">
 		<argument android:name="vscId" app:argType="string" app:nullable="true"/>
-		<action android:id="@+id/action_vrsListFragment_to_vrsFragment" app:destination="@id/vrsFragment">
-			<argument android:name="vrsId" app:nullable="false" app:argType="string"/>
-		</action>
-</fragment>
+		<action android:id="@+id/action_vrsListFragment_to_vrsParentFragment" app:destination="@id/vrsParentFragment"/>
+	</fragment>
 	<fragment android:id="@+id/vscParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment"
 	          android:label="VscParentFragment">
 		<argument android:name="vscId" app:nullable="false" app:argType="string"/>
-		<action android:id="@+id/action_vscParentFragment_to_vrsFragment" app:destination="@id/vrsFragment"/>
+		<action android:id="@+id/action_vscParentFragment_to_vrsParentFragment"
+		        app:destination="@id/vrsParentFragment"/>
 	</fragment>
-	<fragment android:id="@+id/vrsFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.VrsFragment"
-	          android:label="VrsFragment">
+	<fragment android:id="@+id/vrsParentFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragment"
+	          android:label="VrsParentFragment">
+		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
+		<action android:id="@+id/action_vrsParentFragment_to_vportParentFragment"
+		        app:destination="@id/vportParentFragment"/>
+	</fragment>
+	<fragment android:id="@+id/vportParentFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VportParentFragment"
+	          android:label="VportParentFragment">
+		<argument android:name="vportId" app:argType="string" app:nullable="false"/>
 		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
 	</fragment>
 

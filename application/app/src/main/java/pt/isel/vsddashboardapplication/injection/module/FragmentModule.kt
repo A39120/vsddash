@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import pt.isel.vsddashboardapplication.activities.fragment.graph.PortAvgJitterGraphFragment
 import pt.isel.vsddashboardapplication.activities.fragment.list.*
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment
 import pt.isel.vsddashboardapplication.activities.fragment.regular.*
 
@@ -29,7 +31,7 @@ abstract class FragmentModule {
     abstract fun contributeNSGatewayListFragment() : NSGatewayListFragment
 
     @ContributesAndroidInjector
-    abstract fun contributePortListFragment() : PortListFragment
+    abstract fun contributePortListFragment() : NSPortListFragment
 
     @ContributesAndroidInjector
     abstract fun contributeNSPortFragment() : NSPortFragment
@@ -51,4 +53,17 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeVrsListFragment() : VrsListFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVcsParentFragment() : VscParentFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVcsFragment() : VscFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVrsFragment() : VrsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeVrsParentFragment() : VrsParentFragment
+
 }

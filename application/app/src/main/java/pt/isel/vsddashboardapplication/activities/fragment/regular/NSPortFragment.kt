@@ -4,6 +4,7 @@ import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
@@ -14,38 +15,40 @@ import pt.isel.vsddashboardapplication.viewmodel.NSPortViewModel
 /**
  * Fragment that handles all information that belongs to the port
  */
-class NSPortFragment : BaseFragment<NSPortViewModel, FragmentNsportBinding>(), IRefreshableComponent {
+class NSPortFragment : BaseChildFragment<FragmentNsportBinding>(), IRefreshableComponent{
 
     override fun observeViewModel() {
+        val viewModel = (this.parentFragment as NSPortPagerFragment).viewModel
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
             binding.refreshLayout.isRefreshing = when(rf){
                 RefreshState.INPROGRESS -> true
                 else -> false
             }
         })
-    }
 
-    override fun initViewModel() {
-        val portId = (parentFragment as NSPortPagerFragment).getPortId()
-        val nsgId = (parentFragment as NSPortPagerFragment).getNsgId()
-        viewModel.init(portId, nsgId)
+        viewModel.liveData.observe(this, Observer {
+            binding.nsport = it
+            binding.executePendingBindings()
+        })
+
+        viewModel.nsgLiveData.observe(this, Observer {
+            binding.nsgname = it.name
+            binding.executePendingBindings()
+        })
+
     }
 
     override fun setBindingObjects() {
         binding.refreshLayout.setOnRefreshListener { refresh() }
-        binding.vm = viewModel
         binding.executePendingBindings()
     }
-
-    override fun assignViewModel(): NSPortViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[NSPortViewModel::class.java]
-
 
     @LayoutRes
     override fun getLayoutRes(): Int = R.layout.fragment_nsport
 
-    override fun refresh() { viewModel.update() }
-
-
+    override fun refresh() {
+        val viewModel = (this.parentFragment as NSPortPagerFragment).viewModel
+        viewModel.update()
+    }
 
 }

@@ -16,7 +16,7 @@ class VscViewPagerAdapter(fm: FragmentManager)
 
     override fun getItem(position: Int): Fragment = when(position){
         0 -> VscFragment()
-        1 -> AlarmFragment()
+        1 -> AlarmFragment() //TODO: AlarmFragment()
         2 -> VrsListFragment()
         else -> throw IllegalStateException()
     }

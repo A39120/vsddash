@@ -8,7 +8,7 @@ import pt.isel.vsddashboardapplication.model.NSPort
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.repository.base.DpiProbestatsRepository
 import pt.isel.vsddashboardapplication.repository.base.NSGinfoRepository
-import pt.isel.vsddashboardapplication.repository.base.PortRepository
+import pt.isel.vsddashboardapplication.repository.base.NSPortRepository
 import pt.isel.vsddashboardapplication.utils.DateRange
 import pt.isel.vsddashboardapplication.utils.TimeRangeCalculator
 import javax.inject.Inject
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class ProbestatsViewModel @Inject constructor(
     private val repository: DpiProbestatsRepository,
     private val nsgRepository: NSGinfoRepository,
-    private val portRepository: PortRepository
+    private val NSPortRepository: NSPortRepository
 )
     : ViewModel() {
     companion object{
@@ -41,7 +41,7 @@ class ProbestatsViewModel @Inject constructor(
     private suspend fun setLiveData()  {
         Log.d(TAG, "Setting liveData of probe list - Port: $port and NSG: $nsg)")
         nsgLiveData.addSource(nsgRepository.get(nsg!!)) { nsgLiveData.value = it }
-        portLiveData.addSource(portRepository.get(port!!)) { portLiveData.value = it }
+        portLiveData.addSource(NSPortRepository.get(port!!)) { portLiveData.value = it }
 
         inbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
             Transformations.switchMap(portLiveData) { port ->

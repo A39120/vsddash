@@ -9,13 +9,14 @@ import pt.isel.vsddashboardapplication.repository.base.DpiProbestatsRepository
 import pt.isel.vsddashboardapplication.repository.dao.DpiProbestatsDao
 import pt.isel.vsddashboardapplication.repository.services.ElasticSearchRetrofitSingleton
 import pt.isel.vsddashboardapplication.utils.ElasticSearchQueryBuilder
+import java.lang.Exception
 import javax.inject.Inject
 
 class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbestatsDao)
     : DpiProbestatsRepository {
     companion object{
         private const val TAG = "REPO/DPI_PROBE"
-        private const val SIZE = 20
+        private const val SIZE = 200
     }
 
     override fun getInbound(
@@ -99,21 +100,24 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
         Log.d(TAG, "Updating DPI Probestats")
         val service = ElasticSearchRetrofitSingleton.dpiProbestats()
         withContext(Dispatchers.IO) {
-            val deferred = service?.getDpiProbestatsWithQuery( query = query, sort = sort )
-            val result = deferred?.await()
+            try {
+                val deferred =
+                    service?.getDpiProbestatsWithQuery(query = query, sort = sort, size = size, offset = offset)
+                val result = deferred?.await()
 
-            val hits = result?.hits?.hits?.map { it.source }
+                val hits = result?.hits?.hits?.map { it.source }
 
-            if (hits != null)
-                for(hit in hits)
-                    hit?.let { dao.save(it) }
+                if (hits != null)
+                    for (hit in hits)
+                        hit?.let { dao.save(it) }
 
-            //Recursive search
-            result?.run {
-                Log.d(TAG, "Getting update - $offset of ${shards?.total?:0}")
-                if(this.hits.total?:0 > offset + size)
-                    update(query, sort, size, offset + size)
-            }
+                //Recursive search
+                result?.run {
+                    Log.d(TAG, "Getting update - $offset of ${this.hits.total ?: 0}")
+                    if (this.hits.total ?: 0 > offset + size)
+                        update(query, sort, size, offset + size)
+                }
+            } catch (ex: Exception) {}
 
             return@withContext
         }

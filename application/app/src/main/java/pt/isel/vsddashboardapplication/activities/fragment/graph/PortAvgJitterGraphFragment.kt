@@ -6,14 +6,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.Viewport
+import com.jjoe64.graphview.series.DataPoint
+import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseGraphFragment
 import pt.isel.vsddashboardapplication.activities.fragment.regular.PortStatisticsFragment
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
-import pt.isel.vsddashboardapplication.utils.SeriesContainer
 import pt.isel.vsddashboardapplication.utils.TimeRangeCalculator
 import pt.isel.vsddashboardapplication.viewmodel.ProbestatsViewModel
+import java.lang.IllegalArgumentException
+import java.util.*
 
 /**
  * Responsible for displaying the inbound and outbound jitter from a port
@@ -22,11 +25,17 @@ import pt.isel.vsddashboardapplication.viewmodel.ProbestatsViewModel
 class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     companion object {
         private const val TAG = "FRAG/JITTER_GRAPH"
-        private const val INBOUND = "inbound"
-        private const val OUTBOUND = "outbound"
+        private const val INBOUND_IDX = 0
+        private const val OUTBOUND_IDX = 1
     }
 
     private var range = TimeRangeCalculator.getLastDayRange()
+    private val inbound = LineGraphSeries<DataPoint>()
+    private val outbound = LineGraphSeries<DataPoint>()
+
+    private var minX = -1.0
+    private var maxX = 0.0
+    private var maxY = 1.0
 
     /**
      * Sets the viewport for the fragment
@@ -34,26 +43,20 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
      */
     override fun setViewport(viewport: Viewport) {
         viewport.apply {
-            isScalable = false
+            isScalable = true
 
             setMinY(0.0)
-            setMaxY(1.0)
+            setMaxY(maxY)
 
-            binding.graph.viewport.apply {
-                setMinX(range.start.toDouble())
-                setMaxX(range.end.toDouble())
-            }
+            setMinX(minX)
+            setMaxX(maxX)
 
             isXAxisBoundsManual = true
-            isYAxisBoundsManual = false
+            isYAxisBoundsManual = true
             binding.executePendingBindings()
         }
+
     }
-
-    //private var inboundGraphSeries = LineGraphSeries<DataPoint>()
-    //private var outboundGraphSeries = LineGraphSeries<DataPoint>()
-
-    private val seriesContainer = SeriesContainer()
 
     override fun getMaxData(): Int = DEFAULT_MAX
 
@@ -61,11 +64,11 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
         ViewModelProviders.of(this, viewModelFactory)[ProbestatsViewModel::class.java]
 
     override fun observeViewModel() {
-        viewModel.inbound.observe(this, getObserver(INBOUND))
-        viewModel.outbound.observe(this, getObserver(OUTBOUND))
+        viewModel.inbound.observe(this, getObserver(INBOUND_IDX))
+        viewModel.outbound.observe(this, getObserver(OUTBOUND_IDX))
 
         /*
-        viewModel.inbound.observe(this, Observer { stats ->
+        viewModel.inbound.getAlarmLiveData(this, Observer { stats ->
             val values = stats
                 .map { probe ->
                     val date = Date(probe.timestamp)
@@ -101,7 +104,7 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
             //binding.graph.addSeries(inboundGraphSeries)
         })
 
-        viewModel.outbound.observe(this, Observer { stats ->
+        viewModel.outbound.getAlarmLiveData(this, Observer { stats ->
             val values = stats
                 .map { probe ->
                     val date = Date(probe.timestamp)
@@ -118,7 +121,6 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
         */
 
         CoroutineScope(Dispatchers.IO).launch {
-            delay(5000L)
             val range = TimeRangeCalculator.getLastDayRange()
             viewModel.setBoundaries(range.start, range.end)
             viewModel.updateLiveData()
@@ -127,48 +129,101 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     }
 
     override fun initViewModel() {
-        val portId = (parentFragment as PortStatisticsFragment).getPortId()?:""
-        val nsgId = (parentFragment as PortStatisticsFragment).getNsgId()?:""
+        val portId = (parentFragment as PortStatisticsFragment).getPortId()
+        val nsgId = (parentFragment as PortStatisticsFragment).getNsgId()
         Log.d(TAG, "Initiating View Model with port $portId and NSG $nsgId")
         viewModel.init(portId, nsgId)
     }
 
     @StringRes
-    override fun getHorizontalTitleResource(): Int = R.string.avg_jitter
+    override fun getHorizontalTitleResource(): Int =  R.string.time
 
     @StringRes
-    override fun getVerticalTitleResource(): Int = R.string.time
+    override fun getVerticalTitleResource(): Int = R.string.avg_jitter
 
     override fun addSeries(graphView: GraphView) {
         Log.d(TAG, "Adding series - Inbound & Outbound")
-        seriesContainer.add(INBOUND, listOf())
-        seriesContainer.add(OUTBOUND, listOf())
 
-        /*
-        inboundGraphSeries.setAnimated(true)
-        graphView.addSeries(inboundGraphSeries)
-        outboundGraphSeries.setAnimated(true)
-        graphView.addSeries(outboundGraphSeries)
-        */
+        inbound.setAnimated(true)
+        outbound.setAnimated(true)
 
-        graphView.addSeries(seriesContainer.get(INBOUND))
-        graphView.addSeries(seriesContainer.get(OUTBOUND))
+        graphView.addSeries(inbound)
+        graphView.addSeries(outbound)
     }
 
     private fun setNewBoundaries(min: Long, max: Long) {
         viewModel.setBoundaries(min, max)
-        //inboundGraphSeries.resetData(arrayOf())
-        //outboundGraphSeries.resetData(arrayOf())
     }
 
-    private fun getObserver(key: String) : Observer<List<DpiProbestats>>{
+    /**
+     * Returns the observer of the series
+     * @param key: the series title
+     * @return observer that looks for alterations in List
+     */
+    private fun getObserver(key: Int) : Observer<List<DpiProbestats>>{
         return Observer { stats ->
-            val dpoints = stats.mapNotNull { it.toJitterDataPoint() }
+            val dpoints = stats
+                .mapNotNull { it.toJitterDataPoint() }
                 .sortedBy { it.x }
+                .toTypedArray()
 
-            seriesContainer.add(key, dpoints)
+            if(dpoints.isEmpty())
+                return@Observer
+
+            Log.d(TAG, "Appending data points")
+            binding.graph.viewport.apply {
+
+                val currMinX = dpoints.minBy { it.x }!!.x
+                if(currMinX < minX || minX < 0.0) {
+                    Log.d(TAG, "Setting new max y: ${Date(currMinX.toLong())}")
+                    minX = currMinX
+                    setMinX(minX)
+                }
+
+                val currMaxX = dpoints.maxBy { it.x }!!.x
+                if(currMaxX > maxX) {
+                    Log.d(TAG, "Setting new max x: ${Date(currMaxX.toLong())}")
+                    maxX = currMaxX
+                    setMaxX(maxX)
+                }
+
+                val currMaxY = dpoints.maxBy { it.y }!!.y
+                if(currMaxY > maxY) {
+                    Log.d(TAG, "Setting new max y: ${Date(currMaxY.toLong())}")
+                    maxY = currMaxY
+                    setMaxY(maxY)
+                }
+            }
+
+            Log.d(TAG, "Resetting ${if(key == 0) "inbound" else "outbound"}")
+            getSeries(key).resetData(dpoints)
+
+            /*
+            for(point in dpoints) {
+                Log.d(TAG, "Appending data point - x: ${point.x}, y: ${point.y}")
+
+                if(point.x > maxX) {
+                    binding.graph
+                        //.series[key]
+                        //.appendData(point, true, 5000)
+                    maxX = point.x
+                }
+            }
+            */
+
+            //binding.graph.series[key]
+            //seriesContainer.add(key, dpoints)
             binding.executePendingBindings()
         }
     }
+
+    private fun getSeries(key: Int) : LineGraphSeries<DataPoint> =
+        when(key) {
+            INBOUND_IDX -> inbound
+            OUTBOUND_IDX -> outbound
+            else -> throw IllegalArgumentException()
+        }
+
+
 
 }

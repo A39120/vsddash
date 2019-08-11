@@ -21,8 +21,9 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     NSGInfo::class,
     VRS::class,
     VSP::class,
-    VSC::class
-], version = 10, exportSchema = false)
+    VSC::class,
+    VPort::class
+], version = 12, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
@@ -36,6 +37,7 @@ abstract class VsdDatabase : RoomDatabase() {
     abstract fun vrsDao(): VrsDao
     abstract fun vspDao(): VspDao
     abstract fun vscDao(): VscDao
+    abstract fun vportDao() : VPortDao
 
     companion object {
         private const val DB_NAME = "vsddatabase"

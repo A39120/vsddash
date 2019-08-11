@@ -67,4 +67,9 @@
 	<string name="connection">Connection</string>
 	<string name="connection_description">Defines the connection the user wants to use</string>
 	<string name="uptime">Uptime</string>
+	<string name="nsg">Nuage Gateway</string>
+	<string name="vrs">Virtual Router and Switching</string>
+	<string name="vsp">Virtual Service Plataform</string>
+	<string name="vsc">Virtual Service Controller</string>
+	<string name="port">Port</string>
 </resources>

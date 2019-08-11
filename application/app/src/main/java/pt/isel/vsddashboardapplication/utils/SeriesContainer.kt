@@ -37,9 +37,15 @@ class SeriesContainer {
             lineGraphSeriesMap.add(container)
         }
 
-        val newList = list
-            .sortedBy { it.x }
-            .takeIf { container.points.contains(it as DataPoint) }
+        val newList = if(!list.isEmpty())
+            list
+                .sortedBy { it.x }
+                .takeIf {
+                    if(container.points.isNotEmpty())
+                        container.points.contains(it as DataPoint)
+                    else false
+                }
+        else null
 
         if(!newList.isNullOrEmpty()){
             container.points.addAll(newList)

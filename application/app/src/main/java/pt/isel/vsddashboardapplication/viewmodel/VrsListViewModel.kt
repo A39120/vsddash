@@ -1,11 +1,15 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.model.VRS
 import pt.isel.vsddashboardapplication.repository.base.VrsRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseListViewModel
+import java.util.function.Supplier
 import javax.inject.Inject
 
 class VrsListViewModel @Inject constructor(
@@ -15,9 +19,22 @@ class VrsListViewModel @Inject constructor(
     private var parent : String? = null
 
     override suspend fun setLiveData() {
-        parent?.let { pid ->
-            liveData.addSource(repository.getAll(pid)){ liveData.value = it}
-        }?: liveData.addSource(repository.getGlobal()){ liveData.value = it}
+        lateinit var getter : Supplier<LiveData<List<VRS>?>>
+        lateinit var updater : Runnable
+
+         if(parent != null) {
+            getter = Supplier { repository.getAll(parent!!) }
+            updater = Runnable {
+                viewModelScope.launch { repository.updateAll(parent!!) }
+            }
+        } else {
+            getter = Supplier { repository.getGlobal() }
+            updater = Runnable { viewModelScope.launch { repository.updateGlobal() } }
+        }
+
+        liveData.addSource(getter.get()) { liveData.value = it }
+        if(liveData.value == null)
+            updater.run()
     }
 
     override suspend fun updateLiveData() {

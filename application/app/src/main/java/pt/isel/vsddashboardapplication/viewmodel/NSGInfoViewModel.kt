@@ -16,8 +16,11 @@ class NSGInfoViewModel @Inject constructor(private val repository: NSGinfoReposi
 
     override suspend fun setLiveData() {
         Log.d(TAG, "Setting liveData with NSG with ID: $id (repository = ${repository.javaClass}")
-        repository.let {repo -> this.liveData.addSource(repo.get(id)) { liveData.value = it } }
-
+        repository.let {repo ->
+            this.liveData.addSource(repo.get(id)) { liveData.value = it }
+            if(liveData.value == null)
+                repo.update(id)
+        }
     }
 
     override suspend fun updateLiveData() {

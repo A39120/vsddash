@@ -1,8 +1,6 @@
 package pt.isel.vsddashboardapplication.repository.services.es
 
 import kotlinx.coroutines.Deferred
-import okhttp3.internal.http.HttpMethod
-import pt.isel.vsddashboardapplication.model.es.QueryDSL
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.model.statistics.base.Search
 import retrofit2.http.*

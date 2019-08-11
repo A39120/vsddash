@@ -13,9 +13,7 @@ import javax.inject.Inject
  * View model of multiple NSGs
  */
 class AllNSGatewayViewModel @Inject constructor(private val repository: NSGatewayRepository): BaseListViewModel<NSGateway>(){
-    companion object{
-        private const val TAG = "VM/NSGLIST"
-    }
+    companion object{ private const val TAG = "VM/NSG_LIST" }
 
     private lateinit var enterprise: String
 
@@ -28,7 +26,12 @@ class AllNSGatewayViewModel @Inject constructor(private val repository: NSGatewa
     override suspend fun setLiveData() {
         Log.d(TAG, "Updating all NSGateways for enterprise $enterprise (repository = ${repository.javaClass})")
         repository.let {
-            this.liveData.addSource(it.getAll(enterprise)) { nsgs -> liveData.value = nsgs }
+            val gateways = it.getAll(enterprise)
+            this.liveData.addSource(gateways) { nsgs -> liveData.value = nsgs }
+            if(gateways.value.isNullOrEmpty()) {
+                Log.d(TAG, "NSG list is empty")
+                repository.updateAll(enterprise)
+            }
         }
     }
 

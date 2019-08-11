@@ -4,9 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import pt.isel.vsddashboardapplication.repository.base.PortRepository
+import pt.isel.vsddashboardapplication.model.Alarm
+import pt.isel.vsddashboardapplication.repository.base.NSPortRepository
 import pt.isel.vsddashboardapplication.repository.dao.NSPortDao
 import pt.isel.vsddashboardapplication.model.NSPort
+import pt.isel.vsddashboardapplication.repository.dao.AlarmDao
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
 
@@ -14,12 +16,29 @@ import javax.inject.Inject
  * The implementation of a NSPortRepository
  */
 class NSPortRepositoryImpl @Inject constructor(
-    private val dao: NSPortDao
-) : PortRepository {
-    companion object{
-        private const val TAG = "REPO/NSPORT"
+    private val dao: NSPortDao,
+    private val alarmDao: AlarmDao
+) : NSPortRepository {
+    companion object{ private const val TAG = "REPO/NSPORT" }
+
+    override fun getAlarms(id: String): LiveData<List<Alarm>?> {
+        Log.d(TAG, "Getting the list of alarms for NSPort $id")
+        return alarmDao.loadAll(id)
     }
 
+    override suspend fun updateAlarms(id: String, onFinish: (() -> Unit)?) {
+        Log.d(TAG, "Getting alarms for port $id")
+        val deferred = RetrofitSingleton
+            .nsportServices()
+            ?.getPortAlarms(id)
+
+        withContext(Dispatchers.IO){
+            deferred?.await()?.forEach {
+                Log.d(TAG, "Saving alarm ${it.iD}")
+                alarmDao.save(it)
+            }
+        }
+    }
 
     /**
      * Gets the port from the DB/Network

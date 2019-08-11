@@ -19,9 +19,9 @@ class EnterpriseViewModel @Inject constructor(private val repository: Enterprise
         Log.d(TAG, "Setting livedata with all enterprises for current user (repository = ${repository.javaClass}")
         repository.let { enterpriseRepository ->
             val value = enterpriseRepository.getAll("")
-            if(value.value.isNullOrEmpty())
-                updateLiveData()
             liveData.addSource(value){ liveData.value = it }
+            if(value.value.isNullOrEmpty())
+                enterpriseRepository.updateAll("")
         }
     }
 

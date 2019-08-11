@@ -1,5 +1,6 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import android.util.Log
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
@@ -12,38 +13,38 @@ import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel
+import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
 
 /**
  * Fragment that handles all information that belongs to the fragment
  */
-class NSGatewayFragment : BaseFragment<NSGInfoViewModel, FragmentNsgatewayBinding>(), CoroutineScope, IRefreshableComponent{
+class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>(), CoroutineScope, IRefreshableComponent{
+    companion object { private const val TAG = "FRAG/NSG" }
 
     override fun observeViewModel() {
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
-            binding.refreshLayout.isRefreshing = when(rf){
-                RefreshState.INPROGRESS -> true
-                else -> false
-            }
+            binding.refreshLayout.isRefreshing = RefreshState.INPROGRESS == rf
         })
 
-        viewModel.liveData.observe(this, Observer {
-            updateUI()
-            changeStatusColor(it.bootstrapStatus)
+        viewModel.nsginfo.observe(this, Observer {
+            binding.nsg = it
+            changeStatusColor(it?.bootstrapStatus?:BootstrapStatus.INACTIVE)
             binding.executePendingBindings()
         })
     }
 
-    override fun setBindingObjects() { updateUI() }
-
-    override fun initViewModel() {
-        val id = (parentFragment as NsgPagerFragment).getNsgId()
-        viewModel.init(id)
+    override fun setBindingObjects() {
+        //updateUI()
+        binding.refreshLayout.setOnRefreshListener { refresh() }
+        binding.nsg = viewModel.nsginfo.value
+        binding.executePendingBindings()
     }
 
+    override fun initViewModel() { }
 
-    override fun assignViewModel(): NSGInfoViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[NSGInfoViewModel::class.java]
+    override fun assignViewModel(): NSGViewModel =
+        (this.parentFragment as NsgPagerFragment).viewModel
 
     override fun getLayoutRes(): Int = R.layout.fragment_nsgateway
 
@@ -53,14 +54,16 @@ class NSGatewayFragment : BaseFragment<NSGInfoViewModel, FragmentNsgatewayBindin
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
+
     /**
      * Updates UI
-     */
+     *
     private fun updateUI() = launch {
         binding.refreshLayout.setOnRefreshListener { refresh() }
-        binding.vm = viewModel
+        binding.nsg = viewModel.nsginfo.value
         binding.executePendingBindings()
     }
+    */
 
     /**
      * Change the color of the status

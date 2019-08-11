@@ -20,7 +20,7 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
     }
 
     private lateinit var adapter: NSGatewayAdapter
-    private val args : NSGatewayListFragmentArgs by navArgs()
+    private val args : NSGatewayListFragmentArgs by navArgs<NSGatewayListFragmentArgs>()
 
     /**
      * Sets the List of NSG adapter

@@ -5,7 +5,7 @@
 		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
-		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel"/>
+		<variable name="nsg" type="pt.isel.vsddashboardapplication.model.NSGInfo"/>
 	</data>
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -45,7 +45,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_name_value"
-							android:text="@{vm.liveData.name}"
+							android:text="@{nsg.name}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -55,7 +55,7 @@
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:visibility="@{vm.liveData.description  == null ? View.GONE : View.VISIBLE }"
+						android:visibility="@{nsg.description  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="horizontal">
 						<TextView
 							android:layout_marginEnd="@dimen/small_margin"
@@ -66,7 +66,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_desc_value"
-							android:text="@{vm.liveData.description}"
+							android:text="@{nsg.description}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -77,7 +77,7 @@
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:visibility="@{vm.liveData.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
+						android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="vertical">
 						<TextView
 							android:layout_marginEnd="@dimen/small_margin"
@@ -89,7 +89,7 @@
 						<LinearLayout
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:visibility="@{vm.liveData.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
+							android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
 							android:orientation="horizontal">
 							<View
 								android:id="@+id/nsgbootstrap_active"
@@ -99,7 +99,7 @@
 								android:layout_height="0dp"/>
 							<TextView
 								android:id="@+id/nsg_status_value"
-								android:text="@{vm.liveData.bootstrapStatus.toString()}"
+								android:text="@{nsg.bootstrapStatus.toString()}"
 								android:layout_weight=".90"
 								android:layout_height="wrap_content"
 								android:layout_width="0dp" />
@@ -110,7 +110,7 @@
 					<!--<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:visibility="@{vm.liveData.networkAcceleration  == null ? View.GONE : View.VISIBLE }"
+						android:visibility="@{nsg.networkAcceleration  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="horizontal">
 						<TextView
 							android:layout_marginEnd="@dimen/small_margin"
@@ -121,7 +121,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_netacc_value"
-							android:text="@{vm.liveData.networkAccelaration}"
+							android:text="@{nsg.networkAccelaration}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>-->
@@ -130,7 +130,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:visibility="@{vm.liveData.CPUType  == null ? View.GONE : View.VISIBLE }"
+						android:visibility="@{nsg.CPUType  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="vertical">
 						<TextView
 							android:layout_marginEnd="@dimen/small_margin"
@@ -141,7 +141,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_cpu_value"
-							android:text="@{vm.liveData.CPUType}"
+							android:text="@{nsg.CPUType}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -150,7 +150,7 @@
 					<LinearLayout
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:visibility="@{vm.liveData.BIOSVersion  == null ? View.GONE : View.VISIBLE }"
+						android:visibility="@{nsg.BIOSVersion  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="vertical">
 						<TextView
 							android:layout_marginEnd="@dimen/small_margin"
@@ -161,7 +161,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_bios_value"
-							android:text="@{vm.liveData.BIOSVersion}"
+							android:text="@{nsg.BIOSVersion}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>

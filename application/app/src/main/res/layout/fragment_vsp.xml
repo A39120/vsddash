@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
 		<import type="pt.isel.vsddashboardapplication.utils.BindingAdapters"/>
-		<variable name="vsp" type="pt.isel.vsddashboardapplication.viewmodel.VspViewModel"/>
+		<variable name="vsp" type="pt.isel.vsddashboardapplication.model.VSP"/>
 	</data>
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,113 +22,112 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
-				
 				<!-- VSP -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					android:layout_margin="@dimen/margin_default"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="vertical">
 				
-				<!-- VSP -->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
+					<!-- VSP -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/name + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/_name_value"
-						android:text="@{vsp.liveData.name}"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/name + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/_name_value"
+							android:text="@{vsp.name}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Description -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout>
-				
-				<!-- Description -->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/description + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/_desc_value"
+							android:text="@{vsp.description}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Creation Date ->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/description + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/_desc_value"
-						android:text="@{vsp.liveData.description}"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/creation_date + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/_creationdate_value"
+							app:time="@{vsp.creationDate}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout-->
+					
+					<!-- Scope ->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout>
-				
-				<!-- Creation Date ->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/description + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/_scope_value"
+							android:text="@{vsp.entityScope}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout-->
+					
+					<!-- Product Version -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/creation_date + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/_creationdate_value"
-						app:time="@{vsp.liveData.creationDate}"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout-->
-				
-				<!-- Scope ->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/description + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/_scope_value"
-						android:text="@{vsp.liveData.entityScope}"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout-->
-				
-				<!-- Product Version -->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/product_version + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/_product_value"
-						android:text="@{vsp.liveData.productVersion}"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout>
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/product_version + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/_product_value"
+							android:text="@{vsp.productVersion}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
 				
 				</LinearLayout>
 				

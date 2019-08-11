@@ -1,5 +1,6 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
@@ -7,49 +8,53 @@ import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.model.VRS
 import pt.isel.vsddashboardapplication.model.VSC
-import pt.isel.vsddashboardapplication.repository.base.AlarmRepository
 import pt.isel.vsddashboardapplication.repository.base.VrsRepository
 import pt.isel.vsddashboardapplication.repository.base.VscRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseViewModel
+import pt.isel.vsddashboardapplication.viewmodel.parent.AlarmParentViewModel
 import javax.inject.Inject
 
 class VscViewModel @Inject constructor(
     private val repository: VscRepository,
-    private val alarmRepository: AlarmRepository,
     private val vrsRepository: VrsRepository
-) : BaseViewModel<VSC>() {
+) : BaseViewModel<VSC>(), AlarmParentViewModel {
 
-    val alarmLiveData = MediatorLiveData<List<Alarm>?>()
+    private val alarmLiveData = MediatorLiveData<List<Alarm>?>()
     val vrsLiveData = MediatorLiveData<List<VRS>?>()
 
+    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
+
     override suspend fun setLiveData() {
-        liveData.addSource(repository.get(id)){ liveData.value = it}
+        liveData.addSource(repository.get(id)){ liveData.value = it }
+        if(liveData.value == null) {
+            repository.update(id)
+            repository.updateAlarms(id)
+            vrsRepository.updateAll(id)
+        }
+
         alarmLiveData.addSource(Transformations.switchMap(liveData){ vsc ->
-            alarmRepository.getAll(vsc.iD)
+            repository.getAlarms(vsc.iD)
         }){
             alarmLiveData.value = it
         }
-
-        alarmLiveData.addSource(Transformations.switchMap(liveData){ vsc ->
-            vrsRepository.getAll(vsc.iD)
-        }){
-            vrsLiveData.value = it
-        }
-
     }
 
-    suspend fun updateVrss() {
+    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> {
+        return alarmLiveData
+    }
+
+    override fun updateAlarmsLiveData() {
+        viewModelScope.launch {
+            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            repository.updateAlarms(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+        }
+    }
+
+    fun updateVrss() {
         viewModelScope.launch {
             refreshStateLiveData.postValue(RefreshState.INPROGRESS)
             vrsRepository.updateAll(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
-        }
-    }
-
-    suspend fun updateAlarms() {
-        viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            alarmRepository.updateAll(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
         }
     }
 

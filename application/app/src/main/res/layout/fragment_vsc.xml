@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
 		<variable name="vsc" type="pt.isel.vsddashboardapplication.model.VSC"/>
 	</data>
@@ -20,6 +21,11 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
+			<LinearLayout
+				android:layout_margin="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
 			<!-- VSC -->
 			<LinearLayout
 				android:layout_marginBottom="@dimen/margin_default"
@@ -121,7 +127,7 @@
 			</LinearLayout>
 			
 			<!-- Product Version -->
-			<LinearLayout
+			<!--<LinearLayout
 				android:layout_marginBottom="@dimen/margin_default"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -138,7 +144,7 @@
 					app:time="@{vsc.creationDate}"
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content" />
-			</LinearLayout>
+			</LinearLayout>-->
 			
 			<!-- Management IP -->
 			<LinearLayout
@@ -158,6 +164,7 @@
 					android:text="@{vsc.managementIP}"
 					android:layout_height="wrap_content"
 					android:layout_width="wrap_content" />
+			</LinearLayout>
 			</LinearLayout>
 		</com.google.android.material.card.MaterialCardView>
 	

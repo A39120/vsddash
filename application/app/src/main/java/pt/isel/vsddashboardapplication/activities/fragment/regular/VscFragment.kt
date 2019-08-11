@@ -2,32 +2,30 @@ package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentVscBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
-import pt.isel.vsddashboardapplication.viewmodel.VscViewModel
-import java.lang.IllegalArgumentException
 
-class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshableComponent {
-    companion object { const val VSC_ID = "vscId" }
+/**
+ * Contains details of the VSC
+ */
+class VscFragment : BaseChildFragment<FragmentVscBinding>(), IRefreshableComponent {
 
     override fun refresh() {
+        val viewModel = (parentFragment as VscParentFragment).viewModel
         binding.refreshLayout.setOnRefreshListener {
             viewModel.update()
         }
     }
 
-    override fun assignViewModel(): VscViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[VscViewModel::class.java]
-
     @LayoutRes
     override fun getLayoutRes(): Int = R.layout.fragment_vsc
 
-
     override fun observeViewModel() {
+        val viewModel = (parentFragment as VscParentFragment).viewModel
         viewModel.liveData.observe(this, Observer { vsc ->
             binding.vsc = vsc
             binding.executePendingBindings()
@@ -38,14 +36,10 @@ class VscFragment : BaseFragment<VscViewModel, FragmentVscBinding>(), IRefreshab
         })
     }
 
-    override fun initViewModel() {
-        val id = arguments?.getString(VSC_ID)
-            ?:throw IllegalArgumentException()
-        viewModel.init(id)
-    }
-
     override fun setBindingObjects() {
+        val viewModel = (parentFragment as VscParentFragment).viewModel
         binding.vsc = viewModel.liveData.value
         binding.executePendingBindings()
     }
+
 }

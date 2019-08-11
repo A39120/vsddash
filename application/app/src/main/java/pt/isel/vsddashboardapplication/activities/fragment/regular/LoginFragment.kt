@@ -11,6 +11,10 @@ import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.FragmentLoginBinding
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
+import pt.isel.vsddashboardapplication.service.EventWorker
+import pt.isel.vsddashboardapplication.utils.getVsdAutomaticUpdate
+import pt.isel.vsddashboardapplication.utils.setVsdAutomaticUpdate
+import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
 
@@ -118,6 +122,9 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
                 it.username = binding.username.text.toString()
                 it.session = sessions[0]
                 RetrofitSingleton.setupRetrofit(sessions[0].APIKey)
+                val automatic = context?.sharedPreferences()?.getVsdAutomaticUpdate()?:false
+                if(automatic)
+                    EventWorker.enqueue()
             }
             //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
             Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_enterpriseListFragment)

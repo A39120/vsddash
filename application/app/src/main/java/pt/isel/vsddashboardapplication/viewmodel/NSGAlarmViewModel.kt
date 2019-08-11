@@ -13,9 +13,7 @@ import javax.inject.Inject
  * View Model responsible for interacting with a list of alarms of a NSGateway
  */
 class NSGAlarmViewModel @Inject constructor(private val repository: AlarmRepository): BaseListViewModel<Alarm>() {
-    private companion object {
-        const val TAG = "VM/ALARM_LIST"
-    }
+    private companion object { const val TAG = "VM/ALARM_LIST" }
 
     private lateinit var nsgId: String
 
@@ -27,6 +25,8 @@ class NSGAlarmViewModel @Inject constructor(private val repository: AlarmReposit
         repository.let { repo ->
             val newVal = repo.getAll(nsgId)
             this.liveData.addSource(newVal) { this.liveData.value = it }
+            if(liveData.value.isNullOrEmpty())
+                repo.updateAll(nsgId)
         }
     }
 

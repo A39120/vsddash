@@ -1,12 +1,13 @@
 package pt.isel.vsddashboardapplication.activities.fragment.list
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.EnterpriseAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.utils.getAddress
@@ -16,10 +17,7 @@ import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.EnterpriseViewModel
 
 class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
-    companion object {
-        private const val TAG = "FRAG/ENTERPRISELIST"
-        const val ENTERPRISE_ID = "ENTERPRISEID"
-    }
+    companion object { private const val TAG = "FRAG/ENTERPRISE_LIST" }
 
     private  val adapter: EnterpriseAdapter = EnterpriseAdapter { enterprise, view ->
         Log.d(TAG, "Clicked on ${enterprise.name} - ${enterprise.iD}")
@@ -53,4 +51,5 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
         Log.d(TAG, "Setting view model with the user id $userId")
         viewModel.init(userId?:"", vsd?: "", org?:"")
     }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
@@ -31,10 +32,15 @@ abstract class BasePagerFragment : Fragment() {
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.executePendingBindings()
 
+        this.activity?.setTitle(getTitle())
+
         return binding.root
     }
 
     abstract fun getPager() : FragmentPagerAdapter
+
+    @StringRes
+    abstract fun getTitle() : Int
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)

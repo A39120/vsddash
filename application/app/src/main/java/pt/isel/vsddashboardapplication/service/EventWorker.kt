@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Service that will do long-polling to the server
  */
-class EventWorker @Inject constructor(appContext: Context, workParams: WorkerParameters) : CoroutineWorker(appContext, workParams){
+class EventWorker(appContext: Context, workParams: WorkerParameters) : CoroutineWorker(appContext, workParams){
     companion object {
         private const val TAG = "WORKER/EVENT"
 
@@ -25,7 +25,6 @@ class EventWorker @Inject constructor(appContext: Context, workParams: WorkerPar
          */
         fun enqueue() : Operation {
             val constrains = Constraints.Builder()
-                .setRequiresDeviceIdle(false)
                 .build()
 
             val workRequest = OneTimeWorkRequestBuilder<EventWorker>()
@@ -38,7 +37,6 @@ class EventWorker @Inject constructor(appContext: Context, workParams: WorkerPar
     }
 
     private val eventRepository: EventRepository by lazy { EventRepositoryImpl() }
-
     private var uuid: String? = null
 
     /**

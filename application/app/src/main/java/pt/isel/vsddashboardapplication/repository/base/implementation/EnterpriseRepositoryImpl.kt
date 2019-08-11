@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDao)
     : EnterpriseRepository {
+    companion object{ private const val TAG = "REPO/ENTERPRISE" }
 
     private lateinit var user: String
     private lateinit var vsd: String
@@ -23,9 +24,6 @@ class EnterpriseRepositoryImpl @Inject constructor(private val dao: EnterpriseDa
         this.organization = organization
     }
 
-    companion object{
-        private const val TAG = "REPO/ENTERPRISE"
-    }
 
     override fun get(id: String): LiveData<Enterprise?> {
         Log.d(TAG, "Getting enterprise $id")

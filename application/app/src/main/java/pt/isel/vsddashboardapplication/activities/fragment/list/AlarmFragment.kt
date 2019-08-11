@@ -1,46 +1,51 @@
 package pt.isel.vsddashboardapplication.activities.fragment.list
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
+import dagger.android.support.AndroidSupportInjection
 import pt.isel.vsddashboardapplication.activities.adapter.AlarmAdapter
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
-import pt.isel.vsddashboardapplication.viewmodel.NSGAlarmViewModel
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildListFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.IAlarmParent
+import pt.isel.vsddashboardapplication.utils.RefreshState
 
 /**
  * Fragment responsible for showing a list of Alarms
  */
-class AlarmFragment
-    : BaseListFragment<NSGAlarmViewModel>() {
+class AlarmFragment : BaseChildListFragment() {
+    companion object { private const val TAG = "FRAG/ALARMS" }
 
     private lateinit var adapter: AlarmAdapter
 
     override fun setAdapter() {
         this.adapter = AlarmAdapter()
-        observeViewModel()
         binding.list.adapter = this.adapter
     }
-
-    override fun assignViewModel(): NSGAlarmViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[NSGAlarmViewModel::class.java]
-
 
     /**
      * Observes the view model
      */
-    override fun observeViewModel() {
-        super.observeViewModel()
-        viewModel.liveData.observe(this, Observer{
-            this.adapter.setList(it)
-        })
+     override fun observeViewModel() {
+        (parentFragment as IAlarmParent).getAlarmViewModel()
+            .getAlarmsLiveData()
+            .observe(this, Observer { adapter.setList(it) })
+
+        (parentFragment as IAlarmParent).getAlarmViewModel()
+            .getRefreshState()
+            .observe(this, Observer { binding.refreshLayout.isRefreshing = it == RefreshState.INPROGRESS })
     }
 
-    /**
-     * Initiates the Alarm view model for NSG
-     */
-    override fun initViewModel() {
-        val id = (parentFragment as NsgPagerFragment).getNsgId()
-        viewModel.init(id)
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d(TAG, "Injecting fragment with dependencies (${this.javaClass})")
+        AndroidSupportInjection.inject(this)
+    }
+
+    override fun refresh() {
+        (parentFragment as IAlarmParent)
+            .getAlarmViewModel()
+            .updateAlarmsLiveData()
     }
 
 

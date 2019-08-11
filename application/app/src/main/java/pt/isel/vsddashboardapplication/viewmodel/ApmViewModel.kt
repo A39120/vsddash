@@ -19,6 +19,8 @@ class ApmViewModel @Inject constructor(private val repository: ApmRepository) : 
         repository.let { enterpriseRepository ->
             val value = enterpriseRepository.getAll(enterpriseId)
             liveData.addSource(value){ liveData.value = it }
+            if(value.value.isNullOrEmpty())
+                repository.updateAll(enterpriseId)
         }
     }
 

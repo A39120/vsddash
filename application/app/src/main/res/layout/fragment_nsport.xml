@@ -4,7 +4,8 @@
 	<data>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
-		<variable name="vm" type="pt.isel.vsddashboardapplication.viewmodel.NSPortViewModel"/>
+		<variable name="nsport" type="pt.isel.vsddashboardapplication.model.NSPort"/>
+		<variable name="nsgname" type="String"/>
 	</data>
 	
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -44,7 +45,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/nsg_name_value"
-							android:text="@{vm.nsgLiveData.name}"
+							android:text="@{nsgname}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -64,7 +65,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_name_value"
-							android:text="@{vm.liveData.physicalName}"
+							android:text="@{nsport.physicalName}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -84,7 +85,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_type_value"
-							android:text="@{vm.liveData.portType}"
+							android:text="@{nsport.portType}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -103,7 +104,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_description_value"
-							android:text="@{vm.liveData.description}"
+							android:text="@{nsport.description}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -123,7 +124,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_vlan_range_value"
-							android:text="@{vm.liveData.vLANRange}"
+							android:text="@{nsport.vLANRange}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
@@ -143,7 +144,7 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_speed_value"
-							android:text="@{vm.liveData.speed}"
+							android:text="@{nsport.speed}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>

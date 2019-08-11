@@ -26,8 +26,8 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphB
 
     private var wasScrolled = false
 
-    private val HORIZONTAL_LINES = 3
-    private val VERTICAL_LINES = 3
+    private val HORIZONTAL_LINES = 2
+    private val VERTICAL_LINES = 2
     private val HORIZONTAL_LABEL_ANGLE = 0
 
 
@@ -57,7 +57,7 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphB
 
             Log.d(TAG, "Setting grid label definitions")
             graph.gridLabelRenderer.let {
-                it.numVerticalLabels = VERTICAL_LINES
+                //it.numVerticalLabels = VERTICAL_LINES
                 it.numHorizontalLabels = HORIZONTAL_LINES
 
                 it.setHorizontalLabelsAngle(HORIZONTAL_LABEL_ANGLE)
@@ -86,7 +86,7 @@ abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphB
      * Gets the horizontal label format, this can be overridden to display non-hourly X labels
      */
     protected fun getHorizontalFormat() =
-        DateAsXAxisLabelFormatter(this.context, DateFormat.getTimeInstance())
+        DateAsXAxisLabelFormatter(this.context)//, DateFormat.getTimeInstance())
 
     /**
      * @return the resource id for the horizontal title

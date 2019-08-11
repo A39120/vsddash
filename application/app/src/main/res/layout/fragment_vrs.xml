@@ -21,6 +21,12 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
+				<LinearLayout
+					android:layout_margin="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+				
 				<!-- VRS -->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
@@ -121,7 +127,7 @@
 						android:layout_width="wrap_content" />
 				</LinearLayout>
 				
-				<!-- Product Version -->
+				<!-- Product Version ->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
@@ -139,7 +145,7 @@
 						app:time="@{vrs.creationDate}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
-				</LinearLayout>
+				</LinearLayout> -->
 				
 				<!-- Management IP -->
 				<LinearLayout
@@ -161,7 +167,7 @@
 						android:layout_width="wrap_content" />
 				</LinearLayout>
 				
-				<!-- uptime -->
+				<!-- uptime ->
 				<LinearLayout
 					android:layout_marginBottom="@dimen/margin_default"
 					android:layout_width="match_parent"
@@ -179,8 +185,9 @@
 						app:time="@{vrs.uptime}"
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
-				</LinearLayout>
+				</LinearLayout-->
 				
+				</LinearLayout>
 			</com.google.android.material.card.MaterialCardView>
 		
 		</ScrollView>

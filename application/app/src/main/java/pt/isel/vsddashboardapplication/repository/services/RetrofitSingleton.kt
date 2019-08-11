@@ -19,6 +19,7 @@ object RetrofitSingleton {
     private var vrsService: VrsService? = null
     private var vscService: VscService? = null
     private var vspService: VspService? = null
+    private var vportService: VPortService? = null
 
     fun vrsService() : VrsService? {
         if(vrsService == null)
@@ -71,8 +72,13 @@ object RetrofitSingleton {
     fun nsportServices(): NSPortServices? {
         if(nsportService == null)
             nsportService = retrofit?.create(NSPortServices::class.java)
-
         return nsportService
+    }
+
+    fun vportServices(): VPortService? {
+        if(vportService == null)
+            vportService = retrofit?.create(VPortService::class.java)
+        return vportService
     }
 
     fun authenticationService() : AuthenticationService? {

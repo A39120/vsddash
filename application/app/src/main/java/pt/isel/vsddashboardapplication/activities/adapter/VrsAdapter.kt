@@ -9,7 +9,7 @@ import pt.isel.vsddashboardapplication.model.VRS
 class VrsAdapter(onClickListener: (VRS, View) -> Unit)
     : BaseAdapter<VRS, VrsViewHolder, ItemVrsBinding>(onClickListener){
 
-    override fun getItemLayoutRes(): Int = R.layout.item_enterprise
+    override fun getItemLayoutRes(): Int = R.layout.item_vrs
 
     override fun getViewHolder(binding: ItemVrsBinding): VrsViewHolder =
         VrsViewHolder(binding)
