@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<data>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
+		<variable name="vrs" type="pt.isel.vsddashboardapplication.model.VRS"/>
+	</data>
+	
+	<LinearLayout
+		android:id="@+id/gateway_item_layout"
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<com.google.android.material.card.MaterialCardView
+			android:id="@+id/vrs_card"
+			android:theme="@style/CardView.Light"
+			android:padding="@dimen/margin_default"
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				
+				<View
+					android:background="@{vrs.isUp() ? @color/green : @color/red}"
+					android:layout_weight=".20"
+					android:layout_height="match_parent"
+					android:layout_width="0sp"/>
+				
+				<TextView
+					android:id="@+id/gateway_name"
+					android:text="@{vrs.name}"
+					android:layout_margin="@dimen/margin_default"
+					android:textSize="18sp"
+					android:layout_weight=".8"
+					android:layout_width="0sp"
+					android:layout_height="wrap_content"/>
+				
+			</LinearLayout>
+			
+		</com.google.android.material.card.MaterialCardView>
+	
+	</LinearLayout>
+	
+</layout>

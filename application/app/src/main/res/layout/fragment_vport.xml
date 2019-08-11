@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+	<data>
+		<import type="android.view.View"/>
+		<variable name="vport" type="pt.isel.vsddashboardapplication.model.VPort"/>
+	</data>
+	
+	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+		android:id="@+id/refresh_layout"
+		android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+		
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<com.google.android.material.card.MaterialCardView
+				android:theme="@style/CardView.Light"
+				android:layout_margin="@dimen/margin_default"
+				android:padding="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+				
+				<LinearLayout
+					android:padding="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					
+					<!-- Name of the port -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/portname + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_name_value"
+							android:text="@{vport.name}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- type of the port -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/porttype + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_type_value"
+							android:text="@{vport.type}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+				
+				</LinearLayout>
+			
+			</com.google.android.material.card.MaterialCardView>
+		</ScrollView>
+	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>
