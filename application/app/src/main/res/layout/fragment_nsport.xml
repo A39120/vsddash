@@ -152,6 +152,13 @@
 				</LinearLayout>
 			
 			</com.google.android.material.card.MaterialCardView>
+			
+			<com.google.android.material.button.MaterialButton
+				android:text="@string/statistics"
+				android:layout_margin="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+			
 		</ScrollView>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

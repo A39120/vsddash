@@ -66,9 +66,7 @@ class VPortRepositoryImpl @Inject constructor(
             ?.getFromVrss(parentId)
 
         withContext(Dispatchers.IO){
-            def?.await()?.forEach {
-                dao.save(it)
-            }
+            def?.await()?.forEach { dao.save(it) }
             onFinish?.invoke()
         }
     }

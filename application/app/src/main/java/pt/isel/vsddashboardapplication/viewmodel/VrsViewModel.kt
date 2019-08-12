@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 class VrsViewModel @Inject constructor(
     private val repository: VrsRepository
-//TODO: VPort
 ) : BaseViewModel<VRS>(), AlarmParentViewModel {
 
     private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
@@ -38,16 +37,21 @@ class VrsViewModel @Inject constructor(
     }
 
     override suspend fun setLiveData() {
-        liveData.addSource(repository.get(id)){ liveData.value = it}
+        liveData.addSource(repository.get(id)){ liveData.value = it }
         if(liveData.value == null)
             repository.update(id)
 
         alarmsLiveData.addSource(Transformations.switchMap(liveData){
-            repository.getAlarms(it.iD)
+            val ld = repository.getAlarms(it.iD)
+            ld.value ?: viewModelScope.launch { repository.updateAlarms(it.iD) }
+            ld
         }) { alarmsLiveData.value = it }
 
+
         vportLiveData.addSource(Transformations.switchMap(liveData){
-            repository.getVports(it.iD)
+            val ld = repository.getVports(it.iD)
+            ld.value ?: viewModelScope.launch { repository.updateVports(it.iD) }
+            ld
         }) { vportLiveData.value = it }
     }
 

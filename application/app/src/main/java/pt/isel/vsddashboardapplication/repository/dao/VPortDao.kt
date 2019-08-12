@@ -13,7 +13,7 @@ interface VPortDao : BaseDao<VPort>{
     @Query("SELECT * FROM vport WHERE id = :id")
     override fun load(id: String) : LiveData<VPort?>
 
-    @Query("SELECT * FROM vport WHERE parentID = :id")
+    @Query("SELECT * FROM vport WHERE vrs = :id")
     fun loadAll(id : String) : LiveData<List<VPort>?>
 
     @Delete

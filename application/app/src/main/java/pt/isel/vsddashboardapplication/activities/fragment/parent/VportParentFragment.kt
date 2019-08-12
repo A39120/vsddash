@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.pager.NSPortViewPagerAdapter
+import pt.isel.vsddashboardapplication.activities.adapter.pager.VPortViewPagerAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BasePagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IAlarmParent
 import pt.isel.vsddashboardapplication.viewmodel.VPortViewModel
@@ -26,7 +27,7 @@ class VportParentFragment : BasePagerFragment(), IAlarmParent {
     private val args : VportParentFragmentArgs by navArgs()
 
     override fun getPager(): FragmentPagerAdapter =
-        NSPortViewPagerAdapter(this.childFragmentManager)
+        VPortViewPagerAdapter(this.childFragmentManager)
 
     fun getVrsId() = args.vrsId
     fun getVportId() = args.vportId

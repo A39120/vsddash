@@ -36,7 +36,10 @@ class VrsRepositoryImpl @Inject constructor(
             ?.getFromVrss(parent)
 
         withContext(Dispatchers.IO){
-            def?.await()?.forEach(vportDao::save)
+            def?.await()?.forEach{
+                it.vrs = parent
+                vportDao.save(it)
+            }
             onFinish?.invoke()
         }
     }

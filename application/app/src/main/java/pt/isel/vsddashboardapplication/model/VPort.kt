@@ -60,5 +60,6 @@ data class VPort(
     @Json(name = "VLAN") val vLAN: Int? = 0,
     @Json(name = "VLANID") val vLANID: String? = "",
     @Json(name = "vips") val vips: String? = "",
-    @Json(name = "zoneID") val zoneID: String? = ""
+    @Json(name = "zoneID") val zoneID: String? = "",
+    @Json(name = "vrs") var vrs: String? = ""
 )

@@ -21,6 +21,7 @@ class VPortListFragment : BaseChildListFragment() {
             Navigation.findNavController(view).navigate(directions)
         }
         binding.list.adapter = adapter
+        binding.executePendingBindings()
     }
 
     override fun observeViewModel() {

@@ -72,4 +72,6 @@
 	<string name="vsp">Virtual Service Plataform</string>
 	<string name="vsc">Virtual Service Controller</string>
 	<string name="port">Port</string>
+	
+	<string name="statistics">Statistics</string>
 </resources>

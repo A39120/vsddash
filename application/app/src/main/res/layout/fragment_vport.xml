@@ -15,6 +15,11 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+			
 			<com.google.android.material.card.MaterialCardView
 				android:theme="@style/CardView.Light"
 				android:layout_margin="@dimen/margin_default"
@@ -71,6 +76,14 @@
 				</LinearLayout>
 			
 			</com.google.android.material.card.MaterialCardView>
+			
+			<com.google.android.material.button.MaterialButton
+				android:text="@string/statistics"
+				android:layout_margin="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"/>
+			
+			</LinearLayout>
 		</ScrollView>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
