@@ -67,7 +67,7 @@ class DeferredCallAdapterFactory private constructor() : CallAdapter.Factory() {
 
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     if (response.isSuccessful) {
-                        response.body()?.let { deferred.complete(it) }
+                        response.body()?.let { deferred.complete(it) } ?: deferred.cancel()
                     } else {
                         deferred.completeExceptionally(HttpException(response))
                     }
