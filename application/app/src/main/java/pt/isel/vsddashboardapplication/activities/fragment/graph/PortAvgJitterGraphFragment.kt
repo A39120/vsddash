@@ -10,7 +10,7 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseGraphFragment
+import pt.isel.vsddashboardapplication.activities.fragment.BaseGraphFragment
 import pt.isel.vsddashboardapplication.activities.fragment.regular.PortStatisticsFragment
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.utils.TimeRangeCalculator
@@ -22,7 +22,7 @@ import java.util.*
  * Responsible for displaying the inbound and outbound jitter from a port
  * of a NSG
  */
-class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
+class PortAvgJitterGraphFragment : BaseProbestatsGraphFragment() {
     companion object {
         private const val TAG = "FRAG/JITTER_GRAPH"
         private const val INBOUND_IDX = 0
@@ -30,42 +30,10 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     }
 
     private var range = TimeRangeCalculator.getLastDayRange()
-    private val inbound = LineGraphSeries<DataPoint>()
-    private val outbound = LineGraphSeries<DataPoint>()
-
-    private var minX = -1.0
-    private var maxX = 0.0
-    private var maxY = 1.0
-
-    /**
-     * Sets the viewport for the fragment
-     * @param viewport: the viewport of the fragment
-     */
-    override fun setViewport(viewport: Viewport) {
-        viewport.apply {
-            isScalable = true
-
-            setMinY(0.0)
-            setMaxY(maxY)
-
-            setMinX(minX)
-            setMaxX(maxX)
-
-            isXAxisBoundsManual = true
-            isYAxisBoundsManual = true
-            binding.executePendingBindings()
-        }
-
-    }
-
-    override fun getMaxData(): Int = DEFAULT_MAX
-
-    override fun assignViewModel(): ProbestatsViewModel =
-        ViewModelProviders.of(this, viewModelFactory)[ProbestatsViewModel::class.java]
 
     override fun observeViewModel() {
-        viewModel.inbound.observe(this, getObserver(INBOUND_IDX))
-        viewModel.outbound.observe(this, getObserver(OUTBOUND_IDX))
+        //viewModel.inbound.observe(this, getObserver(INBOUND_IDX))
+        //viewModel.outbound.observe(this, getObserver(OUTBOUND_IDX))
 
         /*
         viewModel.inbound.getAlarmLiveData(this, Observer { stats ->
@@ -122,17 +90,10 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val range = TimeRangeCalculator.getLastDayRange()
-            viewModel.setBoundaries(range.start, range.end)
-            viewModel.updateLiveData()
+            //viewModel.setBoundaries(range.start, range.end)
+            //viewModel.updateLiveData()
         }
 
-    }
-
-    override fun initViewModel() {
-        val portId = (parentFragment as PortStatisticsFragment).getPortId()
-        val nsgId = (parentFragment as PortStatisticsFragment).getNsgId()
-        Log.d(TAG, "Initiating View Model with port $portId and NSG $nsgId")
-        viewModel.init(portId, nsgId)
     }
 
     @StringRes
@@ -141,26 +102,12 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
     @StringRes
     override fun getVerticalTitleResource(): Int = R.string.avg_jitter
 
-    override fun addSeries(graphView: GraphView) {
-        Log.d(TAG, "Adding series - Inbound & Outbound")
-
-        inbound.setAnimated(true)
-        outbound.setAnimated(true)
-
-        graphView.addSeries(inbound)
-        graphView.addSeries(outbound)
-    }
-
-    private fun setNewBoundaries(min: Long, max: Long) {
-        viewModel.setBoundaries(min, max)
-    }
-
     /**
      * Returns the observer of the series
      * @param key: the series title
      * @return observer that looks for alterations in List
      */
-    private fun getObserver(key: Int) : Observer<List<DpiProbestats>>{
+    /*private fun getObserver(key: Int) : Observer<List<DpiProbestats>>{
         return Observer { stats ->
             val dpoints = stats
                 .mapNotNull { it.toJitterDataPoint() }
@@ -223,7 +170,7 @@ class PortAvgJitterGraphFragment : BaseGraphFragment<ProbestatsViewModel>() {
             OUTBOUND_IDX -> outbound
             else -> throw IllegalArgumentException()
         }
-
+*/
 
 
 }

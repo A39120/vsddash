@@ -49,10 +49,15 @@ class AlarmRepositoryImpl @Inject constructor(
             Log.d(TAG, "Updating Alarm $id")
             val alarm = RetrofitSingleton
                 .alarmServices()
-                ?.getAlarm(id)?.await()
-            alarm?.forEach { dao.save(it) }
-            onFinish?.invoke()
-            return@withContext
+                ?.getAlarm(id)?.let {
+                    try {
+                        val res = it.await()
+                        res?.forEach { al -> dao.save(al) }
+                    } finally {
+                        onFinish?.invoke()
+                    }
+                    return@withContext
+                }
         }
     }
 
@@ -61,15 +66,21 @@ class AlarmRepositoryImpl @Inject constructor(
      * @param parentId: the id of the NSG that owns the alarms
      */
     override suspend fun updateAll(parentId: String, onFinish: (() -> Unit)?) {
-        withContext(Dispatchers.IO) {
-            Log.d(TAG, "Updating Alarms of NSG $parentId")
-            val alarms = RetrofitSingleton
-                .alarmServices()
-                ?.getGatewayAlarms(parentId)?.await()
-            alarms?.forEach { dao.save(it) }
-            onFinish?.invoke()
-            return@withContext
-        }
+        Log.d(TAG, "Updating Alarms of NSG $parentId")
+        RetrofitSingleton.alarmServices()
+            ?.getGatewayAlarms(parentId)?.let {
+                withContext(Dispatchers.IO) {
+                    try {
+                        val res = it.await()
+                        res?.forEach { dao.save(it) }
+                    } finally {
+                        onFinish?.invoke()
+                    }
+                    return@withContext
+                }
+            }
     }
 
 }
+
+

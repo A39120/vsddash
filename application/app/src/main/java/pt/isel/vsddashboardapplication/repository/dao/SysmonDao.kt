@@ -13,8 +13,6 @@ interface SysmonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveAll(list : List<Sysmon>)
 
-    //@Query("SELECT * FROM sysmon WHERE systemId = :id AND timestamp >= :start AND timestamp <= :end")
-    //fun load(id: String, start: Long, end: Long): LiveData<List<Sysmon>>
     @Query("SELECT * FROM sysmon WHERE systemId = :id")
     fun load(id: String): LiveData<List<Sysmon>>
 

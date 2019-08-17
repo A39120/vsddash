@@ -2,15 +2,12 @@ package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.FragmentNsportBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
-import pt.isel.vsddashboardapplication.viewmodel.NSPortViewModel
 
 /**
  * Fragment that handles all information that belongs to the port

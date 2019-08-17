@@ -1,16 +1,13 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragment
-import pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragmentDirections
 import pt.isel.vsddashboardapplication.databinding.FragmentVrsBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
-import pt.isel.vsddashboardapplication.viewmodel.VrsViewModel
-import java.lang.IllegalArgumentException
 
 class VrsFragment : BaseChildFragment<FragmentVrsBinding>(){
 
@@ -18,8 +15,14 @@ class VrsFragment : BaseChildFragment<FragmentVrsBinding>(){
 
     override fun observeViewModel() {
         val viewModel = (parentFragment as VrsParentFragment).viewModel
-        viewModel.liveData.observe(this, Observer {
-            binding.vrs = it
+        viewModel.liveData.observe(this, Observer {vrs ->
+            binding.vrs = vrs
+            binding.statistics.setOnClickListener {
+                vrs.description?.let { desc ->
+                    val destinations = VrsParentFragmentDirections.actionVrsParentFragmentToParentSysmonFragment(desc)
+                    Navigation.findNavController(it).navigate(destinations)
+                }
+            }
             binding.executePendingBindings()
         })
 

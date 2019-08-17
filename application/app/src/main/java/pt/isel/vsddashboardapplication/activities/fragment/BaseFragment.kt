@@ -1,4 +1,4 @@
-package pt.isel.vsddashboardapplication.activities.fragment.base
+package pt.isel.vsddashboardapplication.activities.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
+import pt.isel.vsddashboardapplication.activities.fragment.base.IViewModelOwner
 import javax.inject.Inject
 
 /**
@@ -16,10 +18,11 @@ import javax.inject.Inject
  * @param T: the view model that belongs to the fragment
  * @param U: binding attached to the fragment
  */
-abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : BaseChildFragment<U>(), IViewModelOwner<T> {
+abstract class BaseFragment<T: ViewModel, U : ViewDataBinding> : BaseChildFragment<U>(),
+    IViewModelOwner<T> {
     companion object { private const val TAG = "FRAG/BASE" }
 
-    protected val viewModel : T by lazy { assignViewModel() }
+    val viewModel : T by lazy { assignViewModel() }
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

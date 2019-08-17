@@ -2,7 +2,7 @@ package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.lifecycle.ViewModelProviders
 import pt.isel.vsddashboardapplication.R
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.FragmentApiSettingsBinding
 import pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel

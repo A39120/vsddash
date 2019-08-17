@@ -92,4 +92,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(VPortViewModel::class)
     internal abstract fun vportViewModel(viewModel: VPortViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SysmonViewModel::class)
+    internal abstract fun sysmonViewModel(viewModel: SysmonViewModel): ViewModel
 }

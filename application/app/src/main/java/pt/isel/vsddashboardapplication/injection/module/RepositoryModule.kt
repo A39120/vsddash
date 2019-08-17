@@ -76,4 +76,15 @@ class RepositoryModule {
     @Singleton
     fun providesVportRepository(dao: VPortDao, alarmDao: AlarmDao) : VPortRepository =
         VPortRepositoryImpl(dao, alarmDao)
+
+    @Provides
+    @Singleton
+    fun providesPerformanceMonitorRepository(dao: PerformanceMonitorDao) : PerformanceMonitorRepository =
+        PerformanceMonitorRepositoruImpl(dao)
+
+    @Provides
+    @Singleton
+    fun providesSysmonRepository(dao: SysmonDao) : SysmonRepository =
+        SysmonRepositoryImpl(dao)
+
 }

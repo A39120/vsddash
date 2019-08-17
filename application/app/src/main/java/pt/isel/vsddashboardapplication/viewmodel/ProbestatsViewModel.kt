@@ -96,7 +96,7 @@ class ProbestatsViewModel @Inject constructor(
         range.postValue(nrange)
     }
 
-    fun init(port: String, nsg: String) {
+    fun init(port: String?, nsg: String?) {
         this.port = port
         this.nsg = nsg
         setBoundaries()

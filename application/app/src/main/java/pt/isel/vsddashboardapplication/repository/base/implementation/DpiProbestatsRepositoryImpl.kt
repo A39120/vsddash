@@ -96,7 +96,7 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
      * Updates with data from elastic search;
      * @param query: the  ES query;
      */
-    private  suspend fun update(query: String, sort: String, size: Int = SIZE, offset: Int = 0)  {
+    private  suspend fun update(query: Array<String>, sort: String, size: Int = SIZE, offset: Int = 0)  {
         Log.d(TAG, "Updating DPI Probestats")
         val service = ElasticSearchRetrofitSingleton.dpiProbestats()
         withContext(Dispatchers.IO) {

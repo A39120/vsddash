@@ -1,18 +1,15 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
-import android.util.Log
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.utils.RefreshState
-import pt.isel.vsddashboardapplication.viewmodel.NSGInfoViewModel
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
 

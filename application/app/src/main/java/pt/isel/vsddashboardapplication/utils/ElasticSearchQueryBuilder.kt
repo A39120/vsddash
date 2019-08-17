@@ -27,9 +27,20 @@ class ElasticSearchQueryBuilder {
         return this
     }
 
-    fun build() : String {
-        val query = queries.joinToString(separator = " AND ")
-        return query
+    fun build() :Array<String> {
+        return queries.toTypedArray()
+    }
+
+    companion object {
+
+        private const val TIME_BETWEEN : Long = 30 * 1000
+
+        fun calculateSize(from: Long, to: Long) : Int {
+            val total = to - from
+            //val totalPages =
+            return 1000
+        }
+
     }
 
 }

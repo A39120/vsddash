@@ -50,12 +50,16 @@
 		android:label="NsgFragment">
 		<argument android:name="nsgId" app:argType="string" app:nullable="false"/>
 		<action android:id="@+id/action_nsgFragment_to_NSPortPagerFragment" app:destination="@id/NSPortPagerFragment"/>
+		<action android:id="@+id/action_nsgFragment_to_parentSysmonFragment"
+		        app:destination="@id/parentSysmonFragment"/>
 	</fragment>
 	<fragment android:id="@+id/NSPortPagerFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment"
 	          android:label="NSPortPagerFragment">
 		<argument android:name="nsgId" app:nullable="false" app:argType="string"/>
 		<argument android:name="portId" app:nullable="false" app:argType="string"/>
+		<action android:id="@+id/action_NSPortPagerFragment_to_portStatisticsFragment"
+		        app:destination="@id/portStatisticsParentFragment"/>
 	</fragment>
 	<fragment android:id="@+id/settingsFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.SettingsFragment"
@@ -80,6 +84,8 @@
 		<argument android:name="vscId" app:nullable="false" app:argType="string"/>
 		<action android:id="@+id/action_vscParentFragment_to_vrsParentFragment"
 		        app:destination="@id/vrsParentFragment"/>
+		<action android:id="@+id/action_vscParentFragment_to_parentSysmonFragment"
+		        app:destination="@id/parentSysmonFragment"/>
 	</fragment>
 	<fragment android:id="@+id/vrsParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragment"
@@ -87,12 +93,38 @@
 		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
 		<action android:id="@+id/action_vrsParentFragment_to_vportParentFragment"
 		        app:destination="@id/vportParentFragment"/>
+		<action android:id="@+id/action_vrsParentFragment_to_parentSysmonFragment"
+		        app:destination="@id/parentSysmonFragment"/>
 	</fragment>
 	<fragment android:id="@+id/vportParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VportParentFragment"
 	          android:label="VportParentFragment">
 		<argument android:name="vportId" app:argType="string" app:nullable="false"/>
 		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
+		<action android:id="@+id/action_vportParentFragment_to_portStatisticsFragment"
+		        app:destination="@id/portStatisticsParentFragment"/>
+	</fragment>
+	<fragment android:id="@+id/portStatisticsParentFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.PortStatisticsParentFragment"
+	          android:label="PortStatisticsFragment">
+		<argument android:name="apmName" app:argType="string" app:nullable="true"/>
+		<argument android:name="npmName" app:argType="string" app:nullable="true"/>
+		<argument android:name="uplinkName" app:argType="string"/>
+		<argument android:name="nsg" app:argType="string"/>
+		<action android:id="@+id/action_portStatisticsParentFragment_to_portSettingsFragment"
+		        app:destination="@id/portSettingsFragment"/>
+	</fragment>
+	<fragment android:id="@+id/portSettingsFragment"
+	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.PortSettingsFragment"
+	          android:label="PortSettingsFragment">
+		<action android:id="@+id/action_portSettingsFragment_to_portStatisticsParentFragment"
+		        app:destination="@id/portStatisticsParentFragment"/>
+	</fragment>
+	<fragment
+		android:id="@+id/parentSysmonFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.fragment.graph.ParentSysmonFragment"
+		android:label="ParentSysmonFragment">
+		<argument android:name="systemId" app:argType="string" app:nullable="false"/>
 	</fragment>
 
 </navigation>

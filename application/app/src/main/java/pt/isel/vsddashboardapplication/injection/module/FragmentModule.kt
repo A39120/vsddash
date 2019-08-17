@@ -2,6 +2,8 @@ package pt.isel.vsddashboardapplication.injection.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import pt.isel.vsddashboardapplication.activities.fragment.graph.CpuMonitorGraphFragment
+import pt.isel.vsddashboardapplication.activities.fragment.graph.ParentSysmonFragment
 import pt.isel.vsddashboardapplication.activities.fragment.graph.PortAvgJitterGraphFragment
 import pt.isel.vsddashboardapplication.activities.fragment.list.*
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VportParentFragment
@@ -75,5 +77,11 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributesVportFragment() : VportFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesSysmonParentFragment() : ParentSysmonFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesSysmonFragment() : CpuMonitorGraphFragment
 
 }

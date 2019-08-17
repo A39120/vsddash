@@ -12,24 +12,25 @@ interface SysmonServices {
     @Headers("Accept: application/json")
     @GET("/nuage_sysmon/_search?format=json")
     fun getSysmon(@Query("q") query: Array<String> = arrayOf("*"),
-                         @Query("sort") sort: String? = null,
-                         @Query("from") offset: Int? = 0,
-                         @Query("size") size: Int? = 10)
+                  @Query("sort") sort: String? = null,
+                  @Query("from") offset: Int? = 0,
+                  @Query("size") size: Int? = 10)
             : Deferred<Search<Sysmon>>
 
     @Headers("Accept: application/json")
-    @GET("/nuage_dpi_probestats/_search?format=json")
-    fun getSysmonWithQuery( @Query("q") query: Array<String> = arrayOf("*"),
-                                   @Query("sort") sort: String? = null,
-                                   @Query("from") offset: Int? = 0,
-                                   @Query("size") size: Int? = 10)
+    @GET("/nuage_sysmon/_search?format=json")
+    fun getSysmonWithQuery(@Query("q") query: Array<String> = arrayOf("*"),
+                           @Query("sort") sort: String? = null,
+                           @Query("from") offset: Int? = 0,
+                           @Query("size") size: Int? = 10)
             : Deferred<Search<Sysmon>>
 
     @Headers("Accept: application/json")
-    @GET("/nuage_dpi_probestats/_search?format=json")
-    fun getSysmonWithQuery( @Query("q") query: String = "*",
-                                   @Query("sort") sort: String? = null,
-                                   @Query("from") offset: Int? = 0,
-                                   @Query("size") size: Int? = 10)
-            : Deferred<Search<Sysmon>>
+    @GET("/nuage_sysmon/_search?format=json")
+    fun getSysmonWithQuery(
+        @Query("q") query: String = "*",
+        @Query("sort") sort: String? = null,
+        @Query("from") offset: Int? = 0,
+        @Query("size") size: Int? = 10) : Deferred<Search<Sysmon>>
+
 }

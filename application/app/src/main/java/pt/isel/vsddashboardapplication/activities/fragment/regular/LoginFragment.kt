@@ -7,13 +7,12 @@ import androidx.navigation.Navigation
 import kotlinx.coroutines.*
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
-import pt.isel.vsddashboardapplication.activities.fragment.base.BaseFragment
+import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
 import pt.isel.vsddashboardapplication.databinding.FragmentLoginBinding
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import pt.isel.vsddashboardapplication.service.EventWorker
 import pt.isel.vsddashboardapplication.utils.getVsdAutomaticUpdate
-import pt.isel.vsddashboardapplication.utils.setVsdAutomaticUpdate
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.authentication.LoginViewModel
 import kotlin.coroutines.CoroutineContext
@@ -126,8 +125,9 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
                 if(automatic)
                     EventWorker.enqueue()
             }
+            val directions = LoginFragmentDirections.actionLoginFragmentToEnterpriseListFragment()
             //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
-            Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_enterpriseListFragment)
+            Navigation.findNavController(this@LoginFragment.view!!).navigate(directions)
         } catch (ex: Throwable) {
             Log.e(TAG, "Authentication error occurred.\n ${ex.message}")
             changeConnectButton(ButtonStatus.ERROR)

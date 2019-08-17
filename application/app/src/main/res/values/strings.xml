@@ -74,4 +74,6 @@
 	<string name="port">Port</string>
 	
 	<string name="statistics">Statistics</string>
+	<string name="apm_label">APM</string>
+	<string name="apm_description">Application Binding Management, the statistics on a group of applications</string>
 </resources>

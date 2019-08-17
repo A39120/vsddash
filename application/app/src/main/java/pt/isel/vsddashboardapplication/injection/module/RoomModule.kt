@@ -56,4 +56,13 @@ class RoomModule {
     @Singleton
     @Provides
     fun providesVportDao(database: VsdDatabase) = database.vportDao()
+
+    @Singleton
+    @Provides
+    fun providesPerformanceMonitorDao(database: VsdDatabase) = database.performanceMonitorDao()
+
+    @Singleton
+    @Provides
+    fun providesSysmonDao(database: VsdDatabase) = database.sysmonDao()
+
 }
