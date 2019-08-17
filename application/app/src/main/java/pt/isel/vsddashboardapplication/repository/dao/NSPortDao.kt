@@ -20,7 +20,13 @@ interface NSPortDao : BaseDao<NSPort>{
     @Query("SELECT * FROM nsport WHERE parentID = :nsgId")
     fun loadForNsg(nsgId : String) : LiveData<List<NSPort>?>
 
+    @Query("DELETE FROM nsport WHERE parentID = :nsgId")
+    fun deleteNsgPorts(nsgId : String)
+
     @Delete
     override fun delete(vararg nsgs: NSPort)
+
+    @Query("DELETE FROM nsport")
+    override fun deleteAll()
 
 }

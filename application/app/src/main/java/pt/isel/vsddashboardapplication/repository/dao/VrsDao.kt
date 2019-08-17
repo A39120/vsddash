@@ -26,4 +26,7 @@ interface VrsDao : BaseDao<VRS>{
     @Delete
     override fun delete(vararg vrs: VRS)
 
+    @Query("DELETE FROM vrs")
+    override fun deleteAll()
+
 }

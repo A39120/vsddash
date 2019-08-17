@@ -8,6 +8,7 @@ import androidx.room.Room
 import pt.isel.vsddashboardapplication.model.*
 import pt.isel.vsddashboardapplication.model.converters.BootstapStatusConverter
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
+import pt.isel.vsddashboardapplication.model.statistics.Sysmon
 import pt.isel.vsddashboardapplication.repository.dao.*
 
 
@@ -22,8 +23,10 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     VRS::class,
     VSP::class,
     VSC::class,
-    VPort::class
-], version = 13, exportSchema = false)
+    VPort::class,
+    PerformanceMonitor::class,
+    Sysmon::class
+], version = 15, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---
@@ -38,6 +41,8 @@ abstract class VsdDatabase : RoomDatabase() {
     abstract fun vspDao(): VspDao
     abstract fun vscDao(): VscDao
     abstract fun vportDao() : VPortDao
+    abstract fun performanceMonitorDao() : PerformanceMonitorDao
+    abstract fun sysmonDao(): SysmonDao
 
     companion object {
         private const val DB_NAME = "vsddatabase"

@@ -31,4 +31,7 @@ interface DpiProbestatsDao {
 
     @Delete
     fun delete(vararg probestats: DpiProbestats)
+
+    @Query("DELETE FROM dpiproberstat")
+    fun deleteAll()
 }

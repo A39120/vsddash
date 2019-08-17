@@ -14,13 +14,14 @@ interface NSGatewayDao : BaseDao<NSGateway>{
     @Insert(onConflict = REPLACE)
     override fun save(nsgateway: NSGateway)
 
-
     @Query("SELECT * FROM nsgateway WHERE id = :id")
     override fun load(id: String) : LiveData<NSGateway?>
 
     @Query("SELECT * FROM nsgateway")
     fun loadAll() : LiveData<List<NSGateway>?>
 
+    @Query("DELETE FROM nsgateway")
+    override fun deleteAll()
 
     @Delete
     override fun delete(vararg nsgs: NSGateway)

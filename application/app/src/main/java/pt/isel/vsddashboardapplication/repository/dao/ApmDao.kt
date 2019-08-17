@@ -21,4 +21,7 @@ interface ApmDao : BaseDao<APM>{
 
     @Delete
     override fun delete(vararg apm: APM)
+
+    @Query("DELETE FROM apm")
+    override fun deleteAll()
 }

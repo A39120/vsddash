@@ -10,6 +10,7 @@ import pt.isel.vsddashboardapplication.model.NSGInfo
 
 @Dao
 interface NSGInfoDao : BaseDao<NSGInfo>{
+
     @Insert(onConflict = REPLACE)
     override fun save(nsgateway: NSGInfo)
 
@@ -18,5 +19,11 @@ interface NSGInfoDao : BaseDao<NSGInfo>{
 
     @Delete
     override fun delete(vararg nsgs: NSGInfo)
+
+    @Query("DELETE FROM nsginfo WHERE parentID = :id")
+    fun delete(id: String)
+
+    @Query("DELETE FROM nsginfo")
+    override fun deleteAll()
 
 }

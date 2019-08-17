@@ -18,7 +18,7 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import java.text.DateFormat
 
-abstract class BaseGraphFragment<T : ViewModel> : BaseFragment<T, FragmentGraphBinding>() {
+abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     companion object {
         private const val TAG = "FRAG/BGRAPH"
         const val DEFAULT_MAX = 30

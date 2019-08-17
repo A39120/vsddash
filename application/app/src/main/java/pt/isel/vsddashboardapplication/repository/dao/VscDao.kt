@@ -26,4 +26,7 @@ interface VscDao : BaseDao<VSC>{
     @Delete
     override fun delete(vararg vsc: VSC)
 
+    @Query("DELETE FROM vsc")
+    override fun deleteAll()
+
 }

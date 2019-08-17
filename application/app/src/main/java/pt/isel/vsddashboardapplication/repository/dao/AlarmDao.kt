@@ -26,4 +26,7 @@ interface AlarmDao : BaseDao<Alarm>{
     @Delete
     override fun delete(vararg alarm: Alarm)
 
+    @Query("DELETE FROM alarm")
+    override fun deleteAll()
+
 }
