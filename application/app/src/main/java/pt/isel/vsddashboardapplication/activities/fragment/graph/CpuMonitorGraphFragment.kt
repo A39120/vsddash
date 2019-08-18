@@ -18,6 +18,8 @@ class CpuMonitorGraphFragment : BaseMonitorGraphFragment() {
     @StringRes
     override fun getVerticalTitleResource(): Int = R.string.CPU
 
+    //TODO: Fix the missing livedata
+    //TODO: Updater
 
     override fun observeViewModel() {
         Log.d(TAG, "Observing view model")

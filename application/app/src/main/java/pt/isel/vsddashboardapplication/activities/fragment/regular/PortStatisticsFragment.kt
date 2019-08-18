@@ -12,6 +12,7 @@ import dagger.android.support.DaggerFragment
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentPortStatisticsBinding
+import javax.inject.Inject
 
 class PortStatisticsFragment : DaggerFragment() {
     companion object {
@@ -19,6 +20,9 @@ class PortStatisticsFragment : DaggerFragment() {
     }
 
     private lateinit var binding : FragmentPortStatisticsBinding
+
+    @Inject
+
 
     /**
      * Sets the view for the fragment

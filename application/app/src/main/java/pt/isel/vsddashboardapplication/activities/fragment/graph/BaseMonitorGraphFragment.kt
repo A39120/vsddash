@@ -13,11 +13,6 @@ abstract class BaseMonitorGraphFragment : BaseGraphFragment() {
 
     protected val series = LineGraphSeries<DataPoint>()
 
-
-    private var minX = Int.MAX_VALUE
-    private var maxX = Int.MIN_VALUE
-    private var maxY = 100.0
-
     override fun addSeries(graphView: GraphView) {
         series.setAnimated(true)
         graphView.addSeries(series)
@@ -25,9 +20,5 @@ abstract class BaseMonitorGraphFragment : BaseGraphFragment() {
 
     @StringRes
     override fun getHorizontalTitleResource(): Int = R.string.time
-
-    protected fun updateMonitor() {
-
-    }
 
 }

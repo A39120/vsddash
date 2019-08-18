@@ -2,10 +2,7 @@ package pt.isel.vsddashboardapplication.injection.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import pt.isel.vsddashboardapplication.activities.fragment.graph.CpuMonitorGraphFragment
-import pt.isel.vsddashboardapplication.activities.fragment.graph.MemoryMonitorGraphFragment
-import pt.isel.vsddashboardapplication.activities.fragment.graph.ParentSysmonFragment
-import pt.isel.vsddashboardapplication.activities.fragment.graph.PortAvgJitterGraphFragment
+import pt.isel.vsddashboardapplication.activities.fragment.graph.*
 import pt.isel.vsddashboardapplication.activities.fragment.list.*
 import pt.isel.vsddashboardapplication.activities.fragment.parent.*
 import pt.isel.vsddashboardapplication.activities.fragment.regular.*
@@ -87,4 +84,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributesMemoryMonitorGraphFragment() : MemoryMonitorGraphFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesPktLossGraphFragment() : PortPacketLossGraphFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesAvgDekayGraphFragment() : PortAvgDelayGraphFragment
 }

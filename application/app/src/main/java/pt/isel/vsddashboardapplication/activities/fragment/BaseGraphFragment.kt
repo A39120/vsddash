@@ -7,8 +7,8 @@ import androidx.annotation.StringRes
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.LabelFormatter
+import androidx.lifecycle.Observer
 import com.jjoe64.graphview.Viewport
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import dagger.android.support.AndroidSupportInjection
@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
+import pt.isel.vsddashboardapplication.activities.fragment.graph.BaseProbestatsGraphFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -211,5 +212,18 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
         }
         binding.executePendingBindings()
     }
+
+
+    protected fun <T> observe(series: LineGraphSeries<DataPoint>, mapper: ((T) -> DataPoint?)) =
+        Observer<List<T>> { list : List<T> ->
+            Log.d(TAG, "Probestats suffered alterations - ${list.size}")
+            val mapped = (list.mapNotNull(mapper)
+                .sortedBy { it.x } ?: listOf<DataPoint>())
+
+            Log.d(TAG, "Resetting data - ${mapped.size}")
+            CoroutineScope(Dispatchers.Main).launch {
+                appendData(series, mapped)
+            }
+        }
 
 }
