@@ -19,15 +19,15 @@ class PortListViewModel @Inject constructor(private val repositoryNS: NSPortRepo
         repositoryNS.let { repo ->
             this.liveData.addSource(repo.getAll(nsg)) { liveData.value = it }
             if(liveData.value.isNullOrEmpty())
-                repo.getAll(nsg)
+                repo.updateAll(nsg)
         }
     }
 
     override suspend fun updateLiveData() {
         Log.d(TAG, "Updating livedata for list of ports of NSG $nsg (repositoryNS = ${repositoryNS.hashCode()})")
-        this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+        refreshStateLiveData.postValue(RefreshState.INPROGRESS)
         repositoryNS.updateAll(nsg) {
-            this.refreshStateLiveData.postValue(RefreshState.NONE)
+            refreshStateLiveData.postValue(RefreshState.NONE)
         }
     }
 
