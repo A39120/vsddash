@@ -55,7 +55,7 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
         }
 
 
-    fun connect(): Deferred<List<Session>> {
+    fun connect(): Deferred<List<Session>>? {
         Log.d(TAG, "Starting login")
         return repository.login()
     }

@@ -1,6 +1,11 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.listener.Watcher
@@ -12,18 +17,26 @@ import pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewM
  */
 class ApiSettingsFragment : BaseFragment<ApiSettingsViewModel, FragmentApiSettingsBinding>() {
 
-    override fun observeViewModel() { }
+    override fun observeViewModel() {
+        binding.address.setText(viewModel.address)
+        binding.apiPort.setText(viewModel.apiPort.toString())
+        binding.esPort.setText(viewModel.esPort.toString())
+        binding.executePendingBindings()
+    }
 
     override fun getLayoutRes(): Int = R.layout.fragment_api_settings
 
     override fun assignViewModel(): ApiSettingsViewModel =
         ViewModelProviders.of(this, viewModelFactory)[ApiSettingsViewModel::class.java]
 
-    override fun initViewModel() {
-        viewModel.init()
-    }
+    override fun initViewModel() { }
 
     override fun setBindingObjects() {
+        //binding.address.setText(viewModel.address)
+        //binding.apiPort.setText(viewModel.apiPort.toString())
+        //binding.esPort.setText(viewModel.esPort.toString())
+
+        /**
         binding.address.addTextChangedListener(Watcher{ viewModel.updateAddress(it.toString())})
         binding.apiPort.addTextChangedListener(Watcher{
             if(it.toString() != "")
@@ -31,14 +44,31 @@ class ApiSettingsFragment : BaseFragment<ApiSettingsViewModel, FragmentApiSettin
             else viewModel.updateApiPort(null)
         })
 
-        binding.monitPort.addTextChangedListener(Watcher{
+        binding.esPort.addTextChangedListener(Watcher{
             if(it.toString() != "")
-                viewModel.updateMonitPort(Integer.parseInt(it.toString()))
-            else viewModel.updateMonitPort(null)
+                viewModel.updateElasticSearchPort(Integer.parseInt(it.toString()))
+            else
+                viewModel.updateElasticSearchPort(null)
         })
+         */
 
-        binding.saveButton.setOnClickListener { this.fragmentManager?.popBackStack() }
-
+        binding.saveButton.setOnClickListener {
+            binding.address.text.toString().run {
+                viewModel.updateAddress(this)
+            }
+            binding.apiPort.text.toString().run {
+                val port = if(this == "") null else Integer.parseInt(this)
+                viewModel.updateApiPort(port)
+            }
+            binding.esPort.text.toString().run {
+                val port = if(this == "") null else Integer.parseInt(this)
+                viewModel.updateElasticSearchPort(port)
+            }
+            val destinations = ApiSettingsFragmentDirections.actionApiSettingsFragmentToLoginFragment()
+            Navigation.findNavController(it).navigate(destinations)
+        }
+        binding.executePendingBindings()
     }
+
 
 }

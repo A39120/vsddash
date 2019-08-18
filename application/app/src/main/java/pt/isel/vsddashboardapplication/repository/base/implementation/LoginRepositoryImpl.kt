@@ -18,13 +18,7 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val sharedPrefs : SharedPreferences
 ) : LoginRepository {
-    companion object{
-        private const val USERNAME_KEY = "username"
-        private const val PASSWORD_KEY = "password"
-        private const val ORGANIZATION_KEY = "organization"
-
-        private const val TAG = "REPO/LOGIN"
-    }
+    companion object{ private const val TAG = "REPO/LOGIN" }
 
     private var authenticationService: AuthenticationService? = null
 
@@ -50,7 +44,7 @@ class LoginRepositoryImpl @Inject constructor(
     /**
      * Starts the login process
      */
-    override fun login() : Deferred<List<Session>> {
+    override fun login() : Deferred<List<Session>>? {
         Log.d(TAG, "LOGIN - Starting login")
         sharedPrefs.let {
             val username = getUsername() ?: ""
@@ -70,7 +64,7 @@ class LoginRepositoryImpl @Inject constructor(
             }
 
             Log.d(TAG, "LOGIN - Authenticating with username $username and organization $organization ($api)")
-            return authenticationService?.authenticate()!!
+            return authenticationService?.authenticate()
         }
     }
 

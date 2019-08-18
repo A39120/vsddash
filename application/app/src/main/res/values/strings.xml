@@ -76,4 +76,5 @@
 	<string name="statistics">Statistics</string>
 	<string name="apm_label">APM</string>
 	<string name="apm_description">Application Binding Management, the statistics on a group of applications</string>
+	<string name="esPort_hint">Elastic Search Port</string>
 </resources>

@@ -2,7 +2,6 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="androidx.lifecycle.LiveData"/>
         <variable name="viewmodel" type="pt.isel.vsddashboardapplication.viewmodel.authentication.ApiSettingsViewModel"/>
     </data>
     <LinearLayout
@@ -15,88 +14,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
     
-        <GridLayout
-                android:columnCount="2"
-                android:rowCount="4"
+            <LinearLayout
+	            android:orientation="vertical"
+                android:layout_margin="@dimen/margin_default"
+                android:useDefaultMargins="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-    
-            <TextView
-                    android:layout_columnSpan="2"
+        
+                <TextView
                     android:textStyle="bold"
                     android:fontFamily="@font/din"
                     android:layout_margin="@dimen/margin_default"
                     android:textSize="@dimen/label_size"
+                    android:gravity="center"
                     android:textColor="@color/colorPrimaryDark"
                     android:text="@string/api_settings_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-    
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_columnSpan="2"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_default"
-                    android:hint="@string/address_hint">
-    
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/address"
-                    android:maxLines="1"
-                    android:text="@{viewmodel.address.toString()}"
+                    android:layout_gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-            </com.google.android.material.textfield.TextInputLayout>
-    
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_columnWeight="1"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_margin="@dimen/margin_default"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/vsdport_hint">
-    
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/apiPort"
-                    android:maxLines="1"
-                    android:inputType="number"
-                        android:text="@{viewmodel.apiPort.toString()}"
+        
+                <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
-    
-            </com.google.android.material.textfield.TextInputLayout>
-    
-            <com.google.android.material.textfield.TextInputLayout
-                    android:layout_columnWeight="1"
+                        android:layout_margin="@dimen/margin_default"
+                        android:hint="@string/address_hint">
+        
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/address"
+                        android:maxLines="1"
+                        android:inputType="text"
+                        android:text="@{viewmodel.address}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+        
+	            <LinearLayout
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                <com.google.android.material.textfield.TextInputLayout
+	                android:layout_weight="1"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_margin="@dimen/margin_default"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="@string/monitPort_hint">
-    
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/monitPort"
-                    android:maxLines="1"
-                    android:inputType="number"
-                    android:text="@{viewmodel.monitPort.toString()}"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-    
-            </com.google.android.material.textfield.TextInputLayout>
-    
-            <com.google.android.material.button.MaterialButton
-                android:layout_columnWeight="1.0"
-                android:id="@+id/save_button"
-                android:layout_margin="@dimen/activity_default_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/save"/>
-            
-        </GridLayout>
-    
+                    android:hint="@string/vsdport_hint">
         
-    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/apiPort"
+                        android:maxLines="1"
+                        android:inputType="number"
+                        android:text="@{viewmodel.apiPort.toString()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+        
+                </com.google.android.material.textfield.TextInputLayout>
+        
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_weight="1"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_margin="@dimen/margin_default"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/esPort_hint">
+        
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/esPort"
+                        android:maxLines="1"
+                        android:inputType="number"
+                        android:text="@{viewmodel.esPort.toString()}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+        
+                </com.google.android.material.textfield.TextInputLayout>
+    
+                </LinearLayout>
+	            
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/save_button"
+                    android:layout_margin="@dimen/activity_default_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"/>
+                
+            </LinearLayout>
+        
+            
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 </layout>

@@ -13,7 +13,9 @@
 	</fragment>
 	<fragment android:id="@+id/apiSettingsFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.ApiSettingsFragment"
-		android:label="ApiSettingsFragment"/>
+		android:label="ApiSettingsFragment">
+		<action android:id="@+id/action_apiSettingsFragment_to_loginFragment" app:destination="@id/loginFragment"/>
+	</fragment>
 	<fragment android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.MenuFragment"
 		android:label="MenuFragment">
 		<argument android:name="enterpriseId" app:argType="string" app:nullable="false"/>

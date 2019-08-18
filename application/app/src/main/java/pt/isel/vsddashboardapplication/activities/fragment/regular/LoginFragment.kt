@@ -76,7 +76,8 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
      */
     private fun setSettings() {
         binding.settingsButton.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_apiSettingsFragment)
+            val destination  = LoginFragmentDirections.actionLoginFragmentToApiSettingsFragment()
+            Navigation.findNavController(it).navigate(destination)
         }
     }
 
@@ -109,10 +110,12 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
             val job = viewModel.connect()
             changeConnectButton(ButtonStatus.INPROGRESS, job)
 
-            job.join()
+            job!!.join()
             Log.d(TAG, "Finished authentication")
-            if(job.isCancelled)
+            if(job.isCancelled) {
+                changeConnectButton(ButtonStatus.ERROR)
                 return@withContext
+            }
 
             val sessions = job.await()
 

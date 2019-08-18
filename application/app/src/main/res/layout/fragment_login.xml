@@ -15,25 +15,24 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<GridLayout
-				android:columnCount="3"
-				android:rowCount="4"
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_margin="@dimen/margin_default"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
 				<TextView
-					android:layout_columnSpan="3"
+					android:gravity="center_horizontal"
 					android:textStyle="bold"
 					android:fontFamily="@font/din"
 					android:layout_margin="@dimen/margin_default"
 					android:textSize="@dimen/label_size"
 					android:textColor="@color/colorPrimaryDark"
 					android:text="@string/login_label"
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"/>
 				
 				<com.google.android.material.textfield.TextInputLayout
-					android:layout_columnSpan="3"
 					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
 					android:hint="@string/username">
 					
 					<com.google.android.material.textfield.TextInputEditText
-						android:layout_columnSpan="3"
 						android:id="@+id/username"
 						android:maxLines="1"
 						android:inputType="text"
@@ -53,14 +51,12 @@
 				
 				<com.google.android.material.textfield.TextInputLayout
 					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-					android:layout_columnSpan="3"
 					android:layout_margin="@dimen/margin_default"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:hint="@string/password">
 					
 					<com.google.android.material.textfield.TextInputEditText
-						android:layout_columnSpan="3"
 						android:id="@+id/password"
 						android:maxLines="1"
 						android:inputType="textPassword"
@@ -71,7 +67,6 @@
 				</com.google.android.material.textfield.TextInputLayout>
 				
 				<com.google.android.material.textfield.TextInputLayout
-					android:layout_columnSpan="3"
 					style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
 					android:layout_margin="@dimen/margin_default"
 					android:layout_width="match_parent"
@@ -79,7 +74,6 @@
 					android:hint="@string/organization">
 					
 					<com.google.android.material.textfield.TextInputEditText
-						android:layout_columnSpan="3"
 						android:id="@+id/organization"
 						android:inputType="text"
 						android:maxLines="1"
@@ -89,26 +83,31 @@
 				
 				</com.google.android.material.textfield.TextInputLayout>
 				
-				<com.google.android.material.button.MaterialButton
-					android:layout_row="3"
-					android:layout_columnWeight=".75"
-					android:id="@+id/connect_button"
-					android:layout_margin="@dimen/activity_default_margin"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/button_connect"/>
-			
-				<com.google.android.material.button.MaterialButton
-					android:layout_row="3"
-					android:layout_columnWeight=".25"
-					android:id="@+id/settings_button"
-					android:layout_margin="@dimen/activity_default_margin"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="@string/settings"/>
+				<LinearLayout
+					android:weightSum="7"
+					android:orientation="horizontal"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<com.google.android.material.button.MaterialButton
+						android:layout_weight="4"
+						android:id="@+id/connect_button"
+						android:layout_margin="@dimen/activity_default_margin"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:text="@string/button_connect"/>
 				
+					<com.google.android.material.button.MaterialButton
+						android:layout_weight="3"
+						android:id="@+id/settings_button"
+						android:layout_margin="@dimen/activity_default_margin"
+						android:layout_width="0dp"
+						android:layout_height="match_parent"
+						android:text="@string/settings"/>
 				
-			</GridLayout>
+				</LinearLayout>
+				
+			</LinearLayout>
 		
 		
 		</com.google.android.material.card.MaterialCardView>

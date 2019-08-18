@@ -13,5 +13,5 @@ interface LoginRepository  {
     fun updatePassword(password: String?)
     fun updateOrganization(organization: String?)
 
-    fun login() : Deferred<List<Session>>
+    fun login() : Deferred<List<Session>>?
 }
