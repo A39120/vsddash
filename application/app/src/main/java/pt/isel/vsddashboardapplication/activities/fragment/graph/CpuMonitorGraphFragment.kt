@@ -25,7 +25,7 @@ class CpuMonitorGraphFragment : BaseMonitorGraphFragment() {
         viewModel.liveData.observe(this, Observer { list ->
             Log.d(TAG, "CPU List suffered alterations - ${list.size}")
             val lst = (list.mapNotNull { it.cpu?.let { it1 ->
-                    DataPoint(Date(it.timestamp), it1/100.0)
+                    DataPoint(Date(it.timestamp), it1)
                 } }
                 .sortedBy { it.x }
                 ?: listOf<DataPoint>())
@@ -33,10 +33,10 @@ class CpuMonitorGraphFragment : BaseMonitorGraphFragment() {
             Log.d(TAG, "Appending data - ${lst.size}")
             series.resetData(arrayOf())
             CoroutineScope(Dispatchers.Main).launch {
-                lst.forEach { appendData(series, it) }
+                appendData(series, lst)
             }
-            //appendData(this.series, lst)
         })
     }
+
 
 }

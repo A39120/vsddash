@@ -27,8 +27,8 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
     private var wasScrolled = false
 
-    private val HORIZONTAL_LINES = 2
-    private val VERTICAL_LINES = 2
+    private val HORIZONTAL_LINES = 3
+    private val VERTICAL_LINES = 3
     private val HORIZONTAL_LABEL_ANGLE = 0
 
 
@@ -126,19 +126,21 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     protected suspend fun appendData(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint) = withContext(Dispatchers.Main){
         Log.d(TAG, "Appending data x: ${dataPoint.x}, y: ${dataPoint.y}")
         //series.appendData(dataPoint, !wasScrolled, getMaxData())
-        series.appendData(dataPoint, true, getMaxData())
+        series.appendData(dataPoint, false, 1000)
     }
 
     protected fun appendData(series: LineGraphSeries<DataPoint>, points: List<DataPoint>) {
         Log.d(TAG, "Appending list of data points - ${points.size}")
         if(!points.isNullOrEmpty()) {
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 binding.graph.viewport.apply {
                     isScalable = true
-                    setMinX(points.minBy { it.x }!!.x)
-                    setMaxX(points.maxBy { it.y }!!.y)
+                    isScrollable = true
+                    val minX =  points.minBy { it.x }!!.x
+                    val maxX = points.maxBy { it.x }!!.x
+                    val maxY = points.maxBy { it.y }!!.y
+                    setBounds(minX, maxX, maxY)
 
-                    setMaxX(points.maxBy { it.y }!!.y)
                     isXAxisBoundsManual = true
                     isYAxisBoundsManual = true
 
@@ -153,7 +155,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
         }
     }
 
-    protected fun getMaxData() : Int = 1000
+    protected fun getMaxData() : Int = 100
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -168,6 +170,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     fun setViewport(viewport: Viewport) {
         viewport.apply {
             isScalable = true
+            isScrollable = true
             isXAxisBoundsManual = true
             isYAxisBoundsManual = true
 
@@ -197,6 +200,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
         binding.graph.viewport.apply {
             isScalable = true
+            isScrollable = true
 
             isYAxisBoundsManual = true
             isXAxisBoundsManual = true

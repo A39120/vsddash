@@ -16,7 +16,7 @@ abstract class BaseMonitorGraphFragment : BaseGraphFragment() {
 
     private var minX = Int.MAX_VALUE
     private var maxX = Int.MIN_VALUE
-    private var maxY = Int.MIN_VALUE
+    private var maxY = 100.0
 
     override fun addSeries(graphView: GraphView) {
         series.setAnimated(true)
@@ -25,5 +25,9 @@ abstract class BaseMonitorGraphFragment : BaseGraphFragment() {
 
     @StringRes
     override fun getHorizontalTitleResource(): Int = R.string.time
+
+    protected fun updateMonitor() {
+
+    }
 
 }

@@ -29,5 +29,4 @@ class ParentSysmonFragment : BaseFragment<SysmonViewModel, FragmentSysmonBinding
         viewModel.init(systemId = id)
     }
 
-
 }
