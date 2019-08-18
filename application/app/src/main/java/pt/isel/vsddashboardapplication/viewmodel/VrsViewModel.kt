@@ -18,17 +18,19 @@ class VrsViewModel @Inject constructor(
     private val repository: VrsRepository
 ) : BaseViewModel<VRS>(), AlarmParentViewModel {
 
-    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
     val vportLiveData = MediatorLiveData<List<VPort>?>()
 
-    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
+    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
+    private val alarmRefreshStateLiveData = MediatorLiveData<RefreshState>()
+
+    override fun getRefreshState(): LiveData<RefreshState> = this.alarmRefreshStateLiveData
 
     override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = alarmsLiveData
 
     override fun updateAlarmsLiveData() {
         viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            repository.updateAlarms(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+            alarmRefreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            repository.updateAlarms(id) { alarmRefreshStateLiveData.postValue(RefreshState.NONE) }
         }
     }
 
@@ -61,6 +63,7 @@ class VrsViewModel @Inject constructor(
     }
 
     private lateinit var id: String
+
     fun init(id: String) {
         this.id = id
         viewModelScope.launch { setLiveData() }

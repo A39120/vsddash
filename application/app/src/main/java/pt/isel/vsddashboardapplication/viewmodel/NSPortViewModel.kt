@@ -20,24 +20,22 @@ class NSPortViewModel @Inject constructor(
     private val nsgRepository: NSGinfoRepository
 ) : BaseViewModel<NSPort>(), AlarmParentViewModel {
 
-    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> {
-        return this.alarmsLiveData
-    }
-
-    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
-
-    override fun updateAlarmsLiveData() {
-        viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            repositoryNS.updateAlarms(portId?:liveData.value!!.iD) { refreshStateLiveData.postValue(RefreshState.NONE) }
-        }
-    }
-
     private var portId: String? = null
     private var nsgId: String? = null
 
     val nsgLiveData = MediatorLiveData<NSGInfo>()
-    val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
+
+    private val alarmsRefreshStateLiveData = MediatorLiveData<RefreshState>()
+    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
+
+    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = this.alarmsLiveData
+    override fun getRefreshState(): LiveData<RefreshState> = this.alarmsRefreshStateLiveData
+    override fun updateAlarmsLiveData() {
+        viewModelScope.launch {
+            alarmsRefreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            repositoryNS.updateAlarms(portId?:liveData.value!!.iD) { alarmsRefreshStateLiveData.postValue(RefreshState.NONE) }
+        }
+    }
 
     override suspend fun setLiveData() {
         nsgId?.let { nsgId -> liveData.addSource(nsgRepository.get(nsgId)) { nsg -> nsgLiveData.value = nsg} }

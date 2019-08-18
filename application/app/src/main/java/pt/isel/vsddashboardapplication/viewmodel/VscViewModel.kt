@@ -21,9 +21,11 @@ class VscViewModel @Inject constructor(
 ) : BaseViewModel<VSC>(), AlarmParentViewModel {
 
     private val alarmLiveData = MediatorLiveData<List<Alarm>?>()
+    private val alarmRefreshStateLiveData = MediatorLiveData<RefreshState>()
+
     val vrsLiveData = MediatorLiveData<List<VRS>?>()
 
-    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
+    override fun getRefreshState(): LiveData<RefreshState> = this.alarmRefreshStateLiveData
 
     override suspend fun setLiveData() {
         liveData.addSource(repository.get(id)){ liveData.value = it }
@@ -40,14 +42,12 @@ class VscViewModel @Inject constructor(
         }
     }
 
-    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> {
-        return alarmLiveData
-    }
+    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = alarmLiveData
 
     override fun updateAlarmsLiveData() {
         viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            repository.updateAlarms(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+            alarmRefreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            repository.updateAlarms(id) { alarmRefreshStateLiveData.postValue(RefreshState.NONE) }
         }
     }
 

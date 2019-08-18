@@ -24,18 +24,19 @@ class NSGViewModel @Inject constructor(
     private val repository: NSGatewayRepository,
     private val NSPortRepository: NSPortRepository
 ) : BaseViewModel<NSGateway>(), AlarmParentViewModel {
+    companion object { private const val TAG = "VM/NSG" }
 
-    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
+    override fun getRefreshState(): LiveData<RefreshState> = this.alarmsRefreshStateLiveData
 
     override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = alarmsLiveData
 
-
-    companion object {
-        private const val TAG = "VM/NSG"
-    }
+    /**
+     * Alarm related live data
+     */
+    private val alarmsRefreshStateLiveData = MediatorLiveData<RefreshState>()
+    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
 
     val nsginfo = MediatorLiveData<NSGInfo>()
-    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
     val portsLiveData = MediatorLiveData<List<NSPort>?>()
 
     override suspend fun setLiveData() {
@@ -86,9 +87,9 @@ class NSGViewModel @Inject constructor(
     override fun updateAlarmsLiveData(){
         viewModelScope.launch {
             Log.d(TAG, "Updating alarms livedata")
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            alarmsRefreshStateLiveData.postValue(RefreshState.INPROGRESS)
             repository.updateAlarms(id) {
-                refreshStateLiveData.postValue(RefreshState.NONE)
+                alarmsRefreshStateLiveData.postValue(RefreshState.NONE)
             }
         }
     }

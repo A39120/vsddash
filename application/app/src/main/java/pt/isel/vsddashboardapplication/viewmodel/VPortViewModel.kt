@@ -20,24 +20,23 @@ class VPortViewModel @Inject constructor(
     private val vrsRepository: VrsRepository
 ) : BaseViewModel<VPort>(), AlarmParentViewModel {
 
-    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> {
-        return this.alarmsLiveData
-    }
-
-    override fun getRefreshState(): LiveData<RefreshState> = this.refreshStateLiveData
-
-    override fun updateAlarmsLiveData() {
-        viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            repository.updateAlarms(portId?:liveData.value!!.iD) { refreshStateLiveData.postValue(RefreshState.NONE) }
-        }
-    }
-
     private var portId: String? = null
     private var vrsId: String? = null
 
     val vrsLiveData = MediatorLiveData<VRS>()
-    val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
+
+    private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
+    private val alarmRefreshStateLiveData = MediatorLiveData<RefreshState>()
+
+    override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = this.alarmsLiveData
+    override fun getRefreshState(): LiveData<RefreshState> = this.alarmRefreshStateLiveData
+
+    override fun updateAlarmsLiveData() {
+        viewModelScope.launch {
+            alarmRefreshStateLiveData.postValue(RefreshState.INPROGRESS)
+            repository.updateAlarms(portId?:liveData.value!!.iD) { alarmRefreshStateLiveData.postValue(RefreshState.NONE) }
+        }
+    }
 
     override suspend fun setLiveData() {
         vrsId?.let { vrsId -> liveData.addSource(vrsRepository.get(vrsId)) { vrsLiveData.value = it } }
