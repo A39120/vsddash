@@ -17,148 +17,155 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<com.google.android.material.card.MaterialCardView
-				android:theme="@style/CardView.Light"
-				android:layout_margin="@dimen/margin_default"
-				android:padding="@dimen/margin_default"
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
-				<LinearLayout
+			
+				<com.google.android.material.card.MaterialCardView
+					android:theme="@style/CardView.Light"
+					android:layout_margin="@dimen/margin_default"
 					android:padding="@dimen/margin_default"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical">
+					android:layout_height="wrap_content">
 					
-					<!-- Name of the nsg -->
 					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
+						android:padding="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
+						android:orientation="vertical">
+						
+						<!-- Name of the nsg -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/nsgname + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_name_value"
-							android:text="@{nsgname}"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/nsgname + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_name_value"
+								android:text="@{nsgname}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- Name of the port -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/portname + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_name_value"
+								android:text="@{nsport.physicalName}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- type of the port -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/porttype + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_type_value"
+								android:text="@{nsport.portType}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
 					
-					<!-- Name of the port -->
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/portname + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/port_name_value"
-							android:text="@{nsport.physicalName}"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/description + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_description_value"
+								android:text="@{nsport.description}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- vlan range of the port -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/vlan_range + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_vlan_range_value"
+								android:text="@{nsport.vLANRange}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- MTU -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/speed + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_speed_value"
+								android:text="@{nsport.speed}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
 					
-					<!-- type of the port -->
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/porttype + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/port_type_value"
-							android:text="@{nsport.portType}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
 					</LinearLayout>
 				
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/description + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/port_description_value"
-							android:text="@{nsport.description}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
-					
-					<!-- vlan range of the port -->
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/vlan_range + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/port_vlan_range_value"
-							android:text="@{nsport.vLANRange}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
-					
-					<!-- MTU -->
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/speed + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/port_speed_value"
-							android:text="@{nsport.speed}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
+				</com.google.android.material.card.MaterialCardView>
 				
-				</LinearLayout>
+				<com.google.android.material.button.MaterialButton
+					android:text="@string/statistics"
+					android:layout_margin="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
 			
-			</com.google.android.material.card.MaterialCardView>
-			
-			<com.google.android.material.button.MaterialButton
-				android:text="@string/statistics"
-				android:layout_margin="@dimen/margin_default"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
-			
+			</LinearLayout>
 		</ScrollView>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
