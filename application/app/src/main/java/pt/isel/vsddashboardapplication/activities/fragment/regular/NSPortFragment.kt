@@ -2,10 +2,12 @@ package pt.isel.vsddashboardapplication.activities.fragment.regular
 
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragmentDirections
 import pt.isel.vsddashboardapplication.databinding.FragmentNsportBinding
 import pt.isel.vsddashboardapplication.utils.RefreshState
 
@@ -17,14 +19,20 @@ class NSPortFragment : BaseChildFragment<FragmentNsportBinding>(), IRefreshableC
     override fun observeViewModel() {
         val viewModel = (this.parentFragment as NSPortPagerFragment).viewModel
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
-            binding.refreshLayout.isRefreshing = when(rf){
-                RefreshState.INPROGRESS -> true
-                else -> false
-            }
+            binding.refreshLayout.isRefreshing = rf == RefreshState.INPROGRESS
         })
 
         viewModel.liveData.observe(this, Observer {
             binding.nsport = it
+            binding.statistics.setOnClickListener { view ->
+                val nsg = viewModel.nsgLiveData.value?.name
+                val name = it.physicalName
+                if(name != null && nsg != null) {
+                    val directions = NSPortPagerFragmentDirections
+                        .actionNSPortPagerFragmentToPortStatisticsFragment( null, null, name, nsg )
+                    Navigation.findNavController(view).navigate(directions)
+                }
+            }
             binding.executePendingBindings()
         })
 
