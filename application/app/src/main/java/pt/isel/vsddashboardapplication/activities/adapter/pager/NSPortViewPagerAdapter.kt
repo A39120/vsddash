@@ -11,14 +11,13 @@ import pt.isel.vsddashboardapplication.activities.fragment.regular.PortStatistic
 class NSPortViewPagerAdapter(fm: FragmentManager)
     : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    private val TITLES = arrayOf("INFO", "ALARMS", "STATISTICS")
+    private val TITLES = arrayOf("INFO", "ALARMS")
 
     override fun getCount(): Int = TITLES.size
 
     override fun getItem(position: Int): Fragment = when(position){
         0 -> NSPortFragment()
         1 -> AlarmFragment()
-        2 -> PortStatisticsFragment()
         else -> throw IllegalStateException()
     }
 

@@ -17,243 +17,255 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 			
-			<com.google.android.material.card.MaterialCardView
-				android:theme="@style/CardView.Light"
-				android:layout_margin="@dimen/margin_default"
-				android:padding="@dimen/margin_default"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
-				
-				<LinearLayout
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent">
+			
+				<com.google.android.material.card.MaterialCardView
+					android:theme="@style/CardView.Light"
+					android:layout_margin="@dimen/margin_default"
 					android:padding="@dimen/margin_default"
 					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical">
+					android:layout_height="wrap_content">
 					
-					<!-- Name -->
 					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
+						android:padding="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/name + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_name_value"
-							android:text="@{nsg.name}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
-					
-					<!-- description of the nsg -->
-					<!--<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="@{nsg.description  == null ? View.GONE : View.VISIBLE }"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/description + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_desc_value"
-							android:text="@{nsg.description}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
-					-->
-					
-					<!-- status of the nsg -->
-					<LinearLayout
-						android:layout_marginBottom="@dimen/margin_default"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
 						android:orientation="vertical">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/status + `: `}"
-							android:textStyle="bold" />
+						
+						<!-- Name -->
 						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/name + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_name_value"
+								android:text="@{nsg.name}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- description of the nsg -->
+						<!--<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{nsg.description  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/description + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_desc_value"
+								android:text="@{nsg.description}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						-->
+						
+						<!-- status of the nsg -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
-							android:orientation="horizontal">
-							<View
-								android:id="@+id/nsgbootstrap_active"
-								android:background="@drawable/active"
-								android:layout_weight=".1"
-								android:layout_width="0dp"
-								android:layout_height="0dp"/>
+							android:orientation="vertical">
 							<TextView
-								android:id="@+id/nsg_status_value"
-								android:text="@{nsg.bootstrapStatus.toString()}"
-								android:layout_weight=".90"
+								android:layout_marginEnd="@dimen/small_margin"
 								android:layout_height="wrap_content"
-								android:layout_width="0dp" />
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/status + `: `}"
+								android:textStyle="bold" />
+							<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
+								android:orientation="horizontal">
+								<View
+									android:id="@+id/nsgbootstrap_active"
+									android:background="@drawable/active"
+									android:layout_weight=".1"
+									android:layout_width="0dp"
+									android:layout_height="0dp"/>
+								<TextView
+									android:id="@+id/nsg_status_value"
+									android:text="@{nsg.bootstrapStatus.toString()}"
+									android:layout_weight=".90"
+									android:layout_height="wrap_content"
+									android:layout_width="0dp" />
+							</LinearLayout>
 						</LinearLayout>
-					</LinearLayout>
-					
-					<!-- Network accelaration of the nsg -->
-					<!--<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="@{nsg.networkAcceleration  == null ? View.GONE : View.VISIBLE }"
-						android:orientation="horizontal">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
+						
+						<!-- Network accelaration of the nsg -->
+						<!--<LinearLayout
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/netaccelaration + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_netacc_value"
-							android:text="@{nsg.networkAccelaration}"
+							android:visibility="@{nsg.networkAcceleration  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/netaccelaration + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_netacc_value"
+								android:text="@{nsg.networkAccelaration}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>-->
+						
+						<!-- CPU Type of the nsg -->
+						<LinearLayout
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>-->
-					
-					<!-- CPU Type of the nsg -->
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="@{nsg.CPUType  == null ? View.GONE : View.VISIBLE }"
-						android:orientation="vertical">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
+							android:visibility="@{nsg.CPUType  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="vertical">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/CPU + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_cpu_value"
+								android:text="@{nsg.CPUType}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- CPU Type of the nsg -->
+						<LinearLayout
+							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/CPU + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_cpu_value"
-							android:text="@{nsg.CPUType}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
+							android:visibility="@{nsg.BIOSVersion  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="vertical">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/bios + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_bios_value"
+								android:text="@{nsg.BIOSVersion}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!--
+						<include
+							android:id="@+id/nsg_status"
+							layout="@layout/layout_label"
+							bind:label="@{@string/status}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{@string/netaccelaration}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/configstatus}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/personality}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/product}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/family}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/operstatus}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/opermode}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/lastupdated}"
+							bind:value="@{nsg.networkAcceleration}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{string/creationdate}"
+							bind:value="@{nsg.networkAcceleration}" />
+						<include
+							android:id="@+id/nsg_serial"
+							layout="@layout/layout_label"
+							bind:label="@{@string/serial}"
+							 />
+						
+						<include
+							android:id="@+id/nsg_cpu"
+							layout="@layout/layout_label"
+							bind:label="@{@string/CPU}"
+						/>
+						
+						<include
+							android:id="@+id/nsg_bios"
+							layout="@layout/layout_label"
+							bind:label="@{@string/bios}"
+						/>
+						
 					
-					<!-- CPU Type of the nsg -->
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:visibility="@{nsg.BIOSVersion  == null ? View.GONE : View.VISIBLE }"
-						android:orientation="vertical">
-						<TextView
-							android:layout_marginEnd="@dimen/small_margin"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content"
-							android:textSize="@dimen/label_size"
-							android:text="@{@string/bios + `: `}"
-							android:textStyle="bold" />
-						<TextView
-							android:id="@+id/nsg_bios_value"
-							android:text="@{nsg.BIOSVersion}"
-							android:layout_height="wrap_content"
-							android:layout_width="wrap_content" />
-					</LinearLayout>
-					
-					<!--
-					<include
-						android:id="@+id/nsg_status"
-						layout="@layout/layout_label"
-						bind:label="@{@string/status}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{@string/netaccelaration}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/configstatus}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/personality}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/product}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/family}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/operstatus}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/opermode}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/lastupdated}"
-						bind:value="@{nsg.networkAcceleration}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{string/creationdate}"
-						bind:value="@{nsg.networkAcceleration}" />
-					<include
-						android:id="@+id/nsg_serial"
-						layout="@layout/layout_label"
-						bind:label="@{@string/serial}"
-						 />
-					
-					<include
-						android:id="@+id/nsg_cpu"
-						layout="@layout/layout_label"
-						bind:label="@{@string/CPU}"
-					/>
-					
-					<include
-						android:id="@+id/nsg_bios"
-						layout="@layout/layout_label"
-						bind:label="@{@string/bios}"
-					/>
-					
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{@string/name}"
+							bind:value="@{viewmodel.nsg.get().name}" />
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{@string/description}"
+							bind:value="@{viewmodel.nsg.get().description}"/>
+						
+						<include
+							layout="@layout/layout_label"
+							bind:label="@{@string/version}"
+							bind:value="@{viewmodel.nsg.get().NSGVersion}"/>
+						
+						-->
+						
+						<com.google.android.material.button.MaterialButton
+							android:id="@+id/statistics"
+							android:layout_margin="@dimen/margin_default"
+							android:text="@string/statistics"
+							android:layout_width="match_parent"
+						    android:layout_height="wrap_content"/>
 				
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{@string/name}"
-						bind:value="@{viewmodel.nsg.get().name}" />
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{@string/description}"
-						bind:value="@{viewmodel.nsg.get().description}"/>
-					
-					<include
-						layout="@layout/layout_label"
-						bind:label="@{@string/version}"
-						bind:value="@{viewmodel.nsg.get().NSGVersion}"/>
-					
-					-->
-			
-				</LinearLayout>
-			</com.google.android.material.card.MaterialCardView>
+					</LinearLayout>
+				</com.google.android.material.card.MaterialCardView>
+			</LinearLayout>
 		</ScrollView>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
