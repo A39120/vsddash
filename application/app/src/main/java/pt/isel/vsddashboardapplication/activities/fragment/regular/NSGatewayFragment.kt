@@ -1,12 +1,16 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import kotlinx.coroutines.*
 
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
+import pt.isel.vsddashboardapplication.activities.fragment.list.NSGatewayListFragmentDirections
+import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragmentDirections
 import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
 import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.utils.RefreshState
@@ -27,6 +31,12 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
         viewModel.nsginfo.observe(this, Observer {
             binding.nsg = it
             changeStatusColor(it?.bootstrapStatus?:BootstrapStatus.INACTIVE)
+            binding.statistics.setOnClickListener {view ->
+                it?.systemID?.run {
+                    val destination = NsgPagerFragmentDirections.actionNsgFragmentToParentSysmonFragment(it.systemID)
+                    Navigation.findNavController(view).navigate(destination)
+                }
+            }
             binding.executePendingBindings()
         })
     }
@@ -43,6 +53,7 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
     override fun assignViewModel(): NSGViewModel =
         (this.parentFragment as NsgPagerFragment).viewModel
 
+    @LayoutRes
     override fun getLayoutRes(): Int = R.layout.fragment_nsgateway
 
     /**
@@ -50,7 +61,6 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
      */
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
-
 
     /**
      * Updates UI
