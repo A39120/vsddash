@@ -28,6 +28,6 @@ class PortStatisticsParentFragment : BaseFragment<ProbestatsViewModel, FragmentP
         val perfMonitor = arguments.npmName
         Log.d(TAG, "Starting view model for port statistics for port $port of system $system, observing APM $apm and PF $perfMonitor")
         viewModel.init(port, system)
-
     }
+
 }

@@ -27,8 +27,8 @@ class ElasticSearchQueryBuilder {
         return this
     }
 
-    fun build() :Array<String> {
-        return queries.toTypedArray()
+    fun build() :String {
+        return queries.joinToString(" AND ")
     }
 
     companion object {

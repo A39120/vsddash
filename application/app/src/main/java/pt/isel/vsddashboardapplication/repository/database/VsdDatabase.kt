@@ -26,7 +26,7 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     VPort::class,
     PerformanceMonitor::class,
     Sysmon::class
-], version = 15, exportSchema = false)
+], version = 16, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // --- DAO ---

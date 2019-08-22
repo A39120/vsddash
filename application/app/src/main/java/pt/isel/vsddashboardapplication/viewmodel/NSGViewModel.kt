@@ -49,7 +49,8 @@ class NSGViewModel @Inject constructor(
 
         nsginfo.addSource(Transformations.switchMap(liveData) {
             val ld = repository.getNsgInfo(it.ID)
-            if(ld.value == null) updateNsgInfo()
+            if(ld.value == null)
+                updateNsgInfo()
             ld
         }) {
             nsginfo.value = it
@@ -58,19 +59,18 @@ class NSGViewModel @Inject constructor(
 
         alarmsLiveData.addSource( Transformations.switchMap(liveData) {
             val ld = repository.getAlarms(it.ID)
-            if(ld.value == null) updateAlarmsLiveData()
+            if(ld.value == null)
+                updateAlarmsLiveData()
             ld
-        }) {
-            alarmsLiveData.value = it
-        }
+        }) { alarmsLiveData.postValue(it) }
 
         portsLiveData.addSource( Transformations.switchMap(liveData) {
             val ld = NSPortRepository.getAll(it.ID)
-            if(ld.value == null) updateAlarmsLiveData()
+            if(ld.value == null)
+                updateNsgPorts()
             ld
-        } )  {
-            portsLiveData.value = it
-        }
+        } )  { portsLiveData.postValue(it) }
+
     }
 
     override suspend fun updateLiveData() {

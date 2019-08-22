@@ -96,7 +96,7 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
      * Updates with data from elastic search;
      * @param query: the  ES query;
      */
-    private  suspend fun update(query: Array<String>, sort: String, size: Int = SIZE, offset: Int = 0)  {
+    private  suspend fun update(query: String, sort: String, size: Int = SIZE, offset: Int = 0)  {
         Log.d(TAG, "Updating DPI Probestats")
         val service = ElasticSearchRetrofitSingleton.dpiProbestats()
         withContext(Dispatchers.IO) {
@@ -114,7 +114,7 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
                 //Recursive search
                 result?.run {
                     Log.d(TAG, "Getting update - $offset of ${this.hits.total ?: 0}")
-                    if (this.hits.total ?: 0 > offset + size)
+                    if (this.hits.total ?: 0 > offset + size && offset + size < 10000)
                         update(query, sort, size, offset + size)
                 }
             } catch (ex: Exception) {}

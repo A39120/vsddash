@@ -28,8 +28,8 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
     private var wasScrolled = false
 
-    private val HORIZONTAL_LINES = 3
-    private val VERTICAL_LINES = 3
+    private val HORIZONTAL_LINES = 2
+    private val VERTICAL_LINES = 2
     private val HORIZONTAL_LABEL_ANGLE = 0
 
 
@@ -94,7 +94,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
      * Gets the horizontal label format, this can be overridden to display non-hourly X labels
      */
     protected fun getHorizontalFormat() : LabelFormatter {
-        val simpleDateFormat = SimpleDateFormat("d/M\nhh:mm")
+        val simpleDateFormat = SimpleDateFormat("d/M hh:mm")
         val defaultLabelFormatter = object : DefaultLabelFormatter() {
 
             override fun formatLabel(value: Double, isValueX: Boolean): String {

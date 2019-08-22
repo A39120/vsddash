@@ -22,17 +22,12 @@ class ProbestatsViewModel @Inject constructor(
     private val NSPortRepository: NSPortRepository
 )
     : ViewModel() {
-    companion object{
-        private const val TAG = "VM/PROBE_STATS"
-    }
+    companion object{ private const val TAG = "VM/PROBE_STATS" }
 
     val inbound =  MediatorLiveData<List<DpiProbestats>>()
     val outbound =  MediatorLiveData<List<DpiProbestats>>()
 
-    private val nsgLiveData = MediatorLiveData<NSGInfo>()
-    private val portLiveData = MediatorLiveData<NSPort>()
-
-    private val range = MutableLiveData<DateRange>()
+    private lateinit var range : DateRange
 
     private var port: String? = null
     private var nsg: String? = null
@@ -40,38 +35,29 @@ class ProbestatsViewModel @Inject constructor(
 
     private suspend fun setLiveData()  {
         Log.d(TAG, "Setting liveData of probe list - Port: $port and NSG: $nsg)")
-        nsgLiveData.addSource(nsgRepository.get(nsg!!)) { nsgLiveData.value = it }
-        portLiveData.addSource(NSPortRepository.get(port!!)) { portLiveData.value = it }
 
-        inbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
-            Transformations.switchMap(portLiveData) { port ->
-                Transformations.switchMap(range) {
-                    range ->
-                        repository.getInbound(port.physicalName ?: "", nsg.name ?: "", apm, range.start, range.end)
-                }
-            }
-        }) {stats -> inbound.value = stats}
+        inbound.addSource(repository.getInbound( port ?: "", nsg ?: "", apm, range.start, range.end ))
+            {stats -> inbound.postValue(stats)}
 
-        outbound.addSource(Transformations.switchMap(nsgLiveData) { nsg ->
-            Transformations.switchMap(portLiveData) { port ->
-                Transformations.switchMap(range) {
-                        range ->
-                        repository.getOutbound(port.physicalName ?: "", nsg.name ?: "", apm, range.start, range.end)
-                }
-            }
-        }) { stats -> outbound.value = stats}
+        if(inbound.value == null)
+            repository.updateInbound( port = port ?: "", nsg = nsg ?: "", apm = apm, start = range.start, end = range.end )
+
+
+        outbound.addSource( repository.getOutbound( port ?: "", nsg ?: "", apm, range.start, range.end ))
+            { stats -> outbound.postValue(stats)}
+
+        if(outbound.value == null)
+            repository.updateOutbound(port?: "", nsg?: "", apm, range.start, range.end)
 
     }
 
     fun updateLiveData() {
         viewModelScope.launch {
-            Log.d(TAG, "Updating liveData from ${range.value?.start} to ${range.value?.end}")
-            val portName = portLiveData.value?.physicalName ?: ""
-            val system = nsgLiveData.value?.name ?: ""
-
-            Log.d(TAG, "Updating for port $portName of NSG $system")
-            repository.updateInbound(portName, system, apm, range.value?.start, range.value?.end)
-            repository.updateOutbound(portName, system, apm, range.value?.start, range.value?.end)
+            Log.d(TAG, "Updating for port $port of NSG $nsg")
+            if(port != null && nsg != null) {
+                repository.updateInbound(port!!, nsg!!, apm, range.start, range.end)
+                repository.updateOutbound(port!!, nsg!!, apm, range.start, range.end)
+            }
         }
     }
 
@@ -81,9 +67,9 @@ class ProbestatsViewModel @Inject constructor(
      * @param max: Maximum timestamp of list
      */
     fun setBoundaries(min: Long? = null, max: Long? = null){
-        val nrange = if(min == null){
+        range = if(min == null){
             if(max == null)
-                TimeRangeCalculator.getLastDayRange()
+                TimeRangeCalculator.getLast5Minutes()
             else
                 TimeRangeCalculator.getHourBefore(max)
         } else {
@@ -92,8 +78,6 @@ class ProbestatsViewModel @Inject constructor(
             else
                 TimeRangeCalculator.getCustomRange(min, max)
         }
-
-        range.postValue(nrange)
     }
 
     fun init(port: String?, nsg: String?) {

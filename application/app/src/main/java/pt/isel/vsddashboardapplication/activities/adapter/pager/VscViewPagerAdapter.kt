@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.list.AlarmFragment
+import pt.isel.vsddashboardapplication.activities.fragment.list.VrsListChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment
 import pt.isel.vsddashboardapplication.activities.fragment.regular.VscFragment
 
@@ -17,7 +18,7 @@ class VscViewPagerAdapter(fm: FragmentManager)
     override fun getItem(position: Int): Fragment = when(position){
         0 -> VscFragment()
         1 -> AlarmFragment() //TODO: AlarmFragment()
-        2 -> VrsListFragment()
+        2 -> VrsListChildFragment()
         else -> throw IllegalStateException()
     }
 

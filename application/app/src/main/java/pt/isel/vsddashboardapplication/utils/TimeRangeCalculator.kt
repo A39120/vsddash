@@ -4,6 +4,9 @@ import java.util.*
 
 object TimeRangeCalculator {
 
+    fun getLast5Minutes() : DateRange =
+        getRange(Calendar.MINUTE, -5)
+
     fun getLastHourRange() : DateRange =
         getRange(Calendar.HOUR, -1)
 

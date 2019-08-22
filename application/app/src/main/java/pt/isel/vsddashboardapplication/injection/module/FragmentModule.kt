@@ -90,4 +90,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributesAvgDekayGraphFragment() : PortAvgDelayGraphFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesVrsListChildFragment() : VrsListChildFragment
 }

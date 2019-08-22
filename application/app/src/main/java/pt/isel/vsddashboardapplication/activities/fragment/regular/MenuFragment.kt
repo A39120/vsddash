@@ -24,7 +24,6 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_menu, container, false)
-        binding.grid.useDefaultMargins = true
         val enterpriseId = args.enterpriseId
         binding.nsgListOption.setOnClickListener {
             val directions = MenuFragmentDirections.actionMenuFragmentToNSGatewayListFragment(enterpriseId)

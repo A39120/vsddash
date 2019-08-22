@@ -65,7 +65,8 @@ data class VRS(
     @Json(name = "status") val status: String? = "",
     @Json(name = "uptime") val uptime: Long? = 0,
     @Json(name = "vscConfigState") val vscConfigState: String? = "",
-    @Json(name = "vscCurrentState") val vscCurrentState: String? = ""
+    @Json(name = "vscCurrentState") val vscCurrentState: String? = "",
+    var vsc: String? = null
 ) : BaseEvent {
     fun isUp() = status == "UP"
 }

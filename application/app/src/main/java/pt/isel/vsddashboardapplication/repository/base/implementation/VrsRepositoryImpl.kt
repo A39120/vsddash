@@ -121,7 +121,10 @@ class VrsRepositoryImpl @Inject constructor(
 
         withContext(Dispatchers.IO){
             val completed = await?.await()
-            completed?.forEach { dao.save(it) }
+            completed?.forEach {
+                it.vsc = parentId
+                dao.save(it)
+            }
             onFinish?.invoke()
         }
     }

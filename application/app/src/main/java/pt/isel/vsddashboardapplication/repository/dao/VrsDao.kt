@@ -17,7 +17,7 @@ interface VrsDao : BaseDao<VRS>{
     @Query("SELECT * FROM vrs WHERE id = :id")
     override fun load(id: String) : LiveData<VRS?>
 
-    @Query("SELECT * FROM vrs WHERE parentID = :id AND parentType = 'VSC'")
+    @Query("SELECT * FROM vrs WHERE vsc = :id")
     fun loadForVsc(id : String) : LiveData<List<VRS>?>
 
     @Query("SELECT * FROM vrs WHERE parentId IS NULL")

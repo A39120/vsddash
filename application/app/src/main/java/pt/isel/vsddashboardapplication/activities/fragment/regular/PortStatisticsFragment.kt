@@ -21,9 +21,6 @@ class PortStatisticsFragment : DaggerFragment() {
 
     private lateinit var binding : FragmentPortStatisticsBinding
 
-    @Inject
-
-
     /**
      * Sets the view for the fragment
      */

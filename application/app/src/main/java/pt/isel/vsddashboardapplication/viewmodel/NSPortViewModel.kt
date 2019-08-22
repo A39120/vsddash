@@ -44,7 +44,12 @@ class NSPortViewModel @Inject constructor(
             if(liveData.value == null)
                 repositoryNS.get(portId)
 
-            alarmsLiveData.addSource(Transformations.switchMap(liveData) { repositoryNS.getAlarms(it.iD) }) {
+            alarmsLiveData.addSource(Transformations.switchMap(liveData) {
+                val ld = repositoryNS.getAlarms(it.iD)
+                if(ld.value == null)
+                    viewModelScope.launch { repositoryNS.updateAlarms(it.iD) }
+                ld
+            }) {
                 alarmsLiveData.value = it
             }
         }

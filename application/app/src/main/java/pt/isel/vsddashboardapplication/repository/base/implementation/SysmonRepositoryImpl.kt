@@ -34,7 +34,7 @@ class SysmonRepositoryImpl @Inject constructor(
      * @param size the maximum size of a result
      * @param page the current page
      */
-    private suspend fun updatePage(query: Array<String>, size: Int) {
+    private suspend fun updatePage(query: String, size: Int) {
         val timestamp = "timestamp:asc"
         var page = 0
         withContext(Dispatchers.IO) {

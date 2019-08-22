@@ -1,9 +1,6 @@
 package pt.isel.vsddashboardapplication.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.model.VRS
@@ -24,6 +21,7 @@ class VscViewModel @Inject constructor(
     private val alarmRefreshStateLiveData = MediatorLiveData<RefreshState>()
 
     val vrsLiveData = MediatorLiveData<List<VRS>?>()
+    val vrsRefreshState = MutableLiveData<RefreshState>()
 
     override fun getRefreshState(): LiveData<RefreshState> = this.alarmRefreshStateLiveData
 
@@ -37,9 +35,11 @@ class VscViewModel @Inject constructor(
 
         alarmLiveData.addSource(Transformations.switchMap(liveData){ vsc ->
             repository.getAlarms(vsc.iD)
-        }){
-            alarmLiveData.value = it
-        }
+        }){ alarmLiveData.postValue(it) }
+
+        vrsLiveData.addSource(Transformations.switchMap(liveData) {vsc ->
+            vrsRepository.getAll(vsc.iD)
+        }) { vrsLiveData.postValue(it) }
     }
 
     override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = alarmLiveData
@@ -53,8 +53,8 @@ class VscViewModel @Inject constructor(
 
     fun updateVrss() {
         viewModelScope.launch {
-            refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-            vrsRepository.updateAll(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+            vrsRefreshState.postValue(RefreshState.INPROGRESS)
+            vrsRepository.updateAll(id) { vrsRefreshState.postValue(RefreshState.NONE) }
         }
     }
 
