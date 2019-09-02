@@ -29,17 +29,21 @@ class VscViewModel @Inject constructor(
         liveData.addSource(repository.get(id)){ liveData.value = it }
         if(liveData.value == null) {
             repository.update(id)
-            repository.updateAlarms(id)
-            vrsRepository.updateAll(id)
         }
 
         alarmLiveData.addSource(Transformations.switchMap(liveData){ vsc ->
-            repository.getAlarms(vsc.iD)
+            val ld = repository.getAlarms(vsc.iD)
+            ld.value?: viewModelScope.launch { repository.updateAlarms(id) }
+            ld
         }){ alarmLiveData.postValue(it) }
 
         vrsLiveData.addSource(Transformations.switchMap(liveData) {vsc ->
-            vrsRepository.getAll(vsc.iD)
-        }) { vrsLiveData.postValue(it) }
+            val ld = repository.getVrss(vsc.iD)
+            ld.value?: viewModelScope.launch { repository.updateVrss(vsc.iD) }
+            ld
+        }) {
+            vrsLiveData.postValue(it)
+        }
     }
 
     override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = alarmLiveData
@@ -54,7 +58,7 @@ class VscViewModel @Inject constructor(
     fun updateVrss() {
         viewModelScope.launch {
             vrsRefreshState.postValue(RefreshState.INPROGRESS)
-            vrsRepository.updateAll(id) { vrsRefreshState.postValue(RefreshState.NONE) }
+            repository.updateVrss(id) { vrsRefreshState.postValue(RefreshState.NONE) }
         }
     }
 

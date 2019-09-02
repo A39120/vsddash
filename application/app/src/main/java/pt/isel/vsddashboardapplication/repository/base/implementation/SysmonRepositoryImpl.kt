@@ -13,18 +13,20 @@ import javax.inject.Inject
 class SysmonRepositoryImpl @Inject constructor(
     private val sysmonDao: SysmonDao
 ): SysmonRepository {
+    companion object {
+        private const val DEFAULT_SIZE = 100
+    }
 
-    override suspend fun update(id: String, from: Long, to: Long) {
+    override suspend fun update(id: String, from: Long?, to: Long?) {
         val query = ElasticSearchQueryBuilder()
             .addSimpleQuery("system_id", id)
             .addRange("timestamp", from, to)
             .build()
 
-        val size = ElasticSearchQueryBuilder.calculateSize(from, to)
-        updatePage(query, size)
+        updatePage(query, DEFAULT_SIZE)
     }
 
-    override fun get(id: String, from: Long, to: Long): LiveData<List<Sysmon>> =
+    override fun get(id: String, from: Long?, to: Long?): LiveData<List<Sysmon>> =
         sysmonDao.load(id)//, from, to)
 
 

@@ -3,6 +3,7 @@ package pt.isel.vsddashboardapplication.activities.fragment.parent
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs

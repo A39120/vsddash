@@ -20,7 +20,7 @@ class PortPacketLossGraphFragment : BaseProbestatsGraphFragment() {
     }
 
     @StringRes
-    override fun getVerticalTitleResource(): Int = R.string.avg_jitter
+    override fun getVerticalTitleResource(): Int = R.string.pkt_loss
 
 
 }

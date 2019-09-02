@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
+		<import type="android.view.View"/>
+		<import type="pt.isel.vsddashboardapplication.utils.DateUtils"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.Status"/>
 		<variable name="vrs" type="pt.isel.vsddashboardapplication.model.VRS"/>
 	</data>
 	<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -35,7 +37,7 @@
 				
 				<!-- VRS -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -55,7 +57,7 @@
 				
 				<!-- Description -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -75,7 +77,7 @@
 				
 				<!-- Description -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -95,7 +97,7 @@
 				
 				<!-- Product Version -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -112,50 +114,61 @@
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
 				</LinearLayout>
-				
-				<!-- Status -->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
+					
+					<!-- status of the vrs -->
+					<LinearLayout
+						
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/status + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/vrs_status_value"
-						android:text="@{vrs.status}"
+						android:visibility="@{vrs.status == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/status + `: `}"
+							android:textStyle="bold" />
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<androidx.appcompat.widget.AppCompatImageView
+								android:src="@{vrs.status == Status.UP ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+							<TextView
+								android:id="@+id/vrs_status_value"
+								android:text="@{vrs.status.toString()}"
+								android:layout_weight=".90"
+								android:layout_height="wrap_content"
+								android:layout_width="0dp" />
+						</LinearLayout>
+					</LinearLayout>
+					
+					<!-- Product Version ->
+					<LinearLayout
+						
+						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout>
-				
-				<!-- Product Version ->
-				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="horizontal">
-					<TextView
-						android:layout_marginEnd="@dimen/small_margin"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content"
-						android:textSize="@dimen/label_size"
-						android:text="@{@string/creation_date + `: `}"
-						android:textStyle="bold" />
-					<TextView
-						android:id="@+id/vrs_creationdate_value"
-						app:time="@{vrs.creationDate}"
-						android:layout_height="wrap_content"
-						android:layout_width="wrap_content" />
-				</LinearLayout> -->
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/creation_date + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/vrs_creationdate_value"
+							app:time="@{vrs.creationDate}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout> -->
 				
 				<!-- Management IP -->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -175,7 +188,7 @@
 				
 				<!-- uptime ->
 				<LinearLayout
-					android:layout_marginBottom="@dimen/margin_default"
+					
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:orientation="horizontal">
@@ -192,9 +205,262 @@
 						android:layout_height="wrap_content"
 						android:layout_width="wrap_content" />
 				</LinearLayout-->
-				
+					
+					<!-- Creation Date of the vrs -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.creationDate  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/creationdate + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/vrs_creationdate_value"
+							android:text="@{DateUtils.toDate(vrs.creationDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Updated Date of the vrs -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.lastUpdatedDate  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/lastupdated + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/vrs_updateddate_value"
+							android:text="@{DateUtils.toDate(vrs.lastUpdatedDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Updated Date of the vrs -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/personality + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/personality_value"
+							android:text="@{vrs.personality.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- role -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.role  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/role + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/role_value"
+							android:text="@{vrs.role.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- number of virtual machines -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.numberOfVirtualMachines  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/number_vm + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nb_virtual_machines_value"
+							android:text="@{vrs.numberOfVirtualMachines.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- number of containers -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.numberOfContainers  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/number_container + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nb_containes"
+							android:text="@{vrs.numberOfContainers.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- number of host if -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.numberOfHostInterfaces  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/number_host + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nb_host"
+							android:text="@{vrs.numberOfHostInterfaces.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- number of bridges -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vrs.numberOfVirtualMachines  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/number_bridge + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nb_bridge_value"
+							android:text="@{vrs.numberOfBridgeInterfaces.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
 				</LinearLayout>
+				
 			</com.google.android.material.card.MaterialCardView>
+				
+				<com.google.android.material.card.MaterialCardView
+					android:theme="@style/CardView.Light"
+					android:layout_margin="@dimen/margin_default"
+					android:padding="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<LinearLayout
+						android:orientation="vertical"
+						android:layout_margin="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+					
+						<TextView
+							android:gravity="center"
+							android:text="@string/hypervisor"
+							android:textSize="@dimen/title_size"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"/>
+						
+						<!-- Updated Date of the vrs -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{vrs.hypervisorName  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/name + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/hypervisor_name_value"
+								android:text="@{vrs.hypervisorName.toString()}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- Updated Date of the vrs -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{vrs.hypervisorType  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/type + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/hypervisor_type_value"
+								android:text="@{vrs.hypervisorType.toString()}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						
+						<!-- status of the vrs -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{vrs.hypervisorConnectionState == null ? View.GONE : View.VISIBLE }"
+							android:orientation="vertical">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/status + `: `}"
+								android:textStyle="bold" />
+							<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:orientation="horizontal">
+								<androidx.appcompat.widget.AppCompatImageView
+									android:src="@{vrs.hypervisorConnectionState == Status.UP ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+								<TextView
+									android:id="@+id/hypervisor_status"
+									android:text="@{vrs.hypervisorConnectionState.toString()}"
+									android:layout_weight=".90"
+									android:layout_height="wrap_content"
+									android:layout_width="0dp" />
+							</LinearLayout>
+						</LinearLayout>
+					</LinearLayout>
+				</com.google.android.material.card.MaterialCardView>
 				
 				<com.google.android.material.button.MaterialButton
 					android:layout_margin="@dimen/margin_default"

@@ -18,7 +18,7 @@ interface VspDao : BaseDao<VSP>{
     override fun load(id: String) : LiveData<VSP?>
 
     @Query("DELETE FROM vsp WHERE id = :id")
-    fun delete(id: String)
+    override fun delete(id: String)
 
     @Query("SELECT * FROM vsp")
     fun loadAll() : LiveData<List<VSP>?>

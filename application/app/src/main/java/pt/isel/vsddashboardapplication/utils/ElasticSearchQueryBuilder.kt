@@ -1,6 +1,5 @@
 package pt.isel.vsddashboardapplication.utils
 
-import java.lang.StringBuilder
 import java.util.*
 
 class ElasticSearchQueryBuilder {

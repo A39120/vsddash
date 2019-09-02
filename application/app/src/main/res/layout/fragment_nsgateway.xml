@@ -3,6 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
 		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
+		<import type="pt.isel.vsddashboardapplication.utils.DateUtils"/>
 		<import type="android.view.View"/>
 		<import type="androidx.lifecycle.LiveData" />
 		<variable name="nsg" type="pt.isel.vsddashboardapplication.model.NSGInfo"/>
@@ -18,6 +19,8 @@
 			android:layout_height="wrap_content">
 			
 			<LinearLayout
+				android:visibility="@{nsg == null ? View.GONE : View.VISIBLE}"
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 			
@@ -54,12 +57,12 @@
 								android:layout_width="wrap_content" />
 						</LinearLayout>
 						
-						<!-- description of the nsg -->
-						<!--<LinearLayout
+						<!-- description of the nsg ->
+						<LinearLayout
 							android:layout_marginBottom="@dimen/margin_default"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
-							android:visibility="@{nsg.description  == null ? View.GONE : View.VISIBLE }"
+							android:visibility="@{nsg.description  == null ? View.GONE : View.VISIBLE}"
 							android:orientation="horizontal">
 							<TextView
 								android:layout_marginEnd="@dimen/small_margin"
@@ -73,8 +76,7 @@
 								android:text="@{nsg.description}"
 								android:layout_height="wrap_content"
 								android:layout_width="wrap_content" />
-						</LinearLayout>
-						-->
+						</LinearLayout-->
 						
 						<!-- status of the nsg -->
 						<LinearLayout
@@ -93,14 +95,11 @@
 							<LinearLayout
 								android:layout_width="match_parent"
 								android:layout_height="wrap_content"
-								android:visibility="@{nsg.bootstrapStatus  == null ? View.GONE : View.VISIBLE }"
 								android:orientation="horizontal">
-								<View
-									android:id="@+id/nsgbootstrap_active"
-									android:background="@drawable/active"
-									android:layout_weight=".1"
-									android:layout_width="0dp"
-									android:layout_height="0dp"/>
+								<androidx.appcompat.widget.AppCompatImageView
+									android:src="@{nsg.bootstrapStatus == BootstrapStatus.ACTIVE ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
 								<TextView
 									android:id="@+id/nsg_status_value"
 									android:text="@{nsg.bootstrapStatus.toString()}"
@@ -155,7 +154,7 @@
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:visibility="@{nsg.BIOSVersion  == null ? View.GONE : View.VISIBLE }"
-							android:orientation="vertical">
+							android:orientation="horizontal">
 							<TextView
 								android:layout_marginEnd="@dimen/small_margin"
 								android:layout_height="wrap_content"
@@ -170,101 +169,243 @@
 								android:layout_width="wrap_content" />
 						</LinearLayout>
 						
-						<!--
-						<include
-							android:id="@+id/nsg_status"
-							layout="@layout/layout_label"
-							bind:label="@{@string/status}" />
 						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{@string/netaccelaration}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/configstatus}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/personality}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/product}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/family}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/operstatus}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/opermode}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/lastupdated}"
-							bind:value="@{nsg.networkAcceleration}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{string/creationdate}"
-							bind:value="@{nsg.networkAcceleration}" />
-						<include
-							android:id="@+id/nsg_serial"
-							layout="@layout/layout_label"
-							bind:label="@{@string/serial}"
-							 />
-						
-						<include
-							android:id="@+id/nsg_cpu"
-							layout="@layout/layout_label"
-							bind:label="@{@string/CPU}"
-						/>
-						
-						<include
-							android:id="@+id/nsg_bios"
-							layout="@layout/layout_label"
-							bind:label="@{@string/bios}"
-						/>
-						
-					
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{@string/name}"
-							bind:value="@{viewmodel.nsg.get().name}" />
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{@string/description}"
-							bind:value="@{viewmodel.nsg.get().description}"/>
-						
-						<include
-							layout="@layout/layout_label"
-							bind:label="@{@string/version}"
-							bind:value="@{viewmodel.nsg.get().NSGVersion}"/>
-						
-						-->
-						
-						<com.google.android.material.button.MaterialButton
-							android:id="@+id/statistics"
-							android:layout_margin="@dimen/margin_default"
-							android:text="@string/statistics"
-							android:layout_width="match_parent"
-						    android:layout_height="wrap_content"/>
 				
+					
+					<!-- Personality of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.personality  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/personality + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_personality_value"
+							android:text="@{nsg.personality.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Personality of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.family  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/family + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_family_value"
+							android:text="@{nsg.family.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Creation Date of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.creationDate  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/creationdate + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_creationdate_value"
+							android:text="@{DateUtils.toDate(nsg.creationDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Updated Date of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.lastUpdatedDate  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/lastupdated + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_updateddate_value"
+							android:text="@{DateUtils.toDate(nsg.lastUpdatedDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- product name of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.productName  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/product + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_productname_value"
+							android:text="@{nsg.productName}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- system name of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.systemID  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/systemid + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_systemid_value"
+							android:text="@{nsg.systemID}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					
+					<!-- system name of the nsg -->
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{nsg.nSGVersion  == null ? View.GONE : View.VISIBLE }"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/version + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/nsg_version_value"
+							android:text="@{nsg.nSGVersion}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
 					</LinearLayout>
 				</com.google.android.material.card.MaterialCardView>
+				
+				<com.google.android.material.card.MaterialCardView
+					android:theme="@style/CardView.Light"
+					android:layout_margin="@dimen/margin_default"
+					android:padding="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<LinearLayout
+						android:padding="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="vertical">
+						
+						<TextView
+							android:gravity="center_horizontal"
+							android:layout_width="match_parent"
+							android:textAppearance="@font/ddin_bold"
+							android:textSize="@dimen/title_size"
+							android:text="@string/command"
+							android:layout_height="wrap_content"/>
+						
+						<!-- system name of the nsg -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{nsg.cmdDetailedStatus  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="vertical">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/detailed_status + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_cmddetails_value"
+								android:text="@{nsg.cmdDetailedStatus}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- system name of the nsg -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{nsg.cmdDownloadProgress  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/downloadprogress + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_downloadprogress_value"
+								android:text="@{nsg.cmdDownloadProgress}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						
+						<!-- system name of the nsg -->
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{nsg.cmdLastUpdatedDate  == null ? View.GONE : View.VISIBLE }"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/lastupdated + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/nsg_cmdupdateddate_value"
+								android:text="@{DateUtils.toDate(nsg.cmdLastUpdatedDate)}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+					</LinearLayout>
+					
+				</com.google.android.material.card.MaterialCardView>
+				<com.google.android.material.button.MaterialButton
+					android:id="@+id/statistics"
+					android:layout_margin="@dimen/margin_default"
+					android:text="@string/statistics"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+				
 			</LinearLayout>
 		</ScrollView>
 	</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
     private suspend fun changeConnectButton(status: ButtonStatus, job: Job? = null) {
         Log.d(TAG, "Changing the connect button to status $status.")
         val connect = View.OnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {startAuthentication() }
+            CoroutineScope(Dispatchers.Main).launch { startAuthentication() }
         }
 
         val cancel = View.OnClickListener {
@@ -42,6 +42,7 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
             ButtonStatus.ERROR -> changeButton(R.string.connection_failed, connect)
         }
     }
+
     /**
      * The Main UI Context, needed for nested functions inside IO/Default dispatchers
      */
@@ -129,7 +130,6 @@ class LoginFragment : BaseFragment<LoginViewModel, FragmentLoginBinding>(), Coro
                     EventWorker.enqueue()
             }
             val directions = LoginFragmentDirections.actionLoginFragmentToEnterpriseListFragment()
-            //Navigation.findNavController(this@LoginFragment.view!!).navigate(R.id.action_loginFragment_to_menuFragment)
             Navigation.findNavController(this@LoginFragment.view!!).navigate(directions)
         } catch (ex: Throwable) {
             Log.e(TAG, "Authentication error occurred.\n ${ex.message}")

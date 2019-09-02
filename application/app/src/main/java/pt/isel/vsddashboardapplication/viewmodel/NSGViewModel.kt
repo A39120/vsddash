@@ -49,8 +49,7 @@ class NSGViewModel @Inject constructor(
 
         nsginfo.addSource(Transformations.switchMap(liveData) {
             val ld = repository.getNsgInfo(it.ID)
-            if(ld.value == null)
-                updateNsgInfo()
+            viewModelScope.launch { repository.updateNsgInfo(id) }
             ld
         }) {
             nsginfo.value = it
@@ -60,14 +59,14 @@ class NSGViewModel @Inject constructor(
         alarmsLiveData.addSource( Transformations.switchMap(liveData) {
             val ld = repository.getAlarms(it.ID)
             if(ld.value == null)
-                updateAlarmsLiveData()
+                viewModelScope.launch { repository.updateAlarms(it.ID) }
             ld
         }) { alarmsLiveData.postValue(it) }
 
         portsLiveData.addSource( Transformations.switchMap(liveData) {
             val ld = NSPortRepository.getAll(it.ID)
             if(ld.value == null)
-                updateNsgPorts()
+                viewModelScope.launch { NSPortRepository.updateAll(it.ID) }
             ld
         } )  { portsLiveData.postValue(it) }
 

@@ -30,5 +30,4 @@ class VspParentFragment : BasePagerFragment() {
         viewModel.init()
     }
 
-
 }

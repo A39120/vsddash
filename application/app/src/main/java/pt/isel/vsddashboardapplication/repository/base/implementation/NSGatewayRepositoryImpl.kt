@@ -36,7 +36,9 @@ class NSGatewayRepositoryImpl @Inject constructor(
             ?.await()
 
         if(!gateways.isNullOrEmpty())
-            gateways.forEach { nsgInfoDao.save(it) }
+            gateways.forEach {
+                nsgInfoDao.save(it)
+            }
 
         onFinish?.invoke()
         return@withContext

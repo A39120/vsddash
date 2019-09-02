@@ -2,7 +2,6 @@ package pt.isel.vsddashboardapplication.injection.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import pt.isel.vsddashboardapplication.activities.fragment.parent.LoadingActivity
 import pt.isel.vsddashboardapplication.activities.fragment.parent.MainActivity
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
@@ -17,8 +16,6 @@ abstract class ActivityBuilder {
     abstract fun contributeMainActivity() : MainActivity
 
     @ContributesAndroidInjector
-    abstract fun contributeLoadingActivity() : LoadingActivity
-
-    @ContributesAndroidInjector
     abstract fun contributeNSPortActivity() : NSPortPagerFragment
+
 }

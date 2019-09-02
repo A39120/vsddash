@@ -15,7 +15,7 @@ import pt.isel.vsddashboardapplication.model.Alarm
 interface AlarmDao : BaseDao<Alarm>{
 
     @Insert(onConflict = REPLACE)
-    override fun save(alarm: Alarm)
+    override fun save(arg: Alarm)
 
     @Query("SELECT * FROM alarm WHERE id = :id")
     override fun load(id: String) : LiveData<Alarm?>
@@ -24,9 +24,12 @@ interface AlarmDao : BaseDao<Alarm>{
     fun loadAll(nsg : String) : LiveData<List<Alarm>?>
 
     @Delete
-    override fun delete(vararg alarm: Alarm)
+    override fun delete(vararg args: Alarm)
 
     @Query("DELETE FROM alarm")
     override fun deleteAll()
+
+    @Query("DELETE FROM alarm WHERE iD = :id")
+    override fun delete(id: String)
 
 }

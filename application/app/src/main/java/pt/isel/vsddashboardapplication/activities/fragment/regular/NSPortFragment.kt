@@ -29,7 +29,7 @@ class NSPortFragment : BaseChildFragment<FragmentNsportBinding>(), IRefreshableC
                 val name = it.physicalName
                 if(name != null && nsg != null) {
                     val directions = NSPortPagerFragmentDirections
-                        .actionNSPortPagerFragmentToPortStatisticsFragment( null, null, name, nsg )
+                        .actionNSPortPagerFragmentToPortStatisticsFragment( name, nsg )
                     Navigation.findNavController(view).navigate(directions)
                 }
             }

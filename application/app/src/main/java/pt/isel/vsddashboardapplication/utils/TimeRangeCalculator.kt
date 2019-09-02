@@ -5,19 +5,19 @@ import java.util.*
 object TimeRangeCalculator {
 
     fun getLast5Minutes() : DateRange =
-        getRange(Calendar.MINUTE, -5)
+        getRangeFromCurrent(Calendar.MINUTE, -5)
 
     fun getLastHourRange() : DateRange =
-        getRange(Calendar.HOUR, -1)
+        getRangeFromCurrent(Calendar.HOUR, -1)
 
     fun getLastDayRange(): DateRange =
-        getRange(Calendar.DAY_OF_YEAR, -1)
+        getRangeFromCurrent(Calendar.DAY_OF_YEAR, -1)
 
     fun getLastWeekRange() : DateRange =
-        getRange(Calendar.WEEK_OF_YEAR, -1)
+        getRangeFromCurrent(Calendar.WEEK_OF_YEAR, -1)
 
     fun getLastMonth() : DateRange =
-        getRange(Calendar.MONTH, -1)
+        getRangeFromCurrent(Calendar.MONTH, -1)
 
     fun getCustomRange(start: Long, end: Long) =
         DateRange(start, end)
@@ -40,14 +40,14 @@ object TimeRangeCalculator {
     }
 
 
-    private fun getRange(unit: Int, amount: Int) : DateRange {
+    private fun getRangeFromCurrent(unit: Int, amount: Int) : DateRange {
 
         val calendar = Calendar.getInstance()
         val current = calendar.timeInMillis
 
         calendar.add(unit, amount)
         val yesterday = calendar.timeInMillis
-        return DateRange(yesterday, current)
+        return DateRange(yesterday, null)
     }
 
     /**

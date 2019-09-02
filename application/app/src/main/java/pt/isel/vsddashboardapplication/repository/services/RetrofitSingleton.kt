@@ -21,6 +21,14 @@ object RetrofitSingleton {
     private var vspService: VspService? = null
     private var vportService: VPortService? = null
     private var performanceMonitorService : PerformanceMonitorService? = null
+    private var healthServices : HealthServices? = null
+
+    fun healthService() : HealthServices? {
+        if(healthServices == null){
+            healthServices = retrofit?.create(HealthServices::class.java)
+        }
+        return healthServices
+    }
 
     fun vrsService() : VrsService? {
         if(vrsService == null)

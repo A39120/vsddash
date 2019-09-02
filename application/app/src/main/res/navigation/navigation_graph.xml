@@ -5,7 +5,7 @@
 	
 	<fragment android:id="@+id/loginFragment"
 	    android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.LoginFragment"
-	    android:label="LoginFragment">
+	    android:label="Login">
 		<action android:id="@+id/action_loginFragment_to_apiSettingsFragment"
 		        app:destination="@id/apiSettingsFragment"/>
 		<action android:id="@+id/action_loginFragment_to_enterpriseListFragment"
@@ -13,11 +13,11 @@
 	</fragment>
 	<fragment android:id="@+id/apiSettingsFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.ApiSettingsFragment"
-		android:label="ApiSettingsFragment">
+		android:label="Api Settings">
 		<action android:id="@+id/action_apiSettingsFragment_to_loginFragment" app:destination="@id/loginFragment"/>
 	</fragment>
 	<fragment android:id="@+id/menuFragment" android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.MenuFragment"
-		android:label="MenuFragment">
+		android:label="Menu">
 		<argument android:name="enterpriseId" app:argType="string" app:nullable="false"/>
 		<action
 			android:id="@+id/action_menuFragment_to_NSGatewayListFragment"
@@ -28,9 +28,10 @@
 		<action android:id="@+id/action_menuFragment_to_vspParentFragment" app:destination="@id/vspParentFragment"/>
 		<action android:id="@+id/action_menuFragment_to_vrsListFragment"   app:destination="@id/vrsListFragment"/>
 	</fragment>
-	<fragment android:id="@+id/NSGatewayListFragment"
+	<fragment
+		android:id="@+id/NSGatewayListFragment"
 	    android:name="pt.isel.vsddashboardapplication.activities.fragment.list.NSGatewayListFragment"
-	    android:label="NSGatewayListFragment">
+	    android:label="NSGateway List">
 		<argument android:name="enterpriseId" app:argType="string" app:nullable="false"/>
 		<action
 			app:enterAnim="@android:anim/fade_in"
@@ -38,18 +39,20 @@
 			android:id="@+id/action_NSGatewayListFragment_to_nsgFragment"
 			app:destination="@id/nsgFragment"/>
 	</fragment>
-	<fragment android:id="@+id/enterpriseListFragment"
+	<fragment
+		android:id="@+id/enterpriseListFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.list.EnterpriseListFragment"
-		android:label="EnterpriseListFragment">
+		android:label="Enterprise List">
 		<action
 			android:id="@+id/action_enterpriseListFragment_to_menuFragment"
 			app:destination="@id/menuFragment">
 			<argument android:name="enterpriseId" app:argType="string" app:nullable="false"/>
 		</action>
 	</fragment>
-	<fragment android:id="@+id/nsgFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment"
-		android:label="NsgFragment">
+	<fragment
+		android:id="@+id/nsgFragment"
+	    android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment"
+		android:label="NSG">
 		<argument android:name="nsgId" app:argType="string" app:nullable="false"/>
 		<action android:id="@+id/action_nsgFragment_to_NSPortPagerFragment" app:destination="@id/NSPortPagerFragment"/>
 		<action android:id="@+id/action_nsgFragment_to_parentSysmonFragment"
@@ -57,7 +60,7 @@
 	</fragment>
 	<fragment android:id="@+id/NSPortPagerFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.NSPortPagerFragment"
-	          android:label="NSPortPagerFragment">
+	          android:label="NSG Port">
 		<argument android:name="nsgId" app:nullable="false" app:argType="string"/>
 		<argument android:name="portId" app:nullable="false" app:argType="string"/>
 		<action android:id="@+id/action_NSPortPagerFragment_to_portStatisticsFragment"
@@ -65,24 +68,25 @@
 	</fragment>
 	<fragment android:id="@+id/settingsFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.SettingsFragment"
-	          android:label="SettingsFragment"/>
+	          android:label="Settings"/>
 	<fragment android:id="@+id/vspParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment"
-	          android:label="VspParentFragment">
+	          android:label="VSP">
 		<action android:id="@+id/action_vspParentFragment_to_vscParentFragment"
 		        app:destination="@id/vscParentFragment">
 			<argument android:name="vscId" app:argType="string" app:nullable="false"/>
 		</action>
 	</fragment>
-	<fragment android:id="@+id/vrsListFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment"
-	          android:label="VrsListFragment">
+	<fragment
+		android:id="@+id/vrsListFragment"
+	    android:name="pt.isel.vsddashboardapplication.activities.fragment.list.VrsListFragment"
+	    android:label="VRS List">
 		<argument android:name="vscId" app:argType="string" app:nullable="true"/>
 		<action android:id="@+id/action_vrsListFragment_to_vrsParentFragment" app:destination="@id/vrsParentFragment"/>
 	</fragment>
 	<fragment android:id="@+id/vscParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment"
-	          android:label="VscParentFragment">
+	          android:label="VSC">
 		<argument android:name="vscId" app:nullable="false" app:argType="string"/>
 		<action android:id="@+id/action_vscParentFragment_to_vrsParentFragment"
 		        app:destination="@id/vrsParentFragment"/>
@@ -91,7 +95,7 @@
 	</fragment>
 	<fragment android:id="@+id/vrsParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VrsParentFragment"
-	          android:label="VrsParentFragment">
+	          android:label="VRS">
 		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
 		<action android:id="@+id/action_vrsParentFragment_to_vportParentFragment"
 		        app:destination="@id/vportParentFragment"/>
@@ -100,7 +104,7 @@
 	</fragment>
 	<fragment android:id="@+id/vportParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.VportParentFragment"
-	          android:label="VportParentFragment">
+	          android:label="VPort">
 		<argument android:name="vportId" app:argType="string" app:nullable="false"/>
 		<argument android:name="vrsId" app:argType="string" app:nullable="false"/>
 		<action android:id="@+id/action_vportParentFragment_to_portStatisticsFragment"
@@ -108,25 +112,33 @@
 	</fragment>
 	<fragment android:id="@+id/portStatisticsParentFragment"
 	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.PortStatisticsParentFragment"
-	          android:label="PortStatisticsFragment">
-		<argument android:name="apmName" app:argType="string" app:nullable="true"/>
-		<argument android:name="npmName" app:argType="string" app:nullable="true"/>
+	          android:label="Port Statistics">
 		<argument android:name="uplinkName" app:argType="string"/>
 		<argument android:name="nsg" app:argType="string"/>
-		<action android:id="@+id/action_portStatisticsParentFragment_to_portSettingsFragment"
-		        app:destination="@id/portSettingsFragment"/>
-	</fragment>
-	<fragment android:id="@+id/portSettingsFragment"
-	          android:name="pt.isel.vsddashboardapplication.activities.fragment.parent.PortSettingsFragment"
-	          android:label="PortSettingsFragment">
-		<action android:id="@+id/action_portSettingsFragment_to_portStatisticsParentFragment"
-		        app:destination="@id/portStatisticsParentFragment"/>
+		<action
+			android:id="@+id/action_portStatisticsParentFragment_to_dpiStatsSettingsFragment"
+			app:destination="@id/dpiStatsSettingsFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/parentSysmonFragment"
 		android:name="pt.isel.vsddashboardapplication.activities.fragment.graph.ParentSysmonFragment"
-		android:label="ParentSysmonFragment">
+		android:label="System Monitor">
 		<argument android:name="systemId" app:argType="string" app:nullable="false"/>
 	</fragment>
+	<fragment
+		android:id="@+id/dpiStatsSettingsFragment"
+		android:name="pt.isel.vsddashboardapplication.activities.fragment.regular.DpiStatsSettingsFragment"
+		android:label="DpiStatsSettingsFragment" >
+		<action
+			android:id="@+id/action_dpiStatsSettingsFragment_to_portStatisticsParentFragment"
+			app:destination="@id/portStatisticsParentFragment" />
+		<argument android:name="enterpriseId" app:argType="string" app:nullable="false"/>
+		<argument android:name="port" app:argType="string" app:nullable="false"/>
+		<argument android:name="nsg" app:argType="string" app:nullable="false"/>
+	</fragment>
+	
+	<action
+		android:id="@+id/action_global_menuFragment"
+		app:destination="@+id/menuFragment"/>
 
 </navigation>

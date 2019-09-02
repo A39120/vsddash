@@ -20,7 +20,7 @@ class PortAvgDelayGraphFragment : BaseProbestatsGraphFragment() {
     }
 
     @StringRes
-    override fun getVerticalTitleResource(): Int = R.string.avg_jitter
+    override fun getVerticalTitleResource(): Int = R.string.avg_delay
 
 
 }

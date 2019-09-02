@@ -1,6 +1,5 @@
 package pt.isel.vsddashboardapplication.communication.provider
 
-import android.annotation.SuppressLint
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.security.KeyManagementException
@@ -22,9 +21,7 @@ object HttpClientBuilderProvider {
         logging.level = HttpLoggingInterceptor.Level.BODY
         try {
             val trustAllCerts: Array<TrustManager> = arrayOf(object: X509TrustManager{
-                @SuppressLint("TrustAllX509TrustManager")
                 override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) { }
-                @SuppressLint("TrustAllX509TrustManager")
                 override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) { }
                 override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
             })
@@ -44,7 +41,5 @@ object HttpClientBuilderProvider {
 
         return builder
     }
-
-
 
 }

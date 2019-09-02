@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:bind="http://schemas.android.com/tools">
 	<data>
-		<import type="pt.isel.vsddashboardapplication.utils.BindingAdapters"/>
+		<import type="android.view.View"/>
+		<import type="pt.isel.vsddashboardapplication.utils.DateUtils"/>
 		<variable name="vsp" type="pt.isel.vsddashboardapplication.model.VSP"/>
 	</data>
 	
@@ -16,6 +18,8 @@
 			android:layout_height="wrap_content">
 			
 			<com.google.android.material.card.MaterialCardView
+				android:id="@+id/vsp_card"
+				android:visibility="@{vsp == null ? View.GONE : View.VISIBLE}"
 				android:theme="@style/CardView.Light"
 				android:layout_margin="@dimen/margin_default"
 				android:padding="@dimen/margin_default"
@@ -69,7 +73,7 @@
 							android:layout_width="wrap_content" />
 					</LinearLayout>
 					
-					<!-- Creation Date ->
+					<!-- Creation Date -->
 					<LinearLayout
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
@@ -84,12 +88,32 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/_creationdate_value"
-							app:time="@{vsp.creationDate}"
+							android:text="@{DateUtils.toDate(vsp.creationDate)}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
-					</LinearLayout-->
+					</LinearLayout>
 					
+					<!-- Creation Date -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/lastupdated + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/updated_value"
+							android:text="@{DateUtils.toDate(vsp.lastUpdatedDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
 					<!-- Scope ->
+							bind:time="@{vsp.creationDate}"
 					<LinearLayout
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"

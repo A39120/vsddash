@@ -97,4 +97,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SysmonViewModel::class)
     internal abstract fun sysmonViewModel(viewModel: SysmonViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MonitorViewModel::class)
+    internal abstract fun monitorViewModel(viewModel: MonitorViewModel): ViewModel
+
 }

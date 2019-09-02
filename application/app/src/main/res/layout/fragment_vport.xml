@@ -3,6 +3,11 @@
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
 		<import type="android.view.View"/>
+		<import type="pt.isel.vsddashboardapplication.utils.DateUtils"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.OperationalState"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortType"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortSpeed"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortStatus"/>
 		<variable name="vport" type="pt.isel.vsddashboardapplication.model.VPort"/>
 	</data>
 	
@@ -53,8 +58,93 @@
 							android:layout_width="wrap_content" />
 					</LinearLayout>
 					
+					
+					<!-- status of the nsg -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vport.operationalState == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/operationalstate + `: `}"
+							android:textStyle="bold" />
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<androidx.appcompat.widget.AppCompatImageView
+								android:src="@{vport.operationalState == OperationalState.UP ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+							<TextView
+								android:id="@+id/operational_state_value"
+								android:text="@{vport.operationalState.toString()}"
+								android:layout_weight=".90"
+								android:layout_height="wrap_content"
+								android:layout_width="0dp" />
+						</LinearLayout>
+					</LinearLayout>
+					
+					<!-- peert status of the nsg -->
+					<LinearLayout
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:visibility="@{vport.peerOperationalState == null ? View.GONE : View.VISIBLE }"
+						android:orientation="vertical">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/peeroperationalstate + `: `}"
+							android:textStyle="bold" />
+						<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<androidx.appcompat.widget.AppCompatImageView
+								android:src="@{vport.peerOperationalState == OperationalState.UP ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+							<TextView
+								android:id="@+id/peeroperational_value"
+								android:text="@{vport.peerOperationalState.toString()}"
+								android:layout_weight=".90"
+								android:layout_height="wrap_content"
+								android:layout_width="0dp" />
+						</LinearLayout>
+					</LinearLayout>
+					
+					<!-- system type of the port -->
+					<LinearLayout
+						android:visibility="@{vport.description == null ? View.GONE : View.VISIBLE }"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/description + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_description_value"
+							android:text="@{vport.description}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
 					<!-- type of the port -->
 					<LinearLayout
+						android:visibility="@{vport.type == null ? View.GONE : View.VISIBLE }"
 						android:layout_marginBottom="@dimen/margin_default"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
@@ -68,16 +158,210 @@
 							android:textStyle="bold" />
 						<TextView
 							android:id="@+id/port_type_value"
-							android:text="@{vport.type}"
+							android:text="@{vport.type.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- subtype of the port -->
+					<LinearLayout
+						android:visibility="@{vport.subType == null ? View.GONE : View.VISIBLE }"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/subtype + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_subtype_value"
+							android:text="@{vport.subType.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- system type of the port -->
+					<LinearLayout
+						android:visibility="@{vport.systemType == null ? View.GONE : View.VISIBLE }"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/systemtype + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_systemtype"
+							android:text="@{vport.systemType.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- VLAN of the port -->
+					<LinearLayout
+						android:visibility="@{vport.vLAN == null ? View.GONE : View.VISIBLE }"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/vlan + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/vlan_number"
+							android:text="@{vport.vLAN.toString()}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Creation Date -->
+					<LinearLayout
+						android:visibility="@{vport.creationDate == null ? View.GONE : View.VISIBLE}"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/creation_date + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_creationdate_value"
+							android:text="@{DateUtils.toDate(vport.creationDate)}"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content" />
+					</LinearLayout>
+					
+					<!-- Update Date -->
+					<LinearLayout
+						android:visibility="@{vport.lastUpdatedDate == null ? View.GONE : View.VISIBLE}"
+						android:layout_marginBottom="@dimen/margin_default"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<TextView
+							android:layout_marginEnd="@dimen/small_margin"
+							android:layout_height="wrap_content"
+							android:layout_width="wrap_content"
+							android:textSize="@dimen/label_size"
+							android:text="@{@string/lastupdated + `: `}"
+							android:textStyle="bold" />
+						<TextView
+							android:id="@+id/port_updatedate_value"
+							android:text="@{DateUtils.toDate(vport.lastUpdatedDate)}"
 							android:layout_height="wrap_content"
 							android:layout_width="wrap_content" />
 					</LinearLayout>
 				
-				</LinearLayout>
+			</LinearLayout>
+		
+		</com.google.android.material.card.MaterialCardView>
+		
+		<com.google.android.material.card.MaterialCardView
+			android:visibility="@{vport.associatedGatewayID == null ? View.GONE : View.VISIBLE}"
+			android:theme="@style/CardView.Light"
+			android:layout_margin="@dimen/margin_default"
+			android:padding="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
 			
-			</com.google.android.material.card.MaterialCardView>
+			<LinearLayout
+				android:padding="@dimen/margin_default"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				
+				<TextView
+					android:text="@string/associatedgateway"
+					android:gravity="center"
+					android:textSize="@dimen/title_size"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+				
+				<!-- type of gateway -->
+				<LinearLayout
+					android:visibility="@{vport.associatedGatewayType == null ? View.GONE : View.VISIBLE }"
+					android:layout_marginBottom="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+					<TextView
+						android:layout_marginEnd="@dimen/small_margin"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:textSize="@dimen/label_size"
+						android:text="@{@string/type + `: `}"
+						android:textStyle="bold" />
+					<TextView
+						android:id="@+id/associated_gateway_type"
+						android:text="@{vport.associatedGatewayType.toString()}"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content" />
+				</LinearLayout>
+				
+				<!-- type of gateway -->
+				<LinearLayout
+					android:visibility="@{vport.associatedGatewayPersonality == null ? View.GONE : View.VISIBLE }"
+					android:layout_marginBottom="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+					<TextView
+						android:layout_marginEnd="@dimen/small_margin"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:textSize="@dimen/label_size"
+						android:text="@{@string/personality + `: `}"
+						android:textStyle="bold" />
+					<TextView
+						android:id="@+id/associated_gateway_personality"
+						android:text="@{vport.associatedGatewayPersonality.toString()}"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content" />
+				</LinearLayout>
+				
+				<!-- name of gateway port -->
+				<LinearLayout
+					android:visibility="@{vport.gatewayPortName == null ? View.GONE : View.VISIBLE }"
+					android:layout_marginBottom="@dimen/margin_default"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+					<TextView
+						android:layout_marginEnd="@dimen/small_margin"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:textSize="@dimen/label_size"
+						android:text="@{@string/portname + `: `}"
+						android:textStyle="bold" />
+					<TextView
+						android:id="@+id/associated_gateway_port_name"
+						android:text="@{vport.gatewayPortName.toString()}"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content" />
+				</LinearLayout>
+				
+			</LinearLayout>
+		
+		</com.google.android.material.card.MaterialCardView>
 			
 			<com.google.android.material.button.MaterialButton
+				android:id="@+id/statistics"
 				android:text="@string/statistics"
 				android:layout_margin="@dimen/margin_default"
 				android:layout_width="match_parent"

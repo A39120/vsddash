@@ -32,10 +32,10 @@ class VspViewModel @Inject constructor(
 
         vscListLiveData.addSource(
             Transformations.switchMap(liveData) {
-                val ld = vscRepository.getAll(it.iD)
-                if(ld.value.isNullOrEmpty())
+                val vsc = vscRepository.getAll(it.iD)
+                if(vsc.value.isNullOrEmpty())
                     viewModelScope.launch { vscRepository.updateAll(it.iD) }
-                return@switchMap ld
+                vsc
             }
         ) { vscListLiveData.value = it }
     }

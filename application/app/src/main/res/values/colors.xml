@@ -8,4 +8,8 @@
 	<color name="fontColor">#FFF</color>
 	<color name="fontColorHighlight">#fcb32c</color>
 	<color name="fontColorTwo">#9d1b32</color>
+	<color name="blue">#5555ff</color>
+	<color name="yellow">#fcb32c</color>
+	<color name="white">#FFFFFF</color>
+	<color name="black">#000000</color>
 </resources>

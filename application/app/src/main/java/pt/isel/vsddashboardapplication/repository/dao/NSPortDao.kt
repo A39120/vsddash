@@ -29,4 +29,7 @@ interface NSPortDao : BaseDao<NSPort>{
     @Query("DELETE FROM nsport")
     override fun deleteAll()
 
+    @Query("DELETE FROM nsport WHERE iD = :id")
+    override fun delete(id: String)
+
 }

@@ -2,6 +2,8 @@
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortStatus"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortType"/>
 		<variable name="port" type="pt.isel.vsddashboardapplication.model.NSPort"/>
 	</data>
 	
@@ -24,7 +26,7 @@
 				 android:layout_height="match_parent">
 				 
 				 <View
-					 android:background="@{port.status.equals(`INITIALIZED`) ? @color/green : @color/red}"
+					 android:background="@{port.status == PortStatus.INITIALIZED ? @color/green : @color/red}"
 					 android:layout_weight=".30"
 					 android:layout_height="match_parent"
 					 android:layout_width="0sp"/>
@@ -39,7 +41,7 @@
 					 
 					 <TextView
 						 android:id="@+id/port_name"
-						 android:text="@{port.name}"
+						 android:text="@{port.physicalName}"
 						 android:textSize="18sp"
 						 android:layout_width="wrap_content"
 						 android:layout_height="wrap_content"/>

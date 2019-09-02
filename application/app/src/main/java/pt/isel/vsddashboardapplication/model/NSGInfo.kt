@@ -1,11 +1,10 @@
 package pt.isel.vsddashboardapplication.model
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
+import pt.isel.vsddashboardapplication.model.enumerables.*
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "nsginfo")
@@ -19,20 +18,19 @@ data class NSGInfo(
     @Json(name = "BIOSVersion") val bIOSVersion: String? = "",
     @Json(name = "bootstrapStatus") val bootstrapStatus: BootstrapStatus? = BootstrapStatus.INACTIVE,
     @Json(name = "CPUType") val cPUType: String? = "",
-    @Json(name = "children") val children: String? = "",
     @Json(name = "cmdDetailedStatus") val cmdDetailedStatus: String? = "",
     @Json(name = "cmdDetailedStatusCode") val cmdDetailedStatusCode: Int? = 0,
     @Json(name = "cmdDownloadProgress") val cmdDownloadProgress: String? = "",
     @Json(name = "cmdID") val cmdID: String? = "",
-    @Json(name = "cmdLastUpdatedDate") val cmdLastUpdatedDate: String? = "",
+    @Json(name = "cmdLastUpdatedDate") val cmdLastUpdatedDate: Long? = 0,
     @Json(name = "cmdStatus") val cmdStatus: String? = "",
     @Json(name = "cmdType") val cmdType: String? = "",
     @Json(name = "creationDate") val creationDate: Long? = 0,
     @Json(name = "enterpriseID") val enterpriseID: String? = "",
     @Json(name = "enterpriseName") val enterpriseName: String? = "",
-    @Json(name = "entityScope") val entityScope: String? = "",
+    @Json(name = "entityScope") val entityScope: EntityScope? = null,
     @Json(name = "externalID") val externalID: String? = "",
-    @Json(name = "family") val family: String? = "",
+    @Json(name = "family") val family: Family? = null,
     @Json(name = "lastUpdatedBy") val lastUpdatedBy: String? = "",
     @Json(name = "lastUpdatedDate") val lastUpdatedDate: Long? = 0,
     @Json(name = "libraries") val libraries: String? = "",
@@ -43,7 +41,7 @@ data class NSGInfo(
     @Json(name = "parentID") val parentID: String? = "",
     @Json(name = "parentType") val parentType: String? = "",
     @Json(name = "patchesDetail") val patchesDetail: String? = "",
-    @Json(name = "personality") val personality: String? = "",
+    @Json(name = "personality") val personality: Personality? = null,
     @Json(name = "productName") val productName: String? = "",
     @Json(name = "SKU") val sKU: String? = "",
     @Json(name = "serialNumber") val serialNumber: String? = "",

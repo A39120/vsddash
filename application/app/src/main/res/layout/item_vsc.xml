@@ -2,7 +2,7 @@
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	<data>
-		<import type="pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.Status"/>
 		<variable name="vsc" type="pt.isel.vsddashboardapplication.model.VSC"/>
 	</data>
 	
@@ -25,7 +25,7 @@
 				android:layout_height="match_parent">
 				
 				<View
-					android:background="@{vsc.isUp() ? @color/green : @color/red}"
+					android:background="@{vsc.status == Status.UP ? @color/green : @color/red}"
 					android:layout_weight=".20"
 					android:layout_height="match_parent"
 					android:layout_width="0sp"/>

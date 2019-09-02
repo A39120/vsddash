@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.model.Alarm
+import pt.isel.vsddashboardapplication.model.VRS
 import pt.isel.vsddashboardapplication.model.VSC
 import pt.isel.vsddashboardapplication.repository.base.VscRepository
 import pt.isel.vsddashboardapplication.repository.dao.AlarmDao
+import pt.isel.vsddashboardapplication.repository.dao.VrsDao
 import pt.isel.vsddashboardapplication.repository.dao.VscDao
 import pt.isel.vsddashboardapplication.repository.services.RetrofitSingleton
 import javax.inject.Inject
@@ -17,8 +19,28 @@ import javax.inject.Inject
  */
 class VscRepositoryImpl @Inject constructor(
     private val dao: VscDao,
-    private val alarmDao: AlarmDao
+    private val alarmDao: AlarmDao,
+    private val vrsDao: VrsDao
 ): VscRepository {
+
+    override fun getVrss(parent: String): LiveData<List<VRS>?> =
+        vrsDao.loadForVsc(parent)
+
+    override suspend fun updateVrss(parent: String, onFinish: (() -> Unit)?) {
+        val deferred = RetrofitSingleton
+            .vrsService()
+            ?.getVscVrs(parent)
+
+        withContext(Dispatchers.IO){
+            deferred
+                ?.await()
+                ?.map {
+                    it.vsc = parent
+                    it
+                }
+                ?.forEach(vrsDao::save)
+        }
+    }
 
     override fun getAlarms(parent: String): LiveData<List<Alarm>?> =
         alarmDao.loadAll(parent)

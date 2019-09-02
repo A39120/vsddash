@@ -1,11 +1,13 @@
 package pt.isel.vsddashboardapplication.activities.fragment.regular
 
+import android.view.View
 import androidx.lifecycle.Observer
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VspParentFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentVspBinding
+import pt.isel.vsddashboardapplication.model.VSP
 import pt.isel.vsddashboardapplication.utils.RefreshState
 
 /**
@@ -24,6 +26,7 @@ class VspFragment : BaseChildFragment<FragmentVspBinding>(), IRefreshableCompone
         val viewModel = (this.parentFragment as VspParentFragment).viewModel
         viewModel.liveData.observe(this, Observer { vsp ->
             binding.vsp = vsp
+            hideIfNull(vsp)
             binding.executePendingBindings()
         })
 
@@ -37,7 +40,16 @@ class VspFragment : BaseChildFragment<FragmentVspBinding>(), IRefreshableCompone
         val viewModel = (this.parentFragment as VspParentFragment).viewModel
         binding.refreshLayout.setOnRefreshListener { refresh() }
         binding.vsp = viewModel.liveData.value
+        hideIfNull(binding.vsp)
         binding.executePendingBindings()
+    }
+
+    private fun hideIfNull(vsp: VSP?){
+        binding.vspCard.visibility = if(vsp == null){
+             View.GONE
+        } else {
+            View.VISIBLE
+        }
     }
 
 }

@@ -22,4 +22,7 @@ interface VPortDao : BaseDao<VPort>{
     @Query("DELETE FROM vport")
     override fun deleteAll()
 
+    @Query("DELETE FROM vport WHERE iD = :id")
+    override fun delete(id: String)
+
 }

@@ -35,9 +35,6 @@ abstract class FragmentModule {
     abstract fun contributeNSPortFragment() : NSPortFragment
 
     @ContributesAndroidInjector
-    abstract fun contributePortStatisticsFragment() : PortStatisticsFragment
-
-    @ContributesAndroidInjector
     abstract fun contributePortAvgJitterGraphFragment() : PortAvgJitterGraphFragment
 
     @ContributesAndroidInjector
@@ -93,4 +90,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributesVrsListChildFragment() : VrsListChildFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesDpiStatsSettingsFragment() : DpiStatsSettingsFragment
 }

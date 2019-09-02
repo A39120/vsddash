@@ -33,6 +33,10 @@ object SharedPreferencesUtils {
 
     const val VSD_AUTOMATIC_UPDATE_KEY = "vsdautoupdate"
 
+    const val APM_KEY = "chosen_apm"
+    const val PERFMON_KEY = "perf_mon_key"
+    const val RANGE_KEY = "chosenn_range"
+
     /**
      * Creates or gets a new encrypted shared preferences instance
      * @param context: the context used to access the shared preferences
@@ -152,6 +156,27 @@ fun SharedPreferences.setVsdAutomaticUpdate(value: Boolean) {
         putBoolean(SharedPreferencesUtils.VSD_AUTOMATIC_UPDATE_KEY, value)
         apply()
     }
+}
+
+fun SharedPreferences.getApm() = this.getString(SharedPreferencesUtils.APM_KEY, null)
+fun SharedPreferences.setApm(value: String) = edit().apply {
+    val trueValue = if(value == "") null  else value
+    putString(SharedPreferencesUtils.APM_KEY, trueValue)
+    apply()
+}
+
+fun SharedPreferences.getPerfMonitor() = this.getString(SharedPreferencesUtils.APM_KEY, null)
+fun SharedPreferences.setPerfMonitor(value: String) = edit().apply {
+    val trueValue = if(value == "") null  else value
+    putString(SharedPreferencesUtils.PERFMON_KEY, trueValue)
+    apply()
+}
+
+fun SharedPreferences.getDateRange() = this.getInt(SharedPreferencesUtils.RANGE_KEY, 5)
+fun SharedPreferences.setDateRange(value: Int) = edit().apply {
+    val trueValue = if(value <= 0) 5  else value
+    putInt(SharedPreferencesUtils.RANGE_KEY, value)
+    apply()
 }
 
 fun Context.sharedPreferences() = SharedPreferencesUtils.createOrGet(this)

@@ -3,10 +3,7 @@ package pt.isel.vsddashboardapplication.activities.adapter.pager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import pt.isel.vsddashboardapplication.activities.fragment.NSGatewayStatisticsFragment
 import pt.isel.vsddashboardapplication.activities.fragment.list.AlarmFragment
-import pt.isel.vsddashboardapplication.activities.fragment.regular.NSPortFragment
-import pt.isel.vsddashboardapplication.activities.fragment.regular.PortStatisticsFragment
 import pt.isel.vsddashboardapplication.activities.fragment.regular.VportFragment
 
 class VPortViewPagerAdapter(fm: FragmentManager)

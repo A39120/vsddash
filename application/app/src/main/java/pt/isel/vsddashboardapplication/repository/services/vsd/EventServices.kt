@@ -11,6 +11,6 @@ interface EventServices {
 
     @Headers("Accept: application/json")
     @GET("/nuage/api/v5_0/events")
-    fun getEvent(@Query(value = "uuid") uuid: String?) : Deferred<Events?>
+    fun getEvent(@Query(value = "uuid") uuid: String? = null) : Deferred<Events?>
 
 }

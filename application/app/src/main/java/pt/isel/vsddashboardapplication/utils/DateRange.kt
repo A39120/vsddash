@@ -1,6 +1,6 @@
 package pt.isel.vsddashboardapplication.utils
 
 data class DateRange (
-    val start : Long,
-    val end: Long
+    val start : Long? = null,
+    val end: Long? = null
 )

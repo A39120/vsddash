@@ -31,10 +31,8 @@ class VscFragment : BaseChildFragment<FragmentVscBinding>(), IRefreshableCompone
         viewModel.liveData.observe(this, Observer { vsc ->
             binding.vsc = vsc
             binding.statistics.setOnClickListener { view ->
-                vsc?.name?.run {
-                    val direction = VscParentFragmentDirections.actionVscParentFragmentToParentSysmonFragment(this)
-                    Navigation.findNavController(view).navigate(direction)
-                }
+                val direction = VscParentFragmentDirections.actionVscParentFragmentToParentSysmonFragment("vsc@vsd.nuage.lab")
+                Navigation.findNavController(view).navigate(direction)
             }
 
             binding.executePendingBindings()

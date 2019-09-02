@@ -2,10 +2,12 @@ package pt.isel.vsddashboardapplication.activities.fragment.list
 
 import android.util.Log
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.VsdApplication
 import pt.isel.vsddashboardapplication.activities.adapter.NSGatewayAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
@@ -15,12 +17,10 @@ import pt.isel.vsddashboardapplication.viewmodel.AllNSGatewayViewModel
  * The Fragment that displays a list of NSGs;
  */
 class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
-    companion object {
-        private const val TAG = "FRAG/NSG_LIST"
-    }
+    companion object { private const val TAG = "FRAG/NSG_LIST" }
 
     private lateinit var adapter: NSGatewayAdapter
-    private val args : NSGatewayListFragmentArgs by navArgs<NSGatewayListFragmentArgs>()
+    private val args : NSGatewayListFragmentArgs by navArgs()
 
     /**
      * Sets the List of NSG adapter
@@ -55,5 +55,8 @@ class NSGatewayListFragment : BaseListFragment<AllNSGatewayViewModel>() {
         val directions = NSGatewayListFragmentDirections.actionNSGatewayListFragmentToNsgFragment(nsgId)
         Navigation.findNavController(view).navigate(directions)
     }
+
+    @StringRes
+    override fun getTitle(): Int = R.string.nsg_list
 
 }

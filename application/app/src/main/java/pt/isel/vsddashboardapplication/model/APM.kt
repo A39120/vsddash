@@ -22,5 +22,6 @@ data class APM(
     @Json(name = "owner") val owner: String? = "",
     @Json(name = "parentID") val parentID: String? = "",
     @Json(name = "parentType") val parentType: String? = "",
-    @Json(name = "readOnly") val readOnly: Boolean? = false
-) : BaseEvent
+    @Json(name = "readOnly") val readOnly: Boolean? = false,
+    var dirty: Boolean = false
+)

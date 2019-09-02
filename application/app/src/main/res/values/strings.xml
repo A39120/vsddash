@@ -38,9 +38,11 @@
 	<string name="creationdate">Creation Date</string>
 	<string name="serial">Serial Number</string>
 	<string name="bios">BIOS</string>
-	<string name="CPU">CPU (%)</string>
+	<string name="CPU">CPU</string>
 	<string name="time">Time</string>
 	<string name="avg_jitter">Avg. Jitter</string>
+	<string name="avg_delay">Avg. Delay</string>
+	<string name="pkt_loss">Packet Loss</string>
 	
 	<string name="test">Test</string>
 	<string name="save">Save</string>
@@ -77,6 +79,50 @@
 	<string name="apm_label">APM</string>
 	<string name="apm_description">Application Binding Management, the statistics on a group of applications</string>
 	<string name="esPort_hint">Elastic Search Port</string>
-	<string name="memory">Memory (%)</string>
+	<string name="memory">Memory</string>
 	<string name="vsd_health">Health</string>
+	<string name="perfmonitor_label">Performance Monitor</string>
+	<string name="perfmonitor_description">The performance monitor used to track statistics</string>
+	
+	<array name="languages">
+		<item>English</item>
+	</array>
+	
+	<array name="time">
+		<item>5 Minutes</item>
+		<item>10 Minutes</item>
+		<item>15 Minutes</item>
+		<item>20 Minutes</item>
+	</array>
+	
+	<string name="inbound">Inbound</string>
+	<string name="outbound">Outbound</string>
+	<string name="enterprise_list">Enterprise List</string>
+	<string name="nsg_list">NSG List</string>
+	<string name="vrs_list">VRS List</string>
+	<string name="vsd_dashboard">VSD Dashboard</string>
+	<string name="date_range_label">Date Range</string>
+	<string name="date_range_description">Range of time displayed before the selected range</string>
+	<string name="minutes">Minutes</string>
+	<string name="date_selector_label">Date Selector</string>
+	<string name="date_selector_description">Select the max date time</string>
+	
+	<string name="systemid">System ID</string>
+	<string name="command">Command</string>
+	<string name="detailed_status">Detailed Status</string>
+	<string name="downloadprogress">Download Progress</string>
+	<string name="hypervisor">Hypervisor Details</string>
+	<string name="role">Role</string>
+	<string name="type">Type</string>
+	
+	<string name="number_vm">Number of Virtual Machines</string>
+	<string name="number_container">Number of Containers</string>
+	<string name="number_bridge">Number of Bridge Interfaces</string>
+	<string name="number_host">Number of Host Interfaces</string>
+	<string name="associatedgateway">Associated Gateway</string>
+	<string name="vlan">VLAN</string>
+	<string name="systemtype">System Type</string>
+	<string name="subtype">Subtype</string>
+	<string name="operationalstate">Operational State</string>
+	<string name="peeroperationalstate">Peer Operational State</string>
 </resources>

@@ -53,12 +53,13 @@ class LoginRepositoryImpl @Inject constructor(
 
             val address = it.getAddress()
             val port = it.getVsdPort()
+            val esPort = it.getElasticSearchPort()
 
             val api = AddressBuilder.build(address ?: "", port)
             Log.d(TAG, "LOGIN - Creating Authentication service")
             sharedPrefs.let {
                 RetrofitSingleton.prepareVsdService(api, username, organization)
-                ElasticSearchRetrofitSingleton.set(AddressBuilder.build(address?:"", 6200))
+                ElasticSearchRetrofitSingleton.set(AddressBuilder.build(address?:"", esPort))
                 RetrofitSingleton.setupAuthenticator(password)
                 this.authenticationService = RetrofitSingleton.authenticationService()
             }

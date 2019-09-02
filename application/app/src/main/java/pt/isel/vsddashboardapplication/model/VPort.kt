@@ -5,6 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import pt.isel.vsddashboardapplication.model.enumerables.EntityScope
+import pt.isel.vsddashboardapplication.model.enumerables.OperationalState
+import pt.isel.vsddashboardapplication.model.enumerables.PortType
+import pt.isel.vsddashboardapplication.model.enumerables.SystemType
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "vport")
@@ -32,7 +36,7 @@ data class VPort(
     @Json(name = "domainID") val domainID: String? = "",
     @Json(name = "domainServiceLabel") val domainServiceLabel: String? = "",
     @Json(name = "domainVLANID") val domainVLANID: String? = "",
-    @Json(name = "entityScope") val entityScope: String? = "",
+    @Json(name = "entityScope") val entityScope: EntityScope? = null,
     @Json(name = "externalID") val externalID: String? = "",
     @Json(name = "FIPIgnoreDefaultRoute") val fIPIgnoreDefaultRoute: String? = "",
     @Json(name = "gatewayMACMoveRole") val gatewayMACMoveRole: String? = "",
@@ -44,22 +48,23 @@ data class VPort(
     @Json(name = "multiNICVPortID") val multiNICVPortID: String? = "",
     @Json(name = "multicast") val multicast: String? = "",
     @Json(name = "name") val name: String? = "",
-    @Json(name = "operationalState") val operationalState: String? = "",
+    @Json(name = "operationalState") val operationalState: OperationalState? = null,
     @Json(name = "owner") val owner: String? = "",
     @Json(name = "parentID") val parentID: String? = "",
     @Json(name = "parentType") val parentType: String? = "",
-    @Json(name = "peerOperationalState") val peerOperationalState: String? = "",
+    @Json(name = "peerOperationalState") val peerOperationalState: OperationalState? = null,
     @Json(name = "segmentationID") val segmentationID: String? = "",
     @Json(name = "segmentationType") val segmentationType: String? = "",
     @Json(name = "serviceID") val serviceID: String? = "",
     @Json(name = "subType") val subType: String? = "",
     @Json(name = "subnetVNID") val subnetVNID: String? = "",
-    @Json(name = "systemType") val systemType: String? = "",
+    @Json(name = "systemType") val systemType: SystemType? = null,
     @Json(name = "trunkRole") val trunkRole: String? = "",
-    @Json(name = "type") val type: String? = "",
+    @Json(name = "type") val type: PortType? = null,
     @Json(name = "VLAN") val vLAN: Int? = 0,
     @Json(name = "VLANID") val vLANID: String? = "",
     @Json(name = "vips") val vips: String? = "",
     @Json(name = "zoneID") val zoneID: String? = "",
-    @Json(name = "vrs") var vrs: String? = ""
+    @Json(name = "vrs") var vrs: String? = "",
+    var dirty: Boolean = false
 )

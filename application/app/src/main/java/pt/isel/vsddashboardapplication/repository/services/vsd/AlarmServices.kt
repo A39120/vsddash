@@ -7,6 +7,7 @@ import retrofit2.http.Headers
 import retrofit2.http.Path
 
 interface AlarmServices {
+
     @Headers("Accept: application/json")
     @GET("/nuage/api/v5_0/nsgateways/{id}/alarms")
     fun getGatewayAlarms(@Path("id") nsgId: String) : Deferred<List<Alarm>?>?

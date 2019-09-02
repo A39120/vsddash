@@ -32,7 +32,6 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     private val VERTICAL_LINES = 2
     private val HORIZONTAL_LABEL_ANGLE = 0
 
-
     /**
      * The graph layout
      */
@@ -96,18 +95,15 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     protected fun getHorizontalFormat() : LabelFormatter {
         val simpleDateFormat = SimpleDateFormat("d/M hh:mm")
         val defaultLabelFormatter = object : DefaultLabelFormatter() {
-
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX)
                     return simpleDateFormat.format(value)
-
                 return super.formatLabel(value, isValueX)
             }
         }
         return defaultLabelFormatter
 
     }
-        //DateAsXAxisLabelFormatter(this.context)//, DateFormat.getTimeInstance())
 
     /**
      * @return the resource id for the horizontal title
@@ -126,7 +122,6 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
      */
     protected suspend fun appendData(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint) = withContext(Dispatchers.Main){
         Log.d(TAG, "Appending data x: ${dataPoint.x}, y: ${dataPoint.y}")
-        //series.appendData(dataPoint, !wasScrolled, getMaxData())
         series.appendData(dataPoint, false, 1000)
     }
 
@@ -149,8 +144,8 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
                     setScrollableY(true)
                 }
                 series.resetData(points.toTypedArray())
-                binding.graph.removeAllSeries()
-                binding.graph.addSeries(series)
+                //binding.graph.removeAllSeries()
+                //binding.graph.addSeries(series)
                 binding.executePendingBindings()
             }
         }
@@ -206,9 +201,9 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
             isYAxisBoundsManual = true
             isXAxisBoundsManual = true
 
-            setMinX(minX)
-            setMaxX(maxX)
-            setMaxY(maxY)
+            setMinX(this@BaseGraphFragment.minX)
+            setMaxX(this@BaseGraphFragment.maxX)
+            setMaxY(this@BaseGraphFragment.maxY)
         }
         binding.executePendingBindings()
     }

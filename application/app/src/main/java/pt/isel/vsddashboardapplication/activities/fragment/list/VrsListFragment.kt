@@ -1,15 +1,20 @@
 package pt.isel.vsddashboardapplication.activities.fragment.list
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.VrsAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
 import pt.isel.vsddashboardapplication.activities.fragment.parent.VscParentFragment
 import pt.isel.vsddashboardapplication.viewmodel.VrsListViewModel
 
 class VrsListFragment : BaseListFragment<VrsListViewModel>() {
+
+    @StringRes
+    override fun getTitle(): Int = R.string.vrs_list
 
     private lateinit var adapter : VrsAdapter
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,9 +34,13 @@ abstract class BaseListFragment<T : BaseListViewModel<*>> : BaseChildListFragmen
         setAdapter()
         binding.refreshLayout.setOnRefreshListener { refresh() }
         binding.list.layoutManager = LinearLayoutManager(this.context)
+
+        (this.activity)?.title = resources.getString(getTitle())
     }
 
-    override fun refresh() { viewModel.update() }
+    override fun refresh() {
+        viewModel.update()
+    }
 
     override fun observeViewModel() {
         viewModel.refreshStateLiveData.observe(this, Observer{rf ->
@@ -49,5 +54,8 @@ abstract class BaseListFragment<T : BaseListViewModel<*>> : BaseChildListFragmen
         observeViewModel()
         return root
     }
+
+    @StringRes
+    abstract fun getTitle() : Int
 
 }

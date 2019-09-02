@@ -2,6 +2,8 @@
 <layout
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortType"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.OperationalState"/>
 		<variable name="port" type="pt.isel.vsddashboardapplication.model.VPort"/>
 	</data>
 	
@@ -24,7 +26,7 @@
 				 android:layout_height="match_parent">
 				 
 				 <View
-					 android:background="@{port.operationalState.equals(`UP`) ? @color/green : @color/red}"
+					 android:background="@{port.operationalState == OperationalState.UP ? @color/green : @color/red}"
 					 android:layout_weight=".30"
 					 android:layout_height="match_parent"
 					 android:layout_width="0sp"/>
@@ -46,7 +48,7 @@
 					 
 					 <TextView
 						 android:id="@+id/port_type"
-						 android:text="@{port.type}"
+						 android:text="@{port.type.toString()}"
 						 android:layout_width="wrap_content"
 						 android:layout_height="wrap_content"/>
 				

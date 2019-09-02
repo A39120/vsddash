@@ -3,15 +3,13 @@ package pt.isel.vsddashboardapplication.service
 import android.content.Context
 import android.util.Log
 import androidx.work.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.coroutineScope
 import pt.isel.vsddashboardapplication.model.*
 import pt.isel.vsddashboardapplication.model.events.Event
 import pt.isel.vsddashboardapplication.repository.base.EventRepository
 import pt.isel.vsddashboardapplication.repository.base.implementation.EventRepositoryImpl
-import pt.isel.vsddashboardapplication.repository.dao.BaseDao
+import pt.isel.vsddashboardapplication.repository.dao.*
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
-import javax.inject.Inject
 
 /**
  * Service that will do long-polling to the server
@@ -37,6 +35,7 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
     }
 
     private val eventRepository: EventRepository by lazy { EventRepositoryImpl() }
+
     private var uuid: String? = null
 
     /**
@@ -46,10 +45,9 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
      * @return Result.retry(): to retry the job
      *         Result.failure(): if it failed
      */
-    override suspend fun doWork(): Result {
+    override suspend fun doWork(): Result = coroutineScope {
         Log.d(TAG, "Getting event.")
         eventRepository.request(uuid)?.run {
-            withContext(Dispatchers.IO) {
                 val events = await()
 
                 uuid = events?.uuid
@@ -58,11 +56,10 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
                 val list = events?.events
                     ?.filterNotNull()
 
-                list?.let { workWithEvent(it) }
+                list?.let { workWithEvent(events.events.filterNotNull()) }
             }
-        }
 
-        return Result.retry()
+        return@coroutineScope Result.retry()
     }
 
     /**
@@ -71,42 +68,55 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
      */
     private fun workWithEvent(events: List<Event>?) {
         Log.d(TAG, "Doing work on event")
-        if(events == null || events.isEmpty())
+        if(events.isNullOrEmpty())
             return
 
         events.forEach {
             Log.d(TAG, "Analysing event with type ${it.entityType}")
-            // TODO: Check if this works
-            val entity = it.entityType
-            val type = it.type!!
 
+            val entity = it.entityType
             val db = VsdDatabase.getInstance()
-            val eventDetails = it.entities
 
             when(entity) {
                 "nsgateway" -> {
                     val dao = db.nsgDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? NSGateway) }
+                    val list = it.entities?.map { obj -> obj.let { map ->
+                        val truMap = map as Map<String, Any?>
+                        NSGateway.fromMap(truMap)
+                    } }
+                    apply(dao, it.type, list?.filterNotNull())
                 }
-                "vrs" -> {
+                "nsport" -> {
+                    val dao = db.nsportDao()
+                    val list = it.entities?.map { obj -> obj.let { map ->
+                        val truMap = map as Map<String, Any?>
+                        NSPort.fromMap(truMap)
+                    } }
+                    apply(dao, it.type, list?.filterNotNull())
+                }
+                /*"vrs" -> {
                     val dao = db.vrsDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? VRS) }
+                    val list = it.entities?.map { obj -> obj.let { map ->
+                        val truMap = map as Map<String, Any?>
+                        VRS.fromMap(truMap)
+                    } }
+                    apply(dao, it.type, list?.filterNotNull())
                 }
-                "vsp" -> {
-                    val dao = db.vspDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? VSP) }
-                }
-                "vsc" -> {
-                    val dao = db.vscDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? VSC) }
-                }
-                "enterprise" -> {
+                "enterprise" ->  {
                     val dao = db.enterpriseDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? Enterprise) }
-                }
-                "alarm" -> {
+                    val list = it.entities?.map { obj -> obj.let { map ->
+                        val truMap = map as Map<String, Any?>
+                        Enterprise.fromMap(truMap)
+                    } }
+                    apply(dao, it.type, list?.filterNotNull())
+                }*/
+                "alarm" ->  {
                     val dao = db.nsAlarmDao()
-                    eventDetails?.forEach { evt -> apply(dao, type, evt as? Alarm) }
+                    val list = it.entities?.map { obj -> obj.let { map ->
+                        val truMap = map as Map<String, Any?>
+                        Alarm.fromMap(truMap)
+                    } }
+                    apply(dao, it.type, list?.filterNotNull())
                 }
                 else -> return
             }
@@ -120,11 +130,11 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
      * @param type: the type of action the dao will perform
      * @param entity: the entity that will be focused with
      */
-    private fun <T> apply(dao: BaseDao<T>, type: String, entity: T?) {
+    private fun <T> apply(dao: BaseDao<T>, type: String?, entity: List<T>?) {
         entity?.let {
             when (type) {
-                "CREATE", "UPDATE" -> dao.save(it)
-                "DELETE" -> dao.delete(it)
+                "CREATE", "UPDATE" -> it.forEach(dao::save)
+                "DELETE" -> it.forEach { ent -> dao.delete(ent) }
                 else -> return
             }
         }

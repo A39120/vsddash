@@ -10,5 +10,7 @@ interface BaseDao<T> {
 
     fun load(id: String) : LiveData<T?>
 
+    fun delete(id: String)
+
     fun deleteAll()
 }

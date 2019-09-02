@@ -3,6 +3,10 @@
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data>
 		<import type="android.view.View"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortType"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortSpeed"/>
+		<import type="pt.isel.vsddashboardapplication.model.enumerables.PortStatus"/>
+		<import type="pt.isel.vsddashboardapplication.utils.DateUtils"/>
 		<import type="androidx.lifecycle.LiveData" />
 		<variable name="nsport" type="pt.isel.vsddashboardapplication.model.NSPort"/>
 		<variable name="nsgname" type="String"/>
@@ -76,9 +80,41 @@
 								android:layout_width="wrap_content" />
 						</LinearLayout>
 						
+						<!-- status of the nsg -->
+						<LinearLayout
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:visibility="@{nsport.status == null ? View.GONE : View.VISIBLE }"
+							android:orientation="vertical">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/status + `: `}"
+								android:textStyle="bold" />
+							<LinearLayout
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content"
+								android:orientation="horizontal">
+								<androidx.appcompat.widget.AppCompatImageView
+									android:src="@{nsport.status == PortStatus.INITIALIZED ? @drawable/ic_ok_black_24dp : @drawable/ic_undefined_black_24dp}"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+								<TextView
+									android:id="@+id/nsg_status_value"
+									android:text="@{nsport.status.toString()}"
+									android:layout_weight=".90"
+									android:layout_height="wrap_content"
+									android:layout_width="0dp" />
+							</LinearLayout>
+						</LinearLayout>
+						
 						<!-- type of the port -->
 						<LinearLayout
 							android:layout_marginBottom="@dimen/margin_default"
+							android:visibility="@{nsport.portType == null ? View.GONE : View.VISIBLE}"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
 							android:orientation="horizontal">
@@ -91,12 +127,13 @@
 								android:textStyle="bold" />
 							<TextView
 								android:id="@+id/port_type_value"
-								android:text="@{nsport.portType}"
+								android:text="@{nsport.portType.toString()}"
 								android:layout_height="wrap_content"
 								android:layout_width="wrap_content" />
 						</LinearLayout>
 					
 						<LinearLayout
+							android:visibility="@{nsport.description == null ? View.GONE : View.VISIBLE}"
 							android:layout_marginBottom="@dimen/margin_default"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -117,6 +154,7 @@
 						
 						<!-- vlan range of the port -->
 						<LinearLayout
+							android:visibility="@{nsport.vLANRange == null ? View.GONE : View.VISIBLE}"
 							android:layout_marginBottom="@dimen/margin_default"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -137,6 +175,7 @@
 						
 						<!-- MTU -->
 						<LinearLayout
+							android:visibility="@{nsport.speed == null ? View.GONE : View.VISIBLE}"
 							android:layout_marginBottom="@dimen/margin_default"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content"
@@ -154,7 +193,48 @@
 								android:layout_height="wrap_content"
 								android:layout_width="wrap_content" />
 						</LinearLayout>
-					
+						
+						
+						<!-- Creation Date -->
+						<LinearLayout
+							android:visibility="@{nsport.creationDate == null ? View.GONE : View.VISIBLE}"
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/creation_date + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_creationdate_value"
+								android:text="@{DateUtils.toDate(nsport.creationDate)}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
+						<!-- Update Date -->
+						<LinearLayout
+							android:visibility="@{nsport.lastUpdatedDate == null ? View.GONE : View.VISIBLE}"
+							android:layout_marginBottom="@dimen/margin_default"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:orientation="horizontal">
+							<TextView
+								android:layout_marginEnd="@dimen/small_margin"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content"
+								android:textSize="@dimen/label_size"
+								android:text="@{@string/lastupdated + `: `}"
+								android:textStyle="bold" />
+							<TextView
+								android:id="@+id/port_updatedate_value"
+								android:text="@{DateUtils.toDate(nsport.lastUpdatedDate)}"
+								android:layout_height="wrap_content"
+								android:layout_width="wrap_content" />
+						</LinearLayout>
 					</LinearLayout>
 				
 				</com.google.android.material.card.MaterialCardView>

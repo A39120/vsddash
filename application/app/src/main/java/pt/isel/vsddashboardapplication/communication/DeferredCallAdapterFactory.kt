@@ -69,7 +69,10 @@ class DeferredCallAdapterFactory private constructor() : CallAdapter.Factory() {
                     if (response.isSuccessful) {
                         response.body()?.let { deferred.complete(it) } ?: deferred.cancel()
                     } else {
-                        deferred.completeExceptionally(HttpException(response))
+                        if(response.code() == 404)
+                            deferred.cancel()
+                        else
+                            deferred.completeExceptionally(HttpException(response))
                     }
                 }
             })

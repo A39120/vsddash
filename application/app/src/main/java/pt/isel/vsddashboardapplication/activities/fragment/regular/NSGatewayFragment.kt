@@ -9,10 +9,8 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragment
 import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.activities.fragment.base.IRefreshableComponent
-import pt.isel.vsddashboardapplication.activities.fragment.list.NSGatewayListFragmentDirections
 import pt.isel.vsddashboardapplication.activities.fragment.parent.NsgPagerFragmentDirections
 import pt.isel.vsddashboardapplication.databinding.FragmentNsgatewayBinding
-import pt.isel.vsddashboardapplication.model.enumerables.BootstrapStatus
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.NSGViewModel
 import kotlin.coroutines.CoroutineContext
@@ -30,7 +28,7 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
 
         viewModel.nsginfo.observe(this, Observer {
             binding.nsg = it
-            changeStatusColor(it?.bootstrapStatus?:BootstrapStatus.INACTIVE)
+            //changeStatusColor(it?.bootstrapStatus?:BootstrapStatus.INACTIVE)
             binding.statistics.setOnClickListener {view ->
                 it?.systemID?.run {
                     val destination = NsgPagerFragmentDirections.actionNsgFragmentToParentSysmonFragment(it.systemID)
@@ -63,18 +61,8 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
     override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
     /**
-     * Updates UI
-     *
-    private fun updateUI() = launch {
-        binding.refreshLayout.setOnRefreshListener { refresh() }
-        binding.nsg = viewModel.nsginfo.value
-        binding.executePendingBindings()
-    }
-    */
-
-    /**
      * Change the color of the status
-     */
+     *
     private fun changeStatusColor(bootstrapStatus: BootstrapStatus?) {
         val color = when(bootstrapStatus){
             BootstrapStatus.ACTIVE -> R.color.green
@@ -82,6 +70,7 @@ class NSGatewayFragment : BaseFragment<NSGViewModel, FragmentNsgatewayBinding>()
         }
         binding.nsgbootstrapActive.setBackgroundColor(color)
     }
+    */
 
     override fun refresh() { viewModel.update() }
 

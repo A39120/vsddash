@@ -21,4 +21,5 @@ class VspViewPagerAdapter(fm: FragmentManager)
 
     override fun getPageTitle(position: Int): CharSequence? = TITLES[position]
 
+
 }

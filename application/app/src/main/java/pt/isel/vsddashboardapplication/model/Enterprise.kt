@@ -1,5 +1,5 @@
 package pt.isel.vsddashboardapplication.model
-import android.provider.ContactsContract
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
@@ -51,5 +51,52 @@ data class Enterprise(
     @Json(name = "virtualFirewallRulesEnabled") val virtualFirewallRulesEnabled: Boolean? = false,
     var user: String? = null,
     var organization: String? = null,
-    var vsd: String? = null
-) : BaseEvent
+    var vsd: String? = null,
+    var dirty : Boolean = false
+) {
+    companion object {
+        fun fromMap(map : Map<String, Any?>) : Enterprise?{
+            return Enterprise(
+                iD                                    = map["ID"] as String,
+                allowAdvancedQOSConfiguration         = map["allowAdvancedQOSConfiguration"] as Boolean?,
+                allowGatewayManagement                = map["allowGatewayManagement"] as Boolean?,
+                allowTrustedForwardingClass           = map["allowTrustedForwardingClass"] as Boolean?,
+                allowedForwardingMode                 = map["allowedForwardingMode"] as String?,
+                associatedEnterpriseSecurityID        = map["associatedEnterpriseSecurityID"] as String?,
+                associatedGroupKeyEncryptionProfileID = map["associatedGroupKeyEncryptionProfileID"] as String?,
+                associatedKeyServerMonitorID          = map["associatedKeyServerMonitorID"] as String?,
+                avatarData                            = map["avatarData"] as String?,
+                avatarType                            = map["avatarType"] as String?,
+                bGPEnabled                            = map["BGPEnabled"] as Boolean?,
+                children                              = map["children"] as String?,
+                creationDate                          = (map["creationDate"] as Double?)?.toLong(),
+                customerID                            = (map["customerID"] as Double?)?.toInt(),
+                dHCPLeaseInterval                     = (map["DHCPLeaseInterval"] as Double?)?.toInt(),
+                description                           = map["description"] as String?,
+                dictionaryVersion                     = (map["dictionaryVersion"] as Double?)?.toInt(),
+                enableApplicationPerformanceManagement= map["enableApplicationPerformanceManagement"] as Boolean?,
+                encryptionManagementMode              = map["encryptionManagementMode"] as String?,
+                enterpriseProfileID                   = map["enterpriseProfileID"] as String?,
+                entityScope                           = map["entityScope"] as String?,
+                externalID                            = map["externalID"] as String?,
+                floatingIPsQuota                      = (map["floatingIPsQuota"] as Double?)?.toInt(),
+                floatingIPsUsed                       = (map["floatingIPsUsed"] as Double?)?.toInt(),
+                flowCollectionEnabled                 = map["flowCollectionEnabled"] as String?,
+                lDAPAuthorizationEnabled              = map["LDAPAuthorizationEnabled"] as Boolean?,
+                lDAPEnabled                           = map["LDAPEnabled"] as Boolean?,
+                lastUpdatedBy                         = map["lastUpdatedBy"] as String?,
+                lastUpdatedDate                       = (map["lastUpdatedDate"] as Double?)?.toLong(),
+                localAS                               = (map["localAS"] as Double?)?.toInt(),
+                name                                  = map["name"] as String?,
+                owner                                 = map["owner"] as String?,
+                parentID                              = map["parentID"] as String?,
+                parentType                            = map["parentType"] as String?,
+                receiveMultiCastListID                = map["receiveMultiCastListID"] as String?,
+                sendMultiCastListID                   = map["sendMultiCastListID"] as String?,
+                sharedEnterprise                      = map["sharedEnterprise"] as Boolean?,
+                vNFManagementEnabled                  = map["VNFManagementEnabled"] as Boolean?,
+                virtualFirewallRulesEnabled           = map["virtualFirewallRulesEnabled"] as Boolean?
+            )
+        }
+    }
+}

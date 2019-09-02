@@ -29,4 +29,7 @@ interface EnterpriseDao : BaseDao<Enterprise> {
     @Delete
     override fun delete(vararg alarm: Enterprise)
 
+    @Query("DELETE FROM enterprise WHERE iD = :id")
+    override fun delete(id: String)
+
 }

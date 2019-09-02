@@ -6,13 +6,30 @@ import androidx.room.TypeConverters
 import androidx.room.Database
 import androidx.room.Room
 import pt.isel.vsddashboardapplication.model.*
-import pt.isel.vsddashboardapplication.model.converters.BootstapStatusConverter
+import pt.isel.vsddashboardapplication.model.converters.*
+import pt.isel.vsddashboardapplication.model.events.Events
 import pt.isel.vsddashboardapplication.model.statistics.DpiProbestats
 import pt.isel.vsddashboardapplication.model.statistics.Sysmon
 import pt.isel.vsddashboardapplication.repository.dao.*
 
 
-@TypeConverters(BootstapStatusConverter::class)
+@TypeConverters( value = [
+    BootstrapStatusConverter::class,
+    CmdStatusConverter::class,
+    EntityScopeConverter::class,
+    FamilyConverter::class,
+    OperationalStateConverter::class,
+    PermittedActionConverter::class,
+    PersonalityConverter::class,
+    PortSpeedConverter::class,
+    PortStatusConverter::class,
+    PortTypeConverter::class,
+    ProbeTypeConverter::class,
+    RoleConverter::class,
+    SeverityConverter::class,
+    StatusConverter::class,
+    SystemTypeConverter::class
+])
 @Database(entities = [NSGateway::class,
     NSPort::class,
     Alarm::class,
@@ -25,11 +42,13 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     VSC::class,
     VPort::class,
     PerformanceMonitor::class,
-    Sysmon::class
-], version = 16, exportSchema = false)
+    Sysmon::class,
+    Health::class,
+    Events::class
+], version = 25, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
-    // --- DAO ---
+    // ------ DAO ------ //
     abstract fun nsgDao(): NSGatewayDao
     abstract fun nsportDao(): NSPortDao
     abstract fun nsAlarmDao() : AlarmDao
@@ -43,6 +62,8 @@ abstract class VsdDatabase : RoomDatabase() {
     abstract fun vportDao() : VPortDao
     abstract fun performanceMonitorDao() : PerformanceMonitorDao
     abstract fun sysmonDao(): SysmonDao
+    abstract fun healthDao(): HealthDao
+    abstract fun eventsDao(): EventDao
 
     companion object {
         private const val DB_NAME = "vsddatabase"

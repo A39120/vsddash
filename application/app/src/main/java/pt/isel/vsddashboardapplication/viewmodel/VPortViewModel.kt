@@ -6,8 +6,10 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.Alarm
+import pt.isel.vsddashboardapplication.model.NSGateway
 import pt.isel.vsddashboardapplication.model.VPort
 import pt.isel.vsddashboardapplication.model.VRS
+import pt.isel.vsddashboardapplication.repository.base.NSGatewayRepository
 import pt.isel.vsddashboardapplication.repository.base.VPortRepository
 import pt.isel.vsddashboardapplication.repository.base.VrsRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 class VPortViewModel @Inject constructor(
     private val repository: VPortRepository,
-    private val vrsRepository: VrsRepository
+    private val vrsRepository: VrsRepository,
+    private val gatewayRepository: NSGatewayRepository
 ) : BaseViewModel<VPort>(), AlarmParentViewModel {
 
     private var portId: String? = null
@@ -27,6 +30,7 @@ class VPortViewModel @Inject constructor(
 
     private val alarmsLiveData = MediatorLiveData<List<Alarm>?>()
     private val alarmRefreshStateLiveData = MediatorLiveData<RefreshState>()
+    val gatewaysLiveData = MediatorLiveData<NSGateway?>()
 
     override fun getAlarmsLiveData(): LiveData<List<Alarm>?> = this.alarmsLiveData
     override fun getRefreshState(): LiveData<RefreshState> = this.alarmRefreshStateLiveData
@@ -48,6 +52,15 @@ class VPortViewModel @Inject constructor(
             alarmsLiveData.addSource(Transformations.switchMap(liveData) { repository.getAlarms(it.iD) }) {
                 alarmsLiveData.value = it
             }
+
+            gatewaysLiveData.addSource(Transformations.switchMap(liveData) {
+                it.associatedGatewayID?.let { gateway ->
+                    val ld = gatewayRepository.get(gateway)
+                    if(ld.value == null)
+                        viewModelScope.launch { gatewayRepository.updateNsgInfo(gateway) }
+                    ld
+                }
+            }) { gatewaysLiveData.postValue(it) }
         }
     }
 

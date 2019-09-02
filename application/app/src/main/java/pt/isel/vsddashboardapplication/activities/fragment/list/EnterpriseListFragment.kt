@@ -5,11 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.adapter.EnterpriseAdapter
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseListFragment
+import pt.isel.vsddashboardapplication.activities.fragment.parent.MainActivity
 import pt.isel.vsddashboardapplication.utils.getAddress
 import pt.isel.vsddashboardapplication.utils.getOrganization
 import pt.isel.vsddashboardapplication.utils.getUsername
@@ -22,6 +25,7 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
     private  val adapter: EnterpriseAdapter = EnterpriseAdapter { enterprise, view ->
         Log.d(TAG, "Clicked on ${enterprise.name} - ${enterprise.iD}")
         val directions = EnterpriseListFragmentDirections.actionEnterpriseListFragmentToMenuFragment(enterprise.iD)
+        (this.activity as MainActivity).enterpriseId = enterprise.iD
         Navigation.findNavController(view).navigate(directions)
     }
 
@@ -52,4 +56,6 @@ class EnterpriseListFragment : BaseListFragment<EnterpriseViewModel>() {
         viewModel.init(userId?:"", vsd?: "", org?:"")
     }
 
+    @StringRes
+    override fun getTitle() = R.string.enterprise_list
 }

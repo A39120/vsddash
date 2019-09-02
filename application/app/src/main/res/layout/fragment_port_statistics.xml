@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	
 	<LinearLayout
-		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="vertical"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="wrap_content">
 		
 		<fragment
 			android:id="@+id/jitter_fragment"
@@ -12,7 +17,25 @@
 			android:layout_width="match_parent"
 		    android:layout_height="wrap_content"/>
 		
+		<fragment
+			android:id="@+id/delay_fragment"
+			android:name="pt.isel.vsddashboardapplication.activities.fragment.graph.PortAvgDelayGraphFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
 		
-
+		<fragment
+			android:id="@+id/loss_fragment"
+			android:name="pt.isel.vsddashboardapplication.activities.fragment.graph.PortPacketLossGraphFragment"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+	
+		<Button
+			android:id="@+id/settings"
+			android:text="@string/settings"
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+	
 	</LinearLayout>
+	</ScrollView>
 </layout>

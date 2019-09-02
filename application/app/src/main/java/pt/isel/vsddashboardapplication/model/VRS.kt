@@ -1,10 +1,13 @@
 package pt.isel.vsddashboardapplication.model
 
-
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import pt.isel.vsddashboardapplication.model.enumerables.EntityScope
+import pt.isel.vsddashboardapplication.model.enumerables.Personality
+import pt.isel.vsddashboardapplication.model.enumerables.Role
+import pt.isel.vsddashboardapplication.model.enumerables.Status
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "vrs")
@@ -14,25 +17,19 @@ data class VRS(
     @Json(name = "address") val address: String? = "",
     @Json(name = "averageCPUUsage") val averageCPUUsage: Double? = 0.0,
     @Json(name = "averageMemoryUsage") val averageMemoryUsage: Double? = 0.0,
-    //@Json(name = "children") val children: Any? = Any(),
-    //@Json(name = "clusterNodeRole") val clusterNodeRole: Any? = Any(),
     @Json(name = "creationDate") val creationDate: Long? = 0,
     @Json(name = "currentCPUUsage") val currentCPUUsage: Double? = 0.0,
     @Json(name = "currentMemoryUsage") val currentMemoryUsage: Double? = 0.0,
     @Json(name = "dbSynced") val dbSynced: Boolean? = false,
     @Json(name = "description") val description: String? = "",
-    //@Json(name = "disks") val disks: Any? = Any(),
-    @Json(name = "entityScope") val entityScope: String? = "",
+    @Json(name = "entityScope") val entityScope: EntityScope? = null,
     @Json(name = "externalID") val externalID: String? = "",
     @Json(name = "gatewayUUID") val gatewayUUID: String? = "",
-    @Json(name = "hypervisorConnectionState") val hypervisorConnectionState: String? = "",
+    @Json(name = "hypervisorConnectionState") val hypervisorConnectionState: Status? = null,
     @Json(name = "hypervisorIdentifier") val hypervisorIdentifier: String? = "",
     @Json(name = "hypervisorName") val hypervisorName: String? = "",
     @Json(name = "hypervisorType") val hypervisorType: String? = "",
     @Json(name = "isResilient") val isResilient: Boolean? = false,
-    //@Json(name = "JSONRPCConnectionState") val jSONRPCConnectionState: Any? = Any(),
-    //@Json(name = "lastEventName") val lastEventName: Any? = Any(),
-    //@Json(name = "lastEventObject") val lastEventObject: Any? = Any(),
     @Json(name = "lastEventTimestamp") val lastEventTimestamp: Long? = 0,
     @Json(name = "lastStateChange") val lastStateChange: Long? = 0,
     @Json(name = "lastUpdatedBy") val lastUpdatedBy: String? = "",
@@ -49,24 +46,24 @@ data class VRS(
     @Json(name = "numberOfVirtualMachines") val numberOfVirtualMachines: Int? = 0,
     @Json(name = "owner") val owner: String? = "",
     @Json(name = "parentID") val parentID: String? = "",
-    //@Json(name = "parentIDs") val parentIDs: List<String?>? = listOf(),
     @Json(name = "parentType") val parentType: String? = "",
     @Json(name = "peakCPUUsage") val peakCPUUsage: Double? = 0.0,
     @Json(name = "peakMemoryUsage") val peakMemoryUsage: Double? = 0.0,
     @Json(name = "peer") val peer: String? = "",
-    @Json(name = "personality") val personality: String? = "",
+    @Json(name = "personality") val personality: Personality? = null,
     @Json(name = "primaryVSCConnectionLost") val primaryVSCConnectionLost: Boolean? = false,
     @Json(name = "productVersion") val productVersion: String? = "",
     @Json(name = "revertBehaviorEnabled") val revertBehaviorEnabled: Boolean? = false,
     @Json(name = "revertCompleted") val revertCompleted: Boolean? = false,
     @Json(name = "revertCount") val revertCount: Int? = 0,
     @Json(name = "revertFailedCount") val revertFailedCount: Int? = 0,
-    @Json(name = "role") val role: String? = "",
-    @Json(name = "status") val status: String? = "",
+    @Json(name = "role") val role: Role? = null,
+    @Json(name = "status") val status: Status? = null,
     @Json(name = "uptime") val uptime: Long? = 0,
     @Json(name = "vscConfigState") val vscConfigState: String? = "",
     @Json(name = "vscCurrentState") val vscCurrentState: String? = "",
-    var vsc: String? = null
-) : BaseEvent {
-    fun isUp() = status == "UP"
+    var vsc: String? = null,
+    var dirty: Boolean = false
+) {
+    fun isUp() = status == Status.UP
 }

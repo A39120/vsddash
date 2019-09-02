@@ -69,8 +69,8 @@ class SysmonViewModel @Inject constructor(
 
     private inner class SystemVmData {
         lateinit var systemId : String
-        var from: Long = 0
-        var to: Long = 0
+        var from: Long? = 0
+        var to: Long? = 0
     }
 
 }

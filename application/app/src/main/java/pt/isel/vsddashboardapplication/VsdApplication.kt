@@ -1,6 +1,7 @@
 package pt.isel.vsddashboardapplication
 
 import android.util.Log
+import androidx.work.WorkManager
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dagger.android.HasActivityInjector
@@ -27,6 +28,12 @@ class VsdApplication : DaggerApplication(), HasActivityInjector{
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Creating application")
+        WorkManager.getInstance().cancelAllWork()
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        WorkManager.getInstance().cancelAllWork()
     }
 
 

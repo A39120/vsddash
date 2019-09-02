@@ -14,7 +14,6 @@ class EnterpriseViewModel @Inject constructor(private val repository: Enterprise
         private const val TAG = "VM/ENTERPRISES"
     }
 
-
     override suspend fun setLiveData() {
         Log.d(TAG, "Setting livedata with all enterprises for current user (repository = ${repository.javaClass}")
         repository.let { enterpriseRepository ->
@@ -26,7 +25,7 @@ class EnterpriseViewModel @Inject constructor(private val repository: Enterprise
     }
 
     override suspend fun updateLiveData() {
-        Log.d(TAG, "Updating livedata with all enterprises for current user (repository = ${repository.javaClass}")
+        Log.d(TAG, "Updating liveData with all enterprises for current user (repository = ${repository.javaClass}")
         this.refreshStateLiveData.postValue(RefreshState.INPROGRESS)
         repository.updateAll("") { this.refreshStateLiveData.postValue(RefreshState.NONE) }
     }

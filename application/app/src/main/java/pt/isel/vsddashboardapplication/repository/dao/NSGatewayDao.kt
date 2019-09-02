@@ -26,4 +26,6 @@ interface NSGatewayDao : BaseDao<NSGateway>{
     @Delete
     override fun delete(vararg nsgs: NSGateway)
 
+    @Query("DELETE FROM nsgateway WHERE iD = :id")
+    override fun delete(id: String)
 }

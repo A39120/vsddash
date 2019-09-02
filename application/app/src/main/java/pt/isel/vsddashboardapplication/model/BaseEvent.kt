@@ -1,3 +1,7 @@
 package pt.isel.vsddashboardapplication.model
 
-interface BaseEvent
+import com.squareup.moshi.Json
+
+data class BaseEvent(
+    @Json(name = "ID") val ID: String = ""
+)

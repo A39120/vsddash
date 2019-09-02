@@ -64,8 +64,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun providesVscRepository(dao: VscDao, alarmDao: AlarmDao) : VscRepository =
-        VscRepositoryImpl(dao, alarmDao)
+    fun providesVscRepository(dao: VscDao, alarmDao: AlarmDao, vrsDao: VrsDao) : VscRepository =
+        VscRepositoryImpl(dao, alarmDao, vrsDao)
 
     @Provides
     @Singleton

@@ -20,8 +20,7 @@ class ProbestatsViewModel @Inject constructor(
     private val repository: DpiProbestatsRepository,
     private val nsgRepository: NSGinfoRepository,
     private val NSPortRepository: NSPortRepository
-)
-    : ViewModel() {
+) : ViewModel() {
     companion object{ private const val TAG = "VM/PROBE_STATS" }
 
     val inbound =  MediatorLiveData<List<DpiProbestats>>()
@@ -32,6 +31,7 @@ class ProbestatsViewModel @Inject constructor(
     private var port: String? = null
     private var nsg: String? = null
     private var apm: String? = null
+    private var pf: String? = null
 
     private suspend fun setLiveData()  {
         Log.d(TAG, "Setting liveData of probe list - Port: $port and NSG: $nsg)")
@@ -80,9 +80,12 @@ class ProbestatsViewModel @Inject constructor(
         }
     }
 
-    fun init(port: String?, nsg: String?) {
+    fun init(port: String?, nsg: String?, apm: String? = null, pf: String? = null) {
         this.port = port
         this.nsg = nsg
+        this.apm = apm
+        this.pf = pf
+
         setBoundaries()
         viewModelScope.launch { setLiveData() }
     }

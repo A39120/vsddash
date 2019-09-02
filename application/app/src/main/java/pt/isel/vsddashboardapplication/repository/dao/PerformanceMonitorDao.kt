@@ -22,4 +22,7 @@ interface PerformanceMonitorDao : BaseDao<PerformanceMonitor>{
     @Query("DELETE FROM perfmonitor")
     override fun deleteAll()
 
+    @Query("DELETE FROM perfmonitor WHERE iD = :id")
+    override fun delete(id: String)
+
 }
