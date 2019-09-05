@@ -65,4 +65,11 @@ class RoomModule {
     @Provides
     fun providesSysmonDao(database: VsdDatabase) = database.sysmonDao()
 
+    @Singleton
+    @Provides
+    fun providesEventsDao(database: VsdDatabase) = database.eventsDao()
+
+    @Singleton
+    @Provides
+    fun providesHealthDao(database: VsdDatabase) = database.healthDao()
 }

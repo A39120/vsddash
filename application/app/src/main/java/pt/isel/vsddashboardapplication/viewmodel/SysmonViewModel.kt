@@ -13,9 +13,7 @@ import javax.inject.Inject
 class SysmonViewModel @Inject constructor(
     private val repository: SysmonRepository
 ): BaseListViewModel<Sysmon>() {
-    companion object {
-        private const val TAG = "VM/SYSMON"
-    }
+    companion object { private const val TAG = "VM/SYSMON" }
 
     private val query = MutableLiveData<SystemVmData>()
 

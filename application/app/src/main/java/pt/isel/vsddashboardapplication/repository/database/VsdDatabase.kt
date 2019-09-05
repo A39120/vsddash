@@ -45,7 +45,7 @@ import pt.isel.vsddashboardapplication.repository.dao.*
     Sysmon::class,
     Health::class,
     Events::class
-], version = 25, exportSchema = false)
+], version = 26, exportSchema = false)
 abstract class VsdDatabase : RoomDatabase() {
 
     // ------ DAO ------ //

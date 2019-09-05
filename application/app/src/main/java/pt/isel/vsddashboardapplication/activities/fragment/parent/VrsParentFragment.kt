@@ -36,7 +36,7 @@ class VrsParentFragment : BasePagerFragment(), IAlarmParent {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this, viewModelFactory)[VrsViewModel::class.java]
-        viewModel.init(args.vrsId)
+        viewModel.init(args.vrsId, args.vscId)
     }
 
     override fun getAlarmViewModel(): AlarmParentViewModel {

@@ -18,8 +18,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.base.BaseChildFragment
-import pt.isel.vsddashboardapplication.activities.fragment.graph.BaseProbestatsGraphFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentGraphBinding
+import pt.isel.vsddashboardapplication.utils.getDateRange
+import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +30,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
     private var wasScrolled = false
 
     private val HORIZONTAL_LINES = 2
-    private val VERTICAL_LINES = 2
+    private val VERTICAL_LINES = 5
     private val HORIZONTAL_LABEL_ANGLE = 0
 
     /**
@@ -64,8 +65,6 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
             Log.d(TAG, "Setting grid label definitions")
             graph.gridLabelRenderer.let {
-                //it.numVerticalLabels = VERTICAL_LINES
-                it.numHorizontalLabels = HORIZONTAL_LINES
 
                 it.setHorizontalLabelsAngle(HORIZONTAL_LABEL_ANGLE)
 
@@ -73,8 +72,10 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
                 it.verticalAxisTitle = resources.getString(getVerticalTitleResource())
 
                 it.padding = resources.getDimension(R.dimen.margin_default).toInt()
-
                 it.labelFormatter = getHorizontalFormat()
+
+                it.numVerticalLabels = VERTICAL_LINES
+                it.numHorizontalLabels = HORIZONTAL_LINES
                 it.setHumanRounding(true)
             }
 
@@ -93,15 +94,14 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
      * Gets the horizontal label format, this can be overridden to display non-hourly X labels
      */
     protected fun getHorizontalFormat() : LabelFormatter {
-        val simpleDateFormat = SimpleDateFormat("d/M hh:mm")
-        val defaultLabelFormatter = object : DefaultLabelFormatter() {
+        val simpleDateFormat = SimpleDateFormat("d/M - hh:mm")
+        return object : DefaultLabelFormatter() {
             override fun formatLabel(value: Double, isValueX: Boolean): String {
                 if (isValueX)
                     return simpleDateFormat.format(value)
                 return super.formatLabel(value, isValueX)
             }
         }
-        return defaultLabelFormatter
 
     }
 
@@ -122,7 +122,8 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
      */
     protected suspend fun appendData(series: LineGraphSeries<DataPoint>, dataPoint: DataPoint) = withContext(Dispatchers.Main){
         Log.d(TAG, "Appending data x: ${dataPoint.x}, y: ${dataPoint.y}")
-        series.appendData(dataPoint, false, 1000)
+        series.appendData(dataPoint, true, 1000)
+        setBounds(minX, dataPoint.x, dataPoint.y)
     }
 
     protected fun appendData(series: LineGraphSeries<DataPoint>, points: List<DataPoint>) {
@@ -142,10 +143,9 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
                     setDrawBorder(true)
                     setScrollableY(true)
+
                 }
                 series.resetData(points.toTypedArray())
-                //binding.graph.removeAllSeries()
-                //binding.graph.addSeries(series)
                 binding.executePendingBindings()
             }
         }
@@ -157,7 +157,6 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
-
 
     /**
      * Sets up viewport.
@@ -173,8 +172,14 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
             setMinY(0.0)
             setMaxY(1.0)
 
-            setMinX(0.0)
-            setMaxX(0.0)
+            val calendar = Calendar.getInstance()
+            val maxX = calendar.timeInMillis
+            val range = context?.sharedPreferences()?.getDateRange() ?: 5
+            calendar.add(Calendar.MINUTE, range)
+            val minX = calendar.timeInMillis
+
+            setMinX(minX.toDouble())
+            setMaxX(maxX.toDouble())
 
             binding.executePendingBindings()
         }
@@ -195,6 +200,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
             this.maxY = maxY
 
         binding.graph.viewport.apply {
+
             isScalable = true
             isScrollable = true
 
@@ -211,7 +217,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
 
     protected fun <T> observe(series: LineGraphSeries<DataPoint>, mapper: ((T) -> DataPoint?)) =
         Observer<List<T>> { list : List<T> ->
-            Log.d(TAG, "Probestats suffered alterations - ${list.size}")
+            Log.d(TAG, "Graph suffered alterations - ${list.size}")
             val mapped = (list.mapNotNull(mapper)
                 .sortedBy { it.x } ?: listOf<DataPoint>())
 
@@ -219,6 +225,7 @@ abstract class BaseGraphFragment: BaseChildFragment<FragmentGraphBinding>() {
             CoroutineScope(Dispatchers.Main).launch {
                 appendData(series, mapped)
             }
+
         }
 
 }

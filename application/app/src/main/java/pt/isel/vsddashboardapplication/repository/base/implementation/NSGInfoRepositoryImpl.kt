@@ -13,8 +13,7 @@ class NSGInfoRepositoryImpl @Inject constructor(private val dao: NSGInfoDao) :
     NSGinfoRepository {
 
     override fun get(id: String): LiveData<NSGInfo?> {
-        val liveData = dao.load(id)
-        return liveData
+        return dao.load(id)
     }
 
     override fun getAll(parentId: String): LiveData<List<NSGInfo>?> {

@@ -20,7 +20,7 @@ class VrsListFragment : BaseListFragment<VrsListViewModel>() {
 
     override fun setAdapter() {
         adapter = VrsAdapter { vrs, view ->
-            val directions = VrsListFragmentDirections.actionVrsListFragmentToVrsParentFragment(vrs.iD)
+            val directions = VrsListFragmentDirections.actionVrsListFragmentToVrsParentFragment(vrs.iD, null)
             Navigation.findNavController(view).navigate(directions)
         }
         binding.list.adapter = adapter

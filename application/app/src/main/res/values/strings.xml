@@ -125,4 +125,5 @@
 	<string name="subtype">Subtype</string>
 	<string name="operationalstate">Operational State</string>
 	<string name="peeroperationalstate">Peer Operational State</string>
+	<string name="health">Health</string>
 </resources>

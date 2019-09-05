@@ -13,18 +13,36 @@ class HealthRepositoryImpl @Inject constructor(
     private val healthDao: HealthDao
 ): HealthRepository {
 
-    override fun get(): LiveData<Health?> {
+    override fun get(): LiveData<List<Health>?> {
         return healthDao.load()
     }
 
-    override suspend fun update() {
+    override suspend fun update(onSuccess: (() -> Unit)?) {
         val health = RetrofitSingleton
             .healthService()
             ?.getHealth()
-        withContext(Dispatchers.IO){
-            health
-                ?.await()
-                ?.forEach { healthDao.save(it) }
+
+        val elastic = RetrofitSingleton
+            .healthService()
+            ?.getHealth("elastic")
+
+        try {
+            withContext(Dispatchers.IO) {
+                health
+                    ?.await()
+                    ?.forEach { vsd ->
+                        vsd.name = "VSD"
+                        healthDao.save(vsd)
+                    }
+
+                elastic?.await()
+                    ?.forEach { elastic ->
+                        elastic.name = "Elastic Search"
+                        healthDao.save(elastic)
+                    }
+            }
+        } finally {
+            onSuccess?.invoke()
         }
     }
 

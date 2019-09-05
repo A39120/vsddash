@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import pt.isel.vsddashboardapplication.model.Alarm
 import pt.isel.vsddashboardapplication.model.VPort
 import pt.isel.vsddashboardapplication.model.VRS
+import pt.isel.vsddashboardapplication.model.VSC
 import pt.isel.vsddashboardapplication.repository.base.VrsRepository
 import pt.isel.vsddashboardapplication.utils.RefreshState
 import pt.isel.vsddashboardapplication.viewmodel.base.BaseViewModel
@@ -39,9 +40,12 @@ class VrsViewModel @Inject constructor(
     }
 
     override suspend fun setLiveData() {
-        liveData.addSource(repository.get(id)){ liveData.value = it }
+        liveData.addSource( repository.get(id)){ liveData.value = it }
         if(liveData.value == null)
-            repository.update(id)
+            if(vsc == null)
+                repository.update(id)
+            else
+                repository.updateForVscChild(id, vsc!!)
 
         alarmsLiveData.addSource(Transformations.switchMap(liveData){
             val ld = repository.getAlarms(it.iD)
@@ -59,12 +63,17 @@ class VrsViewModel @Inject constructor(
 
     override suspend fun updateLiveData() {
         refreshStateLiveData.postValue(RefreshState.INPROGRESS)
-        repository.update(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+        if(vsc == null)
+            repository.update(id) { refreshStateLiveData.postValue(RefreshState.NONE) }
+        else
+            repository.updateForVscChild(id, vsc) { refreshStateLiveData.postValue(RefreshState.INPROGRESS)}
     }
 
     private lateinit var id: String
+    private var vsc: String? = null
 
-    fun init(id: String) {
+    fun init(id: String, vsc: String?) {
+        this.vsc = vsc
         this.id = id
         viewModelScope.launch { setLiveData() }
     }

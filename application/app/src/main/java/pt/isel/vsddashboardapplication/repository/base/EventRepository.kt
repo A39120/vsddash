@@ -7,4 +7,6 @@ interface EventRepository {
 
     suspend fun request(uuid: String?) : Deferred<Events?>?
 
+    fun getLastUUID() : String?
+
 }

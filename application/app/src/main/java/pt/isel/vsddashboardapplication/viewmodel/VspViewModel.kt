@@ -58,8 +58,6 @@ class VspViewModel @Inject constructor(
         }
     }
 
-    fun init(){
-        viewModelScope.launch { setLiveData() }
-    }
+    fun init(){ viewModelScope.launch { setLiveData() } }
 
 }

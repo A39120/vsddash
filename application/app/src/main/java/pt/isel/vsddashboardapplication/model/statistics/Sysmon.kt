@@ -3,7 +3,6 @@ package pt.isel.vsddashboardapplication.model.statistics
 import androidx.room.Entity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import pt.isel.vsddashboardapplication.model.statistics.inner.Disk
 
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "sysmon", primaryKeys = ["timestamp", "systemId"])

@@ -11,7 +11,7 @@ interface HealthDao {
     fun save(health: Health)
 
     @Query("SELECT * FROM health")
-    fun load() : LiveData<Health?>
+    fun load() : LiveData<List<Health>?>
 
     @Query("DELETE FROM health")
     fun delete()

@@ -9,14 +9,14 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.BaseFragment
 import pt.isel.vsddashboardapplication.databinding.FragmentPortStatisticsBinding
 import pt.isel.vsddashboardapplication.utils.getApm
+import pt.isel.vsddashboardapplication.utils.getDateRange
 import pt.isel.vsddashboardapplication.utils.getPerfMonitor
 import pt.isel.vsddashboardapplication.utils.sharedPreferences
 import pt.isel.vsddashboardapplication.viewmodel.ProbestatsViewModel
+import java.util.*
 
 class PortStatisticsParentFragment : BaseFragment<ProbestatsViewModel, FragmentPortStatisticsBinding>() {
-    companion object {
-        private const val TAG = "FRAG/PORT_STATS"
-    }
+    companion object { private const val TAG = "FRAG/PORT_STATS" }
 
     override fun getLayoutRes(): Int = R.layout.fragment_port_statistics
 
@@ -54,12 +54,19 @@ class PortStatisticsParentFragment : BaseFragment<ProbestatsViewModel, FragmentP
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "Stopping job")
+
         job.cancel()
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "Resuming job")
+        val calendar = Calendar.getInstance()
+        val minutesSet = context?.sharedPreferences()?.getDateRange() ?: 5
+        calendar.add(Calendar.MINUTE, -minutesSet)
+
+        viewModel.setBoundaries(calendar.timeInMillis)
+        initViewModel()
         repeatableScope.launch {
             while(true) {
                 delay(30000)

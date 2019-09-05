@@ -16,7 +16,7 @@ interface VrsDao : BaseDao<VRS>{
     @Query("SELECT * FROM vrs WHERE vsc = :id")
     fun loadForVsc(id : String) : LiveData<List<VRS>?>
 
-    @Query("SELECT * FROM vrs WHERE parentId IS NULL")
+    @Query("SELECT * FROM vrs WHERE vsc IS NULL")
     fun loadGlobal() : LiveData<List<VRS>?>
 
     @Delete

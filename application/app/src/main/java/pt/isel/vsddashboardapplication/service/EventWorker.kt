@@ -10,6 +10,8 @@ import pt.isel.vsddashboardapplication.repository.base.EventRepository
 import pt.isel.vsddashboardapplication.repository.base.implementation.EventRepositoryImpl
 import pt.isel.vsddashboardapplication.repository.dao.*
 import pt.isel.vsddashboardapplication.repository.database.VsdDatabase
+import java.lang.Exception
+import java.util.concurrent.TimeUnit
 
 /**
  * Service that will do long-polling to the server
@@ -26,6 +28,10 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
                 .build()
 
             val workRequest = OneTimeWorkRequestBuilder<EventWorker>()
+                .setBackoffCriteria(
+                    BackoffPolicy.LINEAR,
+                    30,
+                    TimeUnit.SECONDS )
                 .setConstraints(constrains)
                 .build()
 
@@ -34,9 +40,8 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
 
     }
 
-    private val eventRepository: EventRepository by lazy { EventRepositoryImpl() }
-
-    private var uuid: String? = null
+    private val dao : EventDao by lazy { VsdDatabase.getInstance().eventsDao() }
+    private val eventRepository: EventRepository by lazy { EventRepositoryImpl(dao) }
 
     /**
      * Will listen to events, if successful it will analyze the event and do work with it, it will
@@ -47,17 +52,25 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
      */
     override suspend fun doWork(): Result = coroutineScope {
         Log.d(TAG, "Getting event.")
+        val uuid = eventRepository.getLastUUID()
         eventRepository.request(uuid)?.run {
+            try {
                 val events = await()
 
-                uuid = events?.uuid
+                dao.deleteAll()
+                if (events != null)
+                    dao.save(events)
 
                 Log.d(TAG, "Got the events with UUID: $uuid")
                 val list = events?.events
                     ?.filterNotNull()
 
                 list?.let { workWithEvent(events.events.filterNotNull()) }
+            } catch (ex: Exception) {
+                Log.e(TAG, "Exception occurred - ${ex.message}")
+                VsdDatabase.getInstance().eventsDao().deleteAll()
             }
+        }
 
         return@coroutineScope Result.retry()
     }
@@ -94,22 +107,6 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
                     } }
                     apply(dao, it.type, list?.filterNotNull())
                 }
-                /*"vrs" -> {
-                    val dao = db.vrsDao()
-                    val list = it.entities?.map { obj -> obj.let { map ->
-                        val truMap = map as Map<String, Any?>
-                        VRS.fromMap(truMap)
-                    } }
-                    apply(dao, it.type, list?.filterNotNull())
-                }
-                "enterprise" ->  {
-                    val dao = db.enterpriseDao()
-                    val list = it.entities?.map { obj -> obj.let { map ->
-                        val truMap = map as Map<String, Any?>
-                        Enterprise.fromMap(truMap)
-                    } }
-                    apply(dao, it.type, list?.filterNotNull())
-                }*/
                 "alarm" ->  {
                     val dao = db.nsAlarmDao()
                     val list = it.entities?.map { obj -> obj.let { map ->
@@ -120,7 +117,6 @@ class EventWorker(appContext: Context, workParams: WorkerParameters) : Coroutine
                 }
                 else -> return
             }
-
         }
     }
 

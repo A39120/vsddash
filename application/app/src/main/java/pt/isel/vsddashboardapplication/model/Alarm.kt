@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import pt.isel.vsddashboardapplication.model.converters.EntityScopeConverter
 import pt.isel.vsddashboardapplication.model.enumerables.EntityScope
 import pt.isel.vsddashboardapplication.model.enumerables.Severity
 
@@ -33,6 +34,7 @@ data class Alarm(
 ) {
     companion object {
         fun fromMap(map: Map<String, Any?>) : Alarm? {
+            val entityScope = EntityScopeConverter().convertFrom(map["entityScope"] as String?)
             return Alarm(
                 map["ID"] as String,
                 map["acknowledged"] as Boolean? ,
@@ -40,7 +42,7 @@ data class Alarm(
                 (map["creationDate"] as Double?)?.toLong(),
                 map["description"] as String? ,
                 map["enterpriseID"] as String? ,
-                map["entityScope"] as EntityScope? ,
+                entityScope,
                 map["errorCondition"] as Int? ,
                 map["lastUpdatedBy"] as String? ,
                 (map["lastUpdatedDate"] as Double?)?.toLong() ,

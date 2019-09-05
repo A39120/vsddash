@@ -103,4 +103,9 @@ abstract class ViewModelModule {
     @ViewModelKey(MonitorViewModel::class)
     internal abstract fun monitorViewModel(viewModel: MonitorViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(HealthViewModel::class)
+    internal abstract fun healthViewModel(viewModel: HealthViewModel): ViewModel
+
 }

@@ -87,4 +87,8 @@ class RepositoryModule {
     fun providesSysmonRepository(dao: SysmonDao) : SysmonRepository =
         SysmonRepositoryImpl(dao)
 
+    @Provides
+    @Singleton
+    fun providesHealthRepository(dao: HealthDao) : HealthRepository =
+        HealthRepositoryImpl(dao)
 }

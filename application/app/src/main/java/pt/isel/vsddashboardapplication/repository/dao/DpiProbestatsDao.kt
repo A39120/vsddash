@@ -29,6 +29,18 @@ interface DpiProbestatsDao {
     @Query("SELECT * FROM  dpiproberstat WHERE destinationNSG = :nsg AND dstUplink = :port AND timestamp > :start AND timestamp < :end")
     fun loadInbound(nsg : String, port: String, start: Long, end: Long) : LiveData<List<DpiProbestats>?>
 
+    @Query("SELECT * FROM dpiproberstat WHERE sourceNSG = :nsg AND srcUplink = :port AND timestamp > :start AND aPMGroup IS NULL")
+    fun loadOutboundDynamic(nsg: String, port: String, start: Long) : LiveData<List<DpiProbestats>?>
+
+    @Query("SELECT * FROM  dpiproberstat WHERE destinationNSG = :nsg AND dstUplink = :port AND timestamp > :start AND aPMGroup = :apmGroup")
+    fun loadInboundDynamic(nsg : String, port: String, apmGroup: String, start: Long) : LiveData<List<DpiProbestats>?>
+
+    @Query("SELECT * FROM dpiproberstat WHERE sourceNSG = :nsg AND srcUplink = :port AND timestamp > :start AND aPMGroup = :apmGroup")
+    fun loadOutboundDynamic(nsg: String, port: String, apmGroup: String, start: Long) : LiveData<List<DpiProbestats>?>
+
+    @Query("SELECT * FROM  dpiproberstat WHERE destinationNSG = :nsg AND dstUplink = :port AND timestamp > :start")
+    fun loadInboundDynamic(nsg : String, port: String, start: Long) : LiveData<List<DpiProbestats>?>
+
     @Delete
     fun delete(vararg probestats: DpiProbestats)
 

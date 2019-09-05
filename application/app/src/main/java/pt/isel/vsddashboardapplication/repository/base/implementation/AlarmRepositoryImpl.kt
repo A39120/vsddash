@@ -16,9 +16,7 @@ import javax.inject.Inject
 class AlarmRepositoryImpl @Inject constructor(
     private val dao: AlarmDao
 ) : AlarmRepository {
-    companion object {
-        private const val TAG = "REPO/ALARM"
-    }
+    companion object { private const val TAG = "REPO/ALARM" }
 
     /**
      * Gets an alarm
@@ -47,7 +45,7 @@ class AlarmRepositoryImpl @Inject constructor(
     override suspend fun update(id: String, onFinish: (() -> Unit)?) {
         withContext(Dispatchers.IO) {
             Log.d(TAG, "Updating Alarm $id")
-            val alarm = RetrofitSingleton
+            RetrofitSingleton
                 .alarmServices()
                 ?.getAlarm(id)?.let {
                     try {

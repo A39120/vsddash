@@ -10,5 +10,6 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = "events")
 data class Events(
     @PrimaryKey @Json(name = "uuid") var uuid: String = "",
-    @Ignore @Json(name = "events") val events: List<Event?> = listOf()
+    @Ignore @Json(name = "events") val events: List<Event?> = listOf(),
+    var timestamp: Long? = System.currentTimeMillis()
 )

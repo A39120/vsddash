@@ -34,6 +34,9 @@ class MenuFragment : Fragment() {
             val directions = MenuFragmentDirections.actionMenuFragmentToVrsListFragment(null)
             Navigation.findNavController(it).navigate(directions)
         }
+        binding.healthListOption.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_healthFragment)
+        }
         binding.settings.setOnClickListener { Navigation.findNavController(it).navigate(R.id.action_menuFragment_to_settingsFragment) }
         return binding.root
     }

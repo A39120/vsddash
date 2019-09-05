@@ -5,7 +5,7 @@ import pt.isel.vsddashboardapplication.model.Health
 
 interface HealthRepository {
 
-    fun get() : LiveData<Health?>
+    fun get() : LiveData<List<Health>?>
 
-    suspend fun update()
+    suspend fun update(onSuccess: (() -> Unit)? = null)
 }

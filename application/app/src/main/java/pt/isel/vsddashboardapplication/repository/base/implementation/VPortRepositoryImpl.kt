@@ -29,10 +29,13 @@ class VPortRepositoryImpl @Inject constructor(
             ?.getPortAlarms(id)
 
         withContext(Dispatchers.IO){
-            def?.await()?.forEach {
-                alarmDao.save(it)
+            try {
+                def?.await()?.forEach {
+                    alarmDao.save(it)
+                }
+            } finally {
+                onFinish?.invoke()
             }
-            onFinish?.invoke()
         }
     }
 
@@ -52,11 +55,13 @@ class VPortRepositoryImpl @Inject constructor(
             ?.getPort(id)
 
         withContext(Dispatchers.IO){
-            def?.await()?.forEach {
-                dao.save(it)
+            try {
+                def?.await()?.forEach {
+                    dao.save(it)
+                }
+            } finally {
+                onFinish?.invoke()
             }
-
-            onFinish?.invoke()
         }
     }
 
@@ -66,8 +71,11 @@ class VPortRepositoryImpl @Inject constructor(
             ?.getFromVrss(parentId)
 
         withContext(Dispatchers.IO){
-            def?.await()?.forEach { dao.save(it) }
-            onFinish?.invoke()
+            try {
+                def?.await()?.forEach { dao.save(it) }
+            } finally {
+                onFinish?.invoke()
+            }
         }
     }
 

@@ -9,7 +9,6 @@ import pt.isel.vsddashboardapplication.R
 import pt.isel.vsddashboardapplication.activities.fragment.BaseGraphFragment
 
 abstract class BaseMonitorGraphFragment : BaseGraphFragment() {
-    companion object { private const val TAG = "FRAG/GRAPH/MONITOR" }
 
     protected val series = LineGraphSeries<DataPoint>()
 

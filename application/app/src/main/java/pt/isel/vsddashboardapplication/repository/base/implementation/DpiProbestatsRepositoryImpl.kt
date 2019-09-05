@@ -27,8 +27,8 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
         end: Long?
     ): LiveData<List<DpiProbestats>?> {
         Log.d(TAG, "Getting values from $start to $end, for NSG - $nsg port $port")
-        return apm?.let { dao.loadInbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
-            ?: dao.loadInbound(nsg, port, start?:0, end?:System.currentTimeMillis())
+        return apm?.let { dao.loadInboundDynamic(nsg, port, apm, start?:0) }
+            ?: dao.loadInboundDynamic(nsg, port, start?:0)
     }
 
     override fun getOutbound(
@@ -38,8 +38,8 @@ class DpiProbestatsRepositoryImpl @Inject constructor(private val dao: DpiProbes
         start: Long?,
         end: Long?
     ): LiveData<List<DpiProbestats>?> {
-        return apm?.let { dao.loadOutbound(nsg, port, apm, start?:0, end?:System.currentTimeMillis()) }
-            ?: dao.loadOutbound(nsg, port, start?:0, end?:System.currentTimeMillis())
+        return apm?.let { dao.loadOutboundDynamic(nsg, port, apm, start?:0) }
+            ?: dao.loadOutboundDynamic(nsg, port, start?:0)
     }
 
     /**

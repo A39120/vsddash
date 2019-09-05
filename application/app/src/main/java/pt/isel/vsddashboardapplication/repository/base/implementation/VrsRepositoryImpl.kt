@@ -22,6 +22,7 @@ class VrsRepositoryImpl @Inject constructor(
     private val alarmDao: AlarmDao,
     private val  vportDao: VPortDao
 ): VrsRepository {
+    private companion object val TAG = "REPO/VRS"
 
     override fun getVports(parent: String): LiveData<List<VPort>?> {
         Log.d(TAG, "Getting vports for VRS $parent")
@@ -35,16 +36,18 @@ class VrsRepositoryImpl @Inject constructor(
             .vportServices()
             ?.getFromVrss(parent)
 
-        withContext(Dispatchers.IO){
-            def?.await()?.forEach{
-                it.vrs = parent
-                vportDao.save(it)
+        try {
+            withContext(Dispatchers.IO) {
+                def?.await()?.forEach {
+                    it.vrs = parent
+                    vportDao.save(it)
+                }
             }
+        } finally {
             onFinish?.invoke()
         }
     }
 
-    private companion object val TAG = "REPO/VRS"
 
     override fun getAlarms(parent: String): LiveData<List<Alarm>?> {
         Log.d(TAG, "Getting alarms for VRS $parent")
@@ -57,11 +60,13 @@ class VrsRepositoryImpl @Inject constructor(
             .vrsService()
             ?.getVrsAlarms(parent)
 
-        withContext(Dispatchers.IO){
-            val result = deferred?.await()
-            Log.d(TAG, "Got ${result?.size?:0} alarms")
-            result?.forEach { alarm -> alarmDao.save(alarm) }
-
+        try {
+            withContext(Dispatchers.IO) {
+                val result = deferred?.await()
+                Log.d(TAG, "Got ${result?.size ?: 0} alarms")
+                result?.forEach { alarm -> alarmDao.save(alarm) }
+            }
+        } finally {
             onFinish?.invoke()
         }
     }
@@ -102,9 +107,35 @@ class VrsRepositoryImpl @Inject constructor(
             .vrsService()
             ?.getVrs(id)
 
-        withContext(Dispatchers.IO){
-            val completed = await?.await()
-            completed?.forEach { dao.save(it) }
+        try {
+            withContext(Dispatchers.IO) {
+                val completed = await?.await()
+                completed?.forEach { dao.save(it) }
+            }
+        } finally {
+            onFinish?.invoke()
+        }
+    }
+
+    /**
+     * Updates the VRS
+     * @param id: the VRS ID
+     * @param onFinish: the callback called upon ending the update
+     */
+    override suspend fun updateForVscChild(id: String, vsc: String?, onFinish: (() -> Unit)?) {
+        val await = RetrofitSingleton
+            .vrsService()
+            ?.getVrs(id)
+
+        try {
+            withContext(Dispatchers.IO) {
+                val completed = await?.await()
+                completed?.forEach {
+                    it.vsc = vsc
+                    dao.save(it)
+                }
+            }
+        } finally {
             onFinish?.invoke()
         }
     }
@@ -119,12 +150,15 @@ class VrsRepositoryImpl @Inject constructor(
             .vrsService()
             ?.getVscVrs(parentId)
 
-        withContext(Dispatchers.IO){
-            val completed = await?.await()
-            completed?.forEach {
-                it.vsc = parentId
-                dao.save(it)
+        try {
+            withContext(Dispatchers.IO) {
+                val completed = await?.await()
+                completed?.forEach {
+                    it.vsc = parentId
+                    dao.save(it)
+                }
             }
+        } finally {
             onFinish?.invoke()
         }
     }
@@ -138,9 +172,12 @@ class VrsRepositoryImpl @Inject constructor(
             .vrsService()
             ?.getGlobalVrss()
 
-        withContext(Dispatchers.IO){
-            val completed = await?.await()
-            completed?.forEach { dao.save(it) }
+        try {
+            withContext(Dispatchers.IO) {
+                val completed = await?.await()
+                completed?.forEach { dao.save(it) }
+            }
+        } finally {
             onFinish?.invoke()
         }
     }

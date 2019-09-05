@@ -16,22 +16,18 @@ class MemoryMonitorGraphFragment : BaseMonitorGraphFragment() {
     override fun observeViewModel() {
         val viewModel = (parentFragment as ParentSysmonFragment).viewModel
         viewModel.liveData.observe(this, Observer { list ->
+            Log.d(TAG, "Memory List suffered alterations - ${list.size}")
+            val lst = (list.mapNotNull { it.memory?.let { it1 ->
+                DataPoint(Date(it.timestamp), it1)
+            } }
+                .sortedBy { it.x }
+                ?: listOf<DataPoint>())
 
-            viewModel.liveData.observe(this, Observer { list ->
-                Log.d(TAG, "CPU List suffered alterations - ${list.size}")
-                val lst = (list.mapNotNull { it.memory?.let { it1 ->
-                    DataPoint(Date(it.timestamp), it1)
-                } }
-                    .sortedBy { it.x }
-                    ?: listOf<DataPoint>())
-
-                Log.d(TAG, "Appending data - ${lst.size}")
-                series.resetData(arrayOf())
-                CoroutineScope(Dispatchers.Main).launch {
-                    appendData(series, lst)
-                }
-            })
-
+            Log.d(TAG, "Appending data - ${lst.size}")
+            series.resetData(arrayOf())
+            CoroutineScope(Dispatchers.Main).launch {
+                appendData(series, lst)
+            }
         })
     }
 }

@@ -19,4 +19,5 @@ interface VrsRepository : IBaseRepository<VRS> {
 
     suspend fun updateVports(parent: String, onFinish: (() -> Unit)? = null)
 
+    suspend fun updateForVscChild(id: String, vsc: String?, onFinish: (() -> Unit)? = null)
 }

@@ -3,14 +3,46 @@
 	xmlns:android="http://schemas.android.com/apk/res/android" >
 	<data/>
 	
-	<LinearLayout
-		android:orientation="vertical"
-		android:id="@+id/grid"
-		android:weightSum="2"
-		android:layout_margin="@dimen/margin_default"
+	<ScrollView
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:baselineAligned="false">
+		android:layout_height="wrap_content">
+		
+		<LinearLayout
+			android:orientation="vertical"
+			android:id="@+id/grid"
+			android:weightSum="2"
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:baselineAligned="false">
+		
+	
+	<LinearLayout
+		android:id="@+id/logo"
+		android:orientation="vertical"
+		android:layout_margin="@dimen/margin_default"
+		android:weightSum="1"
+		android:layout_width="match_parent"
+		android:layout_height="230dp" >
+		
+		<androidx.cardview.widget.CardView
+			android:layout_gravity="center"
+			android:id="@+id/logo_card"
+			android:layout_weight="1"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" >
+			
+			<ImageView
+				android:id="@+id/logo_icon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:adjustViewBounds="true"
+				android:src="@drawable/nuage_logo_foreground" />
+			
+		</androidx.cardview.widget.CardView>
+		
+	</LinearLayout>
 		
 		<!-- First Row -->
 		<LinearLayout
@@ -147,6 +179,7 @@
 					android:layout_height="match_parent"/>
 			</androidx.cardview.widget.CardView>
 		</LinearLayout>
-		
 	</LinearLayout>
+
+</ScrollView>
 </layout>

@@ -17,7 +17,8 @@ class VPortListFragment : BaseChildListFragment() {
     override fun setAdapter() {
         adapter = VportAdapter{ vport, view ->
             val vrsId = (parentFragment as VrsParentFragment).getVrsId()
-            val directions = VrsParentFragmentDirections.actionVrsParentFragmentToVportParentFragment(vport.iD, vrsId)
+            val directions = VrsParentFragmentDirections
+                .actionVrsParentFragmentToVportParentFragment(vport.iD, vrsId)
             Navigation.findNavController(view).navigate(directions)
         }
         binding.list.adapter = adapter

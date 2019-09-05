@@ -13,8 +13,7 @@ import pt.isel.vsddashboardapplication.viewmodel.parent.AlarmParentViewModel
 import javax.inject.Inject
 
 class VscViewModel @Inject constructor(
-    private val repository: VscRepository,
-    private val vrsRepository: VrsRepository
+    private val repository: VscRepository
 ) : BaseViewModel<VSC>(), AlarmParentViewModel {
 
     private val alarmLiveData = MediatorLiveData<List<Alarm>?>()

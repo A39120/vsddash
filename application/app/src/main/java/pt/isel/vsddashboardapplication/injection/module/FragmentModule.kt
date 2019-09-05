@@ -93,4 +93,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributesDpiStatsSettingsFragment() : DpiStatsSettingsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesHealthFragment() : HealthFragment
 }
