@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android" >
+	<data>
+		<variable name="minutes" type="Integer"/>
+	</data>
+	
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<androidx.cardview.widget.CardView
+			android:layout_margin="@dimen/margin_default"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			
+			<LinearLayout
+				android:layout_margin="@dimen/margin_default"
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+				
+				<!-- Choose APM -->
+				<LinearLayout
+					android:layout_marginStart="@dimen/margin_default"
+					android:id="@+id/apm_spinner_layout"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<TextView
+						android:text="@string/apm_label"
+						android:textSize="@dimen/label_size"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+					
+					<TextView
+						android:text="@string/apm_description"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+					<Spinner
+						android:id="@+id/apm_spinner"
+						android:spinnerMode="dropdown"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+				</LinearLayout>
+				
+				
+				
+				<!-- Choose Performance Monitor -->
+				<LinearLayout
+					android:layout_margin="@dimen/margin_default"
+					android:id="@+id/perfMonitor_spinner_layout"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<TextView
+						android:text="@string/perfmonitor_label"
+						android:textSize="@dimen/label_size"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+					
+					<TextView
+						android:text="@string/perfmonitor_description"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+					<Spinner
+						android:id="@+id/perfmonitor_spinner"
+						android:spinnerMode="dropdown"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+				
+				</LinearLayout>
+				
+				<!-- Range Selector -->
+				<LinearLayout
+					android:layout_margin="@dimen/margin_default"
+					android:id="@+id/date_range"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					<TextView
+						android:text="@string/date_range_label"
+						android:textSize="@dimen/label_size"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+					<TextView
+						android:text="@string/date_range_description"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					<com.google.android.material.textfield.TextInputLayout
+						style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/margin_default"
+						android:hint="@string/minutes">
+						<com.google.android.material.textfield.TextInputEditText
+							android:id="@+id/range"
+							android:maxLines="1"
+							android:inputType="number"
+							android:text="@{minutes.toString()}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"/>
+					</com.google.android.material.textfield.TextInputLayout>
+				</LinearLayout>
+				
+				<!-- Date selector -->
+				<!--LinearLayout
+					android:layout_margin="@dimen/margin_default"
+					android:id="@+id/data_selector"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<TextView
+						android:text="@string/date_selector_label"
+						android:textSize="@dimen/label_size"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+					
+					<TextView
+						android:text="@string/date_selector_description"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+					
+				
+				</LinearLayout-->
+				<!-- Choose date range -->
+				<!--LinearLayout
+					android:layout_margin="@dimen/margin_default"
+					android:id="@+id/date_range"
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					
+					<TextView
+						android:text="@string/date_range_label"
+						android:textSize="@dimen/label_size"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"/>
+					
+					<TextView
+						android:text="@string/date_range_description"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"/>
+					
+					<com.google.android.material.textfield.TextInputLayout
+						style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_margin="@dimen/margin_default"
+						android:hint="@string/five_minutes">
+						
+						<com.google.android.material.textfield.TextInputEditText
+							android:id="@+id/range"
+							android:maxLines="1"
+							android:inputType="number"
+							android:text="@{minutes ?? 5}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"/>
+					
+					</com.google.android.material.textfield.TextInputLayout>
+				
+				</LinearLayout-->
+				
+				<!-- Choose automatic -->
+				
+				<!-- Save button -->
+				<com.google.android.material.button.MaterialButton
+					android:layout_margin="@dimen/margin_default"
+					android:id="@+id/save_button"
+					android:text="@string/save"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+				
+			</LinearLayout>
+			
+			
+		</androidx.cardview.widget.CardView>
+
+	</LinearLayout>
+	</ScrollView>
+</layout>
